@@ -1,0 +1,138 @@
+@import "styles/fonts.scss";
+@import "styles/variables.scss";
+
+* {
+    box-sizing: border-box;
+    font-family: "Mont", sans-serif;
+    font-weight: 500;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    color: $black;
+}
+
+.customPlantModal .modal-dialog {
+    max-width: 950px !important;
+    .modal-content {
+        .modal-header {
+            justify-content: flex-start;
+        }
+    }
+}
+
+.modal-dialog {
+    .modal-content {
+        background-color: $blue !important;
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: $white;
+        }
+
+        .modal-header {
+            border-bottom: 0 !important;
+            padding-bottom: 0;
+            justify-content: center;
+            .modal-title{
+                font-size: 2rem;
+            }
+        }
+
+        .modal-footer {
+            border-top: 0 !important;
+        }
+    }
+}
+
+.modifyPlanModal .modal-dialog {
+    max-width: 1200px !important;
+
+    .modal-header {
+        h5 {
+            color: $white !important;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 1rem;
+        }
+    }
+
+    .modal-content {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: $black;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.react-datepicker-popper{
+    z-index: 100!important;
+}
+
+.react-datepicker__navigation-icon{
+    top: 5px!important;
+}
+
+.settingMapContainer{
+    .map{
+        left: 0;
+        top: 0;
+    }
+}
+
+.planMapContainer{
+    .map{
+        width: 50%!important;
+        right: 0;
+        top: 0;
+    }
+}
+
+.progress{
+    width: 50%;
+    margin: auto;
+}
+
+.spinner-border{
+    position: absolute;
+    left: calc(50% - 1rem);
+    top: calc(50% - 1rem);
+}
+
+@media screen and (max-width: 576px) {
+    .modal-dialog {
+        .modal-content {
+            .modal-header {
+                .modal-title{
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
+}
