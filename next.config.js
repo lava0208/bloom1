@@ -8,7 +8,7 @@ const nextConfig = {
     publicRuntimeConfig: {
         apiUrl: process.env.NODE_ENV === 'development'
             ? 'http://localhost:3000/api' // development api
-            : 'https://bloom-chi.vercel.app/api' // production api
+            : 'https://bloom1.vercel.app/api' // production api
     },
     webpack5: true,
     webpack: (config) => {
