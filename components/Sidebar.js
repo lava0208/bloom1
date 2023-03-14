@@ -27,22 +27,23 @@ const useWindowSize = () => {
 }
 
 const Sidebar = () => {
-    const [name, setName] = useState("");
+    const [user, setUser] = useState({});
     const size = useWindowSize();
 
     const router = useRouter();
 
     useEffect(() => {
         getUserPlan();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getUserPlan = async () => {
         if(userService.getId() === null){
             router.push("/account/login")
         }else{
-            const user = await userService.getById(userService.getId());
-            if (user.data !== null) {
-                setName(user.data.name)
+            const _user = await userService.getById(userService.getId());
+            if (_user.data !== null) {
+                setUser(_user.data)
             }
         }
     }
@@ -107,9 +108,11 @@ const Sidebar = () => {
                                 <h3>Plant Settings</h3>
                             </div>
                             <div className={styles.accountContainer}>
-                                <div className={styles.profilePicture} onClick={() => router.push("/profile")}></div>
+                                <div className={styles.profilePicture} onClick={() => router.push("/profile")}>
+                                    <img src={user.profile_path} alt="" />
+                                </div>
                                 <div className={styles.accountInfoContainer}>
-                                    <h4 onClick={() => router.push("/profile")}>{name}</h4>
+                                    <h4 onClick={() => router.push("/profile")}>{user.name}</h4>
                                     <h5 onClick={() => logout()}>Log Out</h5>
                                 </div>
                             </div>

@@ -49,6 +49,7 @@ const CurrentPlan = (props) => {
             //... create page
             getPlantAndPlanting();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.planting])
 
     //... get plan nand planting
@@ -58,6 +59,8 @@ const CurrentPlan = (props) => {
         var _plant = await plantService.getById(props.plantId);
         var _planting = { ...planting };
         _planting.userid = userService.getId();
+
+        
         _planting.plan_id = _plan ? _plan.data._id : "";
         _planting.name = _plant ? _plant.data.name : "";
         _planting.species = _plant ? _plant.data.species : "";

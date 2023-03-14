@@ -13,6 +13,7 @@ const ByPlantDetail = (props) => {
 
     useEffect(() => {
         getPlantAndTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const [plant, setPlant] = useState({});

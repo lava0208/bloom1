@@ -40,6 +40,7 @@ const Plant = (props) => {
 
     useEffect(() => {
         getPlant(props.id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getPlant = async () => {
@@ -142,7 +143,14 @@ const Plant = (props) => {
                 });
             }else{
                 plant.userid = userService.getId();
-                plant.image = downloadURL;
+                // plant.image = downloadURL;
+                if(downloadURL !== ""){
+                    plant.image = downloadURL;
+                }else if(downloadURL === "" && plant.image !== ""){
+                    plant.image = plant.image
+                }else{
+                    plant.image = ""
+                }
                 uploadPlant();
             }                                  
         } else {

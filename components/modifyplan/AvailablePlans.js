@@ -26,6 +26,7 @@ const AvailablePlans = () => {
 
     useEffect(() => {
         refreshFilterdArray();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query])
 
     const refreshFilterdArray = async () => {

@@ -28,6 +28,7 @@ function MyComponent(props) {
                 setPosition(center)
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.currentLocation])
 
     const [map, setMap] = useState(null)

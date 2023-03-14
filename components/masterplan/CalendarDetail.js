@@ -14,6 +14,7 @@ const CalendarDetail = (props) => {
     useEffect(() => {
         getTask();
         getPlant();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const [duration, setDuration] = useState(0);
