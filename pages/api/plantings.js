@@ -1,6 +1,6 @@
 import clientPromise from "../../lib/mongodb";
 import { ObjectId } from "mongodb";
-import { planService, plantService, plantingService, taskService } from "services";
+import { planService, plantService, taskService, userService } from "services";
 import moment from "moment";
 
 async function getPlantImg(id){
@@ -149,21 +149,40 @@ export default async function handler(req, res) {
     switch (req.method) {
         //... create plantings
         case "POST":
-            //... check if there is same plan id and plant id
-            let existOne = await db.collection("plantings").find({plan_id: req.body.plan_id, plant_id: req.body.plant_id}).toArray();
-            if(existOne.length === 0){
-                //... insert planting
-                await db.collection("plantings").insertOne(req.body);
-                
-                //... insert automatic tasks
-                let _plant = await getPlantById(req.body.plant_id);
-                let _plan = await getPlanById(req.body.plan_id);
+            //... check pro user or not
+            let _user = await userService.getById(req.body.userid);
+            if(_user.data.share_custom_varieties){
+               //... check if there is same plan id and plant id
+                let existOne = await db.collection("plantings").find({plan_id: req.body.plan_id, plant_id: req.body.plant_id}).toArray();
+                if(existOne.length === 0){
+                    //... insert planting
+                    await db.collection("plantings").insertOne(req.body);
+                    
+                    //... insert automatic tasks
+                    let _plant = await getPlantById(req.body.plant_id);
+                    let _plan = await getPlanById(req.body.plan_id);
 
-                await taskService.create(createTasks(req.body, _plant, _plan));
+                    await taskService.create(createTasks(req.body, _plant, _plan));
 
-                return res.json({ status: true, message: 'Planting is created successfully. Refresh the page.' });
+                    return res.json({ status: true, message: 'A planting is created successfully. Refresh the page.' });
+                }else{
+                    return res.json({ status: false, message: 'The Planting was already planed.' });
+                }
             }else{
-                return res.json({ status: false, message: 'The Planting was already planed.' });
+                let _length = await db.collection("plantings").find({userid: req.body.userid}).count();
+                if(_length === 0){
+                    await db.collection("plantings").insertOne(req.body);
+
+                    //... insert automatic tasks
+                    let _plant = await getPlantById(req.body.plant_id);
+                    let _plan = await getPlanById(req.body.plan_id);
+
+                    await taskService.create(createTasks(req.body, _plant, _plan));
+
+                    return res.json({ status: true, message: 'A planting is created successfully. Refresh the page.' });
+                }else{
+                    return res.json({ status: false, message: "Non-pro user can't create multiple plans." });
+                }
             }
 
         //... get all plantings or planing by id

@@ -9,14 +9,34 @@ export default async function handler(req, res) {
     switch (req.method) {
         //... create a plant        
         case "POST":
-            await db.collection("plants").insertOne(req.body);
-            return res.json({ status: true, message: 'A plant is created successfully.' });
+            //... check pro user or not
+            let _user = await userService.getById(req.body.userid);
+            if(_user.data.share_custom_varieties){
+                await db.collection("plants").insertOne(req.body);
+                return res.json({ status: true, message: 'A plant is created successfully.' });
+            }else{
+                let _length = await db.collection("plants").find({userid: req.body.userid}).count();
+                if(_length === 25 || _length < 25){
+                    await db.collection("plants").insertOne(req.body);
+                    return res.json({ status: true, message: 'A plant is created successfully.' });
+                }else{
+                    return res.json({ status: false, message: "Non-pro user can't create more than 25 custom plants." });
+                }
+            }
 
         //... get all plants or plant by id
         case "GET":
+            //... check pro user or not
             if(req.query.id === undefined){
-                let plants = await db.collection("plants").find({}).toArray();
-                return res.json({ status: true, data: plants });
+                let _user = await userService.getById(req.query.userid);
+                let _plants = await db.collection("plants").find({userid: req.query.userid}).toArray();
+                if(_user.data.share_custom_varieties){
+                    let _presets = await db.collection("plants").find({type: "preset"}).toArray();
+                    let _result = [..._plants, ..._presets];
+                    return res.json({ status: true, data: _result });
+                }else{
+                    return res.json({ status: true, data: _plants });
+                }
             }else{
                 let plant = await db.collection("plants").findOne({_id: new ObjectId(req.query)});
                 return res.json({ status: true, data: plant });

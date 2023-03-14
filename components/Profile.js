@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from 'next/link'
 import { userService } from "services";
 import bcrypt from "bcryptjs";
 import { Spinner } from "reactstrap";
@@ -321,7 +322,10 @@ const Profile = () => {
                 </div>
                 {
                     isPro ? (
-                        <button className={styles.button3 + " " + styles.button4}>Access Priority Support</button>
+                        <a href="https://www.tolucalakeflowers.com" target="_blank" rel="noopener noreferrer">
+                            <button className={styles.button3 + " " + styles.button4}>Access Priority Support</button>
+                        </a>
+                        
                     ) : (
                         <button className={styles.button3} onClick={() => checkoutProfile()}>Upgrade Now</button>
                     )

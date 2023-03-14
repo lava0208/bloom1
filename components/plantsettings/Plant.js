@@ -102,6 +102,14 @@ const Plant = (props) => {
                     icon: "success",
                 });
                 props.savePlant()
+            }else{
+                swal({
+                    title: "Warning!",
+                    text: _result.message,
+                    icon: "warning",
+                }).then(function(){
+                    props.savePlant();
+                });
             }
         }else{
             const _result = await plantService.update(props.id, plant);
@@ -112,6 +120,14 @@ const Plant = (props) => {
                     icon: "success",
                 });
                 props.savePlant()
+            }else{
+                swal({
+                    title: "Warning!",
+                    text: _result.message,
+                    icon: "warning",
+                }).then(function(){
+                    props.savePlant();
+                });
             }
         }
     }

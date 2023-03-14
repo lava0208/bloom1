@@ -108,13 +108,23 @@ const CurrentPlan = (props) => {
             }).then(async function (isConfirm) {
                 if (isConfirm) {
                     var _result = await plantingService.create(planting);
-                    swal({
-                        title: "Success!",
-                        text: _result.message,
-                        icon: "success",
-                    }).then(function(){
-                        props.savePlanting();
-                    });
+                    if(_result.status){
+                        swal({
+                            title: "Success!",
+                            text: _result.message,
+                            icon: "success",
+                        }).then(function(){
+                            props.savePlanting();
+                        });
+                    }else{
+                        swal({
+                            title: "Warning!",
+                            text: _result.message,
+                            icon: "warning",
+                        }).then(function(){
+                            props.savePlanting();
+                        });
+                    }
                 }
             })
         }

@@ -15,7 +15,8 @@ const Register = () => {
         name: "",
         email: "",
         password: "",
-        profile_path: ""
+        profile_path: "",
+        share_custom_varieties: false
     });
 
     const router = useRouter();
