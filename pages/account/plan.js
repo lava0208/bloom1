@@ -27,7 +27,7 @@ const Plan = () => {
 
     const getUser = async () => {
         if(userService.getId() === null){
-            // router.push("/account/login")
+            router.push("/account/login")
         }
     }
 

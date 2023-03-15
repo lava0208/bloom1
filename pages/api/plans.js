@@ -1,5 +1,6 @@
 import clientPromise from "../../lib/mongodb";
 import { ObjectId } from "mongodb";
+import { userService } from "services";
 
 export default async function handler(req, res) {
     const client = await clientPromise;
@@ -18,8 +19,15 @@ export default async function handler(req, res) {
                 let plan = await db.collection("plans").findOne({_id: new ObjectId(id)});
                 return res.json({ status: true, data: plan });
             }else if(userid){
-                let plan = await db.collection("plans").findOne({userid: userid});
-                return res.json({ status: true, data: plan });
+                let _user = await userService.getById(userid);
+                if(_user.data.share_custom_varieties){
+                    let _plan = await db.collection("plans").findOne({userid: userid});
+                    let _plans = await db.collection("plans").find({userid: userid}).toArray();
+                    return res.json({ status: true, data: _plan, plans: _plans });
+                }else{
+                    let _plan = await db.collection("plans").findOne({userid: userid});
+                    return res.json({ status: true, data: _plan });
+                }
             }else{
                 let plans = await db.collection("plans").find({}).toArray();
                 return res.json({ status: true, data: plans });

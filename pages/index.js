@@ -12,6 +12,7 @@ const Dashboard = () => {
     const [name, setName] = useState("");
     const [news, setNews] = useState("");
     const [plan, setPlan] = useState("");
+    const [isPro, setIsPro] = useState(false);
 
     useEffect(() => {
         getUserPlan();
@@ -24,6 +25,9 @@ const Dashboard = () => {
             const user = await userService.getById(userService.getId());
             if(user.data !== null){
                 setName(user.data.name)
+            }
+            if(user.data.share_custom_varieties){
+                setIsPro(true);
             }
             const _plan = await planService.getByUserId(userService.getId());
             if(_plan.data !== null){
@@ -56,7 +60,7 @@ const Dashboard = () => {
 
     return (
         <div className={styles.screen}>
-            <Sidebar plan={plan} />
+            <Sidebar plan={plan} isPro={isPro} />
             <div className={styles.container}>
                 <h1 className={styles.header}>{plan}</h1>
                 <h2 className={styles.subHeader}>Dashboard</h2>

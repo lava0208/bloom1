@@ -27,14 +27,14 @@ const ModifyPlan = () => {
     }
     return (
         <div className={styles.screen}>
-            <Sidebar plan={plan} />
+            <Sidebar plan={plan} isPro={isPro} />
             <div className={styles.modifyContent}>
                 <div className={styles.container}>
                     <h1 className={styles.header}>{plan}</h1>
                     <h2 className={styles.subHeader}>Modify Plan</h2>
                     <AvailablePlans isPro={isPro} />
                 </div>
-                <YourPlan isPro={isPro} />
+                <YourPlan />
             </div>
         </div>
     );

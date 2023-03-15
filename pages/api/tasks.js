@@ -43,10 +43,10 @@ export default async function handler(req, res) {
                 data.season = await db.collection("plantings").aggregate([{ $match: { userid: req.query.userid } }, { $group:{ _id : null, sum : { $sum: "$seeds" } }}]).toArray();
                 data.all = await db.collection("tasks").find({userid: req.query.userid}).sort({scheduled_at: 1}).toArray();
                 let _harvest = await db.collection("tasks").find({
-                    // scheduled_at: {
-                    //     $gt: moment().format('YYYY/MM/DD'),
-                    //     $lt: moment().add(6, 'days').format('YYYY/MM/DD')
-                    // },
+                    scheduled_at: {
+                        $gt: moment().format('YYYY/MM/DD'),
+                        $lt: moment().add(6, 'days').format('YYYY/MM/DD')
+                    },
                     userid: req.query.userid,
                     title: 'Harvest'
                 }).sort({scheduled_at: 1}).toArray();

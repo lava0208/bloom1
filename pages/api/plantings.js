@@ -102,7 +102,8 @@ function createTasks(planting, plant, plan){
             taskArr.push(taskObj);
         }
     //... Enable Start Indoors
-    }else{
+    }
+    if(planting.direct_indoors){
         var titleArr2 = ['Seed Indoors', 'Harden', 'Transplant', 'Harvest'];
         var noteArr2 = [plant.indoor_seed_note, '', plant.transplant_note, plant.harvest_note];
         var durationArr2 = [1, 7, 1, _harvest_duration];
@@ -251,6 +252,7 @@ export default async function handler(req, res) {
                 },
                 {
                     $set: {
+                        plan_id: req.body.plan_id,
                         seeds: parseInt(req.body.seeds),
                         harvest: req.body.harvest,
                         direct_sow: req.body.direct_sow,

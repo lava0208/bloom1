@@ -56,7 +56,7 @@ async function getById(id) {
 }
 
 async function getByPlantId(id) {
-    const response = await fetch(`${baseUrl}?plantId=` + id, {
+    const response = await fetch(`${baseUrl}?plantid=` + id, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"

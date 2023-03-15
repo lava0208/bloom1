@@ -102,7 +102,7 @@ const YourPlan = (props) => {
                         props.isPro && (
                             <button>Add Plan</button>
                         )
-                    }                    
+                    }
                     <h3 onClick={() => openPlanSettingsModal()}>Plan Settings</h3>
                 </div>
             </div>

@@ -30,6 +30,7 @@ const CurrentPlan = (props) => {
         succession: "",
         spacing: ""
     })
+    const [plans, setPlans] = useState([]);
 
     useEffect(() => {
         if(props.planting){
@@ -59,20 +60,20 @@ const CurrentPlan = (props) => {
         var _plant = await plantService.getById(props.plantId);
         var _planting = { ...planting };
         _planting.userid = userService.getId();
-
-        
         _planting.plan_id = _plan ? _plan.data._id : "";
         _planting.name = _plant ? _plant.data.name : "";
         _planting.species = _plant ? _plant.data.species : "";
         setPlant(_plant.data);
         setPlanting(_planting);
+        setPlans(_plan.plans);
     }
-
 
     const getPlanting = async () => {
         var _plant = await plantService.getById(props.plantId);
+        var _plan = await planService.getByUserId(userService.getId());
         setPlant(_plant.data);
-        setPlanting(props.planting)
+        setPlanting(props.planting);
+        setPlans(_plan.plans);
     }
 
     const save = async () => {
@@ -163,6 +164,17 @@ const CurrentPlan = (props) => {
                         }
                     </div>
                     <div className={styles.planInfoContainer}>
+                    <div className={styles.customSelect}>
+                        <select
+                            value={planting.plan_id}
+                            onChange={(e) => setPlanting({...planting, plan_id: e.target.value})}
+                        >
+                            {plans.map(o => (
+                                <option key={o._id} value={o._id}>{o.name}</option>
+                            ))}
+                        </select>
+                        <span className={styles.customArrow}></span>
+                    </div>
                         {props.preset && (
                             <button>pro preset</button>
                         )}

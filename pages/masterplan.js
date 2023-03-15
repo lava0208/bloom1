@@ -11,6 +11,7 @@ import ByPlant from "~components/masterplan/ByPlant";
 const MasterPlan = () => {
     const [activeTab, setActiveTab] = useState("calendar");
     const [plan, setPlan] = useState("");
+    const [isPro, setIsPro] = useState(false);
 
     useEffect(() => {
         getUserPlan();
@@ -21,11 +22,15 @@ const MasterPlan = () => {
         if(_plan.data !== null){
             setPlan(_plan.data.name);
         }
+        const _user = await userService.getById(userService.getId());
+        if(_user.data.share_custom_varieties){
+            setIsPro(true);
+        }
     }
 
     return (
         <div className={styles.screen}>
-            <Sidebar plan={plan} />
+            <Sidebar plan={plan} isPro={isPro} />
             <div className={styles.container}>
                 <h1 className={styles.header}>{plan}</h1>
                 <h2 className={styles.subHeader}>Master Plan</h2>

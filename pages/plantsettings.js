@@ -26,7 +26,7 @@ const PlantSettings = () => {
     }
     return (
         <div className={styles.screen}>
-            <Sidebar plan={plan} />
+            <Sidebar plan={plan} isPro={isPro} />
             <div className={styles.container}>
                 <h1 className={styles.header}>{plan}</h1>
                 <h2 className={styles.subHeader}>Plant Settings</h2>

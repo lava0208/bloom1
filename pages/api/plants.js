@@ -1,6 +1,6 @@
 import clientPromise from "../../lib/mongodb";
 import { ObjectId } from "mongodb";
-import { userService } from "services";
+import { plantingService, userService } from "services";
 
 export default async function handler(req, res) {
     const client = await clientPromise;
@@ -74,7 +74,7 @@ export default async function handler(req, res) {
                     return res.json({ status: true, data: _plants });
                 }
             }else{
-                let plant = await db.collection("plants").findOne({_id: new ObjectId(req.query)});
+                let plant = await db.collection("plants").findOne({_id: new ObjectId(req.query.id)});
                 return res.json({ status: true, data: plant });
             }
 
@@ -82,7 +82,7 @@ export default async function handler(req, res) {
         case "PUT":
             await db.collection("plants").updateOne(
                 {
-                    _id: new ObjectId(req.query),
+                    _id: new ObjectId(req.query.id),
                 },
                 {
                     $set: {
@@ -121,7 +121,12 @@ export default async function handler(req, res) {
 
         //... delete a plant
         case "DELETE":
-            await db.collection("plants").deleteOne({_id: new ObjectId(req.query)});
+            let _planting = await plantingService.getByPlantId(req.query.id);
+
+            await db.collection("tasks").deleteMany({planting_id: _planting.data._id});
+            await db.collection("plantings").deleteMany({plant_id: _planting.data.plant_id});
+            await db.collection("plants").deleteOne({_id: new ObjectId(req.query.id)});
+
             return res.json({ status: true, message: 'The plant is deleted successfully.' });
     }
 }

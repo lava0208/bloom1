@@ -1,7 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
+import { Modal, ModalBody } from "reactstrap";
 import { useRouter } from "next/router";
 import { userService } from "services";
+import NewPlan from "./plantsettings/NewPlan";
 
 import styles from "~styles/components/sidebar.module.scss";
 
@@ -66,6 +68,14 @@ const Sidebar = (props) => {
         })
     }
 
+    const [planSettingsModalOpen, setPlanSettingsModalOpen] = useState(false);
+    const openPlanSettingsModal = () => {
+        setPlanSettingsModalOpen(true);
+    }
+    const closePlanSettingsModal = () => {
+        setPlanSettingsModalOpen(false)
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.top}>
@@ -77,6 +87,11 @@ const Sidebar = (props) => {
                 >
                     <h3>{props.plan}</h3>
                 </div>
+                {
+                    props.isPro && (
+                        <button onClick={() => openPlanSettingsModal()}>Add Plan</button>
+                    )
+                }
             </div>
             <div className={styles.mobile}>
                 <img src={"/assets/logo.png"} alt="logo" />
@@ -128,6 +143,11 @@ const Sidebar = (props) => {
                     )
                 }
             </div>
+            <Modal toggle={() => setPlanSettingsModalOpen(!planSettingsModalOpen)} isOpen={planSettingsModalOpen} centered>
+                <ModalBody>
+                    <NewPlan closePlanSettingsModal={closePlanSettingsModal} />
+                </ModalBody>
+            </Modal>
         </div>
     );
 };

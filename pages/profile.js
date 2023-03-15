@@ -8,6 +8,7 @@ import ProfileComponent from "~components/Profile";
 
 const Profile = () => {
     const [plan, setPlan] = useState("");
+    const [isPro, setIsPro] = useState(false);
 
     useEffect(() => {
         getUserPlan();
@@ -17,6 +18,10 @@ const Profile = () => {
         const _plan = await planService.getByUserId(userService.getId());
         if(_plan.data !== null){
             setPlan(_plan.data.name);
+        }
+        const _user = await userService.getById(userService.getId());
+        if(_user.data.share_custom_varieties){
+            setIsPro(true);
         }
     }
     return (
