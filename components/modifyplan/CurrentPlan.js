@@ -110,24 +110,25 @@ const CurrentPlan = (props) => {
                 dangerMode: true,
             }).then(async function (isConfirm) {
                 if (isConfirm) {
-                    var _result = await plantingService.create(planting);
-                    if(_result.status){
+                    if(props.preset){
+                        var _result = await plantingService.clone(planting);
                         swal({
-                            title: "Success!",
+                            title: _result.status ? "Success!" : "Warning!",
                             text: _result.message,
-                            icon: "success",
+                            icon: _result.status ? "success" : "warning",
                         }).then(function(){
                             props.savePlanting();
                         });
                     }else{
+                        var _result = await plantingService.create(planting);
                         swal({
-                            title: "Warning!",
+                            title: _result.status ? "Success!" : "Warning!",
                             text: _result.message,
-                            icon: "warning",
+                            icon: _result.status ? "success" : "warning",
                         }).then(function(){
                             props.savePlanting();
                         });
-                    }
+                    }                
                 }
             })
         }
@@ -162,6 +163,9 @@ const CurrentPlan = (props) => {
                         }
                     </div>
                     <div className={styles.planInfoContainer}>
+                        {props.preset && (
+                            <button>pro preset</button>
+                        )}
                         <h3>{plant.name}</h3>
                         <h4>{plant.species}</h4>
                         <h5>{plant.description}</h5>

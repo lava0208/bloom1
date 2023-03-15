@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 
-import { weather, accountStats, progress, blooms } from "~lib/dummy";
-import { userService, taskService } from "services";
+import { userService, planService, taskService, newsService } from "services";
 
 import styles from "~styles/pages/dashboard.module.scss";
 
@@ -11,9 +10,13 @@ import Sidebar from "~components/Sidebar";
 
 const Dashboard = () => {
     const [name, setName] = useState("");
+    const [news, setNews] = useState("");
+    const [plan, setPlan] = useState("");
+
     useEffect(() => {
         getUserPlan();
         getAllTasks();
+        getNews();
     }, [])
 
     const getUserPlan = async () => {
@@ -21,6 +24,10 @@ const Dashboard = () => {
             const user = await userService.getById(userService.getId());
             if(user.data !== null){
                 setName(user.data.name)
+            }
+            const _plan = await planService.getByUserId(userService.getId());
+            if(_plan.data !== null){
+                setPlan(_plan.data.name);
             }
         }
     }
@@ -39,29 +46,29 @@ const Dashboard = () => {
         setSeasonTasks(_result.data.season);
         setOverdueTasks(_result.data.overdue);
         setNextWeekTasks(_result.data.nextweek);
-        setAllTasks(_result.data.all);
+        setAllTasks(_result.data.harvest);
+    }
+
+    const getNews = async () => {
+        var _news = await newsService.getAll();
+        setNews(_news.data.text)
     }
 
     return (
         <div className={styles.screen}>
-            <Sidebar />
+            <Sidebar plan={plan} />
             <div className={styles.container}>
-                <h1 className={styles.header}>2023 Plan</h1>
+                <h1 className={styles.header}>{plan}</h1>
                 <h2 className={styles.subHeader}>Dashboard</h2>
                 <div className={styles.dashboardRow}>
                     <div className={styles.greetingContainer}>
                         <h3>Welcome back, {name}!</h3>
                         <h4>{moment().format("MMMM Do, YYYY")}</h4>
                     </div>
-                    {weather.map((stat, i) => (
-                        <div className={styles.weatherContainer} key={i}>
-                            <i className={`wi ${stat.icon} ${styles.weatherIcon}`}></i>
-                            <h5>{stat.temp}°</h5>
-                            <h6>
-                                {stat.percent}% of {stat.mm}mm
-                            </h6>
-                        </div>
-                    ))}
+                    <div className={styles.greetingContainer}>
+                        <h3>Bloom Manager News</h3>
+                        <h4>{news}</h4>
+                    </div>
                 </div>
                 <div className={styles.dashboardRow}>
                     <div className={styles.statContainer}>
@@ -89,32 +96,17 @@ const Dashboard = () => {
                             {allTasks.map((bloom, i) => (
                                 <div className={styles.bloomContainer} key={i}>
                                     <div className={styles.bloomInfoContainer}>
-                                        <h4>{bloom.title}</h4>
-                                        <h5>{bloom.note}</h5>
-                                        <button className={styles.bloomButton}>{bloom.duration} plants</button>
+                                        <h4>{bloom.name}</h4>
+                                        <h5>{bloom.description}</h5>
+                                        <button className={styles.bloomButton}>{bloom.count} plants</button>
+                                        <img src={bloom.image} className={styles.image} alt="harvest" />
                                     </div>
                                 </div>
                             ))}
                         </div>
-                    </div>
-                    <div className={styles.progressContainer}>
-                        <h2>PROGRESS</h2>
-
-                        <div className={styles.progressBarsContainer}>
-                            {progress.map((category, i) => (
-                                <React.Fragment key={i}>
-                                    <div className={styles.progressBarContainer}>
-                                        <h5 style={{ width: `${category.progress}%` }}>{category.title}</h5>
-                                        <div
-                                            className={styles.progressBarProgress}
-                                            style={{ width: `${category.progress}%` }}
-                                        ></div>
-                                    </div>
-                                </React.Fragment>
-                            ))}
-                        </div>
-
-                        <button className={styles.shareButton}>SHARE</button>
+                        {allTasks.length === 0 && (
+                            <h4>No Blooms Expected in This Week.</h4>
+                        )}
                     </div>
                 </div>
             </div>

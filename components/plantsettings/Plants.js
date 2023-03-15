@@ -9,10 +9,11 @@ import Plant from "./Plant";
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from "~styles/components/plantsettings/plants.module.scss";
 
-const Plants = () => {
+const Plants = (props) => {
     const [origialArray, setOrigialArray] = useState([]);
     const [query, setQuery] = useState('');
     const [filteredArray, setFilteredArray] = useState([]);
+    const [filteredPresets, setFilteredPresets] = useState([]);
 
     useEffect(() => {
         getOriginalArray();
@@ -22,6 +23,11 @@ const Plants = () => {
         const response = await plantService.getAll();
         setOrigialArray(response.data)
         setFilteredArray(response.data)
+        if(response.presets !== undefined){
+            setFilteredPresets(response.presets)
+        }else{
+            setFilteredPresets([])
+        }
     }
 
     useEffect(() => {
@@ -40,7 +46,9 @@ const Plants = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [title, setTitle] = useState("");
     const [isShowActionText, setIsShowActionText] = useState(-1);
+    const [isShowPresets, setIsShowPresets] = useState(true);
     const [id, setId] = useState("");
+
     const openModal = (type, id) => {
         setModalOpen(true);
         setId(id);
@@ -60,6 +68,25 @@ const Plants = () => {
         setModalOpen(false);
     }
 
+    //... clone and duplcate plant
+    const clonePlant = async (plant) => {
+        swal({
+            title: "Wait!",
+            text: "Are you sure you want to copy this plan?",
+            icon: "warning",
+            buttons: [
+                'No, cancel it!',
+                'Yes, I am sure!'
+            ],
+            dangerMode: true,
+        }).then(async function (isConfirm) {
+            if (isConfirm) {
+                await plantService.clone(plant);
+                getOriginalArray();
+            }
+        })
+    }
+
     const deletePlant = async (id) => {
         swal({
             title: "Wait!",
@@ -73,7 +100,7 @@ const Plants = () => {
         }).then(async function (isConfirm) {
             if (isConfirm) {
                 await plantService.delete(id);
-                getOriginalArray();;
+                getOriginalArray();
             }
         })
     }
@@ -84,7 +111,14 @@ const Plants = () => {
                 <div className={styles.addCustomContainer} onClick={() => openModal("create")}>
                     <button>Add New Custom</button>
                 </div>
-                <input className={styles.searchButton} placeholder={'Search'} onChange={(e) => setQuery((e.target.value).toLowerCase())} />
+                <div>
+                    {
+                        props.isPro && (
+                            <button className={styles.presetsButton} onClick={() => setIsShowPresets(!isShowPresets)}>{isShowPresets ? "Hide " : "Show "} Presets</button>
+                        )
+                    }                    
+                    <input className={styles.searchButton} placeholder={'Search'} onChange={(e) => setQuery((e.target.value).toLowerCase())} />
+                </div>
             </div>
             <div className={styles.plantsContainer}>
                 {filteredArray.map((plant, i) => (
@@ -106,6 +140,30 @@ const Plants = () => {
                                 <div className={styles.plantHoverText}>
                                     <button onClick={() => openModal("edit", plant._id)}>Edit</button>
                                     <button onClick={() => deletePlant(plant._id)}>Remove</button>
+                                </div>
+                            )
+                        }
+                    </div>
+                ))}
+                {isShowPresets && filteredPresets.map((plant, i) => (
+                    <div className={styles.plantContainer} key={i} onMouseEnter={() => setIsShowActionText(i)} onMouseLeave={() => setIsShowActionText(-1)}>
+                        <div className={styles.plantImage}>
+                            {
+                                plant.image && (
+                                    <img src={plant.image } alt="image" />
+                                )
+                            }
+                        </div>
+                        <div className={styles.plantInfoContainer}>
+                            <button>pro preset</button>
+                            <h3>{plant.name}</h3>
+                            <h4>{plant.species}</h4>
+                            <h5>{plant.description}</h5>
+                        </div>
+                        {
+                            i === isShowActionText && (
+                                <div className={styles.plantHoverText}>
+                                    <button onClick={() => clonePlant(plant)}>Duplicate And Edit</button>
                                 </div>
                             )
                         }

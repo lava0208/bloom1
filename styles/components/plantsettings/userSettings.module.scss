@@ -43,6 +43,7 @@
                 background-color: $white;
                 border-radius: 12px;
                 position: relative;
+                margin: 1.5rem 0;
 
                 .map{
                     width: 100% !important;
@@ -50,6 +51,11 @@
                     right: 0;
                 }
             }
+        }
+
+        small{
+            color: $white;
+            font-weight: 700;
         }
 
         .settingsButton {

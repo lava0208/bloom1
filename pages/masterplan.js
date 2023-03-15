@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { userService, planService } from "services";
 
 import styles from "~styles/pages/masterplan.module.scss";
 
@@ -9,12 +10,24 @@ import ByPlant from "~components/masterplan/ByPlant";
 
 const MasterPlan = () => {
     const [activeTab, setActiveTab] = useState("calendar");
+    const [plan, setPlan] = useState("");
+
+    useEffect(() => {
+        getUserPlan();
+    }, [])
+
+    const getUserPlan = async () => {
+        const _plan = await planService.getByUserId(userService.getId());
+        if(_plan.data !== null){
+            setPlan(_plan.data.name);
+        }
+    }
 
     return (
         <div className={styles.screen}>
-            <Sidebar />
+            <Sidebar plan={plan} />
             <div className={styles.container}>
-                <h1 className={styles.header}>2023 Plan</h1>
+                <h1 className={styles.header}>{plan}</h1>
                 <h2 className={styles.subHeader}>Master Plan</h2>
 
                 <div className={styles.tabsContainer}>

@@ -144,7 +144,7 @@
                 font-size: 1rem;
                 font-weight: 800;
             }
-            button{
+            .datebutton{
                 color: $white;
                 font-weight: 700;
                 font-size: 0.8rem;
@@ -153,7 +153,13 @@
                 border-radius: 20px;
                 padding: 0.5rem;
                 width: 160px;
+                text-align: center;
+                float: right;
                 cursor: pointer;
+
+                &:focus{
+                    outline: none;
+                }
             }
         }
         .plantOptionName{
@@ -172,7 +178,7 @@
                     font-size: 0.7rem;
                     padding: 2px 5px;
                     text-align: center;
-                    margin-right: 0;
+                    margin-right: 0.5rem;
                     width: 40px;
                     line-height: 1;
                     &:focus{
@@ -216,6 +222,7 @@
                     font-size: 0.7rem;
                     border: none;
                     margin-left: 0.5rem;
+                    width: 65px;
                 }
             }
         }

@@ -128,7 +128,7 @@ const List = () => {
                                 </div>
                                 <div className={`${styles.taskCap} ${styles.all}`}>
                                     {
-                                        task.type === "incomplete" && (
+                                        task.type === "complete" && (
                                             <img src="/assets/checkbox.png" alt="checkbox" />
                                         )
                                     }

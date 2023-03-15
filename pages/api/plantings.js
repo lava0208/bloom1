@@ -32,11 +32,14 @@ function createTasks(planting, plant, plan){
     let _transplant = plant.transplant !== "" ? parseInt(plant.transplant)*7 : 0;
     let _direct_sow = planting.direct_sow === true ? parseInt(plant.direct_seed)*7 : 0;
     let _maturity_early = plant.maturity_early !== "" ? parseInt(plant.maturity_early) : 0;
+    let _maturity_late = plant.maturity_late !== "" ? parseInt(plant.maturity_late) : 0;
+    
+    let _harvest_duration = plant.rebloom ? Math.round((_maturity_late + _maturity_early)/2) : _maturity_late - _maturity_early;
 
     //... schedule dates
     let cold_stratify_date = moment(last_frost).subtract(_cold_stratify, 'days').format('YYYY/MM/DD');
     let pot_on_date;
-    let harvest_date = moment(last_frost).add(_maturity_early, 'days').format('YYYY/MM/DD');
+    let harvest_date = moment(last_frost).add(_harvest_duration, 'days').format('YYYY/MM/DD');
     let seed_indoors_date;
     let direct_seed_date;
     let pinch_date;
@@ -46,7 +49,7 @@ function createTasks(planting, plant, plan){
                 seed_indoors_date = moment(last_frost).subtract(_earliest_indoor_seed, 'days').format('YYYY/MM/DD');
                 break;
             case "Regular":
-                seed_indoors_date = moment(last_frost).subtract((_earliest_indoor_seed + _latest_indoor_seed)/2, 'days').format('YYYY/MM/DD');
+                seed_indoors_date = moment(last_frost).subtract(Math.round((_earliest_indoor_seed + _latest_indoor_seed)/2), 'days').format('YYYY/MM/DD');
                 break;
             default:
                 seed_indoors_date = moment(last_frost).subtract(_latest_indoor_seed, 'days').format('YYYY/MM/DD');
@@ -68,7 +71,7 @@ function createTasks(planting, plant, plan){
     if(planting.direct_sow){
         var titleArr1 = ['Direct Seed/Sow', 'Harvest'];
         var noteArr1 = [plant.direct_seed_note, plant.harvest_note];
-        var durationArr1 = [7, 1];
+        var durationArr1 = [1, _harvest_duration];
         var scheduleArr1 = [direct_seed_date, harvest_date];
 
         if(_cold_stratify != 0){
@@ -80,13 +83,14 @@ function createTasks(planting, plant, plan){
         if(_pinch != 0){
             titleArr1.push('Pinch');
             noteArr1.push(plant.pinch_note);
-            durationArr1.push(7);
+            durationArr1.push(1);
             scheduleArr1.push(pinch_date);
         }
     
         for (var i=0; i<titleArr1.length; i++){
             var taskObj = {
                 planting_id: planting._id,
+                userid: plan.userid,
                 title: titleArr1[i],
                 scheduled_at: scheduleArr1[i],
                 duration: durationArr1[i],
@@ -101,7 +105,7 @@ function createTasks(planting, plant, plan){
     }else{
         var titleArr2 = ['Seed Indoors', 'Harden', 'Transplant', 'Harvest'];
         var noteArr2 = [plant.indoor_seed_note, '', plant.transplant_note, plant.harvest_note];
-        var durationArr2 = [7, 7, 7, 1];
+        var durationArr2 = [1, 7, 1, _harvest_duration];
         var scheduleArr2 = [seed_indoors_date, harden_date, transplant_date, harvest_date];
 
         if(_cold_stratify != 0){
@@ -113,13 +117,13 @@ function createTasks(planting, plant, plan){
         if(_pinch != 0){
             titleArr2.push('Pinch');
             noteArr2.push(plant.pinch_note);
-            durationArr2.push(7);
+            durationArr2.push(1);
             scheduleArr2.push(pinch_date);
         }
         if(_pot_on != 0){
             titleArr2.push('Pot On');
             noteArr2.push(plant.pot_on_note);
-            durationArr2.push(7);
+            durationArr2.push(1);
             scheduleArr2.push(pot_on_date);
         }
 
@@ -149,39 +153,73 @@ export default async function handler(req, res) {
     switch (req.method) {
         //... create plantings
         case "POST":
-            //... check pro user or not
-            let _user = await userService.getById(req.body.userid);
-            if(_user.data.share_custom_varieties){
-               //... check if there is same plan id and plant id
+            //... check clone or create
+            if(req.query.preset === "true"){
+                let _clone_planting = {
+                    userid: req.query.userid,
+                    plan_id: req.body.plan_id,
+                    plant_id: req.body.plant_id,
+                    name: req.body.name,
+                    species: req.body.species,
+                    seeds: parseInt(req.body.seeds),
+                    harvest: req.body.harvest,
+                    direct_sow: req.body.direct_sow,
+                    direct_indoors: req.body.direct_indoors,
+                    pinch: req.body.pinch,
+                    pot_on: req.body.pot_on,
+                    spacing: req.body.spacing,
+                    succession: req.body.succession
+                }
                 let existOne = await db.collection("plantings").find({plan_id: req.body.plan_id, plant_id: req.body.plant_id}).toArray();
                 if(existOne.length === 0){
-                    //... insert planting
-                    await db.collection("plantings").insertOne(req.body);
-                    
+                    let _clone_one =  await db.collection("plantings").insertOne(_clone_planting);
+                    req.body._id = _clone_one.insertedId;
+
                     //... insert automatic tasks
                     let _plant = await getPlantById(req.body.plant_id);
                     let _plan = await getPlanById(req.body.plan_id);
 
                     await taskService.create(createTasks(req.body, _plant, _plan));
-
                     return res.json({ status: true, message: 'A planting is created successfully. Refresh the page.' });
                 }else{
                     return res.json({ status: false, message: 'The Planting was already planed.' });
                 }
+                
             }else{
-                let _length = await db.collection("plantings").find({userid: req.body.userid}).count();
-                if(_length === 0){
-                    await db.collection("plantings").insertOne(req.body);
+                //... check pro user or not
+                let _user = await userService.getById(req.body.userid);
+                if(_user.data.share_custom_varieties){
+                //... check if there is same plan id and plant id
+                    let existOne = await db.collection("plantings").find({plan_id: req.body.plan_id, plant_id: req.body.plant_id}).toArray();
+                    if(existOne.length === 0){
+                        //... insert planting
+                        await db.collection("plantings").insertOne(req.body);
+                        
+                        //... insert automatic tasks
+                        let _plant = await getPlantById(req.body.plant_id);
+                        let _plan = await getPlanById(req.body.plan_id);
 
-                    //... insert automatic tasks
-                    let _plant = await getPlantById(req.body.plant_id);
-                    let _plan = await getPlanById(req.body.plan_id);
+                        await taskService.create(createTasks(req.body, _plant, _plan));
 
-                    await taskService.create(createTasks(req.body, _plant, _plan));
-
-                    return res.json({ status: true, message: 'A planting is created successfully. Refresh the page.' });
+                        return res.json({ status: true, message: 'A planting is created successfully. Refresh the page.' });
+                    }else{
+                        return res.json({ status: false, message: 'The Planting was already planed.' });
+                    }
                 }else{
-                    return res.json({ status: false, message: "Non-pro user can't create multiple plans." });
+                    let _length = await db.collection("plantings").find({userid: req.body.userid}).count();
+                    if(_length === 0){
+                        await db.collection("plantings").insertOne(req.body);
+
+                        //... insert automatic tasks
+                        let _plant = await getPlantById(req.body.plant_id);
+                        let _plan = await getPlanById(req.body.plan_id);
+
+                        await taskService.create(createTasks(req.body, _plant, _plan));
+
+                        return res.json({ status: true, message: 'A planting is created successfully. Refresh the page.' });
+                    }else{
+                        return res.json({ status: false, message: "Non-pro user can't create multiple plans." });
+                    }
                 }
             }
 

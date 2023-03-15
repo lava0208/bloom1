@@ -77,6 +77,11 @@
 
         h3 {
             color: $blue;
+            min-width: 160px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-align: center;
+            text-overflow: ellipsis;
         }
     }
 
@@ -85,6 +90,11 @@
 
         h3 {
             color: $white;
+            min-width: 160px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-align: center;
+            text-overflow: ellipsis;
         }
     }
 }

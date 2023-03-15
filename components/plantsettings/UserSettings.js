@@ -20,9 +20,9 @@ const UserSettings = (props) => {
     }, [])
 
     const getUserPlan = async () => {
-        const result = await planService.getByUserId(userService.getId());
-        if(result.data !== null){
-            setUserSettings(result.data);
+        const _plan = await planService.getByUserId(userService.getId());
+        if(_plan.data !== null){
+            setUserSettings(_plan.data);
         }
     }
 
@@ -62,10 +62,12 @@ const UserSettings = (props) => {
         <div className={styles.userSettingsContainer}>
             <div className={styles.userSettingsPaper}>
                 <div className={styles.userSettingsOptionsContainer}>
-                    <h2 className="text-center">{userSettings && userSettings.name ? userSettings.name : "2023 Plan Settings"}</h2>
+                    <h2 className="text-center">{userSettings && userSettings.name ? userSettings.name : "Plan Settings"}</h2>
+                    <div className="col-12 text-left">
+                        <small>Last Frost - Spring</small>
+                    </div>
                     <div className={styles.userSettingsInputRow}>  
                         <DatePicker
-                            placeholder="Last Frost"
                             value={dateFormat(userSettings.last_frost)}
                             selected={new Date(userSettings.last_frost)}
                             format='YYYY/MM/DD'
@@ -77,9 +79,11 @@ const UserSettings = (props) => {
                             }}
                         />
                     </div>
+                    <div className="col-12 text-left">
+                        <small>First Frost - Fall</small>
+                    </div>
                     <div className={styles.userSettingsInputRow}>
                         <DatePicker
-                            placeholder="First Frost"
                             value={dateFormat(userSettings.first_frost)}
                             selected={new Date(userSettings.first_frost)}
                             format='YYYY/MM/DD'
@@ -89,14 +93,6 @@ const UserSettings = (props) => {
                                     first_frost: moment(e).format("YYYY/MM/DD"),
                                 });
                             }}
-                        />
-                    </div>
-                    <div className={styles.userSettingsInputRow}>
-                        <input
-                            type="text"
-                            placeholder="Location"
-                            value="Location"
-                            readOnly
                         />
                     </div>
                     <div className={styles.userSettingsInputRow}>

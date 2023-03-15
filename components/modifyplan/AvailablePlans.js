@@ -9,10 +9,11 @@ import CurrentPlan from "./CurrentPlan";
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from "~styles/components/modifyplan/availableplans.module.scss";
 
-const AvailablePlans = () => {
+const AvailablePlans = (props) => {
     const [origialArray, setOrigialArray] = useState([]);
     const [query, setQuery] = useState('');
     const [filteredArray, setFilteredArray] = useState([]);
+    const [filteredPresets, setFilteredPresets] = useState([]);
 
     useEffect(() => {
         getOriginalArray();
@@ -22,6 +23,11 @@ const AvailablePlans = () => {
         const response = await plantService.getAll();
         setOrigialArray(response.data)
         setFilteredArray(response.data)
+        if(response.presets !== undefined){
+            setFilteredPresets(response.presets)
+        }else{
+            setFilteredPresets([])
+        }
     }
 
     useEffect(() => {
@@ -40,9 +46,12 @@ const AvailablePlans = () => {
     const [plantId, setPlantId] = useState("");
     const [isShowActionText, setIsShowActionText] = useState(-1);
     const [modalOpen, setModalOpen] = useState(false);
-    const openCreateModal = (id) => {
+    const [isShowPresets, setIsShowPresets] = useState(true);
+    const [preset, setPreset] = useState(false);
+    const openCreateModal = (id, isPreset) => {
         setModalOpen(true);
         setPlantId(id);
+        setPreset(isPreset);
     }
     const savePlanting = () => {
         setModalOpen(false);
@@ -52,7 +61,14 @@ const AvailablePlans = () => {
         <>
             <div className={styles.headerContainer}>
                 <h2>Available</h2>
-                <input className={styles.searchButton} placeholder={'Search'} onChange={(e) => setQuery((e.target.value).toLowerCase())} />
+                <div>
+                    {
+                        props.isPro && (
+                            <button onClick={() => setIsShowPresets(!isShowPresets)}>{isShowPresets ? "Hide " : "Show "} Presets</button>
+                        )
+                    }                    
+                    <input className={styles.searchButton} placeholder={'Search'} onChange={(e) => setQuery((e.target.value).toLowerCase())} />
+                </div>
             </div>
             <div className={styles.plansContainer}>
                 {filteredArray.map((plant, i) => (
@@ -72,7 +88,31 @@ const AvailablePlans = () => {
                         {
                             i === isShowActionText && (
                                 <div className={styles.plantHoverText}>
-                                    <button onClick={() => openCreateModal(plant._id)}>Add</button>
+                                    <button onClick={() => openCreateModal(plant._id, false)}>Add</button>
+                                </div>
+                            )
+                        }
+                    </div>
+                ))}
+                {isShowPresets && filteredPresets.map((plant, i) => (
+                    <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionText(i)} onMouseLeave={() => setIsShowActionText(-1)}>
+                        <div className={styles.planImage}>
+                            {
+                                plant.image && (
+                                    <img src={plant.image } alt="image" />
+                                )
+                            }
+                        </div>
+                        <div className={styles.planInfoContainer}>
+                            <button>pro preset</button>
+                            <h3>{plant.name}</h3>
+                            <h4>{plant.species}</h4>
+                            <h5>{plant.description}</h5>
+                        </div>
+                        {
+                            i === isShowActionText && (
+                                <div className={styles.plantHoverText}>
+                                    <button onClick={() => openCreateModal(plant._id, true)}>Add</button>
                                 </div>
                             )
                         }
@@ -81,7 +121,7 @@ const AvailablePlans = () => {
             </div>
             <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered modalClassName="modifyPlanModal">
                 <ModalBody>
-                    <CurrentPlan type="create" plantId={plantId}  savePlanting={savePlanting} />
+                    <CurrentPlan type="create" plantId={plantId}  savePlanting={savePlanting} preset={preset} />
                 </ModalBody>
             </Modal>
         </>

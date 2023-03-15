@@ -4,6 +4,7 @@ import { userService } from './user.service';
 export const plantingService = {
     getAll,
     create,
+    clone,
     getById,
     getByPlantId,
     update,
@@ -24,6 +25,17 @@ async function getAll() {
 
 async function create(params) {
     const response = await fetch(`${baseUrl}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(params)
+    })
+    return response.json();
+}
+
+async function clone(params) {
+    const response = await fetch(`${baseUrl}?userid=${userService.getId()}&preset=true`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

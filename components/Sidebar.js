@@ -26,7 +26,7 @@ const useWindowSize = () => {
     return windowSize;
 }
 
-const Sidebar = () => {
+const Sidebar = (props) => {
     const [user, setUser] = useState({});
     const size = useWindowSize();
 
@@ -75,12 +75,12 @@ const Sidebar = () => {
                         }`}
                     onClick={() => router.push("/masterplan")}
                 >
-                    <h3>2023 Plan</h3>
+                    <h3>{props.plan}</h3>
                 </div>
             </div>
             <div className={styles.mobile}>
                 <img src={"/assets/logo.png"} alt="logo" />
-                <h6 onClick={() => router.push("/masterplan")}> 2023 </h6>
+                <h6 onClick={() => router.push("/masterplan")}> Plan </h6>
             </div>
             <div className={styles.bottom}>
                 {

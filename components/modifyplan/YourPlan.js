@@ -8,7 +8,7 @@ import UserSettings from "~components/plantsettings/UserSettings";
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from "~styles/components/modifyplan/yourplan.module.scss";
 
-const YourPlan = () => {
+const YourPlan = (props) => {
     //... get all plantings
     const [plantings, setPlantings] = useState([]);
     const [planEditModalOpen, setPlanEditModalOpen] = useState(false);
@@ -65,6 +65,7 @@ const YourPlan = () => {
     const cancelSetting = () => {
         setPlanSettingsModalOpen(false)
     }
+
     return (
         <>
             <div className={styles.container}>
@@ -84,7 +85,6 @@ const YourPlan = () => {
                                 <h5>{planting.pinch ? "Pinch" : ""}</h5>
                                 <h5>{planting.pot_on ? "Pot On" : ""}</h5>
                             </div>
-                            {/* {plan.notes && <h6 className={styles.planNotes}>{plan.notes}</h6>} */}
                             {
                                 i === isShowActionText && (
                                     <div className={styles.plantHoverText}>
@@ -97,8 +97,13 @@ const YourPlan = () => {
                     ))}
                 </div>
 
-                <div className={styles.planSettings} onClick={() => openPlanSettingsModal()}>
-                    <h3>Plan Settings</h3>
+                <div className={styles.planSettings}>
+                    {
+                        props.isPro && (
+                            <button>Add Plan</button>
+                        )
+                    }                    
+                    <h3 onClick={() => openPlanSettingsModal()}>Plan Settings</h3>
                 </div>
             </div>
             <Modal toggle={() => setPlanEditModalOpen(!planEditModalOpen)} isOpen={planEditModalOpen} centered modalClassName="modifyPlanModal">

@@ -4,7 +4,7 @@ import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { plantService, taskService } from "services";
+import { plantService, taskService, userService } from "services";
 
 import styles from "~styles/components/masterplan/byplantdetail.module.scss";
 
@@ -29,7 +29,7 @@ const ByPlantDetail = (props) => {
                 id: element._id,
                 title: element.title,
                 scheduled_at: element.scheduled_at,
-                duration: element.duration,
+                duration: parseInt(element.duration),
                 note: element.note,
                 type: element.type,
                 rescheduled_at: element.rescheduled_at,
@@ -46,6 +46,7 @@ const ByPlantDetail = (props) => {
 
     const [customTask, setCustomTask] = useState({
         planting_id: props.plantingId,
+        userid: "",
         title: "",
         scheduled_at: moment().format('YYYY/MM/DD'),
         duration: "",
@@ -66,15 +67,16 @@ const ByPlantDetail = (props) => {
         } else {
             setCustomTask(
                 ...taskArr, {
-                planting_id: props.plantingId,
-                title: "",
-                scheduled_at: moment().format('YYYY/MM/DD'),
-                duration: "",
-                note: "",
-                type: "incomplete",
-                rescheduled_at: "",
-                completed_at: ""
-            }
+                    planting_id: props.plantingId,
+                    userid: userService.getId(),
+                    title: "",
+                    scheduled_at: moment().format('YYYY/MM/DD'),
+                    duration: 0,
+                    note: "",
+                    type: "incomplete",
+                    rescheduled_at: "",
+                    completed_at: ""
+                }
             )
             setTaskArr(taskArr => [...taskArr, customTask])
         }
@@ -164,7 +166,6 @@ const ByPlantDetail = (props) => {
                     />
                     <DatePicker
                         placeholderText="Date"
-                        className={customTask.scheduled_at}
                         value={dateFormat(customTask.scheduled_at)}
                         selected={new Date(customTask.scheduled_at)}
                         onChange={(e) => {
@@ -181,7 +182,7 @@ const ByPlantDetail = (props) => {
                         onChange={(e) => {
                             setCustomTask({
                                 ...customTask,
-                                duration: e.target.value,
+                                duration: parseInt(e.target.value),
                             });
                         }}
                     />
@@ -206,11 +207,29 @@ const ByPlantDetail = (props) => {
                             <div className={styles.plantOptionName}>
                                 <h3>{task.title}</h3>
                                 <div>
-                                    <input placeholder="" value={task.duration} readOnly />
-                                    <span>{task.duration}</span> days
+                                    <input
+                                        type="number"
+                                        placeholder=""
+                                        value={parseInt(task.duration)}
+                                        onChange={(e) => {
+                                            let _taskArr = [...taskArr];
+                                            _taskArr[i].duration = parseInt(e.target.value);
+                                            setTaskArr(_taskArr);
+                                        }}
+                                    /> days
                                 </div>
                             </div>
-                            <button>{moment(task.scheduled_at).format("MMMM DD, YYYY")}</button>
+                            <DatePicker
+                                placeholderText="Date"
+                                className={styles.datebutton}
+                                value={moment(task.scheduled_at).format("MMMM DD, YYYY")}
+                                selected={new Date(task.scheduled_at)}
+                                onChange={(e) => {
+                                    let _taskArr = [...taskArr];
+                                    _taskArr[i].scheduled_at = moment(e).format("YYYY/MM/DD");
+                                    setTaskArr(_taskArr);
+                                }}
+                            />
                         </div>
                         <div className={styles.plantOptionsFooter}>
                             <select

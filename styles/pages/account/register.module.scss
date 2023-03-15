@@ -25,7 +25,7 @@
     width: 35rem;
 
     h2 {
-        font-weight: 800;
+        font-weight: 700;
         margin-bottom: 1.5rem;
         text-align: center;
     }
@@ -41,6 +41,10 @@
             cursor: pointer;
         }
     }
+
+    small{
+        font-weight: 800;
+    }
 }
 
 .input {
@@ -49,7 +53,7 @@
     padding: 1rem;
     font-size: 1.1rem;
     width: 100%;
-    margin: 0.5rem 0;
+    margin: 0 0 0.5rem 0;
     color: $black;
 
     &::placeholder {
@@ -100,7 +104,7 @@
 
 .detailsLocationContainer {
     width: 50%;
-    margin: 1rem 0 1rem 1rem;    
+    margin: 1rem 0;    
 }
 
 .nextButtonContainer {
@@ -140,5 +144,11 @@
     .formContainer {
         width: 100%;
         padding: 3.5rem 1rem;
+    }
+    .detailsLocationContainer{
+        width: 100%;
+    }
+    .formDetailsContainer{
+        display: block;
     }
 }

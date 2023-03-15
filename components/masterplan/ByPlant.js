@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Modal, ModalBody } from "reactstrap";
-import { plantingService } from "services";
+import { plantingService, planService, userService } from "services";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from "~styles/components/masterplan/byplant.module.scss";
@@ -14,6 +14,7 @@ const ByPlant = () => {
     const [plantings, setPlantings] = useState([]);
     const [plantId, setPlantId] = useState("");
     const [plantingId, setPlantingId] = useState("");
+    const [plan, setPlan] = useState("");
     
     const openPlanEditModal = async (id, plant_id) => {
         setPlantingEditModalOpen(true);
@@ -31,6 +32,7 @@ const ByPlant = () => {
 
     useEffect(() => {
         getAllPlantings();
+        getUserPlan();
     }, [])
 
     const getAllPlantings = async () => {
@@ -38,6 +40,13 @@ const ByPlant = () => {
         setPlantings(_result.data);
         setOrigialArray(_result.data)
         setFilteredArray(_result.data)
+    }
+
+    const getUserPlan = async () => {
+        const _plan = await planService.getByUserId(userService.getId());
+            if(_plan.data !== null){
+                setPlan(_plan.data.name);
+            }
     }
 
     useEffect(() => {
@@ -60,7 +69,7 @@ const ByPlant = () => {
     return (
         <div className={styles.container}>
             <div className={styles.headerContainer}>
-                <h2>2023 Plan Plantings</h2>
+                <h2>{plan} plantings</h2>
                 <input className={styles.searchButton} placeholder={'Search'} onChange={(e) => setQuery((e.target.value).toLowerCase())} />
             </div>
             <div className={styles.plantsContainer}>

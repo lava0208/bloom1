@@ -13,7 +13,7 @@ const Plan = () => {
         userid: "",
         name: "",
         location: {},
-        size: "",
+        size: 0,
         last_frost: new Date(),
         first_frost: new Date()
     });
@@ -27,12 +27,12 @@ const Plan = () => {
 
     const getUser = async () => {
         if(userService.getId() === null){
-            router.push("/account/login")
+            // router.push("/account/login")
         }
     }
 
     const register = async () => {
-        if (plan.name !== "" && plan.size !== "") {
+        if (plan.name !== "" && plan.size !== 0) {
             plan.userid = userService.getId();
             const _result = await planService.create(plan)
             if (_result.status === true) {
@@ -72,37 +72,29 @@ const Plan = () => {
             <img className={styles.logo} src={"/assets/logo.png"} alt="logo" />
             <div className={styles.formContainer}>
                 <h2>Tell us about your plan.</h2>
-
-                <input
-                    type="text"
-                    className={styles.input}
-                    placeholder="Name"
-                    value={plan.name}
-                    onChange={(e) => {
-                        setPlan({
-                            ...plan,
-                            name: e.target.value,
-                        });
-                    }}
-                />
-
                 <div className={styles.formDetailsContainer}>
                     <div className={styles.detailsInputsContainer}>
+                        <small>Farm/Garden Name</small>
                         <input
                             type="text"
                             className={styles.input}
-                            placeholder="Location"
-                            readOnly
+                            value={plan.name}
+                            onChange={(e) => {
+                                setPlan({
+                                    ...plan,
+                                    name: e.target.value,
+                                });
+                            }}
                         />
+                        <small>Size(acres)</small>
                         <input
-                            type="text"
+                            type="number"
                             className={styles.input}
-                            placeholder="Size"
                             value={plan.size}
                             onChange={(e) => {
                                 setPlan({
                                     ...plan,
-                                    size: e.target.value,
+                                    size: parseInt(e.target.value),
                                 });
                             }}
                         />
@@ -112,8 +104,10 @@ const Plan = () => {
                     </div>
                 </div>
 
+                <div className="col-12 text-left">
+                    <small>Last Frost - Spring</small>
+                </div>
                 <DatePicker
-                    placeholder="Last Frost date"
                     className={styles.input}
                     selected={new Date(plan.last_frost)}
                     value={dateFormat(plan.last_frost)}
@@ -124,9 +118,11 @@ const Plan = () => {
                         });
                     }}
                 />
-
+                
+                <div className="col-12 text-left">
+                    <small>First Frost - Fall</small>
+                </div>
                 <DatePicker
-                    placeholder="First Frost date"
                     className={styles.input}
                     selected={new Date(plan.first_frost)}
                     value={dateFormat(plan.first_frost)}

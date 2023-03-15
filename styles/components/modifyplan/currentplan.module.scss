@@ -66,6 +66,20 @@
     h5 {
         font-size: 0.7rem;
     }
+
+    button{
+        color: $white;
+        font-weight: 800;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        border: none;
+        background: $blue;
+        border-radius: 35px;
+        padding: 0.6rem 0 0.5rem 0;
+        cursor: pointer;
+        margin: 0 0 0.5rem;
+        width: 100px;
+    }
 }
 
 .planOptionsContainer {
