@@ -45,6 +45,7 @@ const AvailablePlans = (props) => {
 
     const [plantId, setPlantId] = useState("");
     const [isShowActionText, setIsShowActionText] = useState(-1);
+    const [isShowActionPreset, setIsShowActionPreset] = useState(-1);
     const [modalOpen, setModalOpen] = useState(false);
     const [isShowPresets, setIsShowPresets] = useState(true);
     const [preset, setPreset] = useState(false);
@@ -95,7 +96,7 @@ const AvailablePlans = (props) => {
                     </div>
                 ))}
                 {isShowPresets && filteredPresets.map((plant, i) => (
-                    <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionText(i)} onMouseLeave={() => setIsShowActionText(-1)}>
+                    <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionPreset(i)} onMouseLeave={() => setIsShowActionPreset(-1)}>
                         <div className={styles.planImage}>
                             {
                                 plant.image && (
@@ -110,7 +111,7 @@ const AvailablePlans = (props) => {
                             <h5>{plant.description}</h5>
                         </div>
                         {
-                            i === isShowActionText && (
+                            i === isShowActionPreset && (
                                 <div className={styles.plantHoverText}>
                                     <button onClick={() => openCreateModal(plant._id, true)}>Add</button>
                                 </div>

@@ -46,6 +46,7 @@ const Plants = (props) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [title, setTitle] = useState("");
     const [isShowActionText, setIsShowActionText] = useState(-1);
+    const [isShowActionPreset, setIsShowActionPreset] = useState(-1);
     const [isShowPresets, setIsShowPresets] = useState(true);
     const [id, setId] = useState("");
 
@@ -146,7 +147,7 @@ const Plants = (props) => {
                     </div>
                 ))}
                 {isShowPresets && filteredPresets.map((plant, i) => (
-                    <div className={styles.plantContainer} key={i} onMouseEnter={() => setIsShowActionText(i)} onMouseLeave={() => setIsShowActionText(-1)}>
+                    <div className={styles.plantContainer} key={i} onMouseEnter={() => setIsShowActionPreset(i)} onMouseLeave={() => setIsShowActionPreset(-1)}>
                         <div className={styles.plantImage}>
                             {
                                 plant.image && (
@@ -161,7 +162,7 @@ const Plants = (props) => {
                             <h5>{plant.description}</h5>
                         </div>
                         {
-                            i === isShowActionText && (
+                            i === isShowActionPreset && (
                                 <div className={styles.plantHoverText}>
                                     <button onClick={() => clonePlant(plant)}>Duplicate And Edit</button>
                                 </div>
