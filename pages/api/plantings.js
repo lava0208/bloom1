@@ -19,6 +19,7 @@ async function getPlanById(id){
 }
 
 function createTasks(planting, plant, plan){
+    console.log(plan);
     let last_frost = plan.last_frost;
     // let first_frost = plan.first_frost;
 

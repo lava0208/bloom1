@@ -164,17 +164,17 @@ const CurrentPlan = (props) => {
                         }
                     </div>
                     <div className={styles.planInfoContainer}>
-                    <div className={styles.customSelect}>
-                        <select
-                            value={planting.plan_id}
-                            onChange={(e) => setPlanting({...planting, plan_id: e.target.value})}
-                        >
-                            {plans.map(o => (
-                                <option key={o._id} value={o._id}>{o.name}</option>
-                            ))}
-                        </select>
-                        <span className={styles.customArrow}></span>
-                    </div>
+                        {/* <div className={styles.customSelect}>
+                            <select
+                                value={planting.plan_id}
+                                onChange={(e) => setPlanting({...planting, plan_id: e.target.value})}
+                            >
+                                {plans.map(o => (
+                                    <option key={o._id} value={o._id}>{o.name}</option>
+                                ))}
+                            </select>
+                            <span className={styles.customArrow}></span>
+                        </div> */}
                         {props.preset && (
                             <button>pro preset</button>
                         )}

@@ -38,7 +38,7 @@ const AvailablePlans = (props) => {
     const refreshFilterdArray = async () => {
         var _filteredArray =  origialArray.filter(
             (el) => el.name.toLowerCase().includes(query)
-        )      
+        )
 
         setFilteredArray(_filteredArray)
     }

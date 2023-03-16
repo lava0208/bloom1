@@ -4,7 +4,7 @@ import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import { Modal, ModalBody } from "reactstrap";
 
-import { taskService } from "services";
+import { plantingService, plantService, taskService } from "services";
 
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -28,49 +28,46 @@ const CalendarTab = () => {
     const getAllTasks = async () => {
         const taskArr = [];
         var _result = await taskService.getAllByDate();
-        setAllTasks(_result.data.all);
-        _result.data.all.forEach(function(element , i){
-            var taskObj = {
-                id: element._id,
-                start: moment(element.scheduled_at).toDate(),
-                end: moment(element.scheduled_at).add(element.duration, "days").toDate(),
-                title: element.title,
-                type: element.type,
-                note: element.note,
-                description: element.note,
-                planting_id: element.planting_id,
-                duration: element.duration,
+        // setAllTasks(_result.data.all);
+        await Promise.all(_result.data.all.map(async (element) => {
+            try {
+                const _planting = await plantingService.getById(element.planting_id);
+                var _plantId = _planting.data.plant_id;
+                const _plant = await plantService.getById(_plantId);
+    
+                var taskObj = {
+                    id: element._id,
+                    start: moment(element.scheduled_at).toDate(),
+                    end: moment(element.scheduled_at).add(element.duration, "days").toDate(),
+                    title: element.title === "Seed Indoors" ? "Seed " + _plant.data.name + " Indoors" : element.title === "Direct Seed/Sow" ? "Direct " + _plant.data.name + " Seed/Sow" : _plant.data.name ? element.title + " " +  _plant.data.name : element.title,
+                    label: element.title,
+                    type: element.type,
+                    note: element.note,
+                    description: element.note,
+                    planting_id: element.planting_id,
+                    duration: element.duration,
+                }
+                taskArr.push(taskObj);
+            } catch (error) {
+              console.log('error'+ error);
             }
-            taskArr.push(taskObj);
-        });
+        }))
         setAllTasks(taskArr)
     }
 
     const localizer = momentLocalizer(moment);
 
     const onEventResize = ({ event, start, end }) => {
-        const nextEvents = events.map((existingEvent) => {
-            return existingEvent.id == event.id
-                ? { ...existingEvent, start, end }
-                : existingEvent;
-        });
 
-        setEvents(nextEvents);
     };
 
     const onEventDrop = ({ event, start, end }) => {
-        const idx = events.indexOf(event);
-        const updatedEvent = { ...event, start, end };
 
-        const nextEvents = [...events];
-        nextEvents.splice(idx, 1, updatedEvent);
-
-        setEvents(nextEvents);
     };
 
     const eventStyleGetter = (event) => {
         let backgroundColor = "";
-        switch (event.title) {
+        switch (event.label) {
             case "Cold Stratify":
                 backgroundColor = "#7bc9d8";
                 break;

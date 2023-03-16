@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, ModalBody } from "reactstrap";
 import { useRouter } from "next/router";
-import { userService } from "services";
+import { userService, planService } from "services";
 import NewPlan from "./plantsettings/NewPlan";
 
 import styles from "~styles/components/sidebar.module.scss";
@@ -31,6 +31,7 @@ const useWindowSize = () => {
 const Sidebar = (props) => {
     const [user, setUser] = useState({});
     const size = useWindowSize();
+    const [plans, setPlans] = useState([]);
 
     const router = useRouter();
 
@@ -47,6 +48,8 @@ const Sidebar = (props) => {
             if (_user.data !== null) {
                 setUser(_user.data)
             }
+            var _plan = await planService.getByUserId(userService.getId());
+            setPlans(_plan.plans);
         }
     }
 
@@ -80,18 +83,27 @@ const Sidebar = (props) => {
         <div className={styles.container}>
             <div className={styles.top}>
                 <img src={"/assets/logo.png"} alt="logo" />
-                <div
-                    className={`${styles.link} ${router.pathname === "/masterplan" ? styles.active : styles.deactive
-                        }`}
-                    onClick={() => router.push("/masterplan")}
-                >
+                <div className={`${styles.link} ${router.pathname === "/masterplan" ? styles.active : styles.deactive}`} onClick={() => router.push("/masterplan")}>
                     <h3>{props.plan}</h3>
                 </div>
-                {
-                    props.isPro && (
-                        <button onClick={() => openPlanSettingsModal()}>Add Plan</button>
+                {/* {
+                    props.isPro ? (
+                        <>
+                            {plans.map((plan, i) => (
+                                <>
+                                    <div className={`${styles.link} ${router.pathname === "/masterplan" ? styles.active : styles.deactive}`}>
+                                        <h3>{plan.name}</h3>
+                                    </div>
+                                </>
+                            ))}
+                            <button onClick={() => openPlanSettingsModal()}>Add Plan</button>
+                        </>                        
+                    ) : (
+                        <div className={`${styles.link} ${router.pathname === "/masterplan" ? styles.active : styles.deactive}`} onClick={() => router.push("/masterplan")}>
+                            <h3>{props.plan}</h3>
+                        </div>
                     )
-                }
+                } */}
             </div>
             <div className={styles.mobile}>
                 <img src={"/assets/logo.png"} alt="logo" />
@@ -124,7 +136,11 @@ const Sidebar = (props) => {
                             </div>
                             <div className={styles.accountContainer}>
                                 <div className={styles.profilePicture} onClick={() => router.push("/profile")}>
-                                    <img src={user.profile_path} alt="" />
+                                    {
+                                        user.profile_path && (
+                                            <img src={user.profile_path} alt="" />
+                                        )
+                                    }                                    
                                 </div>
                                 <div className={styles.accountInfoContainer}>
                                     <h4 onClick={() => router.push("/profile")}>{user.name}</h4>

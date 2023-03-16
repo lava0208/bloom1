@@ -25,6 +25,7 @@ const ByPlantDetail = (props) => {
         var _taskArr = [];
         _tasks.data.forEach(element => {
             var _taskObj = {
+                userid: userService.getId(),
                 planting_id: props.plantingId,
                 id: element._id,
                 title: element.title,
