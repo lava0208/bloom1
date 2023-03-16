@@ -18,12 +18,18 @@ function MyComponent(props) {
         googleMapsApiKey: "AIzaSyDZfVO29Iytspv4xz7S68doIoiztiRLhbk"
     })
 
-    const [position, setPosition] = useState({});
+    const [position, setPosition] = useState({
+        lat: 0,
+        lng: 0
+    });
 
     useEffect(() => {
         if(props && props.currentLocation){
-            if(Object.keys(props.currentLocation).length > 0){
-                setPosition(props.currentLocation)
+            if(Object.keys(props.currentLocation).length > 0){                
+                let _position = {};
+                _position.lat = props.currentLocation.lat;
+                _position.lng = props.currentLocation.lng;
+                setPosition(_position)
             }else{
                 setPosition(center)
             }

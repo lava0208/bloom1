@@ -45,9 +45,7 @@ const Sidebar = (props) => {
             router.push("/account/login")
         }else{
             const _user = await userService.getById(userService.getId());
-            if (_user.data !== null) {
-                setUser(_user.data)
-            }
+            setUser(_user.data)
             var _plan = await planService.getByUserId(userService.getId());
             setPlans(_plan.plans);
         }

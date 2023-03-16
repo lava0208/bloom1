@@ -20,15 +20,14 @@ const Success = () => {
     useEffect(() => {
         getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [router.query])
 
     const getUser = async () => {
         if(userService.getId() !== null){
-            const user = await userService.getById(userService.getId());
-            if (user.data !== null) {
-                setUser(user.data);
-            }
-            if(router.query.session_id !== null){
+            const _result = await userService.getById(userService.getId());
+            const _user = _result.data;
+            setUser(_user);
+            if(router.query.session_id !== null && router.query.session_id !== undefined){
                 user.share_custom_varieties = true;
                 await userService.update(userService.getId(), user);
             }
