@@ -42,7 +42,7 @@ const Payment = () => {
             mode: 'payment',
             lineItems: [
                 {
-                    price: "price_1MkWysIDhuOwOk66RmgdkCAJ",
+                    price: "price_1Mmj8AEVmyPNhExzsg4xXlAe",
                     quantity: 1
                 }
             ],
