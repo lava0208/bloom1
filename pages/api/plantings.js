@@ -193,7 +193,7 @@ export default async function handler(req, res) {
                 if(_user.data.share_custom_varieties){
                 //... check if there is same plan id and plant id
                     let existOne = await db.collection("plantings").find({plan_id: req.body.plan_id, plant_id: req.body.plant_id}).toArray();
-                    if(existOne.length === 0){
+                    if(existOne.length < 10){
                         //... insert planting
                         await db.collection("plantings").insertOne(req.body);
                         
