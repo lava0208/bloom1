@@ -63,7 +63,7 @@ function createTasks(planting, plant, plan){
         direct_seed_date = moment(last_frost).add(_direct_sow, 'days').format('YYYY/MM/DD');
         pinch_date = moment(direct_seed_date).add(_pinch, 'days').format('YYYY/MM/DD');
         pot_on_date = moment(direct_seed_date).add(_pot_on, 'days').format('YYYY/MM/DD');
-        harvest_date = moment(direct_seed_date).add(_harvest_duration, 'days').format('YYYY/MM/DD');
+        harvest_date = moment(direct_seed_date).add(_maturity_early, 'days').format('YYYY/MM/DD');
     }
     let harden_date = moment(last_frost).add(_harden, 'days').format('YYYY/MM/DD');
     let transplant_date = moment(last_frost).add(_transplant, 'days').format('YYYY/MM/DD');
