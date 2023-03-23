@@ -61,7 +61,7 @@ const ByPlantDetail = (props) => {
     const addCustomTask = () => {
         if (customTask.title === "" || customTask.scheduled_at === "" || customTask.duration === "" || customTask.note === "") {
             swal({
-                title: "Warning!",
+                title: "Oops!",
                 text: "Please fill all fields",
                 icon: "warning",
             });
@@ -89,7 +89,7 @@ const ByPlantDetail = (props) => {
             text: "Are you sure you want to update?",
             icon: "info",
             buttons: [
-                'No, cancel it!',
+                'Cancel',
                 'Yes, I am sure!'
             ],
             dangerMode: true,
@@ -113,7 +113,7 @@ const ByPlantDetail = (props) => {
             text: "Are you sure you want to delete?",
             icon: "warning",
             buttons: [
-                'No, cancel it!',
+                'Cancel',
                 'Yes, I am sure!'
             ],
             dangerMode: true,
@@ -242,9 +242,7 @@ const ByPlantDetail = (props) => {
                                 }}
                             >
                                 <option value="complete">Complete</option>
-                                <option value="incomplete">InComplete</option>
-                                <option value="overdue">Overdue</option>
-                                <option value="notdue">Not Overdue</option>
+                                <option value="incomplete">Not Complete</option>
                             </select>
                             <div className={styles.buttons}>
                                 {/* <button>Duplicate</button>  */}
