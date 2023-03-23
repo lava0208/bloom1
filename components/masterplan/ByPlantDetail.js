@@ -110,7 +110,7 @@ const ByPlantDetail = (props) => {
     const deleteTask = async (id) => {
         swal({
             title: "Wait!",
-            text: "Are you sure you want to delete?",
+            text: "Are you sure you want to delete this task?",
             icon: "warning",
             buttons: [
                 'Cancel',
