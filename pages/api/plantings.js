@@ -58,7 +58,7 @@ function createTasks(planting, plant, plan){
         }
         pinch_date = moment(seed_indoors_date).add(_pinch, 'days').format('YYYY/MM/DD');
         pot_on_date = moment(seed_indoors_date).add(_pot_on, 'days').format('YYYY/MM/DD');
-        harvest_date = moment(seed_indoors_date).add(_harvest_duration, 'days').format('YYYY/MM/DD');
+        harvest_date = moment(seed_indoors_date).add(_maturity_early, 'days').format('YYYY/MM/DD');
     }else{
         direct_seed_date = moment(last_frost).add(_direct_sow, 'days').format('YYYY/MM/DD');
         pinch_date = moment(direct_seed_date).add(_pinch, 'days').format('YYYY/MM/DD');
