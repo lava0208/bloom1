@@ -166,12 +166,12 @@ export default async function handler(req, res) {
         //... create plantings
         case "POST":
 
-            let successionCount = req.body.succession > 0 ? parseInt(req.body.succession) + 1 : 4;
-            let spacingDays = req.body.spacing ? parseInt(req.body.spacing) : 1;
+            let numberOfPlantings = req.body.succession > 0 ? parseInt(req.body.succession) + 1 : 1;
+            let spacingDays = req.body.spacing ? parseInt(req.body.spacing) : 0;
             let insertResults = [];
             
 
-            for (let i = 0; i < successionCount; i++) {
+            for (let i = 0; i < numberOfPlantings; i++) {
                 let shiftDays = i * spacingDays;
 
 
