@@ -137,8 +137,8 @@ const getAllTasks = async () => {
                         <div className={styles.allTaskContainer} key={i}>
                             <div className={styles.thisWeekTaskContainer}>
                                 <div className="text-center">
-                                    <h3>{task.title} - {task.plantName}</h3>
-                                    <h4>{moment(task.scheduled_at).format("dddd t\\h\\e Do")}</h4>
+                                    <h3>{task.title} <i>{task.plantName}</i></h3>
+                                    {task.scheduled_at ? moment(task.scheduled_at).format("MMMM Do") : "Invalid date"}
                                 </div>
                                 <div className={`${styles.taskCap} ${styles.all}`}>
                                     {
