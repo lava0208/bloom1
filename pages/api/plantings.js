@@ -166,6 +166,13 @@ export default async function handler(req, res) {
         //... create plantings
         case "POST":
 
+            // Generate a new ObjectId for the new document
+    const newId = new ObjectId();
+    // Set the "_id" field to the new ObjectId
+    req.body._id = newId;
+    // Insert the new document
+    await db.collection("plantings").insertOne(req.body);
+
             let successionCount = req.body.succession > 0 ? parseInt(req.body.succession) + 1 : 1;
             let spacingDays = req.body.spacing ? parseInt(req.body.spacing) : 0;
             let insertResults = [];
