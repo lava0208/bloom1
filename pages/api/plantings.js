@@ -216,13 +216,6 @@ export default async function handler(req, res) {
             let _plant = await getPlantById(req.body.plant_id);
             let _plan = await getPlanById(req.body.plan_id);
 
-            // Create multiple plantings based on succession and spacing
-                for (let i = 0; i <= req.body.succession; i++) {
-                    await taskService.create(createTasks(req.body, _plant, _plan, i, req.body.spacing));
-                }
-
-                return res.json({ status: true, message: 'Planting(s) created successfully! Refresh the page.' });
-            }
         } else {
             let _length = await db.collection("plantings").find({ userid: req.body.userid }).count();
             if (_length < 2) {
@@ -238,6 +231,16 @@ export default async function handler(req, res) {
             } else {
                 return res.json({ status: false, message: "You've reached your limit! Upgrade to PRO for unlimited plantings." });
             }
+            
+            
+                  // Create multiple plantings based on succession and spacing
+                for (let i = 0; i <= req.body.succession; i++) {
+                    await taskService.create(createTasks(req.body, _plant, _plan, i, req.body.spacing));
+                }
+
+                return res.json({ status: true, message: 'Planting(s) created successfully! Refresh the page.' });
+            }
+            
         }
     }
 
