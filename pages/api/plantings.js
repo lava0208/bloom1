@@ -34,7 +34,7 @@ function createTasks(planting, plant, plan){
     let _direct_sow = planting.direct_sow === true ? parseInt(plant.direct_seed)*7 : 0;
     let _maturity_early = plant.maturity_early !== "" ? parseInt(plant.maturity_early) : 0;
     let _maturity_late = plant.maturity_late !== "" ? parseInt(plant.maturity_late) : 0;
-    
+    let _harvest_duration = plant.rebloom ? Math.round((_maturity_late + _maturity_early)/2) : _maturity_late - _maturity_early;
     let average_maturity = Math.round((_maturity_early + _maturity_late) / 2);
     
     //... schedule dates
@@ -59,15 +59,15 @@ function createTasks(planting, plant, plan){
         }
         pinch_date = moment(seed_indoors_date).add(_pinch, 'days').format('YYYY/MM/DD');
         pot_on_date = moment(seed_indoors_date).add(_pot_on, 'days').format('YYYY/MM/DD');
-        bloom_start_date = moment(seed_indoors_date).add(average_maturity, 'days');
-        let _harvest_duration = Math.round(moment(first_frost).diff(bloom_start_date, 'days'));
+        bloom_start_date = moment(seed_indoors_date).add(average_maturity, 'days').format('YYYY/MM/DD');
+        _harvest_duration = Math.round(moment(first_frost).diff(bloom_start_date, 'days').format('YYYY/MM/DD'));
 
     }else{
         direct_seed_date = moment(last_frost).add(_direct_sow, 'days').format('YYYY/MM/DD');
         pinch_date = moment(direct_seed_date).add(_pinch, 'days').format('YYYY/MM/DD');
         pot_on_date = moment(direct_seed_date).add(_pot_on, 'days').format('YYYY/MM/DD');
-        bloom_start_date = moment(direct_seed_date).add(average_maturity, 'days');
-        let _harvest_duration = Math.round(moment(first_frost).diff(bloom_start_date, 'days'));
+        bloom_start_date = moment(direct_seed_date).add(average_maturity, 'days').format('YYYY/MM/DD');
+        let _harvest_duration = Math.round(moment(first_frost).diff(bloom_start_date, 'days').format('YYYY/MM/DD'));
 
     }
     let harden_date = moment(last_frost).add(_harden, 'days').format('YYYY/MM/DD');
