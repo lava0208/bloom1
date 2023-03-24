@@ -168,6 +168,8 @@ export default async function handler(req, res) {
 
             let successionCount = req.body.succession > 0 ? parseInt(req.body.succession) + 1 : 1;
             let spacingDays = req.body.spacing ? parseInt(req.body.spacing) : 0;
+            let insertResults = [];
+            
 
             for (let i = 0; i < successionCount; i++) {
                 let shiftDays = i * spacingDays;
@@ -201,7 +203,7 @@ export default async function handler(req, res) {
         let _plan = await getPlanById(req.body.plan_id);
 
         await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
-        return res.json({ status: true, message: 'Planting created successfully! Refresh the page.' });
+        insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
     } else {
         // Check Pro user or not
         let _user = await userService.getById(req.body.userid);
@@ -215,7 +217,7 @@ export default async function handler(req, res) {
 
             await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
 
-            return res.json({ status: true, message: 'Planting created successfully! Refresh the page.' });
+            insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
         } else {
             let _length = await db.collection("plantings").find({ userid: req.body.userid }).count();
             if (_length < 2) {
@@ -227,11 +229,17 @@ export default async function handler(req, res) {
 
                 await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
 
-                return res.json({ status: true, message: 'Planting created successfully! Refresh the page.' });
+                insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
             } else {
                 return res.json({ status: false, message: "You've reached your limit! Upgrade to PRO for unlimited plantings." });
             }
         }
+    }
+    // Check if all insertions were successful
+    if (insertResults.every(result => result.status === true)) {
+        return res.json({ status: true, message: 'Plantings created successfully! Refresh the page.' });
+    } else {
+        return res.json({ status: false, message: 'There was an issue creating plantings. Please try again.' });
     }
 }
     
