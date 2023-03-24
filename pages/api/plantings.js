@@ -193,9 +193,19 @@ export default async function handler(req, res) {
                         spacing: req.body.spacing,
                         succession: req.body.succession
                     }
+
+                    // Generate a unique ID for the new planting
+                    const newPlantingId = new ObjectId();
+
+                    // Add the new ID to the planting object
+                    _clone_planting._id = newPlantingId;
+
                 
                     // Insert cloned planting
                     let _clone_one = await db.collection("plantings").insertOne(_clone_planting);
+
+                    // Assign the new ID to the request body
+                    req.body._id = newPlantingId;
                 
                     // Insert automatic tasks
                     let _plant = await getPlantById(req.body.plant_id);
