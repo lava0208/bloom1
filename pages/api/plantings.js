@@ -18,7 +18,7 @@ async function getPlanById(id){
     return _plan.data;
 }
 
-function createTasks(planting, plant, plan){
+function createTasks(planting, plant, plan, shiftDays){
     console.log(plan);
     let last_frost = plan.last_frost;
     let first_frost = plan.first_frost;
@@ -38,7 +38,7 @@ function createTasks(planting, plant, plan){
     let average_maturity = Math.round((_maturity_early + _maturity_late) / 2);
     
     //... schedule dates
-    let cold_stratify_date = moment(last_frost).subtract(_cold_stratify, 'days').format('YYYY/MM/DD');
+    let cold_stratify_date = moment(last_frost).subtract(_cold_stratify, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
     let pot_on_date;
     let harvest_date;
     let seed_indoors_date;
@@ -48,33 +48,33 @@ function createTasks(planting, plant, plan){
     if(planting.direct_indoors){
         switch (planting.harvest) {
             case "Early":
-                seed_indoors_date = moment(last_frost).subtract(_earliest_indoor_seed, 'days').format('YYYY/MM/DD');
+                seed_indoors_date = moment(last_frost).subtract(_earliest_indoor_seed, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
                 break;
             case "Regular":
-                seed_indoors_date = moment(last_frost).subtract(Math.round((_earliest_indoor_seed + _latest_indoor_seed)/2), 'days').format('YYYY/MM/DD');
+                seed_indoors_date = moment(last_frost).subtract(Math.round((_earliest_indoor_seed + _latest_indoor_seed)/2), 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
                 break;
             default:
-                seed_indoors_date = moment(last_frost).subtract(_latest_indoor_seed, 'days').format('YYYY/MM/DD');
+                seed_indoors_date = moment(last_frost).subtract(_latest_indoor_seed, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
                 break;
         }
-        pinch_date = moment(seed_indoors_date).add(_pinch, 'days').format('YYYY/MM/DD');
-pot_on_date = moment(seed_indoors_date).add(_pot_on, 'days').format('YYYY/MM/DD');
-harvest_date = moment(seed_indoors_date).add(average_maturity, 'days').format('YYYY/MM/DD');
+        pinch_date = moment(seed_indoors_date).add(_pinch, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+pot_on_date = moment(seed_indoors_date).add(_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+harvest_date = moment(seed_indoors_date).add(average_maturity, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
 _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(harvest_date), 'days')) : _maturity_late - _maturity_early;
 
 
     }else{
-        direct_seed_date = moment(last_frost).add(_direct_sow, 'days').format('YYYY/MM/DD');
-        pinch_date = moment(direct_seed_date).add(_pinch, 'days').format('YYYY/MM/DD');
-        pot_on_date = moment(direct_seed_date).add(_pot_on, 'days').format('YYYY/MM/DD');
-        bloom_start_date = moment(direct_seed_date).add(average_maturity, 'days').format('YYYY/MM/DD');
-harvest_date = moment(direct_seed_date).add(average_maturity, 'days').format('YYYY/MM/DD');
+        direct_seed_date = moment(last_frost).add(_direct_sow, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+        pinch_date = moment(direct_seed_date).add(_pinch, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+        pot_on_date = moment(direct_seed_date).add(_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+        bloom_start_date = moment(direct_seed_date).add(average_maturity, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+harvest_date = moment(direct_seed_date).add(average_maturity, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
 _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(harvest_date), 'days')) : _maturity_late - _maturity_early;
 
 
     }
-    let harden_date = moment(last_frost).add(_harden, 'days').format('YYYY/MM/DD');
-    let transplant_date = moment(last_frost).add(_transplant, 'days').format('YYYY/MM/DD');
+    let harden_date = moment(last_frost).add(_harden, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+    let transplant_date = moment(last_frost).add(_transplant, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
 
     var taskArr = [];
 
@@ -165,6 +165,15 @@ export default async function handler(req, res) {
     switch (req.method) {
         //... create plantings
         case "POST":
+
+            let successionCount = req.body.succession > 0 ? parseInt(req.body.succession) + 1 : 1;
+            let spacingDays = req.body.spacing ? parseInt(req.body.spacing) : 0;
+
+            for (let i = 0; i < successionCount; i++) {
+                let shiftDays = i * spacingDays;
+
+
+
     // Clone or create planting
     if (req.query.preset === "true") {
         let _clone_planting = {
@@ -191,7 +200,7 @@ export default async function handler(req, res) {
         let _plant = await getPlantById(req.body.plant_id);
         let _plan = await getPlanById(req.body.plan_id);
 
-        await taskService.create(createTasks(req.body, _plant, _plan));
+        await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
         return res.json({ status: true, message: 'Planting created successfully! Refresh the page.' });
     } else {
         // Check Pro user or not
@@ -204,7 +213,7 @@ export default async function handler(req, res) {
             let _plant = await getPlantById(req.body.plant_id);
             let _plan = await getPlanById(req.body.plan_id);
 
-            await taskService.create(createTasks(req.body, _plant, _plan));
+            await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
 
             return res.json({ status: true, message: 'Planting created successfully! Refresh the page.' });
         } else {
@@ -216,7 +225,7 @@ export default async function handler(req, res) {
                 let _plant = await getPlantById(req.body.plant_id);
                 let _plan = await getPlanById(req.body.plan_id);
 
-                await taskService.create(createTasks(req.body, _plant, _plan));
+                await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
 
                 return res.json({ status: true, message: 'Planting created successfully! Refresh the page.' });
             } else {
