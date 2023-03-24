@@ -46,16 +46,16 @@ const getAllTasks = async () => {
     var _result = await taskService.getAllByDate();
 
     const addPlantNameAndFormatDate = async (tasks) => {
-        return await Promise.all(tasks.map(async (task) => {
-            const _planting = await plantingService.getById(task.planting_id);
-            const _plant = await plantService.getById(_planting.data.plant_id);
-            return {
-                ...task,
-                plantName: _plant.data.name,
-                scheduled_at: moment(task.scheduled_at).format("DD/MM/YYYY")
-            };
-        }));
-    };
+    return await Promise.all(tasks.map(async (task) => {
+        const _planting = await plantingService.getById(task.planting_id);
+        const _plant = await plantService.getById(_planting.data.plant_id);
+        return {
+            ...task,
+            plantName: _plant.data.name,
+            scheduled_at: task.scheduled_at // Keep the original date format
+        };
+    }));
+};
 
     setTodayTasks(await addPlantNameAndFormatDate(_result.data.today));
     setWeekTasks(await addPlantNameAndFormatDate(_result.data.week));
@@ -138,7 +138,9 @@ const getAllTasks = async () => {
                             <div className={styles.thisWeekTaskContainer}>
                                 <div className="text-center">
                                     <h3>{task.title} <i>{task.plantName}</i></h3>
-                                    {task.scheduled_at ? moment(task.scheduled_at).format("MMMM Do") : "Invalid date"}
+                                        <h4>
+                                            {task.scheduled_at ? moment(task.scheduled_at).format("MMMM Do") : "Invalid date"}
+                                        </h4>
                                 </div>
                                 <div className={`${styles.taskCap} ${styles.all}`}>
                                     {
