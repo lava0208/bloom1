@@ -239,32 +239,37 @@ export default async function handler(req, res) {
             }
 
         //... update a planting
-        case "PUT":
-            await db.collection("plantings").updateOne(
-                {
-                    _id: new ObjectId(req.query.id),
-                },
-                {
-                    $set: {
-                        plan_id: req.body.plan_id,
-                        seeds: parseInt(req.body.seeds),
-                        harvest: req.body.harvest,
-                        direct_sow: req.body.direct_sow,
-                        direct_indoors: req.body.direct_indoors,
-                        pinch: req.body.pinch,
-                        pot_on: req.body.pot_on,
-                        spacing: req.body.spacing,
-                        succession: req.body.succession
-                    },
-                }
-            );
-            //... insert automatic tasks
-            let _plant = await getPlantById(req.body.plant_id);
-            let _plan = await getPlanById(req.body.plan_id);
+case "PUT":
+    await db.collection("plantings").updateOne(
+        {
+            _id: new ObjectId(req.query.id),
+        },
+        {
+            $set: {
+                plan_id: req.body.plan_id,
+                seeds: parseInt(req.body.seeds),
+                harvest: req.body.harvest,
+                direct_sow: req.body.direct_sow,
+                direct_indoors: req.body.direct_indoors,
+                pinch: req.body.pinch,
+                pot_on: req.body.pot_on,
+                spacing: req.body.spacing,
+                succession: req.body.succession
+            },
+        }
+    );
 
-            await taskService.update(req.query.id , createTasks(req.body, _plant, _plan));
+    // Delete existing tasks associated with the planting
+    await db.collection("tasks").deleteMany({ planting_id: req.query.id });
 
-            return res.json({ status: true, message: 'Planting is updated successfully.' });
+    //... insert automatic tasks
+    let _plant = await getPlantById(req.body.plant_id);
+    let _plan = await getPlanById(req.body.plan_id);
+
+    await taskService.update(req.query.id , createTasks(req.body, _plant, _plan));
+
+    return res.json({ status: true, message: 'Planting updated successfully!' });
+
 
         //... delete a planting
         case "DELETE":
