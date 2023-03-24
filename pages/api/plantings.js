@@ -232,15 +232,6 @@ export default async function handler(req, res) {
                 return res.json({ status: false, message: "You've reached your limit! Upgrade to PRO for unlimited plantings." });
             }
             
-            
-                  // Create multiple plantings based on succession and spacing
-                for (let i = 0; i <= req.body.succession; i++) {
-                    await taskService.create(createTasks(req.body, _plant, _plan, i, req.body.spacing));
-                }
-
-                return res.json({ status: true, message: 'Planting(s) created successfully! Refresh the page.' });
-            }
-            
         }
     }
 
