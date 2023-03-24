@@ -168,7 +168,30 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
     }
     
     return taskArr;
-}
+} case "POST":
+    // Get the total number of plantings to create based on the succession value
+    const totalPlantings = req.body.succession ? parseInt(req.body.succession) + 1 : 1;
+
+    for (let i = 0; i < totalPlantings; i++) {
+        let planting = {
+            ...req.body,
+            succession: i
+        };
+
+        // Insert planting
+        let insertedPlanting = await db.collection("plantings").insertOne(planting);
+        planting._id = insertedPlanting.insertedId;
+
+        // Insert automatic tasks
+        let _plant = await getPlantById(req.body.plant_id);
+        let _plan = await getPlanById(req.body.plan_id);
+
+        let tasks = createTasks(planting, _plant, _plan, i, req.body.spacing ? parseInt(req.body.spacing) : 0);
+        await db.collection("tasks").insertMany(tasks);
+    }
+
+    return res.json({ status: true, message: 'Plantings created successfully! Refresh the page.' });
+
 
 export default async function handler(req, res) {
     const client = await clientPromise;
