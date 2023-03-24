@@ -42,13 +42,27 @@ const List = () => {
         getAllTasks();
     }, [])
 
-    const getAllTasks = async () => {
-        var _result = await taskService.getAllByDate();
-        setTodayTasks(_result.data.today);
-        setWeekTasks(_result.data.week);
-        setOverdueTasks(_result.data.overdue);
-        setAllTasks(_result.data.all);
-    }
+const getAllTasks = async () => {
+    var _result = await taskService.getAllByDate();
+
+    const addPlantNameAndFormatDate = async (tasks) => {
+        return await Promise.all(tasks.map(async (task) => {
+            const _planting = await plantingService.getById(task.planting_id);
+            const _plant = await plantService.getById(_planting.data.plant_id);
+            return {
+                ...task,
+                plantName: _plant.data.name,
+                scheduled_at: moment(task.scheduled_at).format("DD/MM/YYYY")
+            };
+        }));
+    };
+
+    setTodayTasks(await addPlantNameAndFormatDate(_result.data.today));
+    setWeekTasks(await addPlantNameAndFormatDate(_result.data.week));
+    setOverdueTasks(await addPlantNameAndFormatDate(_result.data.overdue));
+    setAllTasks(await addPlantNameAndFormatDate(_result.data.all));
+};
+
 
     return (
         <div className={styles.container}>
@@ -60,7 +74,7 @@ const List = () => {
                     {overdueTasks.map((task, i) => (
                         <div className={styles.taskContainer} key={i} onClick={() => openSchedule(task)}>
                             <div className={styles.taskInfo}>
-                                <h2>{task.title}</h2>
+                                <h2>{task.title} - {task.plantName}</h2>
                                 <h3 className={styles.overdue}>
                                     {moment(task.scheduled_at).fromNow()}
                                 </h3>
@@ -82,7 +96,7 @@ const List = () => {
                     {todayTasks.map((task, i) => (
                         <div className={styles.taskContainer} key={i} onClick={() => openSchedule(task)}>
                             <div className={styles.taskInfo}>
-                                <h2>{task.title}</h2>
+                                <h2>{task.title} - {task.plantName}</h2>
                                 <h3>Today</h3>
                             </div>
                             <div className={`${styles.taskCap} ${styles.today}`}>
@@ -102,7 +116,7 @@ const List = () => {
                     {weekTasks.map((task, i) => (
                         <div className={styles.taskContainer} key={i} onClick={() => openSchedule(task)}>
                             <div className={styles.taskInfo}>
-                                <h2>{task.title}</h2>
+                                <h2>{task.title} - {task.plantName}</h2>
                                 <h3>{task.note }</h3>
                             </div>
                             <div className={`${styles.taskCap} ${styles.tomorrow}`}>
@@ -123,7 +137,7 @@ const List = () => {
                         <div className={styles.allTaskContainer} key={i}>
                             <div className={styles.thisWeekTaskContainer}>
                                 <div className="text-center">
-                                    <h3>{task.title}</h3>
+                                    <h3>{task.title} - {task.plantName}</h3>
                                     <h4>{moment(task.scheduled_at).format("dddd t\\h\\e Do")}</h4>
                                 </div>
                                 <div className={`${styles.taskCap} ${styles.all}`}>
