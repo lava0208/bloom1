@@ -131,30 +131,28 @@ const getAllTasks = async () => {
                 </div>
             </div>
             <div className={styles.thisWeekContainer}>
-                <h2>All Tasks</h2>
-                <div className={styles.thisWeekScrollContainer}>
-                    {allTasks.map((task, i) => (
-                        <div className={styles.allTaskContainer} key={i}>
-                            <div className={styles.thisWeekTaskContainer}>
-                                <div className="text-center">
-                                    <h3>{task.title} <i>{task.plantName}</i></h3>
-                                        <h4>
-                                            {task.scheduled_at ? moment(task.scheduled_at).format("MMMM Do") : "Invalid date"}
-                                        </h4>
-                                </div>
-                                <div className={`${styles.taskCap} ${styles.all}`}>
-                                    {
-                                        task.type === "complete" && (
-                                            <img src="/assets/checkbox.png" alt="checkbox" />
-                                        )
-                                    }
-                                </div>
-                            </div>
-                            
-                        </div>
-                    ))}
+    <h2>All Tasks</h2>
+    <div className={styles.thisWeekScrollContainer}>
+        {allTasks.map((task, i) => (
+            <div className={styles.allTaskContainer} key={i}>
+                <div className={styles.thisWeekTaskContainer} onClick={() => openSchedule(task)}>
+                    <div className="text-center">
+                        <h3>{task.title} <i>{task.plantName}</i></h3>
+                        <h4>{task.scheduled_at ? moment(task.scheduled_at).format("MMMM Do") : "Invalid date"}</h4>
+                    </div>
+                    <div className={`${styles.taskCap} ${styles.all}`}>
+                        {
+                            task.type === "complete" && (
+                                <img src="/assets/checkbox.png" alt="checkbox" />
+                            )
+                        }
+                    </div>
                 </div>
             </div>
+        ))}
+    </div>
+</div>
+
             <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered modalClassName="modifyPlanModal">
                 <ModalBody>
                     <CalendarDetail taskId={taskId} schedule = {event} completeTask={completeTask} cancelSchedule={cancelSchedule} />
