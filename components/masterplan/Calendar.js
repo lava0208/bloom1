@@ -75,7 +75,7 @@ const CalendarTab = () => {
                 backgroundColor = "#707070";
                 break;
             case "Harvest":
-                backgroundColor = "#cce06b";
+                backgroundColor = "#000000";
                 break;
             case "Seed Indoors":
                 backgroundColor = "#7ae06b";
