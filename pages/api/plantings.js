@@ -73,7 +73,7 @@ function createTasks(planting, plant, plan){
         harvest_date = moment(direct_seed_date).add(_maturity_early, 'days').format('YYYY/MM/DD');
 
     average_maturity = Math.round((_maturity_early + _maturity_late) / 2);
-    bloom_start_date = moment(seed_indoors_date).add(average_maturity, 'days');
+    bloom_start_date = moment(direct_seed_date).add(average_maturity, 'days');
     _harvest_duration = plant.rebloom ? moment(first_frost).diff(bloom_start_date, 'days') : _maturity_late - _maturity_early;
     }
     let harden_date = moment(last_frost).add(_harden, 'days').format('YYYY/MM/DD');
