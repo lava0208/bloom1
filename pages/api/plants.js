@@ -120,13 +120,22 @@ export default async function handler(req, res) {
             return res.json({ status: true, message: 'plant is updated successfully.' });
 
         //... delete a plant
-        case "DELETE":
-            let _planting = await plantingService.getByPlantId(req.query.id);
+       case "DELETE":
+    // Get plantings with the specified plant_id
+    let plantings = await db.collection("plantings").find({ plant_id: req.query.id }).toArray();
 
-            await db.collection("tasks").deleteMany({planting_id: _planting.data._id});
-            await db.collection("plantings").deleteMany({plant_id: _planting.data.plant_id});
-            await db.collection("plants").deleteOne({_id: new ObjectId(req.query.id)});
-
-            return res.json({ status: true, message: 'The plant is deleted successfully.' });
+    // Delete tasks associated with each planting
+    for (const planting of plantings) {
+        await db.collection("tasks").deleteMany({ planting_id: planting._id });
     }
+
+    // Delete plantings with the specified plant_id
+    await db.collection("plantings").deleteMany({ plant_id: req.query.id });
+
+    // Delete the plant with the specified id
+    await db.collection("plants").deleteOne({ _id: new ObjectId(req.query.id) });
+
+    return res.json({ status: true, message: 'The plant is deleted successfully.' });
+}
+
 }
