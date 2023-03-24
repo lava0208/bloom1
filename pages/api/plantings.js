@@ -45,20 +45,6 @@ function createTasks(planting, plant, plan){
     let direct_seed_date;
     let pinch_date;
     let bloom_start_date;
-    
-    
-    let offsetDays = spacingOffset || 0;
-    cold_stratify_date = moment(cold_stratify_date).add(offsetDays, 'days').format('YYYY/MM/DD');
-    seed_indoors_date = moment(seed_indoors_date).add(offsetDays, 'days').format('YYYY/MM/DD');
-    direct_seed_date = moment(direct_seed_date).add(offsetDays, 'days').format('YYYY/MM/DD');
-    pinch_date = moment(pinch_date).add(offsetDays, 'days').format('YYYY/MM/DD');
-    pot_on_date = moment(pot_on_date).add(offsetDays, 'days').format('YYYY/MM/DD');
-    bloom_start_date = moment(bloom_start_date).add(offsetDays, 'days').format('YYYY/MM/DD');
-    harvest_date = moment(harvest_date).add(offsetDays, 'days').format('YYYY/MM/DD');
-    
-    
-    
-    
     if(planting.direct_indoors){
         switch (planting.harvest) {
             case "Early":
@@ -177,45 +163,36 @@ export default async function handler(req, res) {
     const db = client.db("bloom");
 
     switch (req.method) {
-                //... create plantings
+        //... create plantings
         case "POST":
-            // Clone or create planting
-            if (req.query.preset === "true") {
-                let _clone_planting = {
-                    userid: req.query.userid,
-                    plan_id: req.body.plan_id,
-                    plant_id: req.body.plant_id,
-                    name: req.body.name,
-                    species: req.body.species,
-                    seeds: parseInt(req.body.seeds),
-                    harvest: req.body.harvest,
-                    direct_sow: req.body.direct_sow,
-                    direct_indoors: req.body.direct_indoors,
-                    pinch: req.body.pinch,
-                    pot_on: req.body.pot_on,
-                    spacing: req.body.spacing,
-                    succession: req.body.succession
-                }
+    // Clone or create planting
+    if (req.query.preset === "true") {
+        let _clone_planting = {
+            userid: req.query.userid,
+            plan_id: req.body.plan_id,
+            plant_id: req.body.plant_id,
+            name: req.body.name,
+            species: req.body.species,
+            seeds: parseInt(req.body.seeds),
+            harvest: req.body.harvest,
+            direct_sow: req.body.direct_sow,
+            direct_indoors: req.body.direct_indoors,
+            pinch: req.body.pinch,
+            pot_on: req.body.pot_on,
+            spacing: req.body.spacing,
+            succession: req.body.succession
+        }
 
-                let succession = parseInt(req.body.succession);
-                let spacing = parseInt(req.body.spacing);
+        // Insert cloned planting
+        let _clone_one = await db.collection("plantings").insertOne(_clone_planting);
+        req.body._id = _clone_one.insertedId;
 
-                let _plant = await getPlantById(req.body.plant_id);
-                let _plan = await getPlanById(req.body.plan_id);
+        // Insert automatic tasks
+        let _plant = await getPlantById(req.body.plant_id);
+        let _plan = await getPlanById(req.body.plan_id);
 
-                for (let s = 0; s < succession; s++) {
-                    let shiftedClonePlanting = { ..._clone_planting };
-                    shiftedClonePlanting.spacing = s * spacing;
-
-                    // Insert cloned planting
-                    let _clone_one = await db.collection("plantings").insertOne(shiftedClonePlanting);
-                    req.body._id = _clone_one.insertedId;
-
-                    // Insert automatic tasks
-                    await taskService.create(createTasks(req.body, _plant, _plan, shiftedClonePlanting.spacing));
-                }
-
-                return res.json({ status: true, message: 'Plantings created successfully! Refresh the page.' });
+        await taskService.create(createTasks(req.body, _plant, _plan));
+        return res.json({ status: true, message: 'Planting created successfully! Refresh the page.' });
     } else {
         // Check Pro user or not
         let _user = await userService.getById(req.body.userid);
