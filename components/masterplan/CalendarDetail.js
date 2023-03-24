@@ -54,6 +54,7 @@ const CalendarDetail = (props) => {
             <div className={styles.calendarTitle}>
                 <h3>{plant ? plant.name : ""}</h3>
                 <h5>{plant ? plant.species : ""}</h5>
+                <h5>Planting ID: {props.plantingId}</h5>
             </div>
             <div className={styles.eventContainer}>
                 <div className={styles.noteContainer}>
