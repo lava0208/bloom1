@@ -173,7 +173,6 @@ export default async function handler(req, res) {
 
             for (let i = 0; i < successionCount; i++) {
                 let shiftDays = i * spacingDays;
-                let shiftedBody = { ...req.body, shiftDays };
 
 
 
@@ -194,15 +193,8 @@ export default async function handler(req, res) {
                         succession: req.body.succession
                     }
                 
-                    if (_clone_planting.succession > 0) {
-                        let oldId = req.body._id;
-                        let newId = new ObjectId(oldId).toString() + "_ID" + (_clone_planting.succession - 1);
-                        _clone_planting._id = new ObjectId(newId);
-                    }
-                
                     // Insert cloned planting
                     let _clone_one = await db.collection("plantings").insertOne(_clone_planting);
-                    req.body._id = _clone_one.insertedId;
                 
                     // Insert automatic tasks
                     let _plant = await getPlantById(req.body.plant_id);
