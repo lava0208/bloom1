@@ -173,6 +173,7 @@ export default async function handler(req, res) {
 
             for (let i = 0; i < successionCount; i++) {
                 let shiftDays = i * spacingDays;
+                let shiftedBody = { ...req.body, shiftDays };
 
 
 
