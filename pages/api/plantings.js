@@ -103,6 +103,7 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
         if (moment(harvest_date).isAfter(moment(first_frost))) {
             break;
         }
+    }
 
     var taskArr = [];
 
