@@ -75,6 +75,34 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
     }
     let harden_date = moment(last_frost).add(_harden, 'days').format('YYYY/MM/DD');
     let transplant_date = moment(last_frost).add(_transplant, 'days').format('YYYY/MM/DD');
+    
+    let succession = planting.succession || 1;
+    let spacing = planting.spacing || 0;
+    
+    // Create a loop to generate tasks for each succession planting
+    for (let s = 0; s < succession; s++) {
+        // Modify task dates based on the succession planting index and spacing
+        let successionOffset = s * spacing;
+
+        if (planting.direct_indoors) {
+            // Update the seed_indoors_date and other task dates based on the succession planting
+            seed_indoors_date = moment(seed_indoors_date).add(successionOffset, 'days').format('YYYY/MM/DD');
+            pinch_date = moment(pinch_date).add(successionOffset, 'days').format('YYYY/MM/DD');
+            pot_on_date = moment(pot_on_date).add(successionOffset, 'days').format('YYYY/MM/DD');
+            harvest_date = moment(harvest_date).add(successionOffset, 'days').format('YYYY/MM/DD');
+        } else {
+            // Update the direct_seed_date and other task dates based on the succession planting
+            direct_seed_date = moment(direct_seed_date).add(successionOffset, 'days').format('YYYY/MM/DD');
+            pinch_date = moment(pinch_date).add(successionOffset, 'days').format('YYYY/MM/DD');
+            pot_on_date = moment(pot_on_date).add(successionOffset, 'days').format('YYYY/MM/DD');
+            bloom_start_date = moment(bloom_start_date).add(successionOffset, 'days').format('YYYY/MM/DD');
+            harvest_date = moment(harvest_date).add(successionOffset, 'days').format('YYYY/MM/DD');
+        }
+
+        // Check if the task date surpasses the first frost date
+        if (moment(harvest_date).isAfter(moment(first_frost))) {
+            break;
+        }
 
     var taskArr = [];
 
