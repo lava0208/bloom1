@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { Modal, ModalBody } from "reactstrap";
 
-import { taskService } from "services";
+import { taskService, plantingService, plantService } from "services";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from "~styles/components/masterplan/list.module.scss";
