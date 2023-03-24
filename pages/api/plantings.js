@@ -166,13 +166,6 @@ export default async function handler(req, res) {
         //... create plantings
         case "POST":
 
-            // Generate a new ObjectId for the new document
-    const newId = new ObjectId();
-    // Set the "_id" field to the new ObjectId
-    req.body._id = newId;
-    // Insert the new document
-    await db.collection("plantings").insertOne(req.body);
-
             let successionCount = req.body.succession > 0 ? parseInt(req.body.succession) + 1 : 1;
             let spacingDays = req.body.spacing ? parseInt(req.body.spacing) : 0;
             let insertResults = [];
@@ -180,6 +173,23 @@ export default async function handler(req, res) {
 
             for (let i = 0; i < successionCount; i++) {
                 let shiftDays = i * spacingDays;
+            
+                // Generate a new ObjectId for the planting
+                const plantingId = new ObjectId();
+            
+                // Set the "_id" field to the new ObjectId
+                req.body._id = plantingId;
+            
+                // Insert the planting
+                await db.collection("plantings").insertOne(req.body);
+            
+                // Insert automatic tasks
+                let _plant = await getPlantById(req.body.plant_id);
+                let _plan = await getPlanById(req.body.plan_id);
+            
+                await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
+                insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
+            }
 
 
 
