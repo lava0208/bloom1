@@ -155,7 +155,7 @@ const getAllTasks = async () => {
 
             <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered modalClassName="modifyPlanModal">
                 <ModalBody>
-                    <CalendarDetail taskId={taskId} schedule = {event} completeTask={completeTask} cancelSchedule={cancelSchedule} />
+                    <CalendarDetail taskId={taskId} schedule = {event} completeTask={completeTask} cancelSchedule={cancelSchedule} plantingId={event.planting_id} />
                 </ModalBody>
             </Modal>
         </div>
