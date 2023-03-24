@@ -18,7 +18,7 @@ async function getPlanById(id){
     return _plan.data;
 }
 
-function createTasks(planting, plant, plan){
+function createTasks(planting, plant, plan, succession, spacing) {
     console.log(plan);
     let last_frost = plan.last_frost;
     let first_frost = plan.first_frost;
@@ -36,6 +36,17 @@ function createTasks(planting, plant, plan){
     let _maturity_late = plant.maturity_late !== "" ? parseInt(plant.maturity_late) : 0;
     let _harvest_duration = plant.rebloom ? Math.round((_maturity_late + _maturity_early)/2) : _maturity_late - _maturity_early;
     let average_maturity = Math.round((_maturity_early + _maturity_late) / 2);
+    if (succession > 0) {
+        const shiftDays = succession * spacing;
+        seed_indoors_date = moment(seed_indoors_date).add(shiftDays, 'days').format('YYYY/MM/DD');
+        direct_seed_date = moment(direct_seed_date).add(shiftDays, 'days').format('YYYY/MM/DD');
+        cold_stratify_date = moment(cold_stratify_date).add(shiftDays, 'days').format('YYYY/MM/DD');
+        pinch_date = moment(pinch_date).add(shiftDays, 'days').format('YYYY/MM/DD');
+        pot_on_date = moment(pot_on_date).add(shiftDays, 'days').format('YYYY/MM/DD');
+        harden_date = moment(harden_date).add(shiftDays, 'days').format('YYYY/MM/DD');
+        transplant_date = moment(transplant_date).add(shiftDays, 'days').format('YYYY/MM/DD');
+        harvest_date = moment(harvest_date).add(shiftDays, 'days').format('YYYY/MM/DD');
+    }
     
     //... schedule dates
     let cold_stratify_date = moment(last_frost).subtract(_cold_stratify, 'days').format('YYYY/MM/DD');
@@ -76,34 +87,6 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
     let harden_date = moment(last_frost).add(_harden, 'days').format('YYYY/MM/DD');
     let transplant_date = moment(last_frost).add(_transplant, 'days').format('YYYY/MM/DD');
     
-    let succession = planting.succession || 1;
-    let spacing = planting.spacing || 0;
-    
-    // Create a loop to generate tasks for each succession planting
-    for (let s = 0; s < succession; s++) {
-        // Modify task dates based on the succession planting index and spacing
-        let successionOffset = s * spacing;
-
-        if (planting.direct_indoors) {
-            // Update the seed_indoors_date and other task dates based on the succession planting
-            seed_indoors_date = moment(seed_indoors_date).add(successionOffset, 'days').format('YYYY/MM/DD');
-            pinch_date = moment(pinch_date).add(successionOffset, 'days').format('YYYY/MM/DD');
-            pot_on_date = moment(pot_on_date).add(successionOffset, 'days').format('YYYY/MM/DD');
-            harvest_date = moment(harvest_date).add(successionOffset, 'days').format('YYYY/MM/DD');
-        } else {
-            // Update the direct_seed_date and other task dates based on the succession planting
-            direct_seed_date = moment(direct_seed_date).add(successionOffset, 'days').format('YYYY/MM/DD');
-            pinch_date = moment(pinch_date).add(successionOffset, 'days').format('YYYY/MM/DD');
-            pot_on_date = moment(pot_on_date).add(successionOffset, 'days').format('YYYY/MM/DD');
-            bloom_start_date = moment(bloom_start_date).add(successionOffset, 'days').format('YYYY/MM/DD');
-            harvest_date = moment(harvest_date).add(successionOffset, 'days').format('YYYY/MM/DD');
-        }
-
-        // Check if the task date surpasses the first frost date
-        if (moment(harvest_date).isAfter(moment(first_frost))) {
-            break;
-        }
-    }
 
     var taskArr = [];
 
@@ -233,9 +216,13 @@ export default async function handler(req, res) {
             let _plant = await getPlantById(req.body.plant_id);
             let _plan = await getPlanById(req.body.plan_id);
 
-            await taskService.create(createTasks(req.body, _plant, _plan));
+            // Create multiple plantings based on succession and spacing
+                for (let i = 0; i <= req.body.succession; i++) {
+                    await taskService.create(createTasks(req.body, _plant, _plan, i, req.body.spacing));
+                }
 
-            return res.json({ status: true, message: 'Planting created successfully! Refresh the page.' });
+                return res.json({ status: true, message: 'Planting(s) created successfully! Refresh the page.' });
+            }
         } else {
             let _length = await db.collection("plantings").find({ userid: req.body.userid }).count();
             if (_length < 2) {
