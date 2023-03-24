@@ -35,7 +35,10 @@ function createTasks(planting, plant, plan){
     let _maturity_early = plant.maturity_early !== "" ? parseInt(plant.maturity_early) : 0;
     let _maturity_late = plant.maturity_late !== "" ? parseInt(plant.maturity_late) : 0;
     
-    let _harvest_duration = plant.rebloom ? Math.round((_maturity_late + _maturity_early)/2) : _maturity_late - _maturity_early;
+    let average_maturity = Math.round((_maturity_early + _maturity_late) / 2);
+    let bloom_start_date = moment(seed_indoors_date).add(average_maturity, 'days');
+    let _harvest_duration = plant.rebloom ? moment(first_frost).diff(bloom_start_date, 'days') : _maturity_late - _maturity_early;
+
 
     //... schedule dates
     let cold_stratify_date = moment(last_frost).subtract(_cold_stratify, 'days').format('YYYY/MM/DD');
