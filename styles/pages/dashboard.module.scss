@@ -59,6 +59,11 @@
   opacity: 1;
 }
 
+.button:hover .icon {
+  opacity: 0;
+}
+
+
 
 .screen {
     display: flex;
