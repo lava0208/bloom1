@@ -63,7 +63,6 @@ const ByPlantDetail = (props) => {
             swal({
                 title: "Oops!",
                 text: "Please fill all fields",
-                icon: "warning",
                 className: "custom-swal",
             });
         } else {
