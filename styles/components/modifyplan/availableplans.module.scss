@@ -165,4 +165,12 @@
     .planImage{
         height: 150px;
     }
+       .headerContainer{
+        display: block;
+        text-align: center;
+        
+        .searchButton {
+            margin-top: 1rem;
+            max-width: 100%;
+        }
 }
