@@ -242,11 +242,20 @@ const CurrentPlan = (props) => {
                             </div>
                             <div className={styles.successionButtonsContainer}>
                                 <div>
-                                    <input value={planting.succession} onChange={(e) => setPlanting({...planting, succession: e.target.value})} /> 
+                                    <input
+  value={planting.succession}
+  onChange={(e) => setPlanting({ ...planting, succession: e.target.value })}
+  type="number"
+  min="0"
+  max="10"
+/>
+ 
                                     <span>Plantings</span>
                                 </div>
                                 <div>
-                                    <input value={planting.spacing} onChange={(e) => setPlanting({...planting, spacing: e.target.value})} />
+                                    <input value={planting.spacing} onChange={(e) => setPlanting({...planting, spacing: e.target.value})}   type="number"
+  min="0"
+  max="50" />
                                     <span>Days Between</span>
                                 </div>
                             </div>
