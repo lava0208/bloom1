@@ -58,7 +58,7 @@ const Sidebar = (props) => {
             className: "custom-swal",
             icon: "warning",
             buttons: [
-                'No, cancel it!',
+                'Cancel',
                 'Yes, I am sure!'
             ],
             dangerMode: true,
