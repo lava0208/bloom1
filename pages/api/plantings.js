@@ -99,7 +99,9 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
             scheduleArr1.push(pinch_date);
         }
     
-        for (var i=0; i<titleArr1.length; i++){
+         for (var i = 0; i < titleArr1.length; i++) {
+        // Check if the scheduled date is before the first frost date
+        if (moment(scheduleArr1[i]).isBefore(first_frost)) {
             var taskObj = {
                 planting_id: planting._id,
                 userid: plan.userid,
@@ -110,8 +112,9 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
                 type: "incomplete",
                 rescheduled_at: "",
                 completed_at: ""
-            }
+            };
             taskArr.push(taskObj);
+
         }
     //... Enable Start Indoors
     }
@@ -140,7 +143,9 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
             scheduleArr2.push(pot_on_date);
         }
 
-        for (var i=0; i<titleArr2.length; i++){
+        for (var i = 0; i < titleArr2.length; i++) {
+        // Check if the scheduled date is before the first frost date
+        if (moment(scheduleArr2[i]).isBefore(first_frost)) {
             var taskObj = {
                 planting_id: planting._id,
                 userid: plan.userid,
@@ -151,7 +156,7 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
                 type: "incomplete",
                 rescheduled_at: "",
                 completed_at: ""
-            }
+            };
             taskArr.push(taskObj);
         }
     }
