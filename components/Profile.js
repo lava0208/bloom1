@@ -113,7 +113,7 @@ const Profile = () => {
                 text: result.message,
                 icon: "success",
                 className: "custom-swal",
-                background '#505168', 
+                background: '#505168', 
             }).then(function(){
                 router.replace(router.asPath);
             });
@@ -183,7 +183,7 @@ const saveUser = () => {
             icon: "warning",
             className: "custom-swal",
             buttons: [
-                'No, cancel it!',
+                'Cancel',
                 'Yes, I am sure!'
             ],
             dangerMode: true,
