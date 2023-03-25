@@ -52,7 +52,7 @@ const Login = () => {
         <div className={styles.screen}>
             <img className={styles.logo} src={"/assets/logo.png"} alt="logo" />
             <div className={styles.formContainer}>
-                <h2>Login with your account.</h2>
+                <h2>Login to your account.</h2>
 
                 <div className={styles.formDetailsContainer}>
                     <div className={styles.detailsInputsContainer}>
