@@ -51,18 +51,26 @@ const AvailablePlans = (props) => {
         setModalOpen(false);
     }
     
-    const refreshFilterdArray = async () => {
+    if (response.presets !== undefined) {
+    setOriginalPresets(response.presets);
+} else {
+    setOriginalPresets([]);
+}
+
+    
+const refreshFilterdArray = async () => {
     var _filteredArray = origialArray.filter(
         (el) => el.name.toLowerCase().includes(query)
     );
 
-    var _filteredPresets = filteredPresets.filter(
+    var _filteredPresets = originalPresets.filter(
         (el) => el.name.toLowerCase().includes(query)
     );
 
     setFilteredArray(_filteredArray);
     setFilteredPresets(_filteredPresets);
-}
+};
+
 
 
     return (
