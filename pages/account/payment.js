@@ -38,7 +38,7 @@ const paymentcheckout = async () => {
 
     const stripe = await getStripe();
 
-    const currentUser = await userService.getUser(); // Get the current user
+    const currentUser = await userService.getCurrentUser(); // Get the current user
 
     await stripe.redirectToCheckout({
         mode: "subscription",
