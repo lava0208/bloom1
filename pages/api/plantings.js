@@ -230,6 +230,13 @@ case "POST":
 
         //... update a planting
 case "PUT":
+            if (req.body.direct_sow && req.body.direct_indoors) {
+        return res.json({
+            status: false,
+            message: "You cannot set both direct_sow and seed_indoors to true.",
+        });
+    }
+            
     await db.collection("plantings").updateOne(
         {
             _id: new ObjectId(req.query.id),
