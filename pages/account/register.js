@@ -177,7 +177,6 @@ const Register = () => {
                         });
                     }}
                 />
-                <h4><a onClick={() => router.push('/account/login')}>Login</a> instead</h4>
             </div>
 
             <div
@@ -186,6 +185,7 @@ const Register = () => {
             >
                 <h5>Sign Up</h5>
             </div>
+<h4><a onClick={() => router.push('/account/login')}>Login instead</a></h4>
         </div>
     );
 };
