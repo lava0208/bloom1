@@ -167,10 +167,17 @@ export default async function handler(req, res) {
         //... create plantings
 case "POST":
             
-    if (req.body.direct_sow && req.body.direct_indoors) {
+    if (!req.body.direct_sow && !req.body.direct_indoors) {
         return res.json({
             status: false,
-            message: "You cannot choose both seed indoors and direct seed for a single planting. Please try again, and ensure you only select one option.",
+            message: "You must choose either seed indoors or direct seed for a single planting. Please try again, and ensure you select one option.",
+        });
+    }
+
+    if (!req.body.harvest || !req.body.quantity) {
+        return res.json({
+            status: false,
+            message: "Please provide harvest type (early, regular, or late) and quantity for the planting.",
         });
     }
 
@@ -230,10 +237,17 @@ case "POST":
 
         //... update a planting
 case "PUT":
-            if (req.body.direct_sow && req.body.direct_indoors) {
+            if (!req.body.direct_sow && !req.body.direct_indoors) {
         return res.json({
             status: false,
-            message: "You cannot set both direct_sow and seed_indoors to true.",
+            message: "You must choose either seed indoors or direct seed for a single planting. Please try again, and ensure you select one option.",
+        });
+    }
+
+    if (!req.body.harvest || !req.body.quantity) {
+        return res.json({
+            status: false,
+            message: "Please provide harvest type (early, regular, or late) and quantity for the planting.",
         });
     }
             
