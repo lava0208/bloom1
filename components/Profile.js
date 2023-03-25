@@ -178,7 +178,7 @@ const saveUser = () => {
     const deleteUser = async () => {
         swal({
             title: "Wait!",
-            text: "Are you sure you want to close this account?",
+            text: "Are you sure you want to close this account? This cannot be undone.",
             icon: "warning",
             className: "custom-swal",
             buttons: [
@@ -199,11 +199,11 @@ const saveUser = () => {
     const cancelPro = async () => {
         swal({
             title: "Wait!",
-            text: "Are you sure you want to disconnect your payment?",
+            text: "Are you sure you want to downgrade to CORE?",
             icon: "warning",
             className: "custom-swal",
             buttons: [
-                'No, cancel it!',
+                'Cancel',
                 'Yes, I am sure!'
             ],
             dangerMode: true,
@@ -214,7 +214,7 @@ const saveUser = () => {
                 if (_result.status === true) {
                     swal({
                         title: "Success!",
-                        text: "Disconnected your payment successfully.",
+                        text: "You're now on our free CORE plan.",
                         icon: "success",
                         className: "custom-swal",
                     }).then(function(){
