@@ -82,6 +82,7 @@ const CurrentPlan = (props) => {
                 title: "Wait!",
                 text: "Are you sure you want to update?",
                 icon: "info",
+                className: "custom-swal",
                 buttons: [
                     'No, cancel it!',
                     'Yes, I am sure!'
@@ -94,6 +95,7 @@ const CurrentPlan = (props) => {
                         title: "Success!",
                         text: _result.message,
                         icon: "success",
+                        className: "custom-swal",
                     }).then(function(){
                         props.savePlanting();
                     });
@@ -104,6 +106,7 @@ const CurrentPlan = (props) => {
                 title: "Wait!",
                 text: "Are you sure you want to create?",
                 icon: "info",
+                className: "custom-swal",
                 buttons: [
                     'No, cancel it!',
                     'Yes, I am sure!'
@@ -116,6 +119,7 @@ const CurrentPlan = (props) => {
                         swal({
                             title: _result.status ? "Success!" : "Warning!",
                             text: _result.message,
+                            className: "custom-swal",
                             icon: _result.status ? "success" : "warning",
                         }).then(function(){
                             props.savePlanting();
@@ -125,6 +129,7 @@ const CurrentPlan = (props) => {
                         swal({
                             title: _result.status ? "Success!" : "Warning!",
                             text: _result.message,
+                            className: "custom-swal",
                             icon: _result.status ? "success" : "warning",
                         }).then(function(){
                             props.savePlanting();
