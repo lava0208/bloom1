@@ -113,6 +113,7 @@ const Profile = () => {
                 text: result.message,
                 icon: "success",
                 className: "custom-swal",
+                background '#505168', 
             }).then(function(){
                 router.replace(router.asPath);
             });
