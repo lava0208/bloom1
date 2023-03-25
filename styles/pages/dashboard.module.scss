@@ -1,5 +1,33 @@
 @import "~sass-variables";
 
+
+/* Additions */
+.buttonsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.button {
+    background: $blue;
+    color: $white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    text-align: center;
+    width: calc(50% - 0.5rem);
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+/* End of Additions */
+
 .screen {
     display: flex;
     min-height: 100vh;
