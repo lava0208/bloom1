@@ -55,6 +55,7 @@ const Sidebar = (props) => {
         swal({
             title: "Wait!",
             text: "Are you sure you want to logout?",
+            className: "custom-swal",
             icon: "warning",
             buttons: [
                 'No, cancel it!',
