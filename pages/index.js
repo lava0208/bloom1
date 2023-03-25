@@ -86,16 +86,17 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
                         <h3>{randomGreeting}, {name}!</h3>
                         <h4>Today is {moment().format("MMMM Do, YYYY")}</h4>
                     </div>
-<div className={styles.buttonContainer}>
-    <button className={styles.button}>View Plan</button>
-    <button className={styles.button}>Add / Remove Plantings</button>
-    <button className={styles.button}>Variety Settings</button>
-    <button className={styles.button}>Profile</button>
-                    </div>
+
 
                     <div className={styles.newsContainer}>
                         <h3>Bloom Manager News</h3>
                         <p>{news}</p>
+                    </div>
+<div className={styles.buttonContainer}>
+    <button className={styles.button}>View Plan</button>
+    <button className={styles.button}>Modify Plan</button>
+    <button className={styles.button}>Variety Settings</button>
+    <button className={styles.button}>Profile</button>
                     </div>
                 </div>
                 <div className={styles.dashboardRow}>
