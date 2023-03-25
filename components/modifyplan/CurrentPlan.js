@@ -238,7 +238,7 @@ const CurrentPlan = (props) => {
                         <div className={styles.successionContainer1}>
                             <div className={styles.successionTextContainer}>
                                 <h4>Successions</h4>
-                                <h5>You can always adjust spacing later.</h5>
+                                <h5><i>Additional</i> plantings with the same settings, separated by the specified number of days.</h5>
                             </div>
                             <div className={styles.successionButtonsContainer}>
                                 <div>
