@@ -56,7 +56,7 @@ const AvailablePlans = (props) => {
         (el) => el.name.toLowerCase().includes(query)
     );
 
-    var _filteredPresets = presets.filter(
+    var _filteredPresets = filteredPresets.filter(
         (el) => el.name.toLowerCase().includes(query)
     );
 
