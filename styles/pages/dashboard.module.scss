@@ -1,32 +1,40 @@
 @import "~sass-variables";
 
-
-/* Additions */
-.buttonsContainer {
+.buttonContainer {
+    background: transparent;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     gap: 1rem;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }
 
 .button {
     background: $blue;
-    color: $white;
     border: none;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    color: $white;
     cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
     text-align: center;
+    text-transform: capitalize;
     width: calc(50% - 0.5rem);
 
     &:hover {
         opacity: 0.8;
     }
 }
-/* End of Additions */
+
+@media screen and (max-width: 576px) {
+    .button {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
+}
 
 .screen {
     display: flex;
