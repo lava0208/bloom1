@@ -284,7 +284,7 @@ const saveUser = () => {
                                     setUser({ ...user, email_newsletter: e.target.checked })
                                 }
                             />
-                            <label htmlFor="emailNewsletter">Bloom Manager Email Newsletter</label>
+                            <label htmlFor="emailNewsletter">Monthly Newsletter</label>
                         </div>
                         <button className={styles.button1} onClick={() => saveUser()}>Save Changes</button>
                     </div>
@@ -308,12 +308,12 @@ const saveUser = () => {
                         <h4>UNLIMITED Custom Varieties</h4>
                         <h4>PRIORITY Support</h4>
                         <h4>ACCESS to Variety Presets</h4>
-                        <h4>UNLIMITED Season Plans</h4>
+                        <h4>UNLIMITED Season Plans*</h4>
                     </div>
                 </div>
                 {
                     isPro ? (
-                        <a href="https://www.tolucalakeflowers.com" target="_blank" rel="noopener noreferrer">
+                        <a href="mailto:priority23@bloommanager.com" target="_blank" rel="noopener noreferrer">
                             <button className={styles.button3 + " " + styles.button4}>Access Priority Support</button>
                         </a>
                         
