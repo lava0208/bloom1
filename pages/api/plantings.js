@@ -46,7 +46,6 @@ function createTasks(planting, plant, plan, shiftDays){
     let pinch_date;
     let bloom_start_date;
     if(planting.direct_indoors){
-
         switch (planting.harvest) {
             case "Early":
                 seed_indoors_date = moment(last_frost).subtract(_earliest_indoor_seed, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
@@ -170,7 +169,6 @@ export default async function handler(req, res) {
             let successionCount = req.body.succession > 0 ? parseInt(req.body.succession) + 1 : 1;
             let spacingDays = req.body.spacing ? parseInt(req.body.spacing) : 0;
             let insertResults = [];
-            let shiftDays;
             
 
             for (let i = 0; i < successionCount; i++) {
@@ -254,6 +252,7 @@ export default async function handler(req, res) {
         }
     }
     
+}
     
 
 
