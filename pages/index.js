@@ -13,11 +13,16 @@ const Dashboard = () => {
     const [news, setNews] = useState("");
     const [plan, setPlan] = useState("");
     const [isPro, setIsPro] = useState(false);
+    const [greeting, setGreeting] = useState("");
 
     useEffect(() => {
         getUserPlan();
         getAllTasks();
         getNews();
+    // Set a random greeting
+    const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+    setGreeting(`${randomGreeting},`);
+        
     }, [])
 
     const getUserPlan = async () => {
@@ -83,7 +88,7 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
                 <h2 className={styles.subHeader}>Statistics</h2>
                 <div className={styles.dashboardRow}>
                     <div className={styles.greetingContainer}>
-                        <h3>{randomGreeting}, {name}!</h3>
+                        <h3>{greeting}, {name}!</h3>
                         <h4>Today is {moment().format("MMMM Do, YYYY")}</h4>
                     </div>
 
