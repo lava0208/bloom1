@@ -83,14 +83,14 @@ const Login = () => {
                         });
                     }}
                 />
-                <h4><a onClick={() => router.push('/account/register')}>Click here </a> to register a new account.</h4>
+                <h4><a onClick={() => router.push('/account/register')}>Sign Up</a></h4>
             </div>
 
             <div
                 className={styles.nextButtonContainer}
                 onClick={() => login()}
             >
-                <h5>Next</h5>
+                <h5>Log In</h5>
             </div>
         </div>
     );
