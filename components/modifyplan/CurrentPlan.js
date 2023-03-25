@@ -245,17 +245,23 @@ const CurrentPlan = (props) => {
                                     <input
   value={planting.succession}
   onChange={(e) => {
-    const value = parseInt(e.target.value);
-    if (value <= 10) {
+    const value = e.target.value;
+    if (value === "") {
       setPlanting({ ...planting, succession: value });
     } else {
-      alert("Maximum input value is 10.");
+      const parsedValue = parseInt(value);
+      if (parsedValue <= 10) {
+        setPlanting({ ...planting, succession: parsedValue });
+      } else {
+        alert("Maximum input value is 10.");
+      }
     }
   }}
   type="number"
   min="0"
   max="10"
 />
+
  
                                     <span>Plantings</span>
                                 </div>
@@ -263,17 +269,23 @@ const CurrentPlan = (props) => {
                                     <input
   value={planting.spacing}
   onChange={(e) => {
-    const value = parseInt(e.target.value);
-    if (value <= 50) {
+    const value = e.target.value;
+    if (value === "") {
       setPlanting({ ...planting, spacing: value });
     } else {
-      alert("Maximum input value is 50.");
+      const parsedValue = parseInt(value);
+      if (parsedValue <= 10) {
+        setPlanting({ ...planting, succession: parsedValue });
+      } else {
+        alert("Maximum input value is 10.");
+      }
     }
   }}
   type="number"
   min="0"
   max="10"
 />
+
                                     <span>Days Between</span>
                                 </div>
                             </div>
