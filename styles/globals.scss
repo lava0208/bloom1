@@ -149,23 +149,23 @@ input[type=number] {
 }
 
 
-swal .swal-modal {
+.custom-swal .swal-modal {
   background-color: $blue !important;
   border-radius: 50px;
 }
 
-swal .swal-title {
+.custom-swal .swal-title {
   font-size: 1.6rem;
   color: $black;
   font-weight: 800;
 }
 
-swal .swal-text {
+.custom-swal .swal-text {
   font-size: 1rem;
   color: $black;
 }
 
-swal .swal-button {
+.custom-swal .swal-button {
   background-color: $purple;
   color: $white;
   font-weight: 700;
@@ -179,18 +179,18 @@ swal .swal-button {
   text-transform: none;
 }
 
-swal .swal-button:hover {
+.custom-swal .swal-button:hover {
   background-color: $blue;
   border-color: $blue;
 }
 
-swal .swal-button--cancel {
+.custom-swal .swal-button--cancel {
   background-color: $red !important; /* Replace with your desired cancel button color */
   border-color: $red !important;
   color: $white;
 }
 
-swal .swal-button--cancel:hover {
+.custom-swal .swal-button--cancel:hover {
   background-color: $purple !important; /* Replace with your desired cancel button hover color */
   border-color: $purple !important;
 }
