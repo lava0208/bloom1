@@ -86,7 +86,7 @@ const Plan = () => {
                                 });
                             }}
                         />
-                        <small>Size(acres)</small>
+                        <small>Estimated Size (square meters)</small>
                         <input
                             type="number"
                             className={styles.input}
