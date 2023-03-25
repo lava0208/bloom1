@@ -73,7 +73,8 @@ const Plants = (props) => {
     const clonePlant = async (plant) => {
         swal({
             title: "Wait!",
-            text: "Are you sure you want to copy this plan?",
+            text: "Are you sure you want to copy this plant?",
+            className: "custom-swal",
             icon: "warning",
             buttons: [
                 'Cancel',
@@ -91,7 +92,8 @@ const Plants = (props) => {
     const deletePlant = async (id) => {
         swal({
             title: "Wait!",
-            text: "Are you sure you want to delete this plan?",
+            text: "Are you sure you want to delete this plant?",
+            className: "custom-swal",
             icon: "warning",
             buttons: [
                 'Cancel!',
