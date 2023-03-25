@@ -166,59 +166,38 @@ export default async function handler(req, res) {
     switch (req.method) {
         //... create plantings
 case "POST":
+    // Check Pro user or not
+    let _user = await userService.getById(req.body.userid);
 
     let successionCount = req.body.succession > 0 ? parseInt(req.body.succession) + 1 : 1;
     let spacingDays = req.body.spacing ? parseInt(req.body.spacing) : 0;
     let insertResults = [];
     let shiftDays;
 
-    for (let i = 0; i < successionCount; i++) {
-        shiftDays = i * spacingDays;
+    if (_user.data.share_custom_varieties || !_user.data.share_custom_varieties && await db.collection("plantings").find({ userid: req.body.userid }).count() < 2) {
+        for (let i = 0; i < successionCount; i++) {
+            shiftDays = i * spacingDays;
 
-        // Generate a new ObjectId for the planting
-        const plantingId = new ObjectId();
+            // Generate a new ObjectId for the planting
+            const plantingId = new ObjectId();
 
-        // Set the "_id" field to the new ObjectId
-        req.body._id = plantingId;
+            // Set the "_id" field to the new ObjectId
+            req.body._id = plantingId;
 
-        // Insert the planting
-        await db.collection("plantings").insertOne(req.body);
+            // Insert the planting
+            await db.collection("plantings").insertOne(req.body);
 
-        // Insert automatic tasks
-        let _plant = await getPlantById(req.body.plant_id);
-        let _plan = await getPlanById(req.body.plan_id);
+            // Insert automatic tasks
+            let _plant = await getPlantById(req.body.plant_id);
+            let _plan = await getPlanById(req.body.plan_id);
 
-        await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
-        insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
+            await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
+            insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
+        }
+    } else {
+        return res.json({ status: false, message: "You've reached your limit! Upgrade to PRO for unlimited plantings." });
     }
-
-    let _user = await userService.getById(req.body.userid);
-            let isProUser = _user.data.share_custom_varieties;
-
-            if (isProUser || (!isProUser && (await db.collection("plantings").find({ userid: req.body.userid }).count()) < 2)) {
-                for (let i = 0; i < successionCount; i++) {
-                    shiftDays = i * spacingDays;
-
-                    // Generate a new ObjectId for the planting
-                    const plantingId = new ObjectId();
-
-                    // Set the "_id" field to the new ObjectId
-                    req.body._id = plantingId;
-
-                    // Insert the planting
-                    await db.collection("plantings").insertOne(req.body);
-
-                    // Insert automatic tasks
-                    let _plant = await getPlantById(req.body.plant_id);
-                    let _plan = await getPlanById(req.body.plan_id);
-
-                    await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
-                    insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
-                }
-            } else {
-                return res.json({ status: false, message: "You've reached your limit! Upgrade to PRO for unlimited plantings." });
-            }
-    
+    break;
 
 
         //... get all plantings or planing by id
