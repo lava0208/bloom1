@@ -93,8 +93,7 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
                         <p>{news}</p>
                     </div>
 <div className={styles.buttonContainer}>
-    <button className={styles.button}>View Plan</button>
-<img src="/assets/plan.png" alt="View Plan Icon" className={styles.icon} />
+    <button className={styles.button}><img src="/assets/plan.png" alt="View Plan Icon" className={styles.icon} /> View Plan</button>
     <button className={styles.button}>
     <img src="/assets/modify.png" alt="Add / Remove Plantings Icon" className={styles.icon} /> Modify Plan</button>
     <button className={styles.button}><img src="/assets/setting.png" alt="Variety Settings Icon" className={styles.icon} /> Variety Settings</button>
