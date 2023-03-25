@@ -66,17 +66,32 @@ const Dashboard = () => {
                 <h2 className={styles.subHeader}>Dashboard</h2>
                 <div className={styles.dashboardRow}>
                     <div className={styles.greetingContainer}>
-                        <h3>Welcome back {name}!</h3>
-                        <h4>{moment().format("MMMM Do, YYYY")}</h4>
+                        <h3>Hey {name}!</h3>
+                        <h4>Today is {moment().format("MMMM Do, YYYY")}</h4>
                     </div>
-                    <div className={styles.greetingContainer}>
+                    <div className={styles.newsContainer}>
                         <h3>Bloom Manager News</h3>
                         <p>{news}</p>
                     </div>
                 </div>
-
-
-
+                <div className={styles.dashboardRow}>
+                    <div className={styles.statContainer}>
+                        <h2>{todayTasks.length}</h2>
+                        <h3>TASKS TODAY</h3>
+                    </div>
+                    <div className={`${styles.statContainer} ${styles.tomorrow}`}>
+                        <h2>{tomorrowTasks.length}</h2>
+                        <h3>TASKS TOMORROW</h3>
+                    </div>
+                    <div className={`${styles.statContainer} ${styles.overdue}`}>
+                        <h2>{overdueTasks.length}</h2>
+                        <h3>OVERDUE TASKS</h3>
+                    </div>
+                    <div className={`${styles.statContainer} ${styles.wide}`}>
+                        <h2>{seasonTasks && seasonTasks.length > 0 ? seasonTasks[0].sum : 0}</h2>
+                        <h3>PLANTS THIS SEASON</h3>
+                    </div>
+                </div>
                 <div className={styles.dashboardRow + " " + styles.row1}>
                     <div className={styles.blooms}>
                         <h2>BLOOMS</h2>
@@ -96,28 +111,6 @@ const Dashboard = () => {
                         {allTasks.length === 0 && (
                             <h4>No Blooms Expected in This Week.</h4>
                         )}
-                    </div>
-                </div>
-
-
-
-
-                <div className={styles.dashboardRow}>
-                    <div className={styles.statContainer}>
-                        <h2>{todayTasks.length}</h2>
-                        <h3>TASKS TODAY</h3>
-                    </div>
-                    <div className={`${styles.statContainer} ${styles.tomorrow}`}>
-                        <h2>{tomorrowTasks.length}</h2>
-                        <h3>TASKS TOMORROW</h3>
-                    </div>
-                    <div className={`${styles.statContainer} ${styles.overdue}`}>
-                        <h2>{overdueTasks.length}</h2>
-                        <h3>OVERDUE TASKS</h3>
-                    </div>
-                    <div className={`${styles.statContainer} ${styles.wide}`}>
-                        <h2>{seasonTasks && seasonTasks.length > 0 ? seasonTasks[0].sum : 0}</h2>
-                        <h3>PLANTS THIS SEASON</h3>
                     </div>
                 </div>
             </div>
