@@ -284,18 +284,7 @@ const saveUser = () => {
                                     setUser({ ...user, email_newsletter: e.target.checked })
                                 }
                             />
-                            <label htmlFor="emailNewsletter">Email Newsletter</label>
-                        </div>
-                        <div className={styles.flexContainer}>
-                            <input
-                                type="checkbox"
-                                id="shareCustomVarieties"
-                                checked={user.share_custom_varieties}
-                                onChange={(e) =>
-                                    setUser({ ...user, share_custom_varieties: e.target.checked })
-                                }
-                            />
-                            <label htmlFor="shareCustomVarieties">Share Custom Varieties</label>
+                            <label htmlFor="emailNewsletter">Bloom Manager Email Newsletter</label>
                         </div>
                         <button className={styles.button1} onClick={() => saveUser()}>Save Changes</button>
                     </div>
