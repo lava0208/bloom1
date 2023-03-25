@@ -197,7 +197,6 @@ case "POST":
     } else {
         return res.json({ status: false, message: "You've reached your limit! Upgrade to PRO for unlimited plantings." });
     }
-    break;
 
 
         //... get all plantings or planing by id
