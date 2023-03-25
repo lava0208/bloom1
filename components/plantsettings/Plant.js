@@ -74,6 +74,7 @@ const Plant = (props) => {
                             title: "Error!",
                             text: error.message,
                             icon: "error",
+                            className: "custom-swal",
                         });
                     },
                     () => {
@@ -89,6 +90,7 @@ const Plant = (props) => {
                 title: "Error!",
                 text: "File size to large",
                 icon: "error",
+                className: "custom-swal",
             });
         }
     }
@@ -101,6 +103,7 @@ const Plant = (props) => {
                     title: "Success!",
                     text: _result.message,
                     icon: "success",
+                    className: "custom-swal",
                 });
                 props.savePlant()
             }else{
@@ -108,6 +111,7 @@ const Plant = (props) => {
                     title: "Warning!",
                     text: _result.message,
                     icon: "warning",
+                    className: "custom-swal",
                 }).then(function(){
                     props.savePlant();
                 });
@@ -119,6 +123,7 @@ const Plant = (props) => {
                     title: "Success!",
                     text: _result.message,
                     icon: "success",
+                    className: "custom-swal",
                 });
                 props.savePlant()
             }else{
@@ -126,6 +131,7 @@ const Plant = (props) => {
                     title: "Warning!",
                     text: _result.message,
                     icon: "warning",
+                    className: "custom-swal",
                 }).then(function(){
                     props.savePlant();
                 });
@@ -140,6 +146,7 @@ const Plant = (props) => {
                     title: "Warning!",
                     text: "Please fill all fields.",
                     icon: "warning",
+                    className: "custom-swal",
                 });
             }else{
                 plant.userid = userService.getId();
@@ -158,6 +165,7 @@ const Plant = (props) => {
                 title: "Warning!",
                 text: "Please fill all fields.",
                 icon: "warning",
+                className: "custom-swal",
             });
         }
     }
