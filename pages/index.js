@@ -94,8 +94,8 @@ const Dashboard = () => {
                 </div>
                 <div className={styles.dashboardRow + " " + styles.row1}>
                     <div className={styles.blooms}>
-                        <h2>BLOOMS</h2>
-                        <h4>Forecast</h4>
+                        <h2>BLOOMS FORECAST</h2>
+                        <h4>In Bloom This Week</h4>
                         <div className={styles.bloomsContainer}>
                             {allTasks.map((bloom, i) => (
                                 <div className={styles.bloomContainer} key={i}>
