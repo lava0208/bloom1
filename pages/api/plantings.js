@@ -173,7 +173,7 @@ case "POST":
     let shiftDays;
 
     for (let i = 0; i < successionCount; i++) {
-        let shiftDays = i * spacingDays;
+        shiftDays = i * spacingDays;
 
         // Generate a new ObjectId for the planting
         const plantingId = new ObjectId();
