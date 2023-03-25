@@ -24,6 +24,7 @@
     flex-basis: calc(50% - 0.5rem);
     display: flex;
     justify-content: center;
+    position: relative;
     align-items: center;
     height: 100px; // Set a fixed height for all buttons
     box-sizing: border-box;
@@ -40,11 +41,22 @@
     }
 }
 
+
 .icon {
   display: block;
   width: 24px;
   height: 24px;
-  margin: 0 auto 8px;
+  margin: 0 auto;
+}
+
+.buttonText {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.button:hover .buttonText {
+  opacity: 1;
 }
 
 
