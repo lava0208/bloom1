@@ -76,39 +76,44 @@ const Register = () => {
         }
     }
 
-    const registerUser = async () => {
-        const result = await userService.register(user);
-        if (result.status === true) {
-            swal({
-                title: "Registration Success!",
-                text: result.message,
-                icon: "success",
-            });
-            await userService.setId(result.data.insertedId);
-            router.push("/account/plan")
-        } else {
-            swal({
-                title: "Register Error!",
-                text: result.message,
-                icon: "error",
-            });
-        }
+    const registerUser = async (user) => {
+    const result = await userService.register(user);
+    if (result.status === true) {
+        swal({
+            title: "Registration Success!",
+            text: result.message,
+            icon: "success",
+        });
+        await userService.setId(result.data.insertedId);
+        router.push("/account/plan")
+    } else {
+        swal({
+            title: "Register Error!",
+            text: result.message,
+            icon: "error",
+        });
     }
+}
+
 
     const register = async () => {
-        if (user.name !== "" && user.email !== "" && user.password !== "") {
-            if (emailValidation()) {
-                user.profile_path = downloadURL;
-                registerUser()
-            }
-        } else {
-            swal({
-                title: "Registration Error!",
-                text: "Please fill all fields.",
-                icon: "error",
+    if (user.name !== "" && user.email !== "" && user.password !== "") {
+        if (emailValidation()) {
+            setUser(prevState => {
+                const updatedUser = { ...prevState, profile_path: downloadURL };
+                registerUser(updatedUser);
+                return updatedUser;
             });
         }
+    } else {
+        swal({
+            title: "Registration Error!",
+            text: "Please fill all fields.",
+            icon: "error",
+        });
     }
+}
+
 
     return (
         <div className={styles.screen}>
