@@ -35,19 +35,6 @@ const AvailablePlans = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query])
 
-const refreshFilterdArray = async () => {
-    var _filteredArray = origialArray.filter(
-        (el) => el.name.toLowerCase().includes(query)
-    );
-
-    var _filteredPresets = presets.filter(
-        (el) => el.name.toLowerCase().includes(query)
-    );
-
-    setFilteredArray(_filteredArray);
-    setFilteredPresets(_filteredPresets);
-}
-
 
     const [plantId, setPlantId] = useState("");
     const [isShowActionText, setIsShowActionText] = useState(-1);
@@ -63,6 +50,20 @@ const refreshFilterdArray = async () => {
     const savePlanting = () => {
         setModalOpen(false);
     }
+    
+    const refreshFilterdArray = async () => {
+    var _filteredArray = origialArray.filter(
+        (el) => el.name.toLowerCase().includes(query)
+    );
+
+    var _filteredPresets = presets.filter(
+        (el) => el.name.toLowerCase().includes(query)
+    );
+
+    setFilteredArray(_filteredArray);
+    setFilteredPresets(_filteredPresets);
+}
+
 
     return (
         <>
