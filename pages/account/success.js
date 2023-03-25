@@ -41,7 +41,7 @@ const Success = () => {
       } else {
         router.push("/account/login");
       }
-    };
+    };    
     
     
 
