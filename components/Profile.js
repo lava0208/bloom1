@@ -147,25 +147,18 @@ const Profile = () => {
     }
 
     const saveUser = () => {
-        bcrypt.compare(user.password, originPassword, async function (err, isMatch) {
-            if (err, user.password === "") {
-                swal({
-                    title: "Error!",
-                    text: "Fill all fields",
-                    icon: "error",
-                });
-            } else if (!isMatch) {
-                swal({
-                    title: "Error!",
-                    text: "Use correct password",
-                    icon: "error",
-                });
-            } else {
-                user.profile_path = downloadURL;
-                updateUser()
-            }
+    if (user.name === "" || user.email === "" || user.password === "") {
+        swal({
+            title: "Error!",
+            text: "Fill all fields",
+            icon: "error",
         });
+    } else {
+        user.profile_path = downloadURL;
+        updateUser();
     }
+};
+
 
     const deleteUser = async () => {
         swal({
