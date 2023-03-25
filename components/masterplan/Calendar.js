@@ -39,7 +39,7 @@ const CalendarTab = () => {
                     id: element._id,
                     start: moment(element.scheduled_at).toDate(),
                     end: moment(element.scheduled_at).add(element.duration, "days").toDate(),
-                    title: element.title === "Seed Indoors" ? "Seed " + _plant.data.name + " Indoors" : element.title === "Direct Seed/Sow" ? "Direct " + _plant.data.name + " Seed/Sow" : _plant.data.name ? element.title + " " +  _plant.data.name : element.title,
+                    title: element.title === "Seed Indoors" ? "Seed " + _plant.data.name + " Indoors" : element.title === "Direct Seed/Sow" ? "Direct Seed " + _plant.data.name : _plant.data.name ? element.title + " " +  _plant.data.name : element.title,
                     label: element.title,
                     type: element.type,
                     note: element.note,
