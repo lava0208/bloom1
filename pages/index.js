@@ -57,6 +57,23 @@ const Dashboard = () => {
         var _news = await newsService.getAll();
         setNews(_news.data.text)
     }
+    
+    const greetings = [
+  "Heya",
+  "Welcome back",
+  "Hello",
+  "Hey",
+  "Greetings",
+  "Hi there",
+  "Nice to see you",
+  "Howdy",
+  "What's up",
+  "Welcome",
+  "Long time no see",
+];
+
+const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+
 
     return (
         <div className={styles.screen}>
@@ -66,7 +83,7 @@ const Dashboard = () => {
                 <h2 className={styles.subHeader}>Statistics</h2>
                 <div className={styles.dashboardRow}>
                     <div className={styles.greetingContainer}>
-                        <h3>Hey {name}!</h3>
+                        <h3>{randomGreeting}, {name}!</h3>
                         <h4>Today is {moment().format("MMMM Do, YYYY")}</h4>
                     </div>
 <div className={styles.buttonContainer}>
@@ -74,7 +91,7 @@ const Dashboard = () => {
     <button className={styles.button}>Add / Remove Plantings</button>
     <button className={styles.button}>Variety Settings</button>
     <button className={styles.button}>Profile</button>
-</div>
+                    </div>
 
                     <div className={styles.newsContainer}>
                         <h3>Bloom Manager News</h3>
