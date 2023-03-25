@@ -26,6 +26,10 @@
             display: block;
             margin: 1.5rem auto;
             filter: invert(0);
+
+            &:hover, &:active {
+                filter: invert(0.5);
+            }
         }
     }
     h6{
