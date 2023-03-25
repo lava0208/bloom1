@@ -42,7 +42,7 @@ const paymentcheckout = async () => {
         mode: "subscription",
         lineItems: [
             {
-                price: "price_XXXXX", // Replace with the new recurring price ID
+                price: "price_1MpfFWEVmyPNhExzY72Yv0mD", // Replace with the new recurring price ID
                 quantity: 1,
             },
         ],
