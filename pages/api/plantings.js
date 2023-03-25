@@ -116,6 +116,7 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
             taskArr.push(taskObj);
 
         }
+    }
     //... Enable Start Indoors
     }
     if(planting.direct_indoors){
@@ -162,6 +163,7 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
     }
     
     return taskArr;
+}
 }
 
 export default async function handler(req, res) {
