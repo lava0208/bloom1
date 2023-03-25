@@ -39,7 +39,7 @@ const Success = () => {
     return (
         <div className={styles.screen}>
             <img className={styles.logo} src={"/assets/logo.png"} alt="logo" />
-            <h2>You&apos;re good to go, {user.name}!</h2>
+            <h2>You&apos;re good to go, <span className="username-placeholder">{user.name}</span>!</h2>
             <h3>Let&apos;s make this season the best ever.</h3>
 
             <div
