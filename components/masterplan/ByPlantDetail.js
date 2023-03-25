@@ -64,6 +64,7 @@ const ByPlantDetail = (props) => {
                 title: "Oops!",
                 text: "Please fill all fields",
                 icon: "warning",
+                className: "custom-swal",
             });
         } else {
             setCustomTask(
@@ -88,6 +89,7 @@ const ByPlantDetail = (props) => {
             title: "Wait!",
             text: "Are you sure you want to update?",
             icon: "info",
+            className: "custom-swal",
             buttons: [
                 'Cancel',
                 'Yes, I am sure!'
@@ -100,6 +102,7 @@ const ByPlantDetail = (props) => {
                     title: "Success!",
                     text: _result.message,
                     icon: "success",
+                    className: "custom-swal",
                 }).then(function(){
                     props.close();
                 });
@@ -112,6 +115,7 @@ const ByPlantDetail = (props) => {
             title: "Wait!",
             text: "Are you sure you want to delete this task?",
             icon: "warning",
+            className: "custom-swal",
             buttons: [
                 'Cancel',
                 'Yes, I am sure!'
@@ -124,6 +128,7 @@ const ByPlantDetail = (props) => {
                     title: "Success!",
                     text: _result.message,
                     icon: "success",
+                    className: "custom-swal",
                 }).then(function(){
                     props.close();
                 });
