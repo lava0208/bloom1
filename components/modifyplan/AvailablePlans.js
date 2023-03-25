@@ -35,10 +35,11 @@ const AvailablePlans = (props) => {
     }
 
 
-    useEffect(() => {
-        refreshFilterdArray();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query])
+useEffect(() => {
+    refreshFilteredArray();
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [query])
+
     
     const refreshFilteredArray = async () => {
     var _filteredArray = origialArray.filter(
