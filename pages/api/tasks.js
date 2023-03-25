@@ -11,7 +11,7 @@ export default async function handler(req, res) {
         //... create a task
         case "POST":
             await db.collection("tasks").insertMany(req.body);
-            return res.json({ status: true, message: 'A task is created successfully.' });
+            return res.json({ status: true, message: 'Task created successfully.' });
 
         //... get all tasks or task by id
         case "GET":
@@ -90,7 +90,7 @@ export default async function handler(req, res) {
                 await db.collection("tasks").deleteMany({planting_id: req.query.plantingid});
                 await db.collection("tasks").insertMany(req.body);
             }
-            return res.json({ status: true, message: 'task is updated successfully.' });
+            return res.json({ status: true, message: 'Task updated successfully!' });
 
         //... delete a task
         case "DELETE":
@@ -99,6 +99,6 @@ export default async function handler(req, res) {
             }else{
                 await db.collection("tasks").deleteMany({planting_id: req.query.plantingid});
             }
-            return res.json({ status: true, message: 'The task is deleted successfully.' });
+            return res.json({ status: true, message: 'Task deleted successfully.' });
     }
 }
