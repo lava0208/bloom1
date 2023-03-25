@@ -26,30 +26,31 @@ const Payment = () => {
         }
     }
 
-    const paymentcheckout =  async () => {
-        let stripePromise = null
+const paymentcheckout = async () => {
+    let stripePromise = null;
 
-        const getStripe = () => {
-            if(!stripePromise) {
-                stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY)
-            }
-            return stripePromise
+    const getStripe = () => {
+        if (!stripePromise) {
+            stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY);
         }
+        return stripePromise;
+    };
 
-        const stripe = await getStripe()
+    const stripe = await getStripe();
 
-        await stripe.redirectToCheckout({
-            mode: 'payment',
-            lineItems: [
-                {
-                    price: "price_1Mn7y1EVmyPNhExzI7SnVpph",
-                    quantity: 1
-                }
-            ],
-            successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancelUrl: window.location.origin
-        })
-    }
+    await stripe.redirectToCheckout({
+        mode: "subscription",
+        lineItems: [
+            {
+                price: "price_XXXXX", // Replace with the new recurring price ID
+                quantity: 1,
+            },
+        ],
+        successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancelUrl: window.location.origin,
+    });
+};
+
 
     return (
         <div className={styles.screen}>
