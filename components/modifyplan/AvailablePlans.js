@@ -51,7 +51,7 @@ const AvailablePlans = (props) => {
         setModalOpen(false);
     }
     
-    if (response.presets !== undefined) {
+    if (response.data.presets !== undefined) {
     setOriginalPresets(response.presets);
 } else {
     setOriginalPresets([]);
