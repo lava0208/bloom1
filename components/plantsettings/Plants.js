@@ -76,7 +76,7 @@ const Plants = (props) => {
             text: "Are you sure you want to copy this plan?",
             icon: "warning",
             buttons: [
-                'No, cancel it!',
+                'Cancel',
                 'Yes, I am sure!'
             ],
             dangerMode: true,
@@ -94,7 +94,7 @@ const Plants = (props) => {
             text: "Are you sure you want to delete this plan?",
             icon: "warning",
             buttons: [
-                'No, cancel it!',
+                'Cancel!',
                 'Yes, I am sure!'
             ],
             dangerMode: true,
