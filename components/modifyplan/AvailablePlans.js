@@ -40,22 +40,24 @@ const AvailablePlans = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query])
     
-    const refreshFilterdArray = async () => {
-        var _filteredArray = origialArray.filter(
+    const refreshFilteredArray = async () => {
+    var _filteredArray = origialArray.filter(
+        (el) => el.name.toLowerCase().includes(query)
+    );
+
+    if (query === '') {
+        setFilteredPresets(originalPresets);
+    } else {
+        // Change this line to filter originalPresets instead of filteredPresets
+        var _filteredPresets = originalPresets.filter(
             (el) => el.name.toLowerCase().includes(query)
         );
-
-        if (query === '') {
-            setFilteredPresets(originalPresets);
-        } else {
-            var _filteredPresets = filteredPresets.filter(
-                (el) => el.name.toLowerCase().includes(query)
-            );
-            setFilteredPresets(_filteredPresets);
-        }
-
-        setFilteredArray(_filteredArray);
+        setFilteredPresets(_filteredPresets);
     }
+
+    setFilteredArray(_filteredArray);
+}
+
 
 
     const [plantId, setPlantId] = useState("");
