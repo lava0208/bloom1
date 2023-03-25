@@ -189,6 +189,10 @@ case "POST":
     let spacingDays = req.body.spacing ? parseInt(req.body.spacing) : 0;
     let insertResults = [];
     let shiftDays;
+            
+    if (successionCount > 15) {
+    successionCount = 15;
+    }
 
     if (_user.data.share_custom_varieties || !_user.data.share_custom_varieties && await db.collection("plantings").find({ userid: req.body.userid }).count() < 25) {
         for (let i = 0; i < successionCount; i++) {
