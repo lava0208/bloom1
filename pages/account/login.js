@@ -83,7 +83,6 @@ const Login = () => {
                         });
                     }}
                 />
-                <h4><a onClick={() => router.push('/account/register')}>Create account</a> instead</h4>
             </div>
 
             <div
@@ -92,6 +91,7 @@ const Login = () => {
             >
                 <h5>Log In</h5>
             </div>
+<h4><a onClick={() => router.push('/account/register')}>Create account instead</a></h4>
         </div>
     );
 };
