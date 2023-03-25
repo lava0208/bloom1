@@ -30,11 +30,11 @@ const YourPlan = (props) => {
     const deletePlanting = async (id) => {
         swal({
             title: "Wait!",
-            text: "Are you sure you want to delete this plan?",
+            text: "Are you sure you want to delete this planting?",
             icon: "warning",
             className: "custom-swal",
             buttons: [
-                'No, cancel it!',
+                'Cancel',
                 'Yes, I am sure!'
             ],
             dangerMode: true,
