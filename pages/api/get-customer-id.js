@@ -1,7 +1,7 @@
 import { getSession } from '@stripe/stripe-js';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const stripe = require('stripe')(process.env.NEXT_SECRET_KEY);
+const stripe = require('stripe')(process.env.NEXT_SECRET_API_KEY);
 
 export default async function handler(req = NextApiRequest, res = NextApiResponse) {
   const { sessionId } = req.query;
