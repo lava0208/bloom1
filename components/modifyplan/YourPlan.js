@@ -32,6 +32,7 @@ const YourPlan = (props) => {
             title: "Wait!",
             text: "Are you sure you want to delete this plan?",
             icon: "warning",
+            className: "custom-swal",
             buttons: [
                 'No, cancel it!',
                 'Yes, I am sure!'
