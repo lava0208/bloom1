@@ -197,19 +197,17 @@ const saveUser = () => {
     }
 
     const cancelPro = async () => {
-        swal({
-            title: "Wait!",
-            text: "Are you sure you want to downgrade to CORE?",
-            icon: "warning",
-            className: "custom-swal",
-            buttons: [
-                'Cancel',
-                'Yes, I am sure!'
-            ],
-            dangerMode: true,
-        }).then(async function (isConfirm) {
-            if (isConfirm) {
-                    }).then(async function (isConfirm) {
+    swal({
+        title: "Wait!",
+        text: "Are you sure you want to downgrade to CORE?",
+        icon: "warning",
+        className: "custom-swal",
+        buttons: [
+            'Cancel',
+            'Yes, I am sure!'
+        ],
+        dangerMode: true,
+    }).then(async function (isConfirm) {
         if (isConfirm) {
             // Call the new API route to cancel the subscription
             const response = await fetch("/api/cancel-subscription", {
@@ -238,7 +236,8 @@ const saveUser = () => {
                         text: _result.message,
                         icon: "error",
                         className: "custom-swal",
-                                   });
+                    });
+                }
             }
         }
     });
