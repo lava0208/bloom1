@@ -166,6 +166,15 @@ export default async function handler(req, res) {
     switch (req.method) {
         //... create plantings
 case "POST":
+            
+    if (req.body.direct_sow && req.body.direct_indoors) {
+        return res.json({
+            status: false,
+            message: "You cannot choose both seed indoors and direct seed for a single planting. Please try again, and ensure you only select one option.",
+        });
+    }
+
+            
     // Check Pro user or not
     let _user = await userService.getById(req.body.userid);
 
