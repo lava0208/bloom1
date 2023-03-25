@@ -105,7 +105,7 @@ const Sidebar = (props) => {
             </div>
             <div className={styles.mobile}>
                 <img src={"/assets/logo.png"} alt="logo" />
-                <h6 onClick={() => router.push("/masterplan")}> Plan </h6>
+                <img src="/assets/plan.png" className={styles.bottomIcon} alt="user" onClick={() => router.push("/masterplan")} />
             </div>
             <div className={styles.bottom}>
                 {
