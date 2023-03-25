@@ -76,7 +76,7 @@ const CalendarDetail = (props) => {
                         <h3>
                             {
                                 (task.title) === "Seed Indoors" ? "Seed " + plant.name + " Indoors" : 
-                                (task.title) === "Direct Seed/Sow" ? "Direct " + plant.name + " Seed/Sow" :
+                                (task.title) === "Direct Seed/Sow" ? "Direct Seed " + plant.name :
                                 plant && plant.name ? task.title + " " + plant.name : task.title
                             }
                         </h3>
