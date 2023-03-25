@@ -174,7 +174,7 @@ case "POST":
         });
     }
 
-    if (!req.body.harvest || !req.body.quantity) {
+    if (!req.body.harvest || !req.body.seeds) {
         return res.json({
             status: false,
             message: "Please provide harvest type (early, regular, or late) and quantity for the planting.",
@@ -244,7 +244,7 @@ case "PUT":
         });
     }
 
-    if (!req.body.harvest || !req.body.quantity) {
+    if (!req.body.harvest || !req.body.seeds) {
         return res.json({
             status: false,
             message: "Please provide harvest type (early, regular, or late) and quantity for the planting.",
