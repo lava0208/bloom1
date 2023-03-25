@@ -10,19 +10,19 @@
     align-items: center;
     flex: 1;
 }
-
 .button {
     background: $blue;
     border: none;
     border-radius: 5px;
     color: $white;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.5rem; // Adjust the font size to match h2
     font-weight: 600;
-    padding: 0.8rem 1.5rem;
+    padding: 1rem 1.5rem; // Add more padding to accommodate larger text
     text-align: center;
     text-transform: capitalize;
-    width: calc(50% - 0.5rem);
+    min-width: 200px; // Set a minimum width to keep buttons the same size
+    box-sizing: border-box; // Make sure padding is included in the width calculation
 
     &:hover {
         opacity: 0.8;
@@ -31,10 +31,12 @@
 
 @media screen and (max-width: 576px) {
     .button {
-        font-size: 0.9rem;
-        padding: 0.6rem 1.2rem;
+        font-size: 1.2rem;
+        padding: 0.8rem 1.2rem;
+        min-width: 160px; // Adjust the minimum width for smaller screens
     }
 }
+
 
 .screen {
     display: flex;
