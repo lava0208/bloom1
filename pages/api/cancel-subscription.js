@@ -2,7 +2,7 @@
 import Stripe from "stripe";
 
 // Initialize the Stripe object with your secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.NEXT_PUBLIC_API_KEY);
 
 // Export the default async function to handle the request and response
 export default async function handler(req, res) {
