@@ -38,6 +38,8 @@ const paymentcheckout = async () => {
 
     const stripe = await getStripe();
 
+    const currentUser = await userService.getCurrentUser(); // Get the current user
+
     await stripe.redirectToCheckout({
         mode: "subscription",
         lineItems: [
@@ -46,10 +48,12 @@ const paymentcheckout = async () => {
                 quantity: 1,
             },
         ],
-        successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
+        customerEmail: currentUser.email, // Pass the current user's email
+        successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}&customer_id={CUSTOMER_ID}`, // Include the customer ID in the success URL
         cancelUrl: window.location.origin,
     });
 };
+
 
 
     return (
