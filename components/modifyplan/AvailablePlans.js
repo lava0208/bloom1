@@ -14,22 +14,25 @@ const AvailablePlans = (props) => {
     const [query, setQuery] = useState('');
     const [filteredArray, setFilteredArray] = useState([]);
     const [filteredPresets, setFilteredPresets] = useState([]);
+    const [originalPresets, setOriginalPresets] = useState([]);
 
     useEffect(() => {
         getOriginalArray();
     }, [])
 
     const getOriginalArray = async () => {
-    const response = await plantService.getAll();
-    setOrigialArray(response.data)
-    setFilteredArray(response.data)
-    if(response.presets !== undefined){
-        setFilteredPresets(response.presets)
-    }else{
-        setFilteredPresets([])
+        const response = await plantService.getAll();
+        setOrigialArray(response.data)
+        setFilteredArray(response.data)
+        if(response.presets !== undefined){
+            setFilteredPresets(response.presets)
+            // Set the original presets here
+            setOriginalPresets(response.presets)
+        }else{
+            setFilteredPresets([])
+            setOriginalPresets([])
+        }
     }
-    setFilteredPresets(response.presets || []);
-}
 
 
     useEffect(() => {
@@ -54,21 +57,21 @@ const AvailablePlans = (props) => {
     }
     
     const refreshFilterdArray = async () => {
-    var _filteredArray = origialArray.filter(
-        (el) => el.name.toLowerCase().includes(query)
-    );
-
-    if (query === '') {
-        setFilteredPresets(response.presets || []);
-    } else {
-        var _filteredPresets = filteredPresets.filter(
+        var _filteredArray = origialArray.filter(
             (el) => el.name.toLowerCase().includes(query)
         );
-        setFilteredPresets(_filteredPresets);
-    }
 
-    setFilteredArray(_filteredArray);
-}
+        if (query === '') {
+            setFilteredPresets(originalPresets);
+        } else {
+            var _filteredPresets = filteredPresets.filter(
+                (el) => el.name.toLowerCase().includes(query)
+            );
+            setFilteredPresets(_filteredPresets);
+        }
+
+        setFilteredArray(_filteredArray);
+    }
 
 
 
