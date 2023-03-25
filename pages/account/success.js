@@ -23,27 +23,31 @@ const Success = () => {
     }, [router.query]);
 
     const getUser = async () => {
-        if (userService.getId() !== null) {
-            const _result = await userService.getById(userService.getId());
-            const _user = _result.data;
-            setUser(_user);
+  if (userService.getId() !== null) {
+    const _result = await userService.getById(userService.getId());
+    const _user = _result.data;
+    setUser(_user);
 
-            const { session_id, customer_id } = router.query;
-            if (session_id !== null && session_id !== undefined) {
-                setUser((prevState) => {
-                    const updatedUser = { ...prevState, share_custom_varieties: true };
-                    userService.update(userService.getId(), updatedUser);
-                    return updatedUser;
-                });
-            }
+    const { session_id } = router.query;
+    if (session_id) {
+      const response = await fetch("/api/get-customer-id", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sessionId: session_id }),
+      });
 
-            if (customer_id) {
-                updateUserWithCustomerId(customer_id);
-            }
-        } else {
-            router.push("/account/login");
-        }
-    };
+      if (response.ok) {
+        const data = await response.json();
+        updateUserWithCustomerId(data.customerId);
+      }
+    }
+  } else {
+    router.push("/account/login");
+  }
+};
+
 
     const updateUserWithCustomerId = async (customerId) => {
         // Update the user object with the customer ID
