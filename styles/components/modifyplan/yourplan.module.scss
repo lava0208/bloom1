@@ -9,6 +9,7 @@
     flex-direction: column;
     align-items: center;
     position: sticky;
+    overflow: hidden; /* Hide any overflowing content */
     top: 0;
 
     h2 {
