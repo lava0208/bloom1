@@ -12,7 +12,6 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { storage } from "firebaseConfig";
 
 import styles from "~styles/pages/profile.module.scss";
-import styles from "~styles/globals.scss";
 
 const Profile = () => {
     const [imageFile, setImageFile] = useState()
