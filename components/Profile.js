@@ -38,6 +38,7 @@ const Profile = () => {
                             title: "Error!",
                             text: error.message,
                             icon: "error",
+                            className: "custom-swal",
                         });
                     },
                     () => {
@@ -53,6 +54,7 @@ const Profile = () => {
                 title: "Error!",
                 text: "File size to large",
                 icon: "error",
+                className: "custom-swal",
             });
         }
     }
@@ -95,6 +97,7 @@ const Profile = () => {
                             title: "Error!",
                             text: result.message,
                             icon: "error",
+                            className: "custom-swal",
                         });
                     }
                 }
@@ -109,6 +112,7 @@ const Profile = () => {
                 title: "Success!",
                 text: result.message,
                 icon: "success",
+                className: "custom-swal",
             }).then(function(){
                 router.replace(router.asPath);
             });
@@ -117,6 +121,7 @@ const Profile = () => {
                 title: "Error!",
                 text: result.message,
                 icon: "error",
+                className: "custom-swal",
             });
         }
     }
@@ -152,6 +157,7 @@ const saveUser = () => {
             title: "Error!",
             text: "Fill all required fields",
             icon: "error",
+            className: "custom-swal",
         });
     } else {
         if (downloadURL !== "") {
@@ -174,6 +180,7 @@ const saveUser = () => {
             title: "Wait!",
             text: "Are you sure you want to close this account?",
             icon: "warning",
+            className: "custom-swal",
             buttons: [
                 'No, cancel it!',
                 'Yes, I am sure!'
@@ -194,6 +201,7 @@ const saveUser = () => {
             title: "Wait!",
             text: "Are you sure you want to disconnect your payment?",
             icon: "warning",
+            className: "custom-swal",
             buttons: [
                 'No, cancel it!',
                 'Yes, I am sure!'
@@ -208,6 +216,7 @@ const saveUser = () => {
                         title: "Success!",
                         text: "Disconnected your payment successfully.",
                         icon: "success",
+                        className: "custom-swal",
                     }).then(function(){
                         location.reload();
                     });
@@ -216,6 +225,7 @@ const saveUser = () => {
                         title: "Error!",
                         text: _result.message,
                         icon: "error",
+                        className: "custom-swal",
                     });
                 }
             }
