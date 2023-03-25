@@ -35,13 +35,19 @@ const AvailablePlans = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query])
 
-    const refreshFilterdArray = async () => {
-        var _filteredArray =  origialArray.filter(
-            (el) => el.name.toLowerCase().includes(query)
-        )
+const refreshFilterdArray = async () => {
+    var _filteredArray = origialArray.filter(
+        (el) => el.name.toLowerCase().includes(query)
+    );
 
-        setFilteredArray(_filteredArray)
-    }
+    var _filteredPresets = presets.filter(
+        (el) => el.name.toLowerCase().includes(query)
+    );
+
+    setFilteredArray(_filteredArray);
+    setFilteredPresets(_filteredPresets);
+}
+
 
     const [plantId, setPlantId] = useState("");
     const [isShowActionText, setIsShowActionText] = useState(-1);
