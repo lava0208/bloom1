@@ -28,6 +28,7 @@ const NewPlan = (props) => {
         swal({
             title: "Wait!",
             text: "Are you sure you want to create a new plan?",
+            className: "custom-swal",
             icon: "info",
             buttons: [
                 'No, cancel it!',
