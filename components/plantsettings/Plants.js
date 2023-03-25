@@ -14,6 +14,8 @@ const Plants = (props) => {
     const [query, setQuery] = useState('');
     const [filteredArray, setFilteredArray] = useState([]);
     const [filteredPresets, setFilteredPresets] = useState([]);
+    // Add this new state variable for original presets
+    const [originalPresets, setOriginalPresets] = useState([]);
 
     useEffect(() => {
         getOriginalArray();
@@ -25,8 +27,11 @@ const Plants = (props) => {
         setFilteredArray(response.data)
         if(response.presets !== undefined){
             setFilteredPresets(response.presets)
+            // Set the original presets here
+            setOriginalPresets(response.presets)
         }else{
             setFilteredPresets([])
+            setOriginalPresets([])
         }
     }
 
@@ -39,6 +44,15 @@ const Plants = (props) => {
         var _filteredArray =  origialArray.filter(
             (el) => el.name.toLowerCase().includes(query)
         )      
+
+        if (query === '') {
+            setFilteredPresets(originalPresets);
+        } else {
+            var _filteredPresets = originalPresets.filter(
+                (el) => el.name.toLowerCase().includes(query)
+            );
+            setFilteredPresets(_filteredPresets);
+        }
 
         setFilteredArray(_filteredArray)
     }
