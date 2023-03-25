@@ -87,7 +87,7 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
             <Sidebar plan={plan} isPro={isPro} />
             <div className={styles.container}>
                 <h1 className={styles.header}>{plan}</h1>
-                <h2 className={styles.subHeader}>Statistics</h2>
+                <h2 className={styles.subHeader}>Dashboard</h2>
                 <div className={styles.dashboardRow}>
                     <div className={styles.greetingContainer}>
                         <h3>{greeting} {name}!</h3>
