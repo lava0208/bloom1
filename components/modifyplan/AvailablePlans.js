@@ -19,16 +19,19 @@ const AvailablePlans = (props) => {
         getOriginalArray();
     }, [])
 
-    const getOriginalArray = async () => {
-        const response = await plantService.getAll();
-        setOrigialArray(response.data)
-        setFilteredArray(response.data)
-        if(response.presets !== undefined){
-            setFilteredPresets(response.presets)
-        }else{
-            setFilteredPresets([])
-        }
+const getOriginalArray = async () => {
+    const response = await plantService.getAll();
+    setOrigialArray(response.data)
+    setFilteredArray(response.data)
+    if (response.presets !== undefined) {
+        setOriginalPresets(response.presets);
+        setFilteredPresets(response.presets);
+    } else {
+        setOriginalPresets([]);
+        setFilteredPresets([]);
     }
+}
+
 
     useEffect(() => {
         refreshFilterdArray();
