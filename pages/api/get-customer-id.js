@@ -1,19 +1,26 @@
-// /pages/api/get-customer-id.js
+import { getSession } from '@stripe/stripe-js';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-import Stripe from "stripe";
+const stripe = require('stripe')(process.env.NEXT_SECRET_KEY);
 
-export default async function handler(req, res) {
-  if (req.method === "POST") {
-    const { sessionId } = req.body;
+export default async function handler(req = NextApiRequest, res = NextApiResponse) {
+  const { sessionId } = req.query;
 
-    try {
-      const session = await stripe.checkout.sessions.retrieve(sessionId);
-      res.status(200).json({ customerId: session.customer });
-    } catch (error) {
-      res.status(400).json({ message: "Error retrieving customer ID", error });
+  if (!sessionId) {
+    res.status(400).json({ error: 'Session ID is required' });
+    return;
+  }
+
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+    if (!session.customer) {
+      res.status(500).json({ error: 'Customer ID not found in the session' });
+      return;
     }
-  } else {
-    res.setHeader("Allow", "POST");
-    res.status(405).end("Method Not Allowed");
+
+    res.status(200).json({ customerId: session.customer });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 }

@@ -30,16 +30,19 @@ const Success = () => {
     
         const { session_id } = router.query;
         if (session_id) {
-          const customerId = localStorage.getItem("stripeCustomerId");
+          // Fetch the customer ID using the session ID
+          const response = await fetch(`/api/get-customer-id?sessionId=${session_id}`);
+          const { customerId } = await response.json();
+    
           if (customerId) {
             updateUserWithCustomerId(customerId);
-            localStorage.removeItem("stripeCustomerId"); // Remove the stored customer ID after updating the user
           }
         }
       } else {
         router.push("/account/login");
       }
     };
+    
     
 
 
