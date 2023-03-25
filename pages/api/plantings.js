@@ -252,8 +252,6 @@ export default async function handler(req, res) {
         }
     }
     
-}
-    
 
 
         //... get all plantings or planing by id
