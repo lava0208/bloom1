@@ -174,7 +174,7 @@ case "POST":
     let insertResults = [];
     let shiftDays;
 
-    if (_user.data.share_custom_varieties || !_user.data.share_custom_varieties && await db.collection("plantings").find({ userid: req.body.userid }).count() < 2) {
+    if (_user.data.share_custom_varieties || !_user.data.share_custom_varieties && await db.collection("plantings").find({ userid: req.body.userid }).count() < 25) {
         for (let i = 0; i < successionCount; i++) {
             shiftDays = i * spacingDays;
 
