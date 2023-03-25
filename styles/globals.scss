@@ -183,3 +183,14 @@ input[type=number] {
   background-color: $blue;
   border-color: $blue;
 }
+
+.custom-swal .swal-button--cancel {
+  background-color: $red !important; /* Replace with your desired cancel button color */
+  border-color: $red !important;
+  text-color: $white;
+}
+
+.custom-swal .swal-button--cancel:hover {
+  background-color: $dark-red !important; /* Replace with your desired cancel button hover color */
+  border-color: $dark-red !important;
+}
