@@ -39,6 +39,7 @@ const UserSettings = (props) => {
             title: "Wait!",
             text: "Are you sure you want to update your plan?",
             icon: "info",
+            className: "custom-swal",
             buttons: [
                 'No, cancel it!',
                 'Yes, I am sure!'
@@ -50,6 +51,7 @@ const UserSettings = (props) => {
                 swal({
                     title: "Success!",
                     text: _result.message,
+                    className: "custom-swal",
                     icon: "success",
                 }).then(function(){
                     props.closePlanSettingsModal();
