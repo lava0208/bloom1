@@ -58,13 +58,18 @@ const AvailablePlans = (props) => {
         (el) => el.name.toLowerCase().includes(query)
     );
 
-    var _filteredPresets = filteredPresets.filter(
-        (el) => el.name.toLowerCase().includes(query)
-    );
+    if (query === '') {
+        setFilteredPresets(response.presets || []);
+    } else {
+        var _filteredPresets = filteredPresets.filter(
+            (el) => el.name.toLowerCase().includes(query)
+        );
+        setFilteredPresets(_filteredPresets);
+    }
 
     setFilteredArray(_filteredArray);
-    setFilteredPresets(_filteredPresets);
 }
+
 
 
     return (
