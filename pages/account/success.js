@@ -15,30 +15,43 @@ const Success = () => {
         share_custom_varieties: false
     });
 
-    const router = useRouter()
+    const router = useRouter();
 
     useEffect(() => {
         getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [router.query])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [router.query]);
 
-   const getUser = async () => {
-    if (userService.getId() !== null) {
-        const _result = await userService.getById(userService.getId());
-        const _user = _result.data;
-        setUser(_user);
-        if (router.query.session_id !== null && router.query.session_id !== undefined) {
-            setUser((prevState) => {
-                const updatedUser = { ...prevState, share_custom_varieties: true };
-                userService.update(userService.getId(), updatedUser);
-                return updatedUser;
-            });
+    const getUser = async () => {
+        if (userService.getId() !== null) {
+            const _result = await userService.getById(userService.getId());
+            const _user = _result.data;
+            setUser(_user);
+
+            const { session_id, customer_id } = router.query;
+            if (session_id !== null && session_id !== undefined) {
+                setUser((prevState) => {
+                    const updatedUser = { ...prevState, share_custom_varieties: true };
+                    userService.update(userService.getId(), updatedUser);
+                    return updatedUser;
+                });
+            }
+
+            if (customer_id) {
+                updateUserWithCustomerId(customer_id);
+            }
+        } else {
+            router.push("/account/login");
         }
-    } else {
-        router.push("/account/login");
-    }
-};
+    };
 
+    const updateUserWithCustomerId = async (customerId) => {
+        // Update the user object with the customer ID
+        user.customerId = customerId;
+
+        // Save the updated user object
+        await userService.update(userService.getId(), user);
+    };
 
     return (
         <div className={styles.screen}>
