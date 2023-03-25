@@ -83,7 +83,7 @@ const Login = () => {
                         });
                     }}
                 />
-                <h4><a onClick={() => router.push('/account/register')}>Sign Up</a></h4>
+                <h4><a onClick={() => router.push('/account/register')}>Create Account</a> Instead</h4>
             </div>
 
             <div
