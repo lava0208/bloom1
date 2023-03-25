@@ -70,7 +70,7 @@ const Register = () => {
         } else {
             swal({
                 title: "Error!",
-                text: "File size to large",
+                text: "File size is too large",
                 icon: "error",
             });
         }
@@ -80,7 +80,7 @@ const Register = () => {
         const result = await userService.register(user);
         if (result.status === true) {
             swal({
-                title: "Register Success!",
+                title: "Registration Success!",
                 text: result.message,
                 icon: "success",
             });
@@ -103,7 +103,7 @@ const Register = () => {
             }
         } else {
             swal({
-                title: "Register Error!",
+                title: "Registration Error!",
                 text: "Please fill all fields.",
                 icon: "error",
             });
@@ -177,14 +177,14 @@ const Register = () => {
                         });
                     }}
                 />
-                <h4><a onClick={() => router.push('/account/login')}>Click here </a> to login.</h4>
+                <h4><a onClick={() => router.push('/account/login')}>Login</a></h4>
             </div>
 
             <div
                 className={styles.nextButtonContainer}
                 onClick={() => register()}
             >
-                <h5>Next</h5>
+                <h5>Sign Up</h5>
             </div>
         </div>
     );
