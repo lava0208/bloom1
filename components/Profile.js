@@ -154,7 +154,9 @@ const saveUser = () => {
             icon: "error",
         });
     } else {
-        user.profile_path = downloadURL;
+        if (downloadURL !== "") {
+            user.profile_path = downloadURL;
+        }
         if (user.password !== null) {
             updateUser();
         } else {
@@ -163,6 +165,7 @@ const saveUser = () => {
         }
     }
 };
+
 
 
 
