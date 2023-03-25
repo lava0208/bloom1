@@ -18,6 +18,7 @@ const List = () => {
         swal({
             title: "Success!",
             text: _result.message,
+            className: "custom-swal",
             icon: "success",
         });
         setModalOpen(false);
