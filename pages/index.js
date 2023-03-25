@@ -93,11 +93,11 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
                         <p>{news}</p>
                     </div>
 <div className={styles.buttonContainer}>
-    <button className={styles.button}><img src="/assets/plan.png" alt="View Plan Icon" className={styles.icon} /><br /> View Plan</button>
+    <button className={styles.button}><img src="/assets/plan.png" alt="View Plan Icon" className={styles.icon} /><span className={styles.buttonText}>View Plan</span></button>
     <button className={styles.button}>
-    <img src="/assets/modify.png" alt="Add / Remove Plantings Icon" className={styles.icon} /><br /> Modify Plan</button>
-    <button className={styles.button}><img src="/assets/setting.png" alt="Variety Settings Icon" className={styles.icon} /><br /> Variety Settings</button>
-    <button className={styles.button}><img src="/assets/user.png" alt="Profile Icon" className={styles.icon} /><br /> Profile</button>
+    <img src="/assets/modify.png" alt="Add / Remove Plantings Icon" className={styles.icon} /> <span className={styles.buttonText}>Modify Plan</span></button>
+    <button className={styles.button}><img src="/assets/setting.png" alt="Variety Settings Icon" className={styles.icon} /><span className={styles.buttonText}>Variety Settings</span></button>
+    <button className={styles.button}><img src="/assets/user.png" alt="Profile Icon" className={styles.icon} /><span className={styles.buttonText}>Profile</span></button>
                     </div>
                 </div>
                 <div className={styles.dashboardRow}>
