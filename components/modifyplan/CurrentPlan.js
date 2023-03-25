@@ -274,16 +274,16 @@ const CurrentPlan = (props) => {
       setPlanting({ ...planting, spacing: value });
     } else {
       const parsedValue = parseInt(value);
-      if (parsedValue <= 10) {
-        setPlanting({ ...planting, succession: parsedValue });
+      if (parsedValue <= 50) {
+        setPlanting({ ...planting, spacing: parsedValue });
       } else {
-        alert("Maximum input value is 10.");
+        alert("Maximum input value is 50.");
       }
     }
   }}
   type="number"
   min="0"
-  max="10"
+  max="50"
 />
 
                                     <span>Days Between</span>
