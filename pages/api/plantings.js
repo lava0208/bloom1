@@ -192,26 +192,32 @@ case "POST":
         insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
     }
 
-    // Check Pro user or not
     let _user = await userService.getById(req.body.userid);
-    if (_user.data.share_custom_varieties) {
-        // The rest of the code inside this block should be removed
-    } else {
-        let _length = await db.collection("plantings").find({ userid: req.body.userid }).count();
-        if (_length < 2) {
-            await db.collection("plantings").insertOne(req.body);
+            let isProUser = _user.data.share_custom_varieties;
 
-            // Insert automatic tasks
-            let _plant = await getPlantById(req.body.plant_id);
-            let _plan = await getPlanById(req.body.plan_id);
+            if (isProUser || (!isProUser && (await db.collection("plantings").find({ userid: req.body.userid }).count()) < 2)) {
+                for (let i = 0; i < successionCount; i++) {
+                    shiftDays = i * spacingDays;
 
-            await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
+                    // Generate a new ObjectId for the planting
+                    const plantingId = new ObjectId();
 
-            insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
-        } else {
-            return res.json({ status: false, message: "You've reached your limit! Upgrade to PRO for unlimited plantings." });
-        }
-    }
+                    // Set the "_id" field to the new ObjectId
+                    req.body._id = plantingId;
+
+                    // Insert the planting
+                    await db.collection("plantings").insertOne(req.body);
+
+                    // Insert automatic tasks
+                    let _plant = await getPlantById(req.body.plant_id);
+                    let _plan = await getPlanById(req.body.plan_id);
+
+                    await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
+                    insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
+                }
+            } else {
+                return res.json({ status: false, message: "You've reached your limit! Upgrade to PRO for unlimited plantings." });
+            }
     
 
 
