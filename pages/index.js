@@ -15,6 +15,7 @@ const Dashboard = () => {
     const [plan, setPlan] = useState("");
     const [isPro, setIsPro] = useState(false);
     const [greeting, setGreeting] = useState("");
+    const router = useRouter();
 
     useEffect(() => {
         getUserPlan();
