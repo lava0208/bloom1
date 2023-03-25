@@ -59,13 +59,13 @@ const Profile = () => {
 
     const router = useRouter();
     const [user, setUser] = useState({
-        name: "",
-        email: "",
-        password: "",
-        profile_path: "",
-        email_newsletter: false,
-        share_custom_varieties: false
-    });
+    name: "",
+    email: "",
+    password: null,
+    profile_path: "",
+    email_newsletter: false,
+    share_custom_varieties: false
+});
     const [isPro, setIsPro] = useState(false);
 
     const [originPassword, setOriginPassword] = useState("");
@@ -146,18 +146,24 @@ const Profile = () => {
         })
     }
 
-    const saveUser = () => {
-    if (user.name === "" || user.email === "" || user.password === "") {
+const saveUser = () => {
+    if (user.name === "" || user.email === "") {
         swal({
             title: "Error!",
-            text: "Fill all fields",
+            text: "Fill all required fields",
             icon: "error",
         });
     } else {
         user.profile_path = downloadURL;
-        updateUser();
+        if (user.password !== null) {
+            updateUser();
+        } else {
+            user.password = originPassword;
+            updateUser();
+        }
     }
 };
+
 
 
     const deleteUser = async () => {
@@ -255,13 +261,12 @@ const Profile = () => {
                         }
                     />
                     <input
-                        type="password"
-                        placeholder="Password"
-                        value={user.password}
-                        onChange={(e) =>
-                            setUser({ ...user, password: e.target.value })
-                        }
-                    />
+    type="password"
+    placeholder="New Password (optional)"
+    onChange={(e) =>
+        setUser({ ...user, password: e.target.value })
+    }
+/>
                     <button className={styles.button1} onClick={() => {saveUser()}}>Save Changes</button>
                 </div>
                 <div className={styles.preferenceContainer}>
