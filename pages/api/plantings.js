@@ -46,6 +46,7 @@ function createTasks(planting, plant, plan, shiftDays){
     let pinch_date;
     let bloom_start_date;
     if(planting.direct_indoors){
+
         switch (planting.harvest) {
             case "Early":
                 seed_indoors_date = moment(last_frost).subtract(_earliest_indoor_seed, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
@@ -169,74 +170,32 @@ export default async function handler(req, res) {
             let successionCount = req.body.succession > 0 ? parseInt(req.body.succession) + 1 : 1;
             let spacingDays = req.body.spacing ? parseInt(req.body.spacing) : 0;
             let insertResults = [];
-            
+            let shiftDays;
 
             for (let i = 0; i < successionCount; i++) {
                 let shiftDays = i * spacingDays;
-            
+
                 // Generate a new ObjectId for the planting
                 const plantingId = new ObjectId();
-            
+
                 // Set the "_id" field to the new ObjectId
                 req.body._id = plantingId;
-            
+
                 // Insert the planting
                 await db.collection("plantings").insertOne(req.body);
-            
+
                 // Insert automatic tasks
                 let _plant = await getPlantById(req.body.plant_id);
                 let _plan = await getPlanById(req.body.plan_id);
-            
+
                 await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
                 insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
             }
 
-
-
-                if (req.query.preset === "true") {
-                    let _clone_planting = {
-                        userid: req.query.userid,
-                        plan_id: req.body.plan_id,
-                        plant_id: req.body.plant_id,
-                        name: req.body.name,
-                        species: req.body.species,
-                        seeds: parseInt(req.body.seeds),
-                        harvest: req.body.harvest,
-                        direct_sow: req.body.direct_sow,
-                        direct_indoors: req.body.direct_indoors,
-                        pinch: req.body.pinch,
-                        pot_on: req.body.pot_on,
-                        spacing: req.body.spacing,
-                        succession: req.body.succession
-                    }
-                
-                    // Insert cloned planting
-                    let _clone_one = await db.collection("plantings").insertOne(_clone_planting);
-                
-                    // Insert automatic tasks
-                    let _plant = await getPlantById(req.body.plant_id);
-                    let _plan = await getPlanById(req.body.plan_id);
-                
-                    await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
-                    insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
-                }
-                 else {
-        // Check Pro user or not
-        let _user = await userService.getById(req.body.userid);
-        if (_user.data.share_custom_varieties) {
-            // Insert planting
-            await db.collection("plantings").insertOne(req.body);
-
-            // Insert automatic tasks
-            let _plant = await getPlantById(req.body.plant_id);
-            let _plan = await getPlanById(req.body.plan_id);
-
-            await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
-
-            insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
-        } else {
-            let _length = await db.collection("plantings").find({ userid: req.body.userid }).count();
-            if (_length < 2) {
+            // Check Pro user or not
+            let _user = await userService.getById(req.body.userid);
+            if (_user.data.share_custom_varieties) {
+                // Insert planting
                 await db.collection("plantings").insertOne(req.body);
 
                 // Insert automatic tasks
@@ -247,10 +206,22 @@ export default async function handler(req, res) {
 
                 insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
             } else {
-                return res.json({ status: false, message: "You've reached your limit! Upgrade to PRO for unlimited plantings." });
-            }
-        }
+                let _length = await db.collection("plantings").find({ userid: req.body.userid }).count();
+                if (_length < 2) {
+                    await db.collection("plantings").insertOne(req.body);
+
+                    // Insert automatic tasks
+                    let _plant = await getPlantById(req.body.plant_id);
+                    let _plan = await getPlanById(req.body.plan_id);
+
+                    await taskService.create(createTasks(req.body, _plant, _plan, shiftDays));
+
+                    insertResults.push({ status: true, message: 'Planting created successfully! Refresh the page.' });
+                } else {
+                    return res.json({ status: false, message: "You've reached your limit! Upgrade to PRO for unlimited plantings." });
+                }
     }
+    
     
 
 
