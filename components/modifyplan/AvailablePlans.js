@@ -39,22 +39,6 @@ const AvailablePlans = (props) => {
         refreshFilterdArray();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query])
-
-
-    const [plantId, setPlantId] = useState("");
-    const [isShowActionText, setIsShowActionText] = useState(-1);
-    const [isShowActionPreset, setIsShowActionPreset] = useState(-1);
-    const [modalOpen, setModalOpen] = useState(false);
-    const [isShowPresets, setIsShowPresets] = useState(true);
-    const [preset, setPreset] = useState(false);
-    const openCreateModal = (id, isPreset) => {
-        setModalOpen(true);
-        setPlantId(id);
-        setPreset(isPreset);
-    }
-    const savePlanting = () => {
-        setModalOpen(false);
-    }
     
     const refreshFilterdArray = async () => {
         var _filteredArray = origialArray.filter(
@@ -71,6 +55,22 @@ const AvailablePlans = (props) => {
         }
 
         setFilteredArray(_filteredArray);
+    }
+
+
+    const [plantId, setPlantId] = useState("");
+    const [isShowActionText, setIsShowActionText] = useState(-1);
+    const [isShowActionPreset, setIsShowActionPreset] = useState(-1);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [isShowPresets, setIsShowPresets] = useState(true);
+    const [preset, setPreset] = useState(false);
+    const openCreateModal = (id, isPreset) => {
+        setModalOpen(true);
+        setPlantId(id);
+        setPreset(isPreset);
+    }
+    const savePlanting = () => {
+        setModalOpen(false);
     }
 
 
