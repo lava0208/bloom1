@@ -30,20 +30,18 @@ const Success = () => {
   
           const { session_id } = router.query;
           if (session_id) {
-              setTimeout(async () => {
-                  const response = await fetch("/api/get-customer-id", {
-                      method: "POST",
-                      headers: {
-                          "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({ sessionId: session_id }),
-                  });
-  
-                  if (response.ok) {
-                      const data = await response.json();
-                      updateUserWithCustomerId(data.customerId);
-                  }
-              }, 3000); // Wait for 3 seconds before making the request
+            const response = await fetch("/api/get-customer-id", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ sessionId: session_id }),
+            });
+        
+            if (response.ok) {
+              const data = await response.json();
+              updateUserWithCustomerId(data.customerId);
+            }
           }
       } else {
           router.push("/account/login");

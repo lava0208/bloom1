@@ -40,7 +40,7 @@ const paymentcheckout = async () => {
 
     const currentUser = await userService.getCurrentUser(); // Get the current user
 
-    await stripe.redirectToCheckout({
+    const session = await stripe.create({
         mode: "subscription",
         lineItems: [
             {
@@ -52,6 +52,15 @@ const paymentcheckout = async () => {
         successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}&customer_id={CUSTOMER_ID}`, // Include the customer ID in the success URL
         cancelUrl: window.location.origin,
     });
+
+    // Store the session ID in a variable
+    const sessionId = session.id;
+
+    // Update the successUrl with the actual session ID
+    const successUrl = `${window.location.origin}/account/success?session_id=${sessionId}`;
+
+    // Redirect the user to the checkout
+    await stripe.redirectToCheckout({ sessionId });
 };
 
 
