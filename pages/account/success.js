@@ -27,10 +27,13 @@ const Success = () => {
             const _result = await userService.getById(userService.getId());
             const _user = _result.data;
             setUser(_user);
-            if(router.query.session_id !== null && router.query.session_id !== undefined){
-                user.share_custom_varieties = true;
-                await userService.update(userService.getId(), user);
-            }
+            if (router.query.session_id) {
+                const subscription = await userService.getSubscription(userService.getId());
+                if (subscription) {
+                  user.share_custom_varieties = true;
+                  await userService.update(userService.getId(), user);
+                }
+              }              
         }else{
             router.push("/account/login")
         }

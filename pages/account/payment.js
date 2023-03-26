@@ -32,6 +32,8 @@ const Payment = () => {
         }
     };
 
+
+
     const paymentcheckout = async () => {
         if (!userDetails) return; // Make sure userDetails is available
     
@@ -46,20 +48,19 @@ const Payment = () => {
     
         const stripe = await getStripe();
     
-        await stripe.redirectToCheckout({
-            mode: "payment",
-            lineItems: [
-                {
-                    price: "price_1Mn7y1EVmyPNhExzI7SnVpph",
-                    quantity: 1,
-                },
-            ],
-            customerEmail: userDetails.email, // Add email to Stripe session
-            clientReferenceId: userDetails.name, // Add name to Stripe session
-            successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancelUrl: window.location.origin,
+        const response = await fetch('/api/create-checkout-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({userId: userService.getId()})
         });
-    };
+        const session = await response.json();
+        
+        await stripe.redirectToCheckout({
+            sessionId: session.id,
+        });
+    }; // maybe delete this
 
     return (
         <div className={styles.screen}>
