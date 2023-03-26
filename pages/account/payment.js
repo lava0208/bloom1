@@ -50,7 +50,7 @@ const paymentcheckout = async () => {
             },
         ],
         customerEmail: currentUser.email, // Pass the current user's email
-        successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`, // Remove the CUSTOMER_ID
+        successUrl: `${window.location.origin}/account/success?subscription_id={SUBSCRIPTION_ID}`,
         cancelUrl: window.location.origin,
     });
 };

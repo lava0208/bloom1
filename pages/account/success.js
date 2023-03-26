@@ -28,20 +28,20 @@ const Success = () => {
         const _user = _result.data;
         setUser(_user);
     
-        const { session_id } = router.query;
-        if (session_id) {
-          // Fetch the customer ID using the session ID
-          const response = await fetch(`/api/get-customer-id?sessionId=${session_id}`);
-          const { customerId } = await response.json();
-    
-          if (customerId) {
-            updateUserWithCustomerId(customerId);
-          }
+        const { subscription_id } = router.query;
+        if (subscription_id) {
+            // Fetch the customer ID using the subscription ID
+            const response = await fetch(`/api/get-customer-id?subscriptionId=${subscription_id}`);
+            const { customerId } = await response.json();
+
+            if (customerId) {
+                updateUserWithCustomerId(customerId);
+            }
         }
-      } else {
+    } else {
         router.push("/account/login");
-      }
-    };    
+    }
+};
     
     
 
