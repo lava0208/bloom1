@@ -36,7 +36,7 @@ const Payment = () => {
         const currentUser = await userService.getCurrentUser(); // Get the current user
 
         // Call the API to create a new session
-        const response = await fetch("/api/create-checkout-session", {
+        const response = await fetch("/api/create-checkout-session.js", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
