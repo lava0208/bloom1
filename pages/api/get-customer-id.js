@@ -1,6 +1,7 @@
 // /pages/api/get-customer-id.js
 
-import Stripe from "stripe";
+
+import { loadStripe } from "@stripe/stripe-js";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
