@@ -31,7 +31,7 @@ const Success = () => {
       
           if (router.query.session_id && userService.getId()) {
             try {
-              cconst response = await fetch("/api/verify-checkout-session", {
+              const response = await fetch("/api/verify-checkout-session", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
