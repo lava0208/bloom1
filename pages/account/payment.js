@@ -46,22 +46,28 @@ const Payment = () => {
 
 
     const paymentcheckout = async () => {
-        const res = await fetch("/api/create-checkout-session", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ userId: userService.getId() }),
+        // Call your backend to create the Checkout Session
+        const response = await fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
-    
-        const { sessionId } = await res.json();
-    
+        
+        const session = await response.json();
+        
         const stripe = await getStripe();
-    
-        await stripe.redirectToCheckout({
-            sessionId,
+      
+        // When the customer clicks on the button, redirect them to Checkout
+        const result = await stripe.redirectToCheckout({
+          sessionId: session.id,
         });
-    };
+      
+        if (result.error) {
+          console.log(result.error.message);
+        }
+      };
+      
     
 
     return (
