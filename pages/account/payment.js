@@ -26,30 +26,37 @@ const Payment = () => {
         }
     }
 
-    const paymentcheckout =  async () => {
-        let stripePromise = null
-
+    const checkoutProfile = async () => {
         const getStripe = () => {
-            if(!stripePromise) {
-                stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY)
-            }
-            return stripePromise
+          if (!stripePromise) {
+            stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY);
+          }
+          return stripePromise;
+        };
+      
+        const stripe = await getStripe();
+      
+        try {
+          // Fetch the Checkout Session from your new API route
+          const response = await fetch("/api/create-session-checkout", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({}),
+          });
+      
+          const { sessionId } = await response.json();
+      
+          // Redirect to the Stripe Checkout with the session ID
+          await stripe.redirectToCheckout({
+            sessionId,
+          });
+        } catch (error) {
+          console.error("Error:", error);
         }
-
-        const stripe = await getStripe()
-
-        await stripe.redirectToCheckout({
-            mode: 'payment',
-            lineItems: [
-                {
-                    price: "price_1Mn7y1EVmyPNhExzI7SnVpph",
-                    quantity: 1
-                }
-            ],
-            successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancelUrl: window.location.origin
-        })
-    }
+      };
+      
 
     return (
         <div className={styles.screen}>
@@ -83,7 +90,7 @@ const Payment = () => {
                         </div>
                         <div
                             className={styles1.proButtonContainer}
-                            onClick={() => paymentcheckout()}
+                            onClick={() => checkoutProfile()}
                         >
                             <h5 className={styles.textUppercase}>go pro</h5>
                         </div>
