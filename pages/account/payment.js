@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { userService } from "services";
@@ -39,10 +38,10 @@ const Payment = () => {
         const stripe = await getStripe()
 
         await stripe.redirectToCheckout({
-            mode: 'payment',
+            mode: 'subscription',
             lineItems: [
                 {
-                    price: "price_1Mn7y1EVmyPNhExzI7SnVpph",
+                    price: "price_1MpjF2EVmyPNhExzk8OzvcVy", // Replace with your subscription price ID
                     quantity: 1
                 }
             ],
