@@ -27,32 +27,29 @@ const Payment = () => {
 
     const paymentcheckout = async () => {
         const userId = userService.getId();
-        try {
-          const response = await fetch('/api/create-checkout-session', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ userId }),
-          });
+        const session = await createCheckoutSession(userId);
       
-          const { sessionId } = await response.json();
-      
-          const stripe = await loadStripe(process.env.NEXT_PUBLIC_API_KEY);
-      
-          const { error } = await stripe.redirectToCheckout({
-            sessionId: sessionId,
-          });
-      
-          if (error) {
-            console.error('Error:', error);
-            // Display an error message to the user
-          }
-        } catch (err) {
-          console.error('Error:', err);
-          // Display an error message to the user
+        if (session.error) {
+          console.error(session.error);
+          return;
         }
+      
+        const stripe = await getStripe();
+        await stripe.redirectToCheckout({ sessionId: session.id });
       };
+
+      const createCheckoutSession = async (userId) => {
+        const response = await fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userId, priceId: "your_correct_price_id" }), // Replace with your correct subscription price ID
+        });
+        return await response.json();
+      };
+      
+      
       
       
     return (
