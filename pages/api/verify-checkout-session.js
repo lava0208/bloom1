@@ -13,7 +13,7 @@ export default async function handler(req, res) {
       const session = await stripe.checkout.sessions.retrieve(sessionId);
 
       // Check if the payment was successful
-      if (session.payment_status === "paid") {
+      if (session.status === "succeeded") {
         // Update the user's subscription status
         const user = await userService.getById(userId);
         user.share_custom_varieties = true;
