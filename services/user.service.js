@@ -1,4 +1,6 @@
 import { apiUrl } from 'config';
+// Add this line to your existing import statement
+import { createCheckoutSession } from "services/subscriptionService";
 
 export const userService = {
     getById,
@@ -10,7 +12,9 @@ export const userService = {
     getId,
     currentUser,
     getUser,
-    removeUser
+    removeUser,
+    getSubscription,
+    updateUserSubscription
 };
 
 const baseUrl = `${apiUrl}/auth`;
@@ -113,3 +117,29 @@ function removeUser(){
     localStorage.removeItem("user");
     localStorage.removeItem("userid");
 }
+
+
+
+// Add the new function
+async function getSubscription(userId) {
+  const response = await fetch(`${baseUrl}/subscription?user_id=` + userId, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  return response.json();
+}
+
+// Add the new function
+async function updateUserSubscription(userId, subscriptionId) {
+    const response = await fetch(`${baseUrl}/subscription?user_id=` + userId, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ subscriptionId }),
+    });
+    return response.json();
+  }
+  
