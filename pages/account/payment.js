@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { userService } from "services";
+
 
 import { loadStripe } from "@stripe/stripe-js";
 
