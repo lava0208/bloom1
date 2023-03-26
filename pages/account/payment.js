@@ -39,7 +39,7 @@ const Payment = () => {
       
         try {
           // Fetch the Checkout Session from your new API route
-          const response = await fetch("/api/create-session-checkout", {
+          const response = await fetch("/api/create-checkout-session", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
