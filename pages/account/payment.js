@@ -40,7 +40,7 @@ const paymentcheckout = async () => {
 
     const currentUser = await userService.getCurrentUser(); // Get the current user
 
-    const session = await stripe.create({
+    const session = await stripe.checkout.sessions.create({
         mode: "subscription",
         lineItems: [
             {
