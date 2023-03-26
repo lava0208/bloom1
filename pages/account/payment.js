@@ -49,7 +49,9 @@ const Payment = () => {
           ],
           successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
           cancelUrl: window.location.origin,
-        
+          metadata: {
+            userId, // Pass the user ID as metadata
+          },
         });
       };
     return (
