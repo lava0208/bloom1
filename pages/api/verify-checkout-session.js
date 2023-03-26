@@ -1,4 +1,3 @@
-// pages/api/verify-checkout-session.js
 import Stripe from "stripe";
 import { userService } from "services";
 
@@ -16,16 +15,22 @@ export default async function handler(req, res) {
       if (session.payment_status === "paid") {
         // Update the user's subscription status
         const user = await userService.getById(userId);
+        if (!user) {
+          throw new Error(`User not found with ID: ${userId}`);
+        }
         user.share_custom_varieties = true;
-        await userService.update(userId, user);
+        const updatedUser = await userService.update(user._id, user);
+        if (!updatedUser) {
+          throw new Error(`Failed to update user with ID: ${user._id}`);
+        }
 
         res.status(200).json({ success: true });
       } else {
         res.status(400).json({ error: "Payment not successful" });
       }
     } catch (error) {
-        console.error("Error in verify-checkout-session:", error); // Add error logging
-      res.status(500).json({ error: "Failed to verify Checkout Session" });
+      console.error("Error in verify-checkout-session:", error); // Add error logging
+      res.status(500).json({ error: "Failed to verify Checkout Session", errorMessage: error.message });
     }
   } else {
     res.setHeader("Allow", "POST");
