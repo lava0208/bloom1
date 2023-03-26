@@ -32,7 +32,7 @@ export default async function handler(req, res) {
         res.status(400).json({ error: "Payment not successful" });
       }
     } catch (error) {
-      console.error("Error in verify-checkout-session:", error); // Add error logging
+      console.error("Error in verify-checkout-session:", error, session); // Add error logging
       res.status(500).json({ error: "Failed to verify Checkout Session", errorMessage: error.message });
     }
   } else {
