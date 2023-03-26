@@ -26,15 +26,33 @@ const Payment = () => {
         }
     }
 
-const paymentcheckout = async () => {
-    let stripePromise = null;
-
-    const getStripe = () => {
-        if (!stripePromise) {
-            stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY);
+    const paymentcheckout = async () => {
+        // Initialize Stripe
+        const stripe = await getStripe();
+        const currentUser = await userService.getCurrentUser(); // Get the current user
+    
+        // Call the API to create a new session
+        const response = await fetch('/api/create-checkout-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ customerEmail: currentUser.email }),
+        });
+    
+        if (response.ok) {
+            const data = await response.json();
+            const sessionId = data.sessionId;
+    
+            // Redirect the user to the checkout
+            await stripe.redirectToCheckout({ sessionId });
+        } else {
+            // Handle any errors that occurred during session creation
+            const error = await response.json();
+            console.error("Error creating checkout session:", error.message);
         }
-        return stripePromise;
     };
+    
 
     const stripe = await getStripe();
 
