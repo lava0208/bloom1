@@ -31,21 +31,26 @@ const Success = () => {
       
           if (router.query.session_id && userService.getId()) {
             try {
-              const response = await fetch("/api/verify-checkout-session", {
+              cconst response = await fetch("/api/verify-checkout-session", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ sessionId: router.query.session_id, userId: userService.getId() }),
               });
-      
+              
+              console.log('Raw response:', response); // Add this line
+              
               if (!response.ok) {
                 const bodyText = await response.text();
                 console.error("Unexpected response:", bodyText);
                 return;
               }
+              
       
-              const { success } = await response.json();
+              const responseText = await response.text();
+console.log('Response text:', responseText); // Add this line
+const { success } = JSON.parse(responseText); // Update this line
       
               if (success) {
                 user.share_custom_varieties = true;
