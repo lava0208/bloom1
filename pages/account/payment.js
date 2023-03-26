@@ -25,35 +25,35 @@ const Payment = () => {
         }
     }
 
-    const paymentcheckout =  async () => {
-        let stripePromise = null
-
-        const getStripe = () => {
-            if(!stripePromise) {
-                stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY)
-            }
-            return stripePromise
-        }
-
-        const stripe = await getStripe()
-
-        const userId = userService.getId(); // Get the current user ID
-
-        await stripe.redirectToCheckout({
-          mode: "subscription",
-          lineItems: [
-            {
-              price: "price_1MpjF2EVmyPNhExzk8OzvcVy", // Replace with your subscription price ID
-              quantity: 1,
+    const paymentcheckout = async () => {
+        const userId = userService.getId();
+        try {
+          const response = await fetch('/api/create-checkout-session', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
             },
-          ],
-          successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
-          cancelUrl: window.location.origin,
-          metadata: {
-            userId, // Pass the user ID as metadata
-          },
-        });
+            body: JSON.stringify({ userId }),
+          });
+      
+          const { sessionId } = await response.json();
+      
+          const stripe = await loadStripe(process.env.NEXT_PUBLIC_API_KEY);
+      
+          const { error } = await stripe.redirectToCheckout({
+            sessionId,
+          });
+      
+          if (error) {
+            console.error('Error:', error);
+            // Display an error message to the user
+          }
+        } catch (err) {
+          console.error('Error:', err);
+          // Display an error message to the user
+        }
       };
+      
     return (
         <div className={styles.screen}>
             <img className={styles.logo} src={"/assets/logo.png"} alt="logo" />
