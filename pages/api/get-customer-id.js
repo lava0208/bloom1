@@ -10,12 +10,9 @@ export default async function handler(req, res) {
 
     try {
       const session = await stripe.checkout.sessions.retrieve(sessionId);
-      res.status(200).json({ customerId: session.customer });
+      res.status(200).json({ customerId: session.customer, subscriptionId: session.subscription });
     } catch (error) {
-      res.status(400).json({ message: "Error retrieving customer ID", error });
-    }
-  } else {
-    res.setHeader("Allow", "POST");
-    res.status(405).end("Method Not Allowed");
+      res.status(400).json({ message: "Error retrieving customer ID and subscription ID", error });
+    }    
   }
 }

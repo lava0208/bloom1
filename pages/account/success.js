@@ -23,39 +23,42 @@ const Success = () => {
     }, [router.query]);
 
     const getUser = async () => {
-  if (userService.getId() !== null) {
-    const _result = await userService.getById(userService.getId());
-    const _user = _result.data;
-    setUser(_user);
-
-    const { session_id } = router.query;
-    if (session_id) {
-      const response = await fetch("/api/get-customer-id", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ sessionId: session_id }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        updateUserWithCustomerId(data.customerId);
+      if (userService.getId() !== null) {
+        const _result = await userService.getById(userService.getId());
+        const _user = _result.data;
+        setUser(_user);
+    
+        const { session_id } = router.query;
+        if (session_id) {
+          const response = await fetch("/api/get-customer-id", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ sessionId: session_id }),
+          });
+    
+          if (response.ok) {
+            const data = await response.json();
+            updateUserWithCustomerIdAndSubscriptionId(data.customerId, data.subscriptionId);
+          }
+        }
+      } else {
+        router.push("/account/login");
       }
-    }
-  } else {
-    router.push("/account/login");
-  }
-};
-
-
-    const updateUserWithCustomerId = async (customerId) => {
-        // Update the user object with the customer ID
-        user.customerId = customerId;
-
-        // Save the updated user object
-        await userService.update(userService.getId(), user);
     };
+    
+
+
+    const updateUserWithCustomerIdAndSubscriptionId = async (customerId, subscriptionId) => {
+      // Update the user object with the customer ID and subscription ID
+      user.customerId = customerId;
+      user.subscriptionId = subscriptionId;
+    
+      // Save the updated user object
+      await userService.update(userService.getId(), user);
+    };
+    
 
     return (
         <div className={styles.screen}>
