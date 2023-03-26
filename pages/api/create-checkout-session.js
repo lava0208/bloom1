@@ -1,5 +1,5 @@
 // pages/api/create-checkout-session.js
-import { stripe } from '../../services/stripe';
+import Stripe from 'stripe';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
