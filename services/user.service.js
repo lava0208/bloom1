@@ -10,9 +10,7 @@ export const userService = {
     getId,
     currentUser,
     getUser,
-    removeUser,
-    getEmail,
-    getCurrentUser
+    removeUser
 };
 
 const baseUrl = `${apiUrl}/auth`;
@@ -60,20 +58,6 @@ async function register(params) {
         console.log(error)
     }
 }
-
-
-
-async function getCurrentUser() {
-    const userId = getId();
-
-    if (userId !== null) {
-        const result = await getById(userId);
-        return result.data;
-    }
-
-    return null;
-}
-
 
 async function update(id, params) {
     try {
@@ -123,11 +107,6 @@ function getUser(){
     if (typeof window !== 'undefined') {
         return JSON.parse(localStorage.getItem("user"))
     }
-}
-
-function getEmail() {
-    const user = getUser();
-    return user ? user.email : null;
 }
 
 function removeUser(){

@@ -197,28 +197,18 @@ const saveUser = () => {
     }
 
     const cancelPro = async () => {
-    swal({
-        title: "Wait!",
-        text: "Are you sure you want to downgrade to CORE?",
-        icon: "warning",
-        className: "custom-swal",
-        buttons: [
-            'Cancel',
-            'Yes, I am sure!'
-        ],
-        dangerMode: true,
-    }).then(async function (isConfirm) {
-        if (isConfirm) {
-            // Call the new API route to cancel the subscription
-            const response = await fetch("/api/cancel-subscription", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ customerId: "your_customer_id" }),
-            });
-
-            if (response.ok) {
+        swal({
+            title: "Wait!",
+            text: "Are you sure you want to downgrade to CORE?",
+            icon: "warning",
+            className: "custom-swal",
+            buttons: [
+                'Cancel',
+                'Yes, I am sure!'
+            ],
+            dangerMode: true,
+        }).then(async function (isConfirm) {
+            if (isConfirm) {
                 user.share_custom_varieties = false;
                 var _result = await userService.update(userService.getId(), user);
                 if (_result.status === true) {
@@ -239,9 +229,8 @@ const saveUser = () => {
                     });
                 }
             }
-        }
-    });
-};
+        })
+    }
 
     return (<>
         <h2 className={styles.subHeader}>Hello, {user.name}</h2>

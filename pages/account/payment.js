@@ -26,29 +26,28 @@ const Payment = () => {
         }
     }
 
-    const paymentcheckout = async () => {
+    const paymentcheckout =  async () => {
         let stripePromise = null
-    
+
         const getStripe = () => {
-            if (!stripePromise) {
+            if(!stripePromise) {
                 stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY)
             }
             return stripePromise
         }
-    
+
         const stripe = await getStripe()
-    
+
         await stripe.redirectToCheckout({
-            mode: 'subscription', // Change from 'payment' to 'subscription'
+            mode: 'payment',
             lineItems: [
                 {
-                    price: "price_1MpfFWEVmyPNhExzY72Yv0mD", // Replace with the subscription price ID
+                    price: "price_1Mn7y1EVmyPNhExzI7SnVpph",
                     quantity: 1
                 }
             ],
             successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancelUrl: window.location.origin,
-            customer_email: userService.getEmail(), // Pass the user's email to associate the subscription with the user
+            cancelUrl: window.location.origin
         })
     }
 
