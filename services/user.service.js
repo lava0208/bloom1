@@ -116,11 +116,14 @@ function currentUser(data){
     }
 }
 
-function getUser(){
-    if (typeof window !== 'undefined') {
-        return JSON.parse(localStorage.getItem("user"))
+async function getUser() {
+    if (userService.getId() !== null) {
+        const _result = await userService.getById(userService.getId());
+        const _user = _result.data;
+        return _user;
     }
 }
+
 
 function removeUser(){
     localStorage.removeItem("user");
