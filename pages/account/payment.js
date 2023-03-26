@@ -8,42 +8,46 @@ import { loadStripe } from "@stripe/stripe-js";
 import styles from "~styles/pages/account/register.module.scss";
 import styles1 from "~styles/pages/account/payment.module.scss";
 
+const getStripe = async () => {
+    return await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+};
+
 const Payment = () => {
     const router = useRouter();
 
     const goFree = () => {
-        router.push("/account/success")
-    }
+        router.push("/account/success");
+    };
 
     useEffect(() => {
         getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const getUser = async () => {
-        if(userService.getId() === null){
-            router.push("/account/login")
+        if (userService.getId() === null) {
+            router.push("/account/login");
         }
-    }
+    };
 
     const paymentcheckout = async () => {
         // Initialize Stripe
         const stripe = await getStripe();
         const currentUser = await userService.getCurrentUser(); // Get the current user
-    
+
         // Call the API to create a new session
-        const response = await fetch('/api/create-checkout-session', {
-            method: 'POST',
+        const response = await fetch("/api/create-checkout-session", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({ customerEmail: currentUser.email }),
         });
-    
+
         if (response.ok) {
             const data = await response.json();
             const sessionId = data.sessionId;
-    
+
             // Redirect the user to the checkout
             await stripe.redirectToCheckout({ sessionId });
         } else {
@@ -52,36 +56,6 @@ const Payment = () => {
             console.error("Error creating checkout session:", error.message);
         }
     };
-    
-
-    const stripe = await getStripe();
-
-    const currentUser = await userService.getCurrentUser(); // Get the current user
-
-    const session = await stripe.checkout.sessions.create({
-        mode: "subscription",
-        lineItems: [
-            {
-                price: "price_1MpfFWEVmyPNhExzY72Yv0mD", // Replace with the new recurring price ID
-                quantity: 1,
-            },
-        ],
-        customerEmail: currentUser.email, // Pass the current user's email
-        successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}&customer_id={CUSTOMER_ID}`, // Include the customer ID in the success URL
-        cancelUrl: window.location.origin,
-    });
-
-    // Store the session ID in a variable
-    const sessionId = session.id;
-
-    // Update the successUrl with the actual session ID
-    const successUrl = `${window.location.origin}/account/success?session_id=${sessionId}`;
-
-    // Redirect the user to the checkout
-    await stripe.redirectToCheckout({ sessionId });
-};
-
-
 
     return (
         <div className={styles.screen}>
