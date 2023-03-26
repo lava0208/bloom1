@@ -11,6 +11,7 @@ export const userService = {
     currentUser,
     getUser,
     removeUser,
+    getEmail,
     getCurrentUser
 };
 
@@ -59,6 +60,8 @@ async function register(params) {
         console.log(error)
     }
 }
+
+
 
 async function getCurrentUser() {
     const userId = getId();
@@ -120,6 +123,11 @@ function getUser(){
     if (typeof window !== 'undefined') {
         return JSON.parse(localStorage.getItem("user"))
     }
+}
+
+function getEmail() {
+    const user = getUser();
+    return user ? user.email : null;
 }
 
 function removeUser(){
