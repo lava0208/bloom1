@@ -1,7 +1,6 @@
 // /pages/api/get-customer-id.js
 
 
-import { loadStripe } from "@stripe/stripe-js";
 const stripe = require('stripe')(process.env.NEXT_SECRET_API_KEY);
 
 export default async function handler(req, res) {
