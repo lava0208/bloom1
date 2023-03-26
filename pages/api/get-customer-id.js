@@ -2,7 +2,7 @@
 
 
 import { loadStripe } from "@stripe/stripe-js";
-const stripe = require('stripe')(process.env.NEXT_SECRET_API_KEY);
+const stripe = require('stripe')(process.env.NEXT_PUBLIC_API_KEY);
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
