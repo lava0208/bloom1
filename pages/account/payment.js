@@ -9,7 +9,7 @@ import styles from "~styles/pages/account/register.module.scss";
 import styles1 from "~styles/pages/account/payment.module.scss";
 
 const getStripe = async () => {
-    return await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+    return await loadStripe(process.env.NEXT_PUBLIC_API_KEY);
 };
 
 const Payment = () => {
