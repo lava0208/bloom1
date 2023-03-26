@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     try {
       // Retrieve the Checkout Session
       const session = await stripe.checkout.sessions.retrieve(sessionId);
-      console.log(session);
+      console.log("Stripe session response:", session); // Log the raw response
 
       // Check if the payment was successful
       if (session.payment_status === "paid") {
@@ -24,6 +24,8 @@ export default async function handler(req, res) {
         if (!updatedUser) {
           throw new Error(`Failed to update user with ID: ${user._id}`);
         }
+
+        console.log("Updated user:", updatedUser); // Log the updated user object
 
         res.status(200).json({ success: true });
       } else {
