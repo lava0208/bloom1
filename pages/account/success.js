@@ -39,6 +39,12 @@ const Success = () => {
                 body: JSON.stringify({ sessionId: router.query.session_id, userId: userService.getId() }),
               });
       
+              if (!response.ok) {
+                const bodyText = await response.text();
+                console.error("Unexpected response:", bodyText);
+                return;
+              }
+      
               const { success } = await response.json();
       
               if (success) {
@@ -56,6 +62,7 @@ const Success = () => {
           router.push("/account/login");
         }
       };
+      
       
 
     return (
