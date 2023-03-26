@@ -26,24 +26,30 @@ const Payment = () => {
         }
     }
 
-    const paymentcheckout = async () => {
-        const response = await fetch("/api/create-checkout-session", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({}),
-        });
-    
-        if (response.ok) {
-            const { sessionId } = await response.json();
-            const stripe = await loadStripe(process.env.NEXT_PUBLIC_API_KEY);
-            await stripe.redirectToCheckout({ sessionId });
-        } else {
-            // Handle error
-            console.error("Failed to create checkout session");
+    const paymentcheckout =  async () => {
+        let stripePromise = null
+
+        const getStripe = () => {
+            if(!stripePromise) {
+                stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY)
+            }
+            return stripePromise
         }
-    };
+
+        const stripe = await getStripe()
+
+        await stripe.redirectToCheckout({
+            mode: 'payment',
+            lineItems: [
+                {
+                    price: "price_1Mn7y1EVmyPNhExzI7SnVpph",
+                    quantity: 1
+                }
+            ],
+            successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancelUrl: window.location.origin
+        })
+    }
 
     return (
         <div className={styles.screen}>
