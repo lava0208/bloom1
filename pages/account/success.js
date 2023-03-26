@@ -22,23 +22,19 @@ const Success = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [router.query])
 
-   const getUser = async () => {
-    if (userService.getId() !== null) {
-        const _result = await userService.getById(userService.getId());
-        const _user = _result.data;
-        setUser(_user);
-        if (router.query.session_id !== null && router.query.session_id !== undefined) {
-            setUser((prevState) => {
-                const updatedUser = { ...prevState, share_custom_varieties: true };
-                userService.update(userService.getId(), updatedUser);
-                return updatedUser;
-            });
+    const getUser = async () => {
+        if(userService.getId() !== null){
+            const _result = await userService.getById(userService.getId());
+            const _user = _result.data;
+            setUser(_user);
+            if(router.query.session_id !== null && router.query.session_id !== undefined){
+                user.share_custom_varieties = true;
+                await userService.update(userService.getId(), user);
+            }
+        }else{
+            router.push("/account/login")
         }
-    } else {
-        router.push("/account/login");
     }
-};
-
 
     return (
         <div className={styles.screen}>
