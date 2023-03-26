@@ -1,5 +1,8 @@
 // pages/api/create-checkout-session.js
+// pages/api/create-checkout-session.js
 import Stripe from 'stripe';
+
+const stripe = new Stripe(process.env.NEXT_SECRET_API_KEY);
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
