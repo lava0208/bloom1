@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { userService } from "services";
-import { loadStripe } from "@stripe/stripe-js";
 
 import styles from "~styles/pages/account/success.module.scss";
 
@@ -24,52 +23,18 @@ const Success = () => {
     }, [router.query])
 
     const getUser = async () => {
-        if (userService.getId() !== null) {
-          const _result = await userService.getById(userService.getId());
-          const _user = _result.data;
-          setUser(_user);
-      
-          if (router.query.session_id && userService.getId()) {
-            try {
-              const response = await fetch("/api/verify-checkout-session", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ sessionId: router.query.session_id, userId: userService.getId() }),
-              });
-              
-              console.log('Raw response:', response); // Add this line
-              
-              if (!response.ok) {
-                const bodyText = await response.text();
-                console.error("Unexpected response:", bodyText);
-                return;
-              }
-              
-      
-              const responseText = await response.text();
-console.log('Response text:', responseText); // Add this line
-const { success } = JSON.parse(responseText); // Update this line
-      
-              if (success) {
+        if(userService.getId() !== null){
+            const _result = await userService.getById(userService.getId());
+            const _user = _result.data;
+            setUser(_user);
+            if(router.query.session_id !== null && router.query.session_id !== undefined){
                 user.share_custom_varieties = true;
                 await userService.update(userService.getId(), user);
-              } else {
-                // Handle failed payment
-                console.error("Payment failed");
-              }
-            } catch (error) {
-              console.error("Error:", error);
             }
-          }
-        } else {
-          router.push("/account/login");
+        }else{
+            router.push("/account/login")
         }
-      };
-      
-      
-      
+    }
 
     return (
         <div className={styles.screen}>

@@ -7,7 +7,6 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import styles from "~styles/pages/account/register.module.scss";
 import styles1 from "~styles/pages/account/payment.module.scss";
-let stripePromise = null;
 
 const Payment = () => {
     const router = useRouter();
@@ -27,37 +26,30 @@ const Payment = () => {
         }
     }
 
-    const checkoutProfile = async () => {
+    const paymentcheckout =  async () => {
+        let stripePromise = null
+
         const getStripe = () => {
-          if (!stripePromise) {
-            stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY);
-          }
-          return stripePromise;
-        };
-      
-        const stripe = await getStripe();
-      
-        try {
-          // Fetch the Checkout Session from your new API route
-          const response = await fetch("/api/create-checkout-session", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({}),
-          });
-      
-          const { sessionId } = await response.json();
-      
-          // Redirect to the Stripe Checkout with the session ID
-          await stripe.redirectToCheckout({
-            sessionId,
-          });
-        } catch (error) {
-          console.error("Error:", error);
+            if(!stripePromise) {
+                stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY)
+            }
+            return stripePromise
         }
-      };
-      
+
+        const stripe = await getStripe()
+
+        await stripe.redirectToCheckout({
+            mode: 'payment',
+            lineItems: [
+                {
+                    price: "price_1Mn7y1EVmyPNhExzI7SnVpph",
+                    quantity: 1
+                }
+            ],
+            successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancelUrl: window.location.origin
+        })
+    }
 
     return (
         <div className={styles.screen}>
@@ -91,7 +83,7 @@ const Payment = () => {
                         </div>
                         <div
                             className={styles1.proButtonContainer}
-                            onClick={() => checkoutProfile()}
+                            onClick={() => paymentcheckout()}
                         >
                             <h5 className={styles.textUppercase}>go pro</h5>
                         </div>
