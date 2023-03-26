@@ -1,5 +1,4 @@
 // /pages/api/create-checkout-session.js
-import { getSession } from "next-auth/client";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.NEXT_SECRET_API_KEY);
