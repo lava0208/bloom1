@@ -49,7 +49,7 @@ const paymentcheckout = async () => {
                 quantity: 1,
             },
         ],
-        customerEmail: currentUser.email, // Pass the current user's email
+        customerEmail: currentUser.data.email, // Pass the current user's email
         successUrl: `${window.location.origin}/account/success?subscription_id={SUBSCRIPTION_ID}`,
         cancelUrl: window.location.origin,
     });
