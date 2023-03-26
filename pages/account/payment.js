@@ -10,6 +10,7 @@ import styles1 from "~styles/pages/account/payment.module.scss";
 
 const Payment = () => {
     const router = useRouter();
+    const [userDetails, setUserDetails] = useState(null); // Add userDetails state
 
     const goFree = () => {
         router.push("/account/success")
@@ -21,35 +22,43 @@ const Payment = () => {
     }, [])
 
     const getUser = async () => {
-        if(userService.getId() === null){
-            router.push("/account/login")
+        if (userService.getId() === null) {
+            router.push("/account/login");
+        } else {
+            const _result = await userService.getById(userService.getId());
+            const _user = _result.data;
+            setUserDetails(_user); // Set fetched user data to state
         }
-    }
+    };
 
-    const paymentcheckout =  async () => {
-        let stripePromise = null
-
+    const paymentcheckout = async () => {
+        if (!userDetails) return; // Make sure userDetails is available
+    
+        let stripePromise = null;
+    
         const getStripe = () => {
-            if(!stripePromise) {
-                stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY)
+            if (!stripePromise) {
+                stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY);
             }
-            return stripePromise
-        }
-
-        const stripe = await getStripe()
-
+            return stripePromise;
+        };
+    
+        const stripe = await getStripe();
+    
         await stripe.redirectToCheckout({
-            mode: 'payment',
+            mode: "payment",
             lineItems: [
                 {
                     price: "price_1Mn7y1EVmyPNhExzI7SnVpph",
-                    quantity: 1
-                }
+                    quantity: 1,
+                },
             ],
+            customerEmail: userDetails.email, // Add email to Stripe session
+            clientReferenceId: userDetails.name, // Add name to Stripe session
             successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancelUrl: window.location.origin
-        })
-    }
+            cancelUrl: window.location.origin,
+        });
+    };
 
     return (
         <div className={styles.screen}>
