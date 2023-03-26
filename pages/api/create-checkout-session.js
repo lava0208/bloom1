@@ -3,10 +3,12 @@ import { createCheckoutSession } from "services/subscriptionService";
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
-      const session = await createCheckoutSession(req.body.userId);
-      res.status(200).json(session);
-    } catch (err) {
-      res.status(500).json({ error: "Failed to create checkout session" });
+      const { userId } = req.body;
+      const session = await createCheckoutSession(userId);
+
+      res.status(200).json({ sessionId: session.id });
+    } catch (error) {
+      res.status(400).json({ error: "Unable to create checkout session" });
     }
   } else {
     res.setHeader("Allow", "POST");

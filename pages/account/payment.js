@@ -35,32 +35,23 @@ const Payment = () => {
 
 
     const paymentcheckout = async () => {
-        if (!userDetails) return; // Make sure userDetails is available
+        const res = await fetch("/api/create-checkout-session", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId: userService.getId() }),
+        });
     
-        let stripePromise = null;
-    
-        const getStripe = () => {
-            if (!stripePromise) {
-                stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY);
-            }
-            return stripePromise;
-        };
+        const { sessionId } = await res.json();
     
         const stripe = await getStripe();
     
-        const response = await fetch('/api/create-checkout-session', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({userId: userService.getId()})
-        });
-        const session = await response.json();
-        
         await stripe.redirectToCheckout({
-            sessionId: session.id,
+            sessionId,
         });
-    }; // maybe delete this
+    };
+    
 
     return (
         <div className={styles.screen}>
