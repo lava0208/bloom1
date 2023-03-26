@@ -15,51 +15,30 @@ const Success = () => {
         share_custom_varieties: false
     });
 
-    const router = useRouter();
+    const router = useRouter()
 
     useEffect(() => {
         getUser();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [router.query]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [router.query])
 
-    const getUser = async () => {
-      if (userService.getId() !== null) {
-          const _result = await userService.getById(userService.getId());
-          const _user = _result.data;
-          setUser(_user);
-  
-          const { session_id } = router.query;
-          if (session_id) {
-            const response = await fetch("/api/get-customer-id", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ sessionId: session_id }),
+   const getUser = async () => {
+    if (userService.getId() !== null) {
+        const _result = await userService.getById(userService.getId());
+        const _user = _result.data;
+        setUser(_user);
+        if (router.query.session_id !== null && router.query.session_id !== undefined) {
+            setUser((prevState) => {
+                const updatedUser = { ...prevState, share_custom_varieties: true };
+                userService.update(userService.getId(), updatedUser);
+                return updatedUser;
             });
-        
-            if (response.ok) {
-              const data = await response.json();
-              updateUserWithCustomerId(data.customerId);
-            }
-          }
-      } else {
-          router.push("/account/login");
-      }
-  };
-  
-    
+        }
+    } else {
+        router.push("/account/login");
+    }
+};
 
-
-    const updateUserWithCustomerIdAndSubscriptionId = async (customerId, subscriptionId) => {
-      // Update the user object with the customer ID and subscription ID
-      user.customerId = customerId;
-      user.subscriptionId = subscriptionId;
-    
-      // Save the updated user object
-      await userService.update(userService.getId(), user);
-    };
-    
 
     return (
         <div className={styles.screen}>
