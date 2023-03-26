@@ -126,30 +126,24 @@ const Profile = () => {
         }
     }
 
-    const checkoutProfile =  async () => {
-        let stripePromise = null
-
-        const getStripe = () => {
-            if(!stripePromise) {
-                stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY)
-            }
-            return stripePromise
+    const checkoutProfile = async () => {
+        const stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY);
+        const stripe = await stripePromise;
+      
+        try {
+          const response = await fetch("/api/create-checkout-session", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+      
+          const { sessionId } = await response.json();
+          await stripe.redirectToCheckout({ sessionId });
+        } catch (error) {
+          console.error("Error:", error);
         }
-
-        const stripe = await getStripe()
-
-        await stripe.redirectToCheckout({
-            mode: 'payment',
-            lineItems: [
-                {
-                    price: "price_1Mn7y1EVmyPNhExzI7SnVpph",
-                    quantity: 1
-                }
-            ],
-            successUrl: `${window.location.origin}/profile?session_id={CHECKOUT_SESSION_ID}`,
-            cancelUrl: window.location.origin
-        })
-    }
+      };
 
 const saveUser = () => {
     if (user.name === "" || user.email === "") {
@@ -198,40 +192,65 @@ const saveUser = () => {
 
     const cancelPro = async () => {
         swal({
-            title: "Wait!",
-            text: "Are you sure you want to downgrade to CORE?",
-            icon: "warning",
-            className: "custom-swal",
-            buttons: [
-                'Cancel',
-                'Yes, I am sure!'
-            ],
-            dangerMode: true,
+          title: "Wait!",
+          text: "Are you sure you want to downgrade to CORE?",
+          icon: "warning",
+          className: "custom-swal",
+          buttons: [
+            "Cancel",
+            "Yes, I am sure!",
+          ],
+          dangerMode: true,
         }).then(async function (isConfirm) {
-            if (isConfirm) {
+          if (isConfirm) {
+            try {
+              const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+              const subscriptionId = user.stripe_subscription_id;
+      
+              if (subscriptionId) {
+                await stripe.subscriptions.del(subscriptionId);
+      
                 user.share_custom_varieties = false;
+                user.stripe_subscription_id = null;
                 var _result = await userService.update(userService.getId(), user);
+      
                 if (_result.status === true) {
-                    swal({
-                        title: "Success!",
-                        text: "You're now on our free CORE plan.",
-                        icon: "success",
-                        className: "custom-swal",
-                    }).then(function(){
-                        location.reload();
-                    });
+                  swal({
+                    title: "Success!",
+                    text: "You're now on our free CORE plan.",
+                    icon: "success",
+                    className: "custom-swal",
+                  }).then(function () {
+                    location.reload();
+                  });
                 } else {
-                    swal({
-                        title: "Error!",
-                        text: _result.message,
-                        icon: "error",
-                        className: "custom-swal",
-                    });
+                  swal({
+                    title: "Error!",
+                    text: _result.message,
+                    icon: "error",
+                    className: "custom-swal",
+                  });
                 }
+              } else {
+                swal({
+                  title: "Error!",
+                  text: "You don't have an active subscription.",
+                  icon: "error",
+                  className: "custom-swal",
+                });
+              }
+            } catch (error) {
+              swal({
+                title: "Error!",
+                text: error.message,
+                icon: "error",
+                className: "custom-swal",
+              });
             }
-        })
-    }
-
+          }
+        });
+      };
+      
     return (<>
         <h2 className={styles.subHeader}>Hello, {user.name}</h2>
         <div className={styles.profilesContainer}>
