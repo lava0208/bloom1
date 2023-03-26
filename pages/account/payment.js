@@ -7,6 +7,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import styles from "~styles/pages/account/register.module.scss";
 import styles1 from "~styles/pages/account/payment.module.scss";
+let stripePromise = null;
 
 const Payment = () => {
     const router = useRouter();
