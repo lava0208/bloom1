@@ -10,6 +10,7 @@ export default async function handler(req, res) {
     try {
       // Retrieve the Checkout Session
       const session = await stripe.checkout.sessions.retrieve(sessionId);
+      console.log(session);
 
       // Check if the payment was successful
       if (session.payment_status === "paid") {
