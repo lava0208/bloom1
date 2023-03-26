@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { userService } from "services";
+import { loadStripe } from "@stripe/stripe-js";
 
 import styles from "~styles/pages/account/success.module.scss";
 
