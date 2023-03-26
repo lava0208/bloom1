@@ -24,29 +24,32 @@ const Success = () => {
 
     const getUser = async () => {
       if (userService.getId() !== null) {
-        const _result = await userService.getById(userService.getId());
-        const _user = _result.data;
-        setUser(_user);
-    
-        const { session_id } = router.query;
-        if (session_id) {
-          const response = await fetch("/api/get-customer-id", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ sessionId: session_id }),
-          });
-    
-          if (response.ok) {
-            const data = await response.json();
-            updateUserWithCustomerIdAndSubscriptionId(data.customerId, data.subscriptionId);
+          const _result = await userService.getById(userService.getId());
+          const _user = _result.data;
+          setUser(_user);
+  
+          const { session_id } = router.query;
+          if (session_id) {
+              setTimeout(async () => {
+                  const response = await fetch("/api/get-customer-id", {
+                      method: "POST",
+                      headers: {
+                          "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({ sessionId: session_id }),
+                  });
+  
+                  if (response.ok) {
+                      const data = await response.json();
+                      updateUserWithCustomerId(data.customerId);
+                  }
+              }, 3000); // Wait for 3 seconds before making the request
           }
-        }
       } else {
-        router.push("/account/login");
+          router.push("/account/login");
       }
-    };
+  };
+  
     
 
 
