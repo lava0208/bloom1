@@ -23,27 +23,30 @@ const Success = () => {
     }, [router.query]);
 
     const getUser = async () => {
-      if (userService.getId() !== null) {
-        const _result = await userService.getById(userService.getId());
-        const _user = _result.data;
-        setUser(_user);
-    
-        const { subscription_id } = router.query;
-        if (subscription_id) {
-            // Fetch the customer ID using the subscription ID
-            const response = await fetch(`/api/get-customer-id?subscriptionId=${subscription_id}`);
-            const { customerId } = await response.json();
+  if (userService.getId() !== null) {
+    const _result = await userService.getById(userService.getId());
+    const _user = _result.data;
+    setUser(_user);
 
-            if (customerId) {
-                updateUserWithCustomerId(customerId);
-            }
-        }
-    } else {
-        router.push("/account/login");
+    const { session_id } = router.query;
+    if (session_id) {
+      const response = await fetch("/api/get-customer-id", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sessionId: session_id }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        updateUserWithCustomerId(data.customerId);
+      }
     }
+  } else {
+    router.push("/account/login");
+  }
 };
-    
-    
 
 
     const updateUserWithCustomerId = async (customerId) => {
