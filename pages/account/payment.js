@@ -41,7 +41,7 @@ const Payment = () => {
           const stripe = await loadStripe(process.env.NEXT_PUBLIC_API_KEY);
       
           const { error } = await stripe.redirectToCheckout({
-            sessionId,
+            sessionId: sessionId,
           });
       
           if (error) {
@@ -53,6 +53,7 @@ const Payment = () => {
           // Display an error message to the user
         }
       };
+      
       
     return (
         <div className={styles.screen}>
