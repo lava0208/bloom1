@@ -9,6 +9,17 @@ import { loadStripe } from "@stripe/stripe-js";
 import styles from "~styles/pages/account/register.module.scss";
 import styles1 from "~styles/pages/account/payment.module.scss";
 
+
+let stripePromise;
+
+const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY);
+  }
+  return stripePromise;
+};
+
+
 const Payment = () => {
     const router = useRouter();
     const [userDetails, setUserDetails] = useState(null); // Add userDetails state
