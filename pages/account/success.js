@@ -29,7 +29,7 @@ const Success = () => {
           const _user = _result.data;
           setUser(_user);
       
-          if (router.query.session_id !== null && router.query.session_id !== undefined) {
+          if (router.query.session_id && userService.getId()) {
             try {
               const response = await fetch("/api/verify-checkout-session", {
                 method: "POST",
@@ -62,6 +62,7 @@ const Success = () => {
           router.push("/account/login");
         }
       };
+      
       
       
 
