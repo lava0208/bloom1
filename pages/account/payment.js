@@ -37,19 +37,23 @@ const Payment = () => {
 
         const stripe = await getStripe()
 
-        await stripe.redirectToCheckout({
-            mode: 'subscription',
-            lineItems: [
-                {
-                    price: "price_1MpjF2EVmyPNhExzk8OzvcVy", // Replace with your subscription price ID
-                    quantity: 1
-                }
-            ],
-            successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancelUrl: window.location.origin
-        })
-    }
+        const userId = userService.getId(); // Get the current user ID
 
+        await stripe.redirectToCheckout({
+          mode: "subscription",
+          lineItems: [
+            {
+              price: "price_1MpjF2EVmyPNhExzk8OzvcVy", // Replace with your subscription price ID
+              quantity: 1,
+            },
+          ],
+          successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
+          cancelUrl: window.location.origin,
+          metadata: {
+            userId, // Pass the user ID as metadata
+          },
+        });
+      };
     return (
         <div className={styles.screen}>
             <img className={styles.logo} src={"/assets/logo.png"} alt="logo" />

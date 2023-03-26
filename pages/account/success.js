@@ -14,6 +14,7 @@ const Success = () => {
         email_newsletter: false,
         share_custom_varieties: false
     });
+    const [isSubscribed, setIsSubscribed] = useState(false);
 
     const router = useRouter()
 
@@ -22,38 +23,32 @@ const Success = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [router.query])
 
-   const getUser = async () => {
-    if (userService.getId() !== null) {
-        const _result = await userService.getById(userService.getId());
-        const _user = _result.data;
-        setUser(_user);
-        if (router.query.session_id !== null && router.query.session_id !== undefined) {
-            setUser((prevState) => {
-                const updatedUser = { ...prevState, share_custom_varieties: true };
-                userService.update(userService.getId(), updatedUser);
-                return updatedUser;
-            });
+    const getUser = async () => {
+        if (userService.getId() !== null) {
+          const _result = await userService.getById(userService.getId());
+          const _user = _result.data;
+          setUser(_user);
+          setIsSubscribed(_user.subscriptionStatus === "active");
+        } else {
+          router.push("/account/login");
         }
-    } else {
-        router.push("/account/login");
-    }
-};
-
-
-    return (
+      };
+    
+      return (
         <div className={styles.screen}>
-            <img className={styles.logo} src={"/assets/logo.png"} alt="logo" />
-            <h2>You&apos;re good to go!</h2>
-            <h3>Let&apos;s make this season the best ever.</h3>
-
-            <div
-                className={styles.nextButtonContainer}
-                onClick={() => router.push("/")}
-            >
-                <h5>Plan Season</h5>
-            </div>
+          <img className={styles.logo} src={"/assets/logo.png"} alt="logo" />
+          <h2>You&apos;re good to go!</h2>
+          <h3>Let&apos;s make this season the best ever.</h3>
+          {isSubscribed && <h4>You have an active subscription. Enjoy the Pro features!</h4>}
+    
+          <div
+            className={styles.nextButtonContainer}
+            onClick={() => router.push("/")}
+          >
+            <h5>Plan Season</h5>
+          </div>
         </div>
-    );
-};
-
-export default Success;
+      );
+    };
+    
+    export default Success;
