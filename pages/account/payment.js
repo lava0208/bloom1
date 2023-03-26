@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { userService } from "services";
@@ -25,33 +26,31 @@ const Payment = () => {
         }
     }
 
-    const paymentcheckout = async () => {
-        const userId = userService.getId();
-        const session = await createCheckoutSession(userId);
-      
-        if (session.error) {
-          console.error(session.error);
-          return;
-        }
-      
-        const stripe = await getStripe();
-        await stripe.redirectToCheckout({ sessionId: session.id });
-      };
+    const paymentcheckout =  async () => {
+        let stripePromise = null
 
-      const createCheckoutSession = async (userId) => {
-        const response = await fetch('/api/create-checkout-session', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ userId, priceId: "your_correct_price_id" }), // Replace with your correct subscription price ID
-        });
-        return await response.json();
-      };
-      
-      
-      
-      
+        const getStripe = () => {
+            if(!stripePromise) {
+                stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY)
+            }
+            return stripePromise
+        }
+
+        const stripe = await getStripe()
+
+        await stripe.redirectToCheckout({
+            mode: 'payment',
+            lineItems: [
+                {
+                    price: "price_1Mn7y1EVmyPNhExzI7SnVpph",
+                    quantity: 1
+                }
+            ],
+            successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancelUrl: window.location.origin
+        })
+    }
+
     return (
         <div className={styles.screen}>
             <img className={styles.logo} src={"/assets/logo.png"} alt="logo" />
