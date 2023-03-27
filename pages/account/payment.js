@@ -27,23 +27,35 @@ const Payment = () => {
     }
 
     const paymentcheckout = async () => {
-        const stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY);
-        const stripe = await stripePromise;
+        let stripePromise = null;
       
-        // Call your backend to create the Checkout Session for a subscription
-        const response = await fetch('/api/create-checkout-session', {
-          method: 'POST',
+        const getStripe = () => {
+          if (!stripePromise) {
+            stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY);
+          }
+          return stripePromise;
+        };
+      
+        const stripe = await getStripe();
+      
+        // Call your create-checkout-session API
+        const response = await fetch("/api/create-checkout-session", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify({ userId: userService.getId() }), // Pass the userId to the API route
+          body: JSON.stringify({ userId: userService.getId() }),
         });
       
-        const session = await response.json();
-      
-        await stripe.redirectToCheckout({
-          sessionId: session.id,
-        });
+        // Handle the response
+        if (response.ok) {
+          const { sessionId } = await response.json();
+          await stripe.redirectToCheckout({
+            sessionId,
+          });
+        } else {
+          console.error("Failed to create checkout session");
+        }
       };
       
 
