@@ -1,28 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { userService } from "services";
-
 
 import { loadStripe } from "@stripe/stripe-js";
 
 import styles from "~styles/pages/account/register.module.scss";
 import styles1 from "~styles/pages/account/payment.module.scss";
 
-
-let stripePromise;
-
-const getStripe = () => {
-  if (!stripePromise) {
-    stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY);
-  }
-  return stripePromise;
-};
-
-
 const Payment = () => {
     const router = useRouter();
-    const [userDetails, setUserDetails] = useState(null); // Add userDetails state
 
     const goFree = () => {
         router.push("/account/success")
@@ -34,41 +21,35 @@ const Payment = () => {
     }, [])
 
     const getUser = async () => {
-        if (userService.getId() === null) {
-            router.push("/account/login");
-        } else {
-            const _result = await userService.getById(userService.getId());
-            const _user = _result.data;
-            setUserDetails(_user); // Set fetched user data to state
+        if(userService.getId() === null){
+            router.push("/account/login")
         }
-    };
+    }
 
+    const paymentcheckout =  async () => {
+        let stripePromise = null
 
-
-    const paymentcheckout = async () => {
-        // Call your backend to create the Checkout Session
-        const response = await fetch('/api/create-checkout-session', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        
-        const session = await response.json();
-        
-        const stripe = await getStripe();
-      
-        // When the customer clicks on the button, redirect them to Checkout
-        const result = await stripe.redirectToCheckout({
-          sessionId: session.id,
-        });
-      
-        if (result.error) {
-          console.log(result.error.message);
+        const getStripe = () => {
+            if(!stripePromise) {
+                stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY)
+            }
+            return stripePromise
         }
-      };
-      
-    
+
+        const stripe = await getStripe()
+
+        await stripe.redirectToCheckout({
+            mode: 'payment',
+            lineItems: [
+                {
+                    price: "price_1Mn7y1EVmyPNhExzI7SnVpph",
+                    quantity: 1
+                }
+            ],
+            successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancelUrl: window.location.origin
+        })
+    }
 
     return (
         <div className={styles.screen}>
