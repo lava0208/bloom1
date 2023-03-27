@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import { connectToDB } from "lib/mongoDB"; // Replace with the correct path to your mongoDB.js file
+import { connectToDB } from "lib/mongodb"; // Replace with the correct path to your mongoDB.js file
 
 const stripe = new Stripe(process.env.NEXT_SECRET_API_KEY);
 
