@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import { userService } from "services/user.service";
+import { connectToDB } from "lib/mongoDB"; // Replace with the correct path to your mongoDB.js file
 
 const stripe = new Stripe(process.env.NEXT_SECRET_API_KEY);
 
@@ -8,8 +8,12 @@ export default async function handler(req, res) {
     try {
       const { userId } = req.body;
 
+      // Connect to MongoDB
+      const db = await connectToDB();
+
       // Fetch user from MongoDB
-      const user = await userService.getById(userId);
+      const usersCollection = db.collection("users");
+      const user = await usersCollection.findOne({ _id: userId });
 
       let customerId = user.stripeCustomerId;
 
@@ -19,7 +23,7 @@ export default async function handler(req, res) {
         customerId = customer.id;
 
         // Update user document in MongoDB with the new customerId
-        await userService.update(userId, { stripeCustomerId: customerId });
+        await usersCollection.updateOne({ _id: userId }, { $set: { stripeCustomerId: customerId } });
       }
 
       const session = await stripe.checkout.sessions.create({
@@ -38,8 +42,9 @@ export default async function handler(req, res) {
 
       res.status(200).json({ sessionId: session.id });
     } catch (error) {
-      console.error("Error creating checkout session:", error);
-      res.status(500).json({ error: "Error creating checkout session" });
+      console.error("Error creating checkout session:", error.message);
+      console.error("Error stack:", error.stack);
+      res.status(500).json({ error: "Error creating checkout session", message: error.message });
     }
   } else {
     res.setHeader("Allow", "POST");
