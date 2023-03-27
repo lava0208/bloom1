@@ -54,10 +54,6 @@ const Payment = () => {
           },
           body: JSON.stringify({ userId: userDetails._id }), // Pass the user ID
         });
-      
-        if (result.error) {
-          console.log(result.error.message);
-        }
       };
       
     
