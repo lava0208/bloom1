@@ -26,30 +26,26 @@ const Payment = () => {
         }
     }
 
-    const paymentcheckout =  async () => {
-        let stripePromise = null
-
-        const getStripe = () => {
-            if(!stripePromise) {
-                stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY)
-            }
-            return stripePromise
-        }
-
-        const stripe = await getStripe()
-
+    const paymentcheckout = async () => {
+        const stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY);
+        const stripe = await stripePromise;
+      
+        // Call your backend to create the Checkout Session for a subscription
+        const response = await fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userId: userService.getId() }), // Pass the userId to the API route
+        });
+      
+        const session = await response.json();
+      
         await stripe.redirectToCheckout({
-            mode: 'payment',
-            lineItems: [
-                {
-                    price: "price_1Mn7y1EVmyPNhExzI7SnVpph",
-                    quantity: 1
-                }
-            ],
-            successUrl: `${window.location.origin}/account/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancelUrl: window.location.origin
-        })
-    }
+          sessionId: session.id,
+        });
+      };
+      
 
     return (
         <div className={styles.screen}>

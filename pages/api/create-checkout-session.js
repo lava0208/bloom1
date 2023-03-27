@@ -1,4 +1,3 @@
-// /pages/api/create-checkout-session.js
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.NEXT_SECRET_API_KEY);
@@ -6,12 +5,18 @@ const stripe = new Stripe(process.env.NEXT_SECRET_API_KEY);
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
+      const { userId } = req.body;
+
+      // Replace this with your actual logic to fetch the user from MongoDB
+      const user = await userService.getById(userId);
+
       const session = await stripe.checkout.sessions.create({
+        customer_email: user.email, // Set the customer's email
         payment_method_types: ["card"],
         mode: "subscription",
         line_items: [
           {
-            price: "price_1MpjF2EVmyPNhExzk8OzvcVy",
+            price: "price_1MpjF2EVmyPNhExzk8OzvcVy", // price ID from Stripe
             quantity: 1,
           },
         ],
@@ -19,7 +24,7 @@ export default async function handler(req, res) {
         cancel_url: req.headers.origin,
       });
 
-      res.status(200).json({ sessionId: session.id });
+      res.status(200).json({ id: session.id });
     } catch (error) {
       console.error("Error creating checkout session:", error);
       res.status(500).json({ error: "Error creating checkout session" });
