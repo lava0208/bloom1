@@ -52,8 +52,20 @@ const Payment = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ userId: userDetails._id }), // Pass the user ID
         });
+        
+        const session = await response.json();
+        
+        const stripe = await getStripe();
+      
+        // When the customer clicks on the button, redirect them to Checkout
+        const result = await stripe.redirectToCheckout({
+          sessionId: session.id,
+        });
+      
+        if (result.error) {
+          console.log(result.error.message);
+        }
       };
       
     
