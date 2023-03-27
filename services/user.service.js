@@ -120,26 +120,13 @@ function removeUser(){
 
 
 
-// Add the new function
-async function getSubscription(userId) {
-  const response = await fetch(`${baseUrl}/subscription?user_id=` + userId, {
+// Add this function to userService object
+async function findUserIdByCustomerId(customerId) {
+  const response = await fetch(`${baseUrl}/user?customer_id=` + customerId, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json"
-    }
-  })
+      "Content-Type": "application/json",
+    },
+  });
   return response.json();
 }
-
-// Add the new function
-async function updateUserSubscription(userId, subscriptionId) {
-    const response = await fetch(`${baseUrl}/subscription?user_id=` + userId, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ subscriptionId }),
-    });
-    return response.json();
-  }
-  

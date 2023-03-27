@@ -1,12 +1,29 @@
-// /pages/api/create-checkout-session.js
 import Stripe from "stripe";
+import { userService } from "services/user.service";
 
 const stripe = new Stripe(process.env.NEXT_SECRET_API_KEY);
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
+      const { userId } = req.body;
+
+      // Fetch user from MongoDB
+      const user = await userService.getById(userId);
+
+      let customerId = user.stripeCustomerId;
+
+      // Create a new Stripe customer if it doesn't exist
+      if (!customerId) {
+        const customer = await stripe.customers.create({ email: user.email });
+        customerId = customer.id;
+
+        // Update user document in MongoDB with the new customerId
+        await userService.update(userId, { stripeCustomerId: customerId });
+      }
+
       const session = await stripe.checkout.sessions.create({
+        customer: customerId,
         payment_method_types: ["card"],
         mode: "subscription",
         line_items: [
