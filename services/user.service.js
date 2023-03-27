@@ -13,8 +13,7 @@ export const userService = {
     currentUser,
     getUser,
     removeUser,
-    getSubscription,
-    updateUserSubscription
+    findUserIdByCustomerId
 };
 
 const baseUrl = `${apiUrl}/auth`;
