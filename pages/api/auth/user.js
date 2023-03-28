@@ -31,27 +31,34 @@ export default async function handler(req, res) {
     let profile = await db.collection("users").findOne({_id: new ObjectId(req.query.id)});
     return res.json({ status: true, data: profile });
 
+// ... update profile
+case "PUT":
+    const { id } = req.query;
+    const isSubscriptionUpdate = req.body.data.isSubscriptionUpdate;
 
-        //... update profile
-        case "PUT":
-            const { id } = req.query;
-            await db.collection("users").updateOne(
-                {
-                    _id: new ObjectId(id),
-                },
-                {
-                    $set: {
-                        name: req.body.name,
-                        email: req.body.email,
-                        password: bcrypt.hashSync(req.body.password, 10),
-                        email_newsletter: req.body.email_newsletter,
-                        share_custom_varieties: req.body.data.share_custom_varieties,
-                        profile_path: req.body.profile_path,
-                        subscriptionId: req.body.data.subscriptionId
-                    },
-                }
-            );
-            return res.json({ status: true, message: 'The profile is updated successfully. Refresh the page.' });
+    const updateFields = {
+        share_custom_varieties: req.body.data.share_custom_varieties,
+        subscriptionId: req.body.data.subscriptionId
+    };
+
+    if (!isSubscriptionUpdate) {
+        updateFields.password = bcrypt.hashSync(req.body.data.password, 10);
+        updateFields.name = req.body.name,
+        updateFields.email = req.body.email,
+        updateFields.email_newsletter = req.body.email_newsletter,
+        updateFields.profile_path = req.body.profile_path,
+    }
+
+    await db.collection("users").updateOne(
+        {
+            _id: new ObjectId(id),
+        },
+        {
+            $set: updateFields,
+        }
+    );
+    return res.json({ status: true, message: 'The profile is updated successfully. Refresh the page.' });
+
 
         //... delete user
         case "DELETE":

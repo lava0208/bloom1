@@ -53,6 +53,7 @@ export default async function handler(req, res) {
         ...user,
         share_custom_varieties: true,
         subscriptionId: subscription,
+        isSubscriptionUpdate: true,
        };
 
       // Save the updated user object to MongoDB
