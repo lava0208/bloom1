@@ -12,10 +12,11 @@ export default async function handler(req, res) {
       const user = await userService.getById(userId);
       console.log(user); // Add this line to debug user data
       console.log("User data:", user);
-      console.log("User email:", user.email);
+      console.log("User email:", user.data.email);
+      console.log("User email:", userId);
 
       const session = await stripe.checkout.sessions.create({
-        customer_email: user.email, // Set the customer's email
+        customer_email: user.data.email, // Set the customer's email
         client_reference_id: userId, // Set the client reference ID
         payment_method_types: ["card"],
         mode: "subscription",
