@@ -46,7 +46,7 @@ case "PUT":
         updateFields.name = req.body.name,
         updateFields.email = req.body.email,
         updateFields.email_newsletter = req.body.email_newsletter,
-        updateFields.profile_path = req.body.profile_path,
+        updateFields.profile_path = req.body.profile_path
     }
 
     await db.collection("users").updateOne(
