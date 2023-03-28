@@ -219,6 +219,10 @@ const deleteUser = async () => {
       }
     });
   };
+
+  const downgrade = async () => {
+    await cancelPro(userService.getId());
+  };
   
   const cancelPro = async (userId) => {
     const result = await swal({
@@ -365,7 +369,7 @@ const deleteUser = async () => {
                 }
                 {
                     isPro && (
-                        <button className={styles.button2} onClick={() => cancelPro(userId)}>Cancel PRO</button>
+                        <button className={styles.button2} onClick={() => downgrade()}>Cancel PRO</button>
                     )
                 }
             </div>
