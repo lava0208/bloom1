@@ -50,7 +50,7 @@ export default async function handler(req, res) {
     
       // Save the updated user object to MongoDB
       await userService.update(userId, updatedUser);
-    }
+    }    
     
 
     if (event.type === 'customer.subscription.deleted') {
