@@ -1,7 +1,14 @@
+import { buffer } from 'micro';
 import Stripe from 'stripe';
 import { userService } from 'services';
 
 const stripe = new Stripe(process.env.NEXT_SECRET_API_KEY);
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -9,7 +16,8 @@ export default async function handler(req, res) {
     let event;
 
     try {
-      event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+      const buf = await buffer(req);
+      event = stripe.webhooks.constructEvent(buf, sig, process.env.STRIPE_WEBHOOK_SECRET);
     } catch (err) {
       console.error('Webhook signature verification failed:', err.message);
       return res.status(400).send(`Webhook Error: ${err.message}`);
