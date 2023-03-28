@@ -54,7 +54,7 @@ export default async function handler(req, res) {
         share_custom_varieties: true,
         subscriptionId: subscription,
        };
-
+       console.log('HERE:', updatedUser);
       // Save the updated user object to MongoDB
        await userService.update(userId, updatedUser); // This seems to be where the error is; runs fine without it. userId is correct, updatedUser is correct
     }

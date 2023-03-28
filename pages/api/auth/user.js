@@ -51,11 +51,11 @@ export default async function handler(req, res) {
                     },
                 }
             );
-            return res.json({ status: true, message: 'The profile is updated successfully. Refresh the page.' });
+            return res.json({ status: true, message: 'Your profile has been updated successfully. Refresh the page.' });
 
         //... delete user
         case "DELETE":
             await db.collection("users").deleteOne({_id: new ObjectId(req.query)});
-            return res.json({ status: true, message: 'The account is closed successfully.' });
+            return res.json({ status: true, message: 'Your account has been closed.' });
     }
 }
