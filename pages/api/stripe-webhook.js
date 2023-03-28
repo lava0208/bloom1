@@ -33,7 +33,6 @@ export default async function handler(req, res) {
 
     console.log('Event:', event);
 
-    const { user } = req.body;
 
     if (event.type === 'checkout.session.completed') {
       console.log('checkout.session.completed event received');
