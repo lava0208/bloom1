@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         //... create a plan
         case "POST":
             await db.collection("plans").insertOne(req.body);
-            return res.json({ status: true, message: 'A plan is created successfully.' });
+            return res.json({ status: true, message: 'Plan created successfully!' });
         //... get all plans or plan by user id
         case "GET":
             const id = req.query.id;
@@ -66,11 +66,11 @@ export default async function handler(req, res) {
                 );
             }
             
-            return res.json({ status: true, message: 'Plan is updated successfully.' });
+            return res.json({ status: true, message: 'Plan updated successfully!' });
 
         //... delete a plan
         case "DELETE":
             await db.collection("plans").deleteOne({_id: new ObjectId(req.query)});
-            return res.json({ status: true, message: 'The plan is deleted successfully.' });
+            return res.json({ status: true, message: 'Plan deleted successfully!' });
     }
 }

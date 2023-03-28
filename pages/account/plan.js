@@ -40,6 +40,7 @@ const Plan = () => {
                     title: "Success!",
                     text: _result.message,
                     icon: "success",
+                    className: "custom-swal",
                 }).then(function(){
                     router.push("/account/payment")
                 });                
@@ -48,6 +49,7 @@ const Plan = () => {
                     title: "Error!",
                     text: _result.message,
                     icon: "error",
+                    className: "custom-swal",
                 })
             }
         } else {
@@ -55,6 +57,7 @@ const Plan = () => {
                 title: "Success!",
                 text: "Please fill all fields",
                 icon: "success",
+                className: "custom-swal",
             })
         }
     }

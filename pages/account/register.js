@@ -32,6 +32,7 @@ const Register = () => {
                 title: "Register Error!",
                 text: "Email is not valid",
                 icon: "error",
+                className: "custom-swal",
             });
             return false;
         }
@@ -62,6 +63,7 @@ const Register = () => {
                             title: "Error!",
                             text: error.message,
                             icon: "error",
+                            className: "custom-swal",
                         });
                     },
                     () => {
@@ -77,6 +79,7 @@ const Register = () => {
                 title: "Error!",
                 text: "File size is too large",
                 icon: "error",
+                className: "custom-swal",
             });
         }
     }
@@ -86,9 +89,10 @@ const Register = () => {
     const result = await userService.register(user);
     if (result.status === true) {
         swal({
-            title: "Registration Success!",
+            title: "Registration Successful!",
             text: result.message,
             icon: "success",
+            className: "custom-swal",
         });
         await userService.setId(result.data.insertedId);
         router.push("/account/plan")
@@ -97,6 +101,7 @@ const Register = () => {
             title: "Register Error!",
             text: result.message,
             icon: "error",
+            className: "custom-swal",
         });
     }
 }
@@ -119,6 +124,7 @@ const register = async () => {
         title: "Registration Error!",
         text: "Please fill all fields.",
         icon: "error",
+        className: "custom-swal",
       });
     }
   };

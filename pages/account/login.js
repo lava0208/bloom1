@@ -18,6 +18,7 @@ const Login = () => {
                 title: "Login Error!",
                 text: "Email is not valid",
                 icon: "error",
+                className: "custom-swal",
             });
             return false;
         }
@@ -36,6 +37,7 @@ const Login = () => {
                         title: "Login Error!",
                         text: result.message,
                         icon: "error",
+                        className: "custom-swal",
                     });
                 }
             }
@@ -44,6 +46,7 @@ const Login = () => {
                 title: "Login Error!",
                 text: "Please fill all fields",
                 icon: "error",
+                className: "custom-swal",
             });
         }
     }

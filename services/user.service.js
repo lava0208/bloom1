@@ -89,7 +89,7 @@ async function cancelSubscription(id) {
         return { success: false, error };
       }
     } else {
-      return { success: false, error: 'No subscription found for the user' };
+      return { success: false, error: 'No subscription found for this user' };
     }
   }
   
