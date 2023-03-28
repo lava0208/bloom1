@@ -1,8 +1,15 @@
-import { buffer } from 'micro';
 import Stripe from 'stripe';
 import { userService } from 'services';
 
 const stripe = new Stripe(process.env.NEXT_SECRET_API_KEY);
+const getRawBody = async (req) => {
+  const chunks = [];
+  for await (const chunk of req) {
+    chunks.push(chunk);
+  }
+  return Buffer.concat(chunks);
+};
+
 
 export const config = {
   api: {
@@ -16,7 +23,7 @@ export default async function handler(req, res) {
     let event;
 
     try {
-      const buf = await buffer(req);
+      const buf = await getRawBody(req);
       event = stripe.webhooks.constructEvent(buf, sig, process.env.STRIPE_WEBHOOK_SECRET);
     } catch (err) {
       console.error('Webhook signature verification failed:', err.message);
