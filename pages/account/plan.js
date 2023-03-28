@@ -88,7 +88,7 @@ const Plan = () => {
                                     name: e.target.value,
                                 });
                             }}
-                            placeholder="Flower Farm"
+                            placeholder="Farm Name"
                         />
                         <small>Estimated Size (square meters)</small>
                         <input
@@ -101,7 +101,7 @@ const Plan = () => {
                                     size: parseInt(e.target.value),
                                 });
                             }}
-                            placeholder="100m"
+                            placeholder="100m²"
                         />
                     </div>
                     <div className={styles.detailsLocationContainer + " planMapContainer"}>
