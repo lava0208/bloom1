@@ -27,9 +27,11 @@ export default async function handler(req, res) {
 
       res.status(200).json({ id: session.id });
     } catch (error) {
-      console.error("Error creating checkout session:", error);
-      res.status(500).json({ error: "Error creating checkout session" });
+      console.error("Error creating checkout session:", error.message);
+      console.error("Error stack:", error.stack);
+      res.status(500).json({ error: "Error creating checkout session", message: error.message });
     }
+    
   } else {
     res.setHeader("Allow", "POST");
     res.status(405).end("Method Not Allowed");
