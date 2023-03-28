@@ -209,10 +209,20 @@ const deleteUser = async () => {
       dangerMode: true,
     }).then(async function (isConfirm) {
       if (isConfirm) {
-        // Cancel the subscription first
-        const cancelResult = await cancelPro(userService.getId());
-        if (cancelResult) {
-          // Delete user account
+        // Check if the user is a pro user
+        const user = userService.getUser();
+        if (user && user.share_custom_varieties) {
+          // Cancel the subscription first
+          const cancelResult = await cancelPro(userService.getId());
+          if (cancelResult) {
+            // Delete user account
+            await userService.delete(userService.getId());
+            localStorage.removeItem("user");
+            localStorage.removeItem("userid");
+            router.push("/account/register");
+          }
+        } else {
+          // Delete user account directly
           await userService.delete(userService.getId());
           localStorage.removeItem("user");
           localStorage.removeItem("userid");
@@ -221,6 +231,7 @@ const deleteUser = async () => {
       }
     });
   };
+  
 
   const downgrade = async () => {
     await cancelPro(userService.getId());
