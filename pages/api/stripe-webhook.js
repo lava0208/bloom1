@@ -33,11 +33,13 @@ export default async function handler(req, res) {
 
     console.log('Event:', event);
 
+    const { user } = req.body;
+
     if (event.type === 'checkout.session.completed') {
       console.log('checkout.session.completed event received');
       const session = event.data.object;
-      const userId = await event.data.client_reference_id;
-      const user = await userService.getById(user._id);
+      const userId =  event.data.client_reference_id;
+      const user = await userService.getById(user.data._id);
       console.log('Fetched user:', user);
 
       // Retrieve the subscription from the session
