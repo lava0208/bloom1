@@ -46,7 +46,7 @@ const Success = () => {
       <img className={styles.logo} src={"/assets/logo.png"} alt="logo" />
       <h2>You&apos;re good to go!</h2>
       {isSubscriptionActive ? (
-        <h3>Your <b>PRO</b> subscription is active! Let&apos;s make this season the best ever.</h3>
+        <h3>Your <b>PRO</b> subscription is now active. Let&apos;s make this season the best ever.</h3>
       ) : (
         <h3>Let&apos;s make this season the best ever.</h3>
       )}
