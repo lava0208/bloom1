@@ -106,14 +106,26 @@ const Profile = () => {
     }
 
     const updateUser = async () => {
-        const result = await userService.update(userService.getId(), user);
+        const payload = {
+            data: {
+                name: user.name,
+                email: user.email,
+                password: user.password,
+                email_newsletter: user.email_newsletter,
+                share_custom_varieties: user.share_custom_varieties,
+                profile_path: user.profile_path,
+                subscriptionId: user.subscriptionId
+            }
+        };
+    
+        const result = await userService.update(userService.getId(), payload);
         if (result.status === true) {
             swal({
                 title: "Success!",
                 text: result.message,
                 icon: "success",
                 className: "custom-swal",
-            }).then(function(){
+            }).then(function () {
                 router.replace(router.asPath);
             });
         } else {
@@ -124,7 +136,8 @@ const Profile = () => {
                 className: "custom-swal",
             });
         }
-    }
+    };
+    
 
     const checkoutProfile =  async () => {
         let stripePromise = null
