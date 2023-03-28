@@ -249,6 +249,8 @@ const deleteUser = async () => {
             text: "Your subscription has been cancelled.",
             icon: "success",
             className: "custom-swal",
+          }).then(function () {
+            location.reload();
           });
           return true;
         } else {
