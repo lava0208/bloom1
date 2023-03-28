@@ -49,10 +49,10 @@ const Payment = () => {
       
         // Handle the response
         if (response.ok) {
-          const { sessionId } = await response.json();
-          await stripe.redirectToCheckout({
-            sessionId,
-          });
+            const { id: sessionId } = await response.json();
+            await stripe.redirectToCheckout({
+              sessionId,
+            });            
         } else {
           console.error("Failed to create checkout session");
         }
