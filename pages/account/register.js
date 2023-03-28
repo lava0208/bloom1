@@ -11,8 +11,6 @@ import { storage } from "firebaseConfig";
 import styles from "~styles/pages/account/register.module.scss";
 
 
-const [registrationStarted, setRegistrationStarted] = useState(false);
-
 
 const Register = () => {
     const [user, setUser] = useState({
@@ -23,6 +21,8 @@ const Register = () => {
         share_custom_varieties: false,
         subscriptionId: "",
     });
+
+    const [registrationStarted, setRegistrationStarted] = useState(false);
 
     const router = useRouter();
     const emailValidation = () => {
