@@ -32,14 +32,15 @@ const Success = () => {
         router.query.session_id !== null &&
         router.query.session_id !== undefined
       ) {
-        user.share_custom_varieties = true;
-        await userService.update(userService.getId(), user);
+        const updatedUser = { ..._user, share_custom_varieties: true };
+        await userService.update(userService.getId(), updatedUser);
         setIsSubscriptionActive(true);
       }
     } else {
       router.push("/account/login");
     }
   };
+  
 
   return (
     <div className={styles.screen}>
