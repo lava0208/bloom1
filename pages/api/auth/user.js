@@ -47,7 +47,7 @@ export default async function handler(req, res) {
                         email_newsletter: req.body.data.email_newsletter,
                         share_custom_varieties: req.body.share_custom_varieties,
                         profile_path: req.body.data.profile_path,
-                        subscriptionId: req.body.is_verified
+                        subscriptionId: req.body.subscriptionId
                     },
                 }
             );
