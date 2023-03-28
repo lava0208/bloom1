@@ -241,8 +241,8 @@ const deleteUser = async () => {
         if (response.ok) {
           const { message } = await response.json();
           await swal({
-            title: "Success!",
-            text: "You're now on our free CORE plan.",
+            title: "We're sad to see you go.",
+            text: "Your subscription has been cancelled.",
             icon: "success",
             className: "custom-swal",
           });
