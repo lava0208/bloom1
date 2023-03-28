@@ -31,11 +31,14 @@ const Success = () => {
       if (
         router.query.session_id !== null &&
         router.query.session_id !== undefined
-      ) 
+      ) {
+        setIsSubscriptionActive(_user.share_custom_varieties);
+      }
     } else {
       router.push("/account/login");
     }
   };
+  
   
 
   return (
