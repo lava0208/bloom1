@@ -56,7 +56,7 @@ export default async function handler(req, res) {
        };
 
       // Save the updated user object to MongoDB
-       // await userService.update(userId, updatedUser); // This seems to be where the error is
+       await userService.update(userId, updatedUser); // This seems to be where the error is; runs fine without it. userId is correct, updatedUser is correct
     }
 
     if (event.type === 'customer.subscription.deleted') {

@@ -69,6 +69,7 @@ async function update(id, params) {
             },
             body: JSON.stringify(params)
         })
+        console.log('API response:', response); // Log the response object
         return response.json();
     } catch (error) {
         console.log(error);
