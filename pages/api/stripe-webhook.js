@@ -34,14 +34,21 @@ export default async function handler(req, res) {
       const session = event.data.object;
       const userId = session.client_reference_id;
       const user = await userService.getById(userId);
+      
+      // Retrieve the subscription from the session
+      const subscription = session.subscription;
     
-      // Get the subscription ID from the session object
-      const subscriptionId = session.subscription;
+      // Update the user object with the subscription ID and share_custom_varieties
+      const updatedUser = {
+        ...user,
+        share_custom_varieties: true,
+        subscriptionId: subscription,
+      };
     
-      // Update the user object with the subscription ID and share_custom_varieties set to true
-      const updatedUser = { ...user, share_custom_varieties: true, subscriptionId };
+      // Save the updated user object to MongoDB
       await userService.update(userId, updatedUser);
     }
+    
     
     
 
