@@ -365,7 +365,7 @@ const deleteUser = async () => {
                 }
                 {
                     isPro && (
-                        <button className={styles.button2} onClick={() => cancelPro()}>Cancel PRO</button>
+                        <button className={styles.button2} onClick={() => cancelPro(userId)}>Cancel PRO</button>
                     )
                 }
             </div>
