@@ -50,9 +50,12 @@ export default async function handler(req, res) {
 
       // Update the user object with the subscription ID and share_custom_varieties
        const updatedUser = {
+        ...user,
         share_custom_varieties: true,
         subscriptionId: subscription,
        };
+
+       console.log('HERE IT IS AHHHHH', updatedUser);
 
       // Save the updated user object to MongoDB
        await userService.update(userId, updatedUser);
