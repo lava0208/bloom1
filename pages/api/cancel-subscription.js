@@ -10,9 +10,11 @@ export default async function handler(req, res) {
 
       // Replace this with your actual logic to fetch the user from MongoDB
       const user = await userService.getById(userId);
+      console.log(user)
 
       // Assuming you store the subscriptionId in the user object
       const subscriptionId = user.data.subscriptionId;
+      console.log(subscriptionId)
 
       if (subscriptionId) {
         // Cancel the subscription
