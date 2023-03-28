@@ -10,6 +10,10 @@ import { storage } from "firebaseConfig";
 
 import styles from "~styles/pages/account/register.module.scss";
 
+
+const [registrationStarted, setRegistrationStarted] = useState(false);
+
+
 const Register = () => {
     const [user, setUser] = useState({
         name: "",
@@ -98,23 +102,27 @@ const Register = () => {
 }
 
 
-    const register = async () => {
+const register = async () => {
     if (user.name !== "" && user.email !== "" && user.password !== "") {
-        if (emailValidation()) {
-            setUser(prevState => {
-                const updatedUser = { ...prevState, profile_path: downloadURL };
-                registerUser(updatedUser);
-                return updatedUser;
-            });
-        }
-    } else {
-        swal({
-            title: "Registration Error!",
-            text: "Please fill all fields.",
-            icon: "error",
+      if (emailValidation()) {
+        setUser((prevState) => {
+          const updatedUser = { ...prevState, profile_path: downloadURL };
+          return updatedUser;
         });
+        if (!registrationStarted) {
+          setRegistrationStarted(true);
+          registerUser(user);
+        }
+      }
+    } else {
+      swal({
+        title: "Registration Error!",
+        text: "Please fill all fields.",
+        icon: "error",
+      });
     }
-}
+  };
+  
 
 
     return (
