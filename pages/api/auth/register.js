@@ -13,7 +13,8 @@ export default async function handler(req, res) {
             }else{
                 req.body.password = bcrypt.hashSync(req.body.password, 10);
                 const newUser = await db.collection("users").insertOne(req.body);
-                return res.json({ status: true, data: newUser, message: 'The user is registered successfully.' });
+                return res.json({ status: true, data: newUser, message: 'Let\'s get started!' });
+
             }
     }
 }
