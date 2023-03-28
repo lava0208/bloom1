@@ -35,26 +35,3 @@ export default async function handler(req, res) {
     res.status(405).end("Method Not Allowed");
   }
 }
-
-
-import { userService } from 'services';
-
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    try {
-      const { userId } = req.body;
-      const result = await userService.cancelSubscription(userId);
-      if (result.success) {
-        res.status(200).json({ success: true });
-      } else {
-        res.status(400).json({ success: false, error: result.error });
-      }
-    } catch (error) {
-      console.error('Error canceling subscription:', error);
-      res.status(500).json({ error: 'Error canceling subscription' });
-    }
-  } else {
-    res.setHeader('Allow', 'POST');
-    res.status(405).end('Method Not Allowed');
-  }
-}
