@@ -63,7 +63,7 @@ case "PUT":
             $set: updateData,
         }
     );
-    return res.json({ status: true, message: 'Your profile has been updated successfully. Refresh the page.' });
+    return res.json({ status: true, message: 'Your profile has been updated successfully.' });
 
         //... delete user
         case "DELETE":
