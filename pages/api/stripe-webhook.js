@@ -55,11 +55,8 @@ export default async function handler(req, res) {
         subscriptionId: subscription,
        };
 
-       console.log('HERE IT IS AHHHHH', updatedUser);
-       console.log('HERE IT IS AHHHHH', userId);
-
       // Save the updated user object to MongoDB
-       await userService.update(userId, updatedUser);
+       // await userService.update(userId, updatedUser); // This seems to be where the error is
     }
 
     if (event.type === 'customer.subscription.deleted') {
