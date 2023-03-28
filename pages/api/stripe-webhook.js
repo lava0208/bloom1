@@ -50,13 +50,12 @@ export default async function handler(req, res) {
 
       // Update the user object with the subscription ID and share_custom_varieties
        const updatedUser = {
-        ...user,
         share_custom_varieties: true,
         subscriptionId: subscription,
        };
 
       // Save the updated user object to MongoDB
-       await userService.update(userId.data._id, updatedUser);
+       await userService.update(userId, updatedUser);
     }
 
     if (event.type === 'customer.subscription.deleted') {
