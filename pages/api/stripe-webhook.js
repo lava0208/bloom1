@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     if (event.type === 'checkout.session.completed') {
       console.log('checkout.session.completed event received');
       const session = event.data.object;
-      const userId = event.data.client_reference_id;
+      const userId = session.client_reference_id;
       console.log(userId);
       const user = await userService.getById(userId);
       // console.log('Fetched user:', user);
@@ -49,14 +49,14 @@ export default async function handler(req, res) {
       console.log('subscription:', subscription);
 
       // Update the user object with the subscription ID and share_custom_varieties
-      // const updatedUser = {
-      //  ...user,
-      //  share_custom_varieties: true,
-      //  subscriptionId: subscription,
-      // };
+       const updatedUser = {
+        ...user,
+        share_custom_varieties: true,
+        subscriptionId: subscription,
+       };
 
       // Save the updated user object to MongoDB
-      // await userService.update(userId, updatedUser);
+       await userService.update(userId, updatedUser);
     }
 
     if (event.type === 'customer.subscription.deleted') {
