@@ -4,6 +4,7 @@ import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
     const client = await clientPromise;
+    console.log(client); // Add this line
     const db = client.db("bloom");
 
     switch (req.method) {
