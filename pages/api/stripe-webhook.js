@@ -36,9 +36,10 @@ export default async function handler(req, res) {
     if (event.type === 'checkout.session.completed') {
       console.log('checkout.session.completed event received');
       const session = event.data.object;
-      const idOfUser = session.client_reference_id;
-      console.log(idOfUser); // this works!
-      const user = await userService.getById(idOfUser); // this is the problem area, as soon as we try anyting with userService we get an error
+      const userId = session.client_reference_id;
+      console.log(userId); // this works!
+      console.log(session);
+      const user = await userService.getById(userId); // this is the problem area, as soon as we try anyting with userService we get an error
       // console.log('Fetched user:', user);
 
 
