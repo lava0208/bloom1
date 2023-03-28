@@ -1,5 +1,5 @@
-import { Stripe } from 'stripe';
-import { userService } from 'services';
+import { Stripe } from "stripe";
+import { userService } from "services";
 
 const stripe = new Stripe(process.env.NEXT_SECRET_API_KEY);
 
@@ -37,8 +37,8 @@ export default async function handler(req, res) {
       console.log('checkout.session.completed event received');
       const session = event.data.object;
       const userId = event.data.client_reference_id;
-      // const user = await userService.getById(userId);
-      // console.log('Fetched user:', user);
+      const user = await userService.getById(userId);
+      console.log('Fetched user:', user);
 
       // Retrieve the subscription from the session
       const subscription = session.subscription;
