@@ -112,7 +112,9 @@ const Profile = () => {
                 email: user.email,
                 password: user.password,
                 email_newsletter: user.email_newsletter,
+                share_custom_varieties: user.share_custom_varieties,
                 profile_path: user.profile_path,
+                subscriptionId: user.subscriptionId
             }
         };
     

@@ -33,25 +33,37 @@ export default async function handler(req, res) {
 
 
         //... update profile
-        case "PUT":
-            const { id } = req.query;
-            await db.collection("users").updateOne(
-                {
-                    _id: new ObjectId(id),
-                },
-                {
-                    $set: {
-                        name: req.body.data.name,
-                        email: req.body.data.email,
-                        password: bcrypt.hashSync(req.body.data.password, 10),
-                        email_newsletter: req.body.data.email_newsletter,
-                        share_custom_varieties: req.body.share_custom_varieties,
-                        profile_path: req.body.data.profile_path,
-                        subscriptionId: req.body.subscriptionId
-                    },
-                }
-            );
-            return res.json({ status: true, message: 'Your profile has been updated successfully. Refresh the page.' });
+  //... update profile
+case "PUT":
+    const { id } = req.query;
+    let updateData = {
+        name: req.body.data.name,
+        email: req.body.data.email,
+        password: bcrypt.hashSync(req.body.data.password, 10),
+        profile_path: req.body.data.profile_path,
+    };
+
+    if (req.body.data.email_newsletter !== undefined) {
+        updateData.email_newsletter = req.body.data.email_newsletter;
+    }
+
+    if (req.body.share_custom_varieties !== undefined) {
+        updateData.share_custom_varieties = req.body.share_custom_varieties;
+    }
+
+    if (req.body.subscriptionId !== undefined) {
+        updateData.subscriptionId = req.body.subscriptionId;
+    }
+
+    await db.collection("users").updateOne(
+        {
+            _id: new ObjectId(id),
+        },
+        {
+            $set: updateData,
+        }
+    );
+    return res.json({ status: true, message: 'Your profile has been updated successfully. Refresh the page.' });
 
         //... delete user
         case "DELETE":
