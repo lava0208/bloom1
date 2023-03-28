@@ -88,6 +88,7 @@ const Plan = () => {
                                     name: e.target.value,
                                 });
                             }}
+                            placeholder="Flower Farm"
                         />
                         <small>Estimated Size (square meters)</small>
                         <input
