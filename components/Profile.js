@@ -139,30 +139,37 @@ const Profile = () => {
     };
     
 
-    const checkoutProfile =  async () => {
-        let stripePromise = null
-
+    const paymentcheckout = async () => {
+        let stripePromise = null;
+      
         const getStripe = () => {
-            if(!stripePromise) {
-                stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY)
-            }
-            return stripePromise
+          if (!stripePromise) {
+            stripePromise = loadStripe(process.env.NEXT_PUBLIC_API_KEY);
+          }
+          return stripePromise;
+        };
+      
+        const stripe = await getStripe();
+      
+        // Call your create-checkout-session API
+        const response = await fetch("/api/create-checkout-session", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: userService.getId() }),
+        });
+      
+        // Handle the response
+        if (response.ok) {
+            const { id: sessionId } = await response.json();
+            await stripe.redirectToCheckout({
+              sessionId,
+            });            
+        } else {
+          console.error("Failed to create checkout session");
         }
-
-        const stripe = await getStripe()
-
-        await stripe.redirectToCheckout({
-            mode: 'payment',
-            lineItems: [
-                {
-                    price: "price_1Mn7y1EVmyPNhExzI7SnVpph",
-                    quantity: 1
-                }
-            ],
-            successUrl: `${window.location.origin}/profile?session_id={CHECKOUT_SESSION_ID}`,
-            cancelUrl: window.location.origin
-        })
-    }
+      };
 
 const saveUser = () => {
     if (user.name === "" || user.email === "") {
@@ -347,7 +354,7 @@ const saveUser = () => {
                         </a>
                         
                     ) : (
-                        <button className={styles.button3} onClick={() => checkoutProfile()}>Upgrade Now</button>
+                        <button className={styles.button3} onClick={() => paymentcheckout()}>Upgrade Now</button>
                     )
                 }
                 {
