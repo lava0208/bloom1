@@ -41,13 +41,13 @@ export default async function handler(req, res) {
                 },
                 {
                     $set: {
-                        name: req.body.name,
-                        email: req.body.email,
-                        password: bcrypt.hashSync(req.body.password, 10),
-                        email_newsletter: req.body.email_newsletter,
+                        name: req.body.data.name,
+                        email: req.body.data.email,
+                        password: bcrypt.hashSync(req.body.data.password, 10),
+                        email_newsletter: req.body.data.email_newsletter,
                         share_custom_varieties: req.body.share_custom_varieties,
-                        profile_path: req.body.profile_path,
-                        is_verified: req.body.is_verified
+                        profile_path: req.body.data.profile_path,
+                        subscriptionId: req.body.is_verified
                     },
                 }
             );
