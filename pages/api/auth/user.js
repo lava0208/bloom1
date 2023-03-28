@@ -45,9 +45,9 @@ export default async function handler(req, res) {
                         email: req.body.email,
                         password: bcrypt.hashSync(req.body.password, 10),
                         email_newsletter: req.body.email_newsletter,
-                        share_custom_varieties: req.body.share_custom_varieties,
+                        share_custom_varieties: req.body.data.share_custom_varieties,
                         profile_path: req.body.profile_path,
-                        subscriptionId: req.body.subscriptionId
+                        subscriptionId: req.body.data.subscriptionId
                     },
                 }
             );
