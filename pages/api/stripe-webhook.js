@@ -46,7 +46,7 @@ export default async function handler(req, res) {
 
       // Update the user object with the subscription ID and share_custom_varieties
       const updatedUser = {
-        ...user,
+        user,
         share_custom_varieties: true,
         subscriptionId: subscription,
       };
