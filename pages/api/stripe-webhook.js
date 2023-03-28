@@ -37,8 +37,8 @@ export default async function handler(req, res) {
       console.log('checkout.session.completed event received');
       const session = event.data.object;
       const userId = event.data.client_reference_id;
-      const user = await userService.getById(userId);
-      console.log('Fetched user:', user);
+      const noah = await userService.getById(userId);
+      console.log('Fetched user:', noah);
 
       // Retrieve the subscription from the session
       const subscription = session.subscription;
