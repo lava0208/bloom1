@@ -27,8 +27,9 @@ export default async function handler(req, res) {
         
         //... get profile info
         case "GET":
-            let profile = await db.collection("users").findOne({_id: new ObjectId(req.query)});
-            return res.json({ status: true, data: profile });
+    let profile = await db.collection("users").findOne({_id: new ObjectId(req.query.id)});
+    return res.json({ status: true, data: profile });
+
 
         //... update profile
         case "PUT":
