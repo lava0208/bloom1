@@ -1,35 +1,41 @@
-// File: /pages/api/stripe-webhook.js
-
-import { userService } from "services";
-import Stripe from "stripe";
+import Stripe from 'stripe';
+import { userService } from 'services';
 
 const stripe = new Stripe(process.env.NEXT_SECRET_API_KEY);
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
-    const event = await stripe.webhooks.constructEvent(
-      req.body,
-      req.headers["stripe-signature"],
-      process.env.NEXT_WEBHOOK_SECRET
-    );
+  if (req.method === 'POST') {
+    const sig = req.headers['stripe-signature'];
+    let event;
 
-    // Handle the event
-    if (event.type === "checkout.session.completed") {
-      const session = event.data.object;
-      const subscriptionId = session.subscription;
-      const userId = session.metadata.userId;
-
-      // Save the subscription ID and status in the user's record
-      const user = await userService.getById(userId);
-      user.subscriptionId = subscriptionId;
-      user.subscriptionStatus = "active";
-      await userService.update(userId, user);
+    try {
+      event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    } catch (err) {
+      console.error('Webhook signature verification failed:', err.message);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
-    // Return a response to acknowledge receipt of the event
-    res.json({ received: true });
+    if (event.type === 'checkout.session.completed') {
+      const session = event.data.object;
+      const userId = session.client_reference_id;
+      const user = await userService.getById(userId);
+      const updatedUser = { ...user, share_custom_varieties: true };
+      await userService.update(userId, updatedUser);
+    }
+
+    if (event.type === 'customer.subscription.deleted') {
+      const subscription = event.data.object;
+      const userId = subscription.metadata.userId;
+      const user = await userService.getById(userId);
+      const updatedUser = { ...user, share_custom_varieties: false };
+      await userService.update(userId, updatedUser);
+    }
+
+    // Handle other subscription-related events here if necessary
+
+    res.status(200).json({ received: true });
   } else {
-    res.setHeader("Allow", "POST");
-    res.status(405).end("Method Not Allowed");
+    res.setHeader('Allow', 'POST');
+    res.status(405).end('Method Not Allowed');
   }
 }
