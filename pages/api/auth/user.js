@@ -34,14 +34,17 @@ export default async function handler(req, res) {
 
         //... update profile
   //... update profile
-case "PUT":
+  case "PUT":
     const { id } = req.query;
     let updateData = {
         name: req.body.data.name,
         email: req.body.data.email,
-        password: bcrypt.hashSync(req.body.data.password, 10),
         profile_path: req.body.data.profile_path,
     };
+
+    if (req.body.data.password) {
+        updateData.password = bcrypt.hashSync(req.body.data.password, 10);
+    }
 
     if (req.body.data.email_newsletter !== undefined) {
         updateData.email_newsletter = req.body.data.email_newsletter;
@@ -64,6 +67,7 @@ case "PUT":
         }
     );
     return res.json({ status: true, message: 'Your profile has been updated successfully.' });
+
 
         //... delete user
         case "DELETE":
