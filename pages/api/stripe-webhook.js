@@ -52,8 +52,6 @@ export default async function handler(req, res) {
       await userService.update(userId, updatedUser);
     }
     
-    
-    
 
     if (event.type === 'customer.subscription.deleted') {
       const subscription = event.data.object;

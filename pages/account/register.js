@@ -16,7 +16,8 @@ const Register = () => {
         email: "",
         password: "",
         profile_path: "",
-        share_custom_varieties: false
+        share_custom_varieties: false,
+        subscriptionId: "",
     });
 
     const router = useRouter();
