@@ -194,68 +194,74 @@ const saveUser = () => {
 
 
 
-
-    const deleteUser = async () => {
-        swal({
-            title: "Wait!",
-            text: "Are you sure you want to close this account? This cannot be undone.",
-            icon: "warning",
-            className: "custom-swal",
-            buttons: [
-                'Cancel',
-                'Yes, I am sure!'
-            ],
-            dangerMode: true,
-        }).then(async function (isConfirm) {
-            if (isConfirm) {
-                await userService.delete(userService.getId());
-                localStorage.removeItem("user");
-                localStorage.removeItem("userid");
-                router.push("/account/register");
-            }
-        })
-    }
-
-    const cancelPro = async () => {
-        swal({
-          title: "Wait!",
-          text: "Are you sure you want to downgrade to CORE?",
-          icon: "warning",
-          className: "custom-swal",
-          buttons: ["Cancel", "Yes, I am sure!"],
-          dangerMode: true,
-        }).then(async function (isConfirm) {
-          if (isConfirm) {
-            const response = await fetch("/api/cancel-subscription", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ userId: userService.getId() }),
-            });
-      
-            if (response.ok) {
-              const { message } = await response.json();
-              swal({
-                title: "Success!",
-                text: "You're now on our free CORE plan.",
-                icon: "success",
-                className: "custom-swal",
-              }).then(function () {
-                location.reload();
-              });
-            } else {
-              const { error } = await response.json();
-              swal({
-                title: "Error!",
-                text: error,
-                icon: "error",
-                className: "custom-swal",
-              });
-            }
-          }
+const deleteUser = async () => {
+    swal({
+      title: "Wait!",
+      text: "Are you sure you want to close this account? This cannot be undone.",
+      icon: "warning",
+      className: "custom-swal",
+      buttons: [
+        'Cancel',
+        'Yes, I am sure!'
+      ],
+      dangerMode: true,
+    }).then(async function (isConfirm) {
+      if (isConfirm) {
+        // Cancel the subscription first
+        const cancelResult = await cancelPro(userService.getId());
+        if (cancelResult) {
+          // Delete user account
+          await userService.delete(userService.getId());
+          localStorage.removeItem("user");
+          localStorage.removeItem("userid");
+          router.push("/account/register");
+        }
+      }
+    });
+  };
+  
+  const cancelPro = async (userId) => {
+    const result = await swal({
+      title: "Wait!",
+      text: "Are you sure you want to downgrade to CORE?",
+      icon: "warning",
+      className: "custom-swal",
+      buttons: ["Cancel", "Yes, I am sure!"],
+      dangerMode: true,
+    }).then(async function (isConfirm) {
+      if (isConfirm) {
+        const response = await fetch("/api/cancel-subscription", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: userId }),
         });
-      };
+  
+        if (response.ok) {
+          const { message } = await response.json();
+          await swal({
+            title: "Success!",
+            text: "You're now on our free CORE plan.",
+            icon: "success",
+            className: "custom-swal",
+          });
+          return true;
+        } else {
+          const { error } = await response.json();
+          await swal({
+            title: "Error!",
+            text: error,
+            icon: "error",
+            className: "custom-swal",
+          });
+          return false;
+        }
+      }
+    });
+    return result;
+  };
+  
       
 
     return (<>
