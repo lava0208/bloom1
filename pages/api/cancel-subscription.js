@@ -12,7 +12,7 @@ export default async function handler(req, res) {
       const user = await userService.getById(userId);
 
       // Assuming you store the subscriptionId in the user object
-      const subscriptionId = user.subscriptionId;
+      const subscriptionId = user.data.subscriptionId;
 
       if (subscriptionId) {
         // Cancel the subscription
