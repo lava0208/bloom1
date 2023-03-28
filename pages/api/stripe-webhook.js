@@ -40,7 +40,7 @@ export default async function handler(req, res) {
       console.log(userId); // this works!
       console.log(session);
       const user = await userService.getById(userId); // this is the problem area, as soon as we try anyting with userService we get an error
-      console.log(user);
+      console.log('Fetched user:', user);
 
 
   
