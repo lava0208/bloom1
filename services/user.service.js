@@ -11,6 +11,7 @@ export const userService = {
     currentUser,
     getUser,
     cancelSubscription,
+    emailExists,
     removeUser
 };
 
@@ -29,6 +30,22 @@ async function getById(id) {
         console.log(error)
     }
 }
+
+async function emailExists(email) {
+    try {
+      const response = await fetch(`${baseUrl}/email-exists`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      return response.json();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
 
 async function login(params) {
     try {

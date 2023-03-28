@@ -323,6 +323,7 @@ const deleteUser = async () => {
                         onChange={(e) =>
                             setUser({ ...user, email: e.target.value })
                         }
+                        readOnly
                     />
                     <input
     type="password"
