@@ -56,6 +56,7 @@ export default async function handler(req, res) {
        };
 
        console.log('HERE IT IS AHHHHH', updatedUser);
+       console.log('HERE IT IS AHHHHH', userId);
 
       // Save the updated user object to MongoDB
        await userService.update(userId, updatedUser);
