@@ -237,7 +237,7 @@ const Plant = (props) => {
             <div className="row mt-4">
                 <div className={styles.inputContainer + " col-md-6"}>
                     <h5>Indoor Timing</h5>
-                    <small>Early Seed</small>
+                    <small>Earliest Seed (weeks before last frost)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -249,7 +249,7 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <small>Late Seed</small>
+                    <small>Latest Seed (weeks before last frost)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -261,7 +261,7 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <small>Pinch</small>
+                    <small>Pinch (weeks after seeding indoors)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -273,7 +273,7 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <small>Pot On</small>
+                    <small>Pot On (weeks after seeding indoors)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -285,7 +285,7 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <small>Harden</small>
+                    <small>Harden (weeks after last frost)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -297,7 +297,7 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <small>Transplant</small>
+                    <small>Transplant (weeks after last frost)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -310,7 +310,7 @@ const Plant = (props) => {
                         }}
                     />
                     <h5 className="mt-3">Harvest</h5>
-                    <small>Maturity Early</small>
+                    <small>Maturity Early (days after seeding)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -322,7 +322,7 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <small>Maturity Late</small>
+                    <small>Maturity Late (days after seeding)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -374,7 +374,7 @@ const Plant = (props) => {
                 </div>
                 <div className={styles.inputContainer + " col-md-6"}>
                     <h5>Direct Seed Timing</h5>
-                    <small>Direct Seed</small>
+                    <small>Direct Seed (weeks after last frost)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -386,7 +386,7 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <small>Pinch</small>
+                    <small>Pinch (weeks after direct seeding)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -411,7 +411,7 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <small>Cold Stratify (weeks)</small>
+                    <small>Cold Stratify (weeks before seeding)</small>
                     <input
                         type="number"
                         className={styles.input}
