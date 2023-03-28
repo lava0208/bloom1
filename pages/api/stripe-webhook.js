@@ -34,9 +34,10 @@ export default async function handler(req, res) {
       const session = event.data.object;
       const userId = session.client_reference_id;
       const user = await userService.getById(userId);
-      const updatedUser = { ...user, share_custom_varieties: true };
+      const updatedUser = { ...user, share_custom_varieties: true, subscriptionId: session.subscription };
       await userService.update(userId, updatedUser);
     }
+    
 
     if (event.type === 'customer.subscription.deleted') {
       const subscription = event.data.object;

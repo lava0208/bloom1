@@ -10,6 +10,7 @@ export const userService = {
     getId,
     currentUser,
     getUser,
+    cancelSubscription,
     removeUser
 };
 
@@ -73,6 +74,24 @@ async function update(id, params) {
         console.log(error);
     }
 }
+
+async function cancelSubscription(id) {
+    const user = await getById(id);
+    if (user.subscriptionId) {
+      try {
+        await stripe.subscriptions.del(user.subscriptionId);
+        const updatedUser = { ...user, share_custom_varieties: false, subscriptionId: null };
+        await update(id, updatedUser);
+        return { success: true };
+      } catch (error) {
+        console.log(error);
+        return { success: false, error };
+      }
+    } else {
+      return { success: false, error: 'No subscription found for the user' };
+    }
+  }
+  
 
 // prefixed with underscored because delete is a reserved word in javascript
 async function _delete(id) {
