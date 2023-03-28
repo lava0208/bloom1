@@ -78,6 +78,7 @@ const Register = () => {
     }
 
     const registerUser = async (user) => {
+    console.log('Registering user:', user);
     const result = await userService.register(user);
     if (result.status === true) {
         swal({
