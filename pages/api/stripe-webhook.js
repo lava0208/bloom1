@@ -36,14 +36,13 @@ export default async function handler(req, res) {
     if (event.type === 'checkout.session.completed') {
       console.log('checkout.session.completed event received');
       const session = event.data.object;
-      const userId = session.client_reference_id;
-      console.log(userId); // this works!
-      const user = await userService.getById(userId); // this is the problem area
+      const idOfUser = session.client_reference_id;
+      console.log(idOfUser); // this works!
+      const user = await userService.getById(idOfUser); // this is the problem area, as soon as we try anyting with userService we get an error
       // console.log('Fetched user:', user);
 
 
-      // The issue is that the returned ID is in a different format, and so can't be used by user service
-
+  
       // Retrieve the subscription from the session
       const subscription = session.subscription;
       console.log('subscription:', subscription);

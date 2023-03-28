@@ -9,6 +9,7 @@ export default async function handler(req, res) {
       const { userId } = req.body;
 
       // Replace this with your actual logic to fetch the user from MongoDB
+      console.log(userId);
       const user = await userService.getById(userId);
       console.log(user); // Add this line to debug user data
       console.log("User data:", user);
