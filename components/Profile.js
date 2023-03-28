@@ -127,7 +127,9 @@ const Profile = () => {
                 className: "custom-swal",
             }).then(function () {
                 router.replace(router.asPath);
-            });
+            }).then(function () {
+                location.reload();
+              });
         } else {
             swal({
                 title: "Error!",
