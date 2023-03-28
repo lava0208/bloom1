@@ -101,6 +101,7 @@ const Plan = () => {
                                     size: parseInt(e.target.value),
                                 });
                             }}
+                            placeholder="100m"
                         />
                     </div>
                     <div className={styles.detailsLocationContainer + " planMapContainer"}>
