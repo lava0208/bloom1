@@ -46,6 +46,7 @@ const CalendarTab = () => {
                     description: element.note,
                     planting_id: element.planting_id,
                     duration: element.duration,
+                    completed: element.type === "complete",
                 }
                 taskArr.push(taskObj);
             } catch (error) {
@@ -67,30 +68,34 @@ const CalendarTab = () => {
 
     const eventStyleGetter = (event) => {
         let backgroundColor = "";
-        switch (event.label) {
-            case "Cold Stratify":
-                backgroundColor = "#7bc9d8";
-                break;
-            case "Pot On":
-                backgroundColor = "#707070";
-                break;
-            case "Harvest":
-                backgroundColor = "#000000";
-                break;
-            case "Seed Indoors":
-                backgroundColor = "#7ae06b";
-                break;
-            case "Harden":
-                backgroundColor = "#e0b26b";
-                break;
-            case "Pinch":
-                backgroundColor = "#e06bc9";
-                break;
-            case "Transplant":
-                backgroundColor = "#6b3d91";
-                break;
-            default:
-                backgroundColor = "#505168";
+        if (event.completed) {
+            backgroundColor = "#A9A9A9"; // Faded gray color for completed tasks
+        } else {
+            switch (event.label) {
+                case "Cold Stratify":
+                    backgroundColor = "#7bc9d8";
+                    break;
+                case "Pot On":
+                    backgroundColor = "#707070";
+                    break;
+                case "Harvest":
+                    backgroundColor = "#000000";
+                    break;
+                case "Seed Indoors":
+                    backgroundColor = "#7ae06b";
+                    break;
+                case "Harden":
+                    backgroundColor = "#e0b26b";
+                    break;
+                case "Pinch":
+                    backgroundColor = "#e06bc9";
+                    break;
+                case "Transplant":
+                    backgroundColor = "#6b3d91";
+                    break;
+                default:
+                    backgroundColor = "#505168";
+            }
         }
 
         let style = {
