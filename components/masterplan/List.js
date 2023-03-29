@@ -43,25 +43,33 @@ const List = () => {
         getAllTasks();
     }, [])
 
-const getAllTasks = async () => {
-    var _result = await taskService.getAllByDate();
-
-    const addPlantNameAndFormatDate = async (tasks) => {
-    return await Promise.all(tasks.map(async (task) => {
-        const _planting = await plantingService.getById(task.planting_id);
-        const _plant = await plantService.getById(_planting.data.plant_id);
-        return {
-            ...task,
-            plantName: _plant.data.name,
-            scheduled_at: task.scheduled_at // Keep the original date format
+    const getAllTasks = async () => {
+        var _result = await taskService.getAllByDate();
+    
+        const addPlantNameAndFormatDate = async (tasks) => {
+            return await Promise.all(tasks.map(async (task) => {
+                const _planting = await plantingService.getById(task.planting_id);
+                const _plant = await plantService.getById(_planting.data.plant_id);
+                return {
+                    ...task,
+                    plantName: _plant.data.name,
+                    scheduled_at: task.scheduled_at // Keep the original date format
+                };
+            }));
         };
-    }));
-};
-
-    setTodayTasks(await addPlantNameAndFormatDate(_result.data.today));
-    setWeekTasks(await addPlantNameAndFormatDate(_result.data.week));
-    setOverdueTasks(await addPlantNameAndFormatDate(_result.data.overdue));
-    setAllTasks(await addPlantNameAndFormatDate(_result.data.all));
+    
+        const sortedTasks = await addPlantNameAndFormatDate(_result.data.all);
+        sortedTasks.sort((a, b) => {
+            if (a.type === b.type) {
+                return moment(a.scheduled_at).isBefore(moment(b.scheduled_at)) ? -1 : 1;
+            }
+            return a.type === "complete" ? 1 : -1;
+        });
+    
+        setTodayTasks(await addPlantNameAndFormatDate(_result.data.today));
+        setWeekTasks(await addPlantNameAndFormatDate(_result.data.week));
+        setOverdueTasks(await addPlantNameAndFormatDate(_result.data.overdue));
+        setAllTasks(sortedTasks);
 };
 
 
@@ -136,7 +144,7 @@ const getAllTasks = async () => {
     <div className={styles.thisWeekScrollContainer}>
         {allTasks.map((task, i) => (
             <div className={styles.allTaskContainer} key={i}>
-                <div className={styles.thisWeekTaskContainer} onClick={() => openSchedule(task)}>
+                <div className={`${styles.thisWeekTaskContainer} ${task.type === "complete" ? styles.completedTask : ''}`} onClick={() => openSchedule(task)}>
                     <div className="text-center">
                         <h3>{task.title} <i>{task.plantName}</i></h3>
                         <h4>{task.scheduled_at ? moment(task.scheduled_at).format("MMMM Do") : "Invalid date"}</h4>
