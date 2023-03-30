@@ -334,7 +334,7 @@ const Plant = (props) => {
         fontWeight: "bold",
         color: activeTab === "6" ? "#443750" : "white",
         cursor: "pointer",
-        borderRadius: 5,
+        borderRadius: 20,
       }}
         onClick={() => {
           toggleTab("6");
