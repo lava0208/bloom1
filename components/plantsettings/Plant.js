@@ -352,16 +352,13 @@ const Plant = (props) => {
   </Nav>
   <TabContent activeTab={activeTab}>
     <TabPane tabId="1">
-      {/* Indoor Timing content */}
-    </TabPane>
-    <TabPane tabId="2">
     <div className="row">
     <div className={styles.inputContainer + " col-md-6"}>
                     <h5
                     style={{
                     paddingTop: 25,
                     }}
-      >Indoor Timing</h5>
+                    >Indoor Timing</h5>
                     <small>Earliest Seed (weeks before last frost)</small>
                     <input
                         type="number"
@@ -474,14 +471,60 @@ const Plant = (props) => {
                             }}
                         />
                     </h6>
-                    <h5 className="mt-3">Transplant Note</h5>
-                    <textarea
-                        rows="3"
-                        value={plant ? plant.transplant_note : ""}
+                    <h5 className="mt-4">Seeding</h5>
+                    <small>Depth (mm)</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.depth : ""}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
-                                transplant_note: e.target.value,
+                                depth: e.target.value,
+                            });
+                        }}
+                    />
+                    <small>Cold Stratify (weeks before seeding)</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.cold_stratify : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                cold_stratify: e.target.value,
+                            });
+                        }}
+                    />
+                    <h6 className="d-flex align-items-center">
+                        <label htmlFor="light">Light for germination</label>
+                        <input type="checkbox" id="light"
+                            value={plant ? plant.light : ""}
+                            checked={plant ? plant.light : false}
+                            onChange={(e) => {
+                                setPlant({
+                                    ...plant,
+                                    light: e.target.checked,
+                                });
+                            }}
+                        />
+                    </h6>
+                    
+                </div>
+                <div className={styles.inputContainer + " col-md-6"}>
+                    <h5 style={{
+                    paddingTop: 25,
+                    }}>Notes</h5>
+                    
+                    
+                    <h5 className="mt-3">Indoor Seed Note</h5>
+                    <textarea
+                        rows="3"
+                        value={plant ? plant.indoor_seed_note : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                indoor_seed_note: e.target.value,
                             });
                         }}
                     />
@@ -496,11 +539,54 @@ const Plant = (props) => {
                             });
                         }}
                     />
+                    <h5>Pot On Note</h5>
+                    <textarea
+                        rows="3"
+                        value={plant ? plant.pot_on_note : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                pot_on_note: e.target.value,
+                            });
+                        }}
+                    />
+                    <h5 className="mt-3">Transplant Note</h5>
+                    <textarea
+                        rows="3"
+                        value={plant ? plant.transplant_note : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                transplant_note: e.target.value,
+                            });
+                        }}
+                    />
+                    <h5>Harvest Note</h5>
+                    <textarea
+                        rows="3"
+                        value={plant ? plant.harvest_note : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                harvest_note: e.target.value,
+                            });
+                        }}
+                    />
                 </div>
-                <div className={styles.inputContainer + " col-md-6"}>
-                    <h5 style={{
+                <div className={styles.inputContainer + " text-center"}>
+                    <button onClick={() => { savePlant() }}>Save Changes</button>
+                    <button onClick={props.cancelPlant}>Cancel</button>
+                </div>
+                </div>
+    </TabPane>
+    <TabPane tabId="2">
+    <div className="row">
+    <div className={styles.inputContainer + " col-md-6"}>
+                    <h5
+                    style={{
                     paddingTop: 25,
-                    }}>Direct Seed Timing</h5>
+                    }}
+                    >Timing</h5>
                     <small>Direct Seed (weeks after last frost)</small>
                     <input
                         type="number"
@@ -563,17 +649,50 @@ const Plant = (props) => {
                             }}
                         />
                     </h6>
-                    <h5 className="mt-3">Indoor Seed Note</h5>
-                    <textarea
-                        rows="3"
-                        value={plant ? plant.indoor_seed_note : ""}
+                    <small>Maturity Early (days after seeding)</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.maturity_early : ""}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
-                                indoor_seed_note: e.target.value,
+                                maturity_early: e.target.value,
                             });
                         }}
                     />
+                    <small>Maturity Late (days after seeding)</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.maturity_late : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                maturity_late: e.target.value,
+                            });
+                        }}
+                    />
+                    <h6 className="d-flex align-items-center">
+                        <label htmlFor="rebloom">Rebloom?</label>
+                        <input
+                            type="checkbox"
+                            id="rebloom"
+                            value={plant ? plant.rebloom : ""}
+                            checked={plant ? plant.rebloom : false}
+                            onChange={(e) => {
+                                setPlant({
+                                    ...plant,
+                                    rebloom: e.target.checked,
+                                });
+                            }}
+                        />
+                    </h6>
+                </div>
+                <div className={styles.inputContainer + " col-md-6"}>
+                    <h5 style={{
+                    paddingTop: 25,
+                    }}>Notes</h5>
                     <h5 className="mt-3">Direct Seed Note</h5>
                     <textarea
                         rows="3"
@@ -585,14 +704,15 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <h5>Pot On Note</h5>
+
+                <h5 className="mt-3">Pinch Note</h5>
                     <textarea
                         rows="3"
-                        value={plant ? plant.pot_on_note : ""}
+                        value={plant ? plant.pinch_note : ""}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
-                                pot_on_note: e.target.value,
+                                pinch_note: e.target.value,
                             });
                         }}
                     />
@@ -607,6 +727,7 @@ const Plant = (props) => {
                             });
                         }}
                     />
+
                 </div>
                 <div className={styles.inputContainer + " text-center"}>
                     <button onClick={() => { savePlant() }}>Save Changes</button>
