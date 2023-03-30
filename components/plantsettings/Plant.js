@@ -388,6 +388,7 @@ const Plant = (props) => {
                         type="number"
                         className={styles.input}
                         value={plant ? plant.pinch : ""}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
@@ -400,6 +401,7 @@ const Plant = (props) => {
                         type="number"
                         className={styles.input}
                         value={plant ? plant.pot_on : ""}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
@@ -477,6 +479,7 @@ const Plant = (props) => {
                         type="number"
                         className={styles.input}
                         value={plant ? plant.depth : ""}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
@@ -489,6 +492,7 @@ const Plant = (props) => {
                         type="number"
                         className={styles.input}
                         value={plant ? plant.cold_stratify : ""}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
@@ -521,6 +525,7 @@ const Plant = (props) => {
                     <textarea
                         rows="3"
                         value={plant ? plant.indoor_seed_note : ""}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
@@ -532,6 +537,7 @@ const Plant = (props) => {
                     <textarea
                         rows="3"
                         value={plant ? plant.pinch_note : ""}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
@@ -543,6 +549,7 @@ const Plant = (props) => {
                     <textarea
                         rows="3"
                         value={plant ? plant.pot_on_note : ""}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
@@ -554,6 +561,7 @@ const Plant = (props) => {
                     <textarea
                         rows="3"
                         value={plant ? plant.transplant_note : ""}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
@@ -565,6 +573,7 @@ const Plant = (props) => {
                     <textarea
                         rows="3"
                         value={plant ? plant.harvest_note : ""}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
@@ -604,6 +613,7 @@ const Plant = (props) => {
                         type="number"
                         className={styles.input}
                         value={plant ? plant.direct_seed_pinch : ""}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
@@ -617,6 +627,7 @@ const Plant = (props) => {
                         type="number"
                         className={styles.input}
                         value={plant ? plant.depth : ""}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
@@ -629,6 +640,7 @@ const Plant = (props) => {
                         type="number"
                         className={styles.input}
                         value={plant ? plant.cold_stratify : ""}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
@@ -697,7 +709,7 @@ const Plant = (props) => {
                     <small>Direct Seed Note</small>
                     <textarea
                         rows="3"
-                        placeholder={"Cover lightly with..."}
+                        placeholder={"Optional"}
                         value={plant ? plant.direct_seed_note : ""}
                         onChange={(e) => {
                             setPlant({
@@ -710,7 +722,7 @@ const Plant = (props) => {
                 <small>Pinch Note</small>
                     <textarea
                         rows="3"
-                        placeholder={"Pinch when the..."}
+                        placeholder={"Optional"}
                         value={plant ? plant.pinch_note : ""}
                         onChange={(e) => {
                             setPlant({
@@ -723,7 +735,7 @@ const Plant = (props) => {
                     <textarea
                         rows="3"
                         value={plant ? plant.harvest_note : ""}
-                        placeholder={"Harvest when..."}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
