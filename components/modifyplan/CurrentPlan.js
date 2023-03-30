@@ -215,7 +215,7 @@ const CurrentPlan = (props) => {
     </button>
   ) : (
     <></>
-  );
+  )
 }
 {
   plant.earliest_seed !== "" || plant.latest_seed !== "" ? (
@@ -238,7 +238,7 @@ const CurrentPlan = (props) => {
     </button>
   ) : (
     <></>
-  );
+  )
 }
 {
   plant.bulb_transplant !== null &&
