@@ -254,7 +254,7 @@ const Plant = (props) => {
             fontWeight: "bold",
             color: activeTab === "1" ? "#443750" : "white",
             cursor: "pointer",
-            borderRadius: 5,
+            borderRadius: 20,
           }}
         onClick={() => {
           toggleTab("1");
@@ -270,7 +270,7 @@ const Plant = (props) => {
             fontWeight: "bold",
             color: activeTab === "2" ? "#443750" : "white",
             cursor: "pointer",
-            borderRadius: 5,
+            borderRadius: 20,
           }}
         onClick={() => {
           toggleTab("2");
@@ -286,7 +286,7 @@ const Plant = (props) => {
             fontWeight: "bold",
             color: activeTab === "3" ? "#443750" : "white",
             cursor: "pointer",
-            borderRadius: 5,
+            borderRadius: 20,
           }}
         onClick={() => {
           toggleTab("3");
@@ -302,7 +302,7 @@ const Plant = (props) => {
             fontWeight: "bold",
             color: activeTab === "4" ? "#443750" : "white",
             cursor: "pointer",
-            borderRadius: 5,
+            borderRadius: 20,
           }}
         onClick={() => {
           toggleTab("4");
@@ -318,7 +318,7 @@ const Plant = (props) => {
             fontWeight: "bold",
             color: activeTab === "5" ? "#443750" : "white",
             cursor: "pointer",
-            borderRadius: 5,
+            borderRadius: 20,
           }}
         onClick={() => {
           toggleTab("5");
