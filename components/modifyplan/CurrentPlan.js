@@ -369,12 +369,25 @@ const CurrentPlan = (props) => {
                                 )
                             }
                             {
-                                  activeBulb && plant.bulb_pot_on !== "" ? (
+                                   activeBulb && plant.bulb_pot_on !== "" && preSproutCheckbox ? (
                                     <div className={styles.successionCheckboxRow}>
                                         <h6>Pot On</h6>
                                         <div
                                             onClick={() => {setBulbPotCheckbox(!bulbPotCheckbox), setPlanting({...planting, bulb_pot_on: !bulbPotCheckbox})}}
                                             className={`${styles.checkbox} ${bulbPotCheckbox ? styles.active : null}`}
+                                        ></div>
+                                    </div>
+                                ) : (
+                                    <></>
+                                )
+                            }
+                            {
+                                  activeBulb !== "" ? (
+                                    <div className={styles.successionCheckboxRow}>
+                                        <h6>Pre-Sprout</h6>
+                                        <div
+                                            onClick={() => {setPreSproutCheckbox(!preSproutCheckbox), setPlanting({...planting, bulb_presprout: !preSproutCheckbox})}}
+                                            className={`${styles.checkbox} ${preSproutCheckbox ? styles.active : null}`}
                                         ></div>
                                     </div>
                                 ) : (
