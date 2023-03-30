@@ -358,7 +358,7 @@ const Plant = (props) => {
                     style={{
                     paddingTop: 25,
                     }}
-                    >Indoor Timing</h5>
+                    >Timing</h5>
                     <small>Earliest Seed (weeks before last frost)</small>
                     <input
                         type="number"
@@ -431,7 +431,7 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <h5 className="mt-3">Harvest</h5>
+                    <h5 className="mt-3">Maturity</h5>
                     <small>Maturity Early (days after seeding)</small>
                     <input
                         type="number"
@@ -457,7 +457,7 @@ const Plant = (props) => {
                         }}
                     />
                     <h6 className="d-flex align-items-center">
-                        <label htmlFor="rebloom">Rebloom?</label>
+                        <label htmlFor="rebloom">Rebloom (<i>cut and come again</i>)?</label>
                         <input
                             type="checkbox"
                             id="rebloom"
@@ -649,6 +649,7 @@ const Plant = (props) => {
                             }}
                         />
                     </h6>
+                    <h5>Maturity</h5>
                     <small>Maturity Early (days after seeding)</small>
                     <input
                         type="number"
@@ -674,7 +675,7 @@ const Plant = (props) => {
                         }}
                     />
                     <h6 className="d-flex align-items-center">
-                        <label htmlFor="rebloom">Rebloom?</label>
+                    <label htmlFor="rebloom">Rebloom (<i>cut and come again</i>)?</label>
                         <input
                             type="checkbox"
                             id="rebloom"
@@ -693,7 +694,7 @@ const Plant = (props) => {
                     <h5 style={{
                     paddingTop: 25,
                     }}>Notes</h5>
-                    <h5>Direct Seed Note</h5>
+                    <small>Direct Seed Note</small>
                     <textarea
                         rows="3"
                         value={plant ? plant.direct_seed_note : ""}
@@ -705,7 +706,7 @@ const Plant = (props) => {
                         }}
                     />
 
-                <h5>Pinch Note</h5>
+                <small>Pinch Note</small>
                     <textarea
                         rows="3"
                         value={plant ? plant.pinch_note : ""}
@@ -716,10 +717,11 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <h5>Harvest Note</h5>
+                    <small>Harvest Note</small>
                     <textarea
                         rows="3"
                         value={plant ? plant.harvest_note : ""}
+                        placeholder={"There are"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
