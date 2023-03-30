@@ -245,7 +245,7 @@ const Plant = (props) => {
                 </div>
             </div>
             <div className="row mt-4">
-            <div className="col-md-6">
+            <div className="col-md-12">
   <Nav tabs>
     <NavItem>
       <NavLink
