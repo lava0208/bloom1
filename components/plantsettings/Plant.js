@@ -785,7 +785,6 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <h5 className="mt-4">Seeding</h5>
                     <small>Pot On</small>
                     <input
                         type="number"
