@@ -517,7 +517,7 @@ const Plant = (props) => {
                     }}>Notes</h5>
                     
                     
-                    <h5 className="mt-3">Indoor Seed Note</h5>
+                    <h5>Indoor Seed Note</h5>
                     <textarea
                         rows="3"
                         value={plant ? plant.indoor_seed_note : ""}
@@ -528,7 +528,7 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <h5 className="mt-3">Pinch Note</h5>
+                    <h5>Pinch Note</h5>
                     <textarea
                         rows="3"
                         value={plant ? plant.pinch_note : ""}
@@ -550,7 +550,7 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <h5 className="mt-3">Transplant Note</h5>
+                    <h5>Transplant Note</h5>
                     <textarea
                         rows="3"
                         value={plant ? plant.transplant_note : ""}
@@ -693,7 +693,7 @@ const Plant = (props) => {
                     <h5 style={{
                     paddingTop: 25,
                     }}>Notes</h5>
-                    <h5 className="mt-3">Direct Seed Note</h5>
+                    <h5>Direct Seed Note</h5>
                     <textarea
                         rows="3"
                         value={plant ? plant.direct_seed_note : ""}
@@ -705,7 +705,7 @@ const Plant = (props) => {
                         }}
                     />
 
-                <h5 className="mt-3">Pinch Note</h5>
+                <h5>Pinch Note</h5>
                     <textarea
                         rows="3"
                         value={plant ? plant.pinch_note : ""}
