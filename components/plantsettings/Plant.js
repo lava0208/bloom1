@@ -250,6 +250,7 @@ const Plant = (props) => {
     <NavItem>
       <NavLink
         className={classnames("tabLink", { active: activeTab === "1" })}
+        style={{ fontWeight: "bold", color: "white", cursor: "pointer" }}
         onClick={() => {
           toggleTab("1");
         }}
@@ -260,6 +261,7 @@ const Plant = (props) => {
     <NavItem>
       <NavLink
         className={classnames("tabLink", { active: activeTab === "2" })}
+        style={{ fontWeight: "bold", color: "white", cursor: "pointer" }}
         onClick={() => {
           toggleTab("2");
         }}
@@ -270,6 +272,7 @@ const Plant = (props) => {
     <NavItem>
       <NavLink
         className={classnames("tabLink", { active: activeTab === "3" })}
+        style={{ fontWeight: "bold", color: "white", cursor: "pointer" }}
         onClick={() => {
           toggleTab("3");
         }}
@@ -280,6 +283,7 @@ const Plant = (props) => {
     <NavItem>
       <NavLink
         className={classnames("tabLink", { active: activeTab === "4" })}
+        style={{ fontWeight: "bold", color: "white", cursor: "pointer" }}
         onClick={() => {
           toggleTab("4");
         }}
@@ -290,6 +294,7 @@ const Plant = (props) => {
     <NavItem>
       <NavLink
         className={classnames("tabLink", { active: activeTab === "5" })}
+        style={{ fontWeight: "bold", color: "white", cursor: "pointer" }}
         onClick={() => {
           toggleTab("5");
         }}
@@ -300,6 +305,7 @@ const Plant = (props) => {
     <NavItem>
       <NavLink
        className={classnames("tabLink", { active: activeTab === "6" })}
+       style={{ fontWeight: "bold", color: "white", cursor: "pointer" }}
         onClick={() => {
           toggleTab("6");
         }}
