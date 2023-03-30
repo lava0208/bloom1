@@ -752,7 +752,130 @@ const Plant = (props) => {
                 </div>
     </TabPane>
     <TabPane tabId="3">
-      {/* Bulb/Corm content */}
+    <div className="row">
+    <div className={styles.inputContainer + " col-md-6"}>
+                    <h5
+                    style={{
+                    paddingTop: 25,
+                    }}
+                    >Timing</h5>
+                    <small>Soak</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.bulb_soak : ""}
+                        placeholder={"Optional"}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                bulb_soak: e.target.value,
+                            });
+                        }}
+                    />
+                    <small>Pre-sprout</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.bulb_presprout : ""}
+                        placeholder={"Optional"}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                bulb_presprout: e.target.value,
+                            });
+                        }}
+                    />
+                    <h5 className="mt-4">Seeding</h5>
+                    <small>Pot On</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.bulb_pot_on : ""}
+                        placeholder={"Optional"}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                bulb_pot_on: e.target.value,
+                            });
+                        }}
+                    />
+                    <h5 className="mt-4">Maturity</h5>
+                    <small>Maturity Early (days after seeding)</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.bulb_maturity_early : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                bulb_maturity_early: e.target.value,
+                            });
+                        }}
+                    />
+                    <small>Maturity Late (days after seeding)</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.bulb_maturity_late : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                bulb_maturity_late: e.target.value,
+                            });
+                        }}
+                    />
+                    <h6 className="d-flex align-items-center">
+                    <label htmlFor="rebloom">Rebloom?</label>
+                        <input
+                            type="checkbox"
+                            id="rebloom"
+                            value={plant ? plant.rebloom : ""}
+                            checked={plant ? plant.rebloom : false}
+                            onChange={(e) => {
+                                setPlant({
+                                    ...plant,
+                                    rebloom: e.target.checked,
+                                });
+                            }}
+                        />
+                    </h6>
+                </div>
+                <div className={styles.inputContainer + " col-md-6"}>
+                    <h5 style={{
+                    paddingTop: 25,
+                    }}>Notes</h5>
+                    <small>Soak Note</small>
+                    <textarea
+                        rows="3"
+                        placeholder={"Optional"}
+                        value={plant ? plant.soak_note : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                soak_note: e.target.value,
+                            });
+                        }}
+                    />
+
+                    <small>Harvest Note</small>
+                    <textarea
+                        rows="3"
+                        value={plant ? plant.harvest_note : ""}
+                        placeholder={"Optional"}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                harvest_note: e.target.value,
+                            });
+                        }}
+                    />
+
+                </div>
+                <div className={styles.inputContainer + " text-center"}>
+                    <button onClick={() => { savePlant() }}>Save Changes</button>
+                    <button onClick={props.cancelPlant}>Cancel</button>
+                </div>
+                </div>
     </TabPane>
     <TabPane tabId="4">
       {/* Cutting content */}
