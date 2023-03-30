@@ -10,6 +10,7 @@ const CurrentPlan = (props) => {
     const [potCheckbox, setPotCheckbox] = useState(false);
     const [activeDirectSeed, setActiveDirectSeed] = useState(false);
     const [activeStartIndoors, setActiveStartIndoors] = useState(false);
+    const [activeBulb, setActiveBulb] = useState(false);
     const harvests = [
         { label: "Early", value: 1 },
         { label: "Regular", value: 2 },
@@ -25,6 +26,7 @@ const CurrentPlan = (props) => {
         harvest: "",
         direct_sow: false,
         direct_indoors: false,
+        bulb: false,
         pinch: false,
         pot_on: false,
         succession: "",
@@ -150,6 +152,7 @@ const CurrentPlan = (props) => {
         setActiveHarvest(-1);
         setActiveDirectSeed(false);
         setActiveStartIndoors(false);
+        setActiveBulb(false);
         setPinchCheckbox(false);
         setPotCheckbox(false);
     }
@@ -217,6 +220,24 @@ const CurrentPlan = (props) => {
                                 <></>
                             )
                         }
+                        {
+            plant.bulb !== "" ? (
+                <button 
+                    onClick={() => {
+                        setActiveBulb(!activeBulb);
+                        setActiveDirectSeed(false);
+                        setActiveStartIndoors(false);
+                        setPlanting({...planting, bulb: !activeBulb});
+                    }}
+                    className={activeBulb === true ? styles.selected : ''}
+                    value={planting.bulb}
+                >
+                    Bulb
+                </button>
+            ) : (
+                <></>
+            )
+        }
                     </div>
                     <div className={styles.quantityRow}>
                         <h4>Quantity</h4>
