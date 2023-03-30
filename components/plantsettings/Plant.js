@@ -355,6 +355,7 @@ const Plant = (props) => {
       {/* Indoor Timing content */}
     </TabPane>
     <TabPane tabId="2">
+    <div className="row">
     <div className={styles.inputContainer + " col-md-6"}>
                     <h5 style={{
         paddingTop: 25,
@@ -606,6 +607,7 @@ const Plant = (props) => {
                 <div className={styles.inputContainer + " text-center"}>
                     <button onClick={() => { savePlant() }}>Save Changes</button>
                     <button onClick={props.cancelPlant}>Cancel</button>
+                </div>
                 </div>
     </TabPane>
     <TabPane tabId="3">
