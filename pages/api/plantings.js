@@ -22,7 +22,6 @@ function createTasks(planting, plant, plan, shiftDays){
     console.log(plan);
     let last_frost = plan.last_frost;
     let first_frost = plan.first_frost;
-    planting.bulb = !planting.direct_sow && !planting.direct_indoors;
 
     //... durations
     let _earliest_indoor_seed = plant.earliest_seed !== "" ? parseInt(plant.earliest_seed)*7 : 0;
