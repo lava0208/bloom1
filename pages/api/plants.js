@@ -129,7 +129,7 @@ bulb_transplant_note: req.body.bulb_transplant_note
                     },
                 }
             );
-            return res.json({ status: true, message: 'plant is updated successfully.' });
+            return res.json({ status: true, message: 'Updated successfully!' });
 
         //... delete a plant
        case "DELETE":
