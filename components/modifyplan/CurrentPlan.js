@@ -221,7 +221,9 @@ const CurrentPlan = (props) => {
                             )
                         }
                         {
-            plant.bulb !== null && plant.bulb !== "" ? (
+            plant.bulb_transplant !== null && plant.bulb_transplant !== "" &&
+            plant.bulb_maturity_early !== null && plant.bulb_maturity_early !== "" &&
+            plant.bulb_maturity_late !== null && plant.bulb_maturity_late !== "" ? (
                 <button 
                     onClick={() => {
                         setActiveBulb(!activeBulb);
