@@ -43,6 +43,9 @@ const CurrentPlan = (props) => {
             if(props.planting.direct_sow){
                 setActiveDirectSeed(true)
             }
+            if(props.planting.bulb){
+                setActiveBulb(true)
+            }
             if(props.planting.direct_indoors){
                 setActiveStartIndoors(true)
             }
