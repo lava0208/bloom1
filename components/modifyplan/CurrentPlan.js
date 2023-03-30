@@ -42,10 +42,10 @@ const CurrentPlan = (props) => {
             setPinchCheckbox(props.planting.pinch);
             setPotCheckbox(props.planting.pot_on);
             setBulbPotCheckbox(props.planting.bulb_pot_on);
-            setActiveDirectSeed(props.planting.direct_sow)
-            setActiveBulb(props.planting.bulb)
-            setActiveStartIndoors(props.planting.direct_indoors)
-            var _harvest = harvests.find(x => x.label === props.planting.harvest)
+            setActiveDirectSeed(props.planting.direct_sow);
+            setActiveBulb(props.planting.bulb);
+            setActiveStartIndoors(props.planting.direct_indoors);
+            var _harvest = harvests.find(x => x.label === props.planting.harvest);
             setActiveHarvest(_harvest ? _harvest.value : -1);
         }else{
             //... create page
