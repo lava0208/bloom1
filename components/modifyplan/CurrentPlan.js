@@ -268,6 +268,7 @@ const CurrentPlan = (props) => {
     <></>
   )
 }
+
                     </div>
                     <div className={styles.quantityRow}>
                         <h4>Quantity</h4>
