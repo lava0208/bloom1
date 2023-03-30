@@ -190,7 +190,7 @@ const CurrentPlan = (props) => {
                 </div>
                 <div className={styles.planOptionsContainer}>
                     <div className={styles.seedingRow}>
-                        <h4>Seeding</h4>
+                        <h4>Planting Type</h4>
                         {
                             plant.direct_seed !== "" ? (
                                 <button 
