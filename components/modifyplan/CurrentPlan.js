@@ -8,6 +8,7 @@ const CurrentPlan = (props) => {
     //... Initialize
     const [pinchCheckbox, setPinchCheckbox] = useState(false);
     const [potCheckbox, setPotCheckbox] = useState(false);
+    const [bulbPotCheckbox, setBulbPotCheckbox] = useState(false);
     const [activeDirectSeed, setActiveDirectSeed] = useState(false);
     const [activeStartIndoors, setActiveStartIndoors] = useState(false);
     const [activeBulb, setActiveBulb] = useState(false);
@@ -40,21 +41,10 @@ const CurrentPlan = (props) => {
             getPlanting();
             setPinchCheckbox(props.planting.pinch);
             setPotCheckbox(props.planting.pot_on);
-            if(props.planting.direct_sow){
-                setActiveDirectSeed(true),
-                setActiveBulb(false),
-                setActiveStartIndoors(false)
-            }
-            if(props.planting.bulb){
-                setActiveBulb(true),
-                setActiveStartIndoors(false),
-                setActiveDirectSeed(false)
-            }
-            if(props.planting.direct_indoors){
-                setActiveStartIndoors(true),
-                setActiveBulb(false),
-                setActiveDirectSeed(false)
-            }
+            setBulbPotCheckbox(props.planting.bulb_pot_on);
+            setActiveDirectSeed(props.planting.direct_sow)
+            setActiveBulb(props.planting.bulb)
+            setActiveStartIndoors(props.planting.direct_indoors)
             var _harvest = harvests.find(x => x.label === props.planting.harvest)
             setActiveHarvest(_harvest ? _harvest.value : -1);
         }else{
@@ -164,6 +154,7 @@ const CurrentPlan = (props) => {
         setActiveBulb(false);
         setPinchCheckbox(false);
         setPotCheckbox(false);
+        setBulbPotCheckbox(false);
     }
 
     return (
@@ -354,8 +345,8 @@ const CurrentPlan = (props) => {
                                     <div className={styles.successionCheckboxRow}>
                                         <h6>Pot On</h6>
                                         <div
-                                            onClick={() => {setPotCheckbox(!potCheckbox), setPlanting({...planting, bulb_pot_on: !potCheckbox})}}
-                                            className={`${styles.checkbox} ${potCheckbox ? styles.active : null}`}
+                                            onClick={() => {setBulbPotCheckbox(!bulbPotCheckbox), setPlanting({...planting, bulb_pot_on: !bulubPotCheckbox})}}
+                                            className={`${styles.checkbox} ${bulbPotCheckbox ? styles.active : null}`}
                                         ></div>
                                     </div>
                                 ) : (
