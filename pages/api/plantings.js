@@ -22,6 +22,7 @@ function createTasks(planting, plant, plan, shiftDays){
     console.log(plan);
     let last_frost = plan.last_frost;
     let first_frost = plan.first_frost;
+    planting.bulb_corm = !planting.direct_sow && !planting.direct_indoors;
 
     //... durations
     let _earliest_indoor_seed = plant.earliest_seed !== "" ? parseInt(plant.earliest_seed)*7 : 0;
@@ -36,6 +37,13 @@ function createTasks(planting, plant, plan, shiftDays){
     let _maturity_late = plant.maturity_late !== "" ? parseInt(plant.maturity_late) : 0;
     let _harvest_duration = plant.rebloom ? Math.round((_maturity_late + _maturity_early)/2) : _maturity_late - _maturity_early;
     let average_maturity = Math.round((_maturity_early + _maturity_late) / 2);
+    let bulb_presprout = plant.bulb_presprout !== "" ? parseInt(plant.bulb_presprout)*7 : null;
+    let bulb_pot_on = plant.bulb_pot_on !== "" ? parseInt(plant.bulb_pot_on)*7 : null;
+    let bulb_transplant = plant.bulb_transplant !== "" ? parseInt(plant.bulb_transplant)*7 : null;
+    let bulb_maturity_early = plant.bulb_maturity_early !== "" ? parseInt(plant.bulb_maturity_early) : null;
+    let bulb_maturity_late = plant.bulb_maturity_late !== "" ? parseInt(plant.bulb_maturity_late) : null;
+    let bulb_harden = plant.bulb_harden !== "" ? parseInt(plant.bulb_harden)*7 : null;
+    
     
     //... schedule dates
     let cold_stratify_date = moment(last_frost).subtract(_cold_stratify, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
@@ -155,8 +163,55 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
             taskArr.push(taskObj);
         }
     }
+
+    if (planting.bulb) {
+        let presprout_date = bulb_presprout !== null ? moment(last_frost).subtract(bulb_presprout, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let pot_on_date = bulb_pot_on !== null ? moment(presprout_date).add(bulb_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let harden_date = bulb_presprout !== null ? moment(last_frost).add(bulb_harden, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let transplant_date = moment(last_frost).add(bulb_transplant, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+        let harvest_date = bulb_presprout !== null ? moment(presprout_date).add(bulb_maturity_early || bulb_maturity_late, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : moment(transplant_date).add(bulb_maturity_early || bulb_maturity_late, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+
+        var titleArr3 = ['Transplant', 'Harvest'];
+        var noteArr3 = [plant.bulb_transplant_note, plant.harvest_note];
+        var durationArr3 = [1, bulb_maturity_late - bulb_maturity_early];
+        var scheduleArr3 = [transplant_date, harvest_date];
+
+        if (bulb_presprout !== null) {
+            titleArr3.unshift('Pre-sprout');
+            noteArr3.unshift('');
+            durationArr3.unshift(1);
+            scheduleArr3.unshift(presprout_date);
+        }
+        if (bulb_pot_on !== null) {
+            titleArr3.splice(1, 0, 'Pot On');
+            noteArr3.splice(1, 0, '');
+            durationArr3.splice(1, 0, 1);
+            scheduleArr3.splice(1, 0, pot_on_date);
+            if (bulb_harden !== null) {
+                titleArr3.splice(2, 0, 'Harden Off');
+                noteArr3.splice(2, 0, '');
+                durationArr3.splice(2, 0, 7);
+                scheduleArr3.splice(2, 0, harden_date);
+            }
     
-    return taskArr;
+            for (var i = 0; i < titleArr3.length; i++) {
+                var taskObj = {
+                    planting_id: planting._id,
+                    userid: plan.userid,
+                    title: titleArr3[i],
+                    scheduled_at: scheduleArr3[i],
+                    duration: durationArr3[i],
+                    note: noteArr3[i],
+                    type: "incomplete",
+                    rescheduled_at: "",
+                    completed_at: ""
+                }
+                taskArr.push(taskObj);
+            }
+        }
+    
+        return taskArr;
+    }
 }
 
 export default async function handler(req, res) {
@@ -266,6 +321,7 @@ case "PUT":
                 harvest: req.body.harvest,
                 direct_sow: req.body.direct_sow,
                 direct_indoors: req.body.direct_indoors,
+                bulb_corm: req.body.bulb_corm,
                 pinch: req.body.pinch,
                 pot_on: req.body.pot_on,
                 spacing: req.body.spacing,
