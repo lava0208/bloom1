@@ -197,10 +197,20 @@ const CurrentPlan = (props) => {
                         {
                             plant.direct_seed !== "" ? (
                                 <button 
-                                    onClick={() => {setActiveDirectSeed(true), setActiveStartIndoors(false), setActiveBulb(false), setPlanting({...planting, direct_sow: !activeDirectSeed, direct_indoors: false, bulb: false})}}
-                                    className={activeDirectSeed === true ?  styles.selected : ''}
-                                    value={planting.direct_sow}
-                                >
+                                onClick={() => {
+                                    setActiveBulb(false);
+                                    setActiveDirectSeed(true);
+                                    setActiveStartIndoors(false);
+                                    setPlanting({
+                                        ...planting,
+                                        direct_sow: true,
+                                        direct_indoors: false,
+                                        bulb: false
+                                      });
+                                }}
+                                className={activeDirectSeed === true ? styles.selected : ''}
+                                value={planting.direct_sow}
+                            >
                                     Direct Sow
                                 </button>
                             ): (
@@ -210,10 +220,20 @@ const CurrentPlan = (props) => {
                         {
                             plant.earliest_seed !== "" || plant.latest_seed !== "" ? (
                                 <button 
-                                    onClick={() => {setActiveStartIndoors(true), setActiveDirectSeed(false), setActiveBulb(false), setPlanting({...planting, direct_indoors: !activeStartIndoors, direct_sow: false, bulb: false})}}
-                                    className={activeStartIndoors === true ?  styles.selected : ''}
-                                    value={planting.direct_indoors}
-                                >
+                    onClick={() => {
+                        setActiveBulb(false);
+                        setActiveDirectSeed(false);
+                        setActiveStartIndoors(true);
+                        setPlanting({
+                            ...planting,
+                            direct_sow: false,
+                            direct_indoors: true,
+                            bulb: false
+                          });
+                    }}
+                    className={activeStartIndoors === true ? styles.selected : ''}
+                    value={planting.direct_indoors}
+                >
                                     Start Indoors
                                 </button>
                             ) : (
