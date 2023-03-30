@@ -1179,6 +1179,7 @@ const Plant = (props) => {
                     paddingTop: 25,
                     }}
                     >Existing Perennial</h5>
+                    <h6 className="d-flex align-items-center">
                     <label htmlFor="perennial">Enable</label>
                         <input
                             type="checkbox"
@@ -1192,6 +1193,7 @@ const Plant = (props) => {
                                 });
                             }}
                         />
+                        </h6>
                 </div>
                 <div className={styles.inputContainer + " col-md-6"}>
                     <h5 style={{
