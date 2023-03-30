@@ -91,6 +91,7 @@ const CurrentPlan = (props) => {
                 dangerMode: true,
             }).then(async function (isConfirm) {
                 if (isConfirm) {
+                    console.log("Updating planting:", planting);
                     var _result = await plantingService.update(props.planting._id , planting);
                     swal({
                         title: "Success!",
@@ -126,7 +127,9 @@ const CurrentPlan = (props) => {
                             props.savePlanting();
                         });
                     }else{
+                        console.log("Creating planting:", planting);
                         var _result = await plantingService.create(planting);
+                        
                         swal({
                             title: _result.status ? "Success!" : "Warning!",
                             text: _result.message,
