@@ -697,6 +697,7 @@ const Plant = (props) => {
                     <small>Direct Seed Note</small>
                     <textarea
                         rows="3"
+                        placeholder={"Cover lightly with..."}
                         value={plant ? plant.direct_seed_note : ""}
                         onChange={(e) => {
                             setPlant({
@@ -709,6 +710,7 @@ const Plant = (props) => {
                 <small>Pinch Note</small>
                     <textarea
                         rows="3"
+                        placeholder={"Pinch when the..."}
                         value={plant ? plant.pinch_note : ""}
                         onChange={(e) => {
                             setPlant({
@@ -721,7 +723,7 @@ const Plant = (props) => {
                     <textarea
                         rows="3"
                         value={plant ? plant.harvest_note : ""}
-                        placeholder={"There are"}
+                        placeholder={"Harvest when..."}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
