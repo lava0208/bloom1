@@ -201,12 +201,6 @@ const CurrentPlan = (props) => {
         setActiveDirectSeed(!activeDirectSeed);
         setActiveStartIndoors(false);
         setActiveBulb(false);
-        setPlanting({
-          ...planting,
-          direct_sow: !activeDirectSeed,
-          direct_indoors: false,
-          bulb: false,
-        });
       }}
       className={activeDirectSeed === true ? styles.selected : ""}
       value={planting.direct_sow}
@@ -224,12 +218,6 @@ const CurrentPlan = (props) => {
         setActiveStartIndoors(!activeStartIndoors);
         setActiveDirectSeed(false);
         setActiveBulb(false);
-        setPlanting({
-          ...planting,
-          direct_indoors: !activeStartIndoors,
-          direct_sow: false,
-          bulb: false,
-        });
       }}
       className={activeStartIndoors === true ? styles.selected : ""}
       value={planting.direct_indoors}
@@ -252,12 +240,6 @@ const CurrentPlan = (props) => {
         setActiveBulb(!activeBulb);
         setActiveDirectSeed(false);
         setActiveStartIndoors(false);
-        setPlanting({
-          ...planting,
-          bulb: !activeBulb,
-          direct_sow: false,
-          direct_indoors: false,
-        });
       }}
       className={activeBulb === true ? styles.selected : ""}
       value={planting.bulb}
