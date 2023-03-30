@@ -81,7 +81,8 @@ const YourPlan = (props) => {
                             </div>
                             <h4 className={styles.planSpecies}>{planting.species}</h4>
                             <div className={styles.planOptionsContainer}>
-                                <h5>{planting.direct_sow ? "Start" : "Direct"}</h5>
+                                <h5>{planting.direct_sow ? "Direct Sow" : planting.direct_indoors ? "Start Indoors" : planting.bulb ? "Bulb" : ""}
+</h5>
                                 <h5>{planting.harvest}</h5>
                                 <h5>{planting.pinch ? "Pinch" : ""}</h5>
                                 <h5>{planting.pot_on ? "Pot On" : ""}</h5>
