@@ -345,7 +345,7 @@ const CurrentPlan = (props) => {
                                     <div className={styles.successionCheckboxRow}>
                                         <h6>Pot On</h6>
                                         <div
-                                            onClick={() => {setBulbPotCheckbox(!bulbPotCheckbox), setPlanting({...planting, bulb_pot_on: !bulubPotCheckbox})}}
+                                            onClick={() => {setBulbPotCheckbox(!bulbPotCheckbox), setPlanting({...planting, bulb_pot_on: !bulbPotCheckbox})}}
                                             className={`${styles.checkbox} ${bulbPotCheckbox ? styles.active : null}`}
                                         ></div>
                                     </div>
