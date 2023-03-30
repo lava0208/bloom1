@@ -222,10 +222,10 @@ export default async function handler(req, res) {
         //... create plantings
 case "POST":
             
-    if (!req.body.direct_sow && !req.body.direct_indoors) {
+    if (!req.body.direct_sow && !req.body.direct_indoors && !req.body.bulb) {
         return res.json({
             status: false,
-            message: "You must choose either seed indoors or direct seed for a single planting. Please try again, and ensure you select one option.",
+            message: "You must choose only one planting method for a single planting. Please try again, and ensure you select one option.",
         });
     }
 
