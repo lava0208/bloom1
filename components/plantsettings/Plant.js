@@ -459,7 +459,7 @@ const Plant = (props) => {
                         }}
                     />
                     <h6 className="d-flex align-items-center">
-                        <label htmlFor="rebloom">Rebloom (<i>cut and come again</i>)?</label>
+                        <label htmlFor="rebloom">Rebloom?</label>
                         <input
                             type="checkbox"
                             id="rebloom"
@@ -687,7 +687,7 @@ const Plant = (props) => {
                         }}
                     />
                     <h6 className="d-flex align-items-center">
-                    <label htmlFor="rebloom">Rebloom (<i>cut and come again</i>)?</label>
+                    <label htmlFor="rebloom">Rebloom?</label>
                         <input
                             type="checkbox"
                             id="rebloom"
