@@ -357,9 +357,11 @@ const Plant = (props) => {
     <TabPane tabId="2">
     <div className="row">
     <div className={styles.inputContainer + " col-md-6"}>
-                    <h5 style={{
-        paddingTop: 25,
-      }}>Indoor Timing</h5>
+                    <h5
+                    style={{
+                    paddingTop: 25,
+                    }}
+      >Indoor Timing</h5>
                     <small>Earliest Seed (weeks before last frost)</small>
                     <input
                         type="number"
@@ -496,7 +498,9 @@ const Plant = (props) => {
                     />
                 </div>
                 <div className={styles.inputContainer + " col-md-6"}>
-                    <h5>Direct Seed Timing</h5>
+                    <h5 style={{
+                    paddingTop: 25,
+                    }}>Direct Seed Timing</h5>
                     <small>Direct Seed (weeks after last frost)</small>
                     <input
                         type="number"
