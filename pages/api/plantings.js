@@ -187,7 +187,6 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
                 durationArr3.splice(1, 0, 1);
                 scheduleArr3.splice(1, 0, pot_on_date);
             }
-    
             if (bulb_harden != 0) {
                 titleArr3.splice(2, 0, 'Harden Off');
                 noteArr3.splice(2, 0, '');
@@ -210,7 +209,7 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
                 }
                 taskArr.push(taskObj);
             }
-        }
+        
         }
     
         return taskArr;
