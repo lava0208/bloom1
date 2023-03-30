@@ -294,20 +294,30 @@ case "POST":
             }
 
         //... update a planting
-case "PUT":
-            if (!req.body.direct_sow && !req.body.direct_indoors  && !req.body.bulb) {
-        return res.json({
-            status: false,
-            message: "You must choose either seed indoors or direct seed for a single planting. Please try again, and ensure you select one option.",
-        });
-    }
-
-    if (!req.body.harvest || !req.body.seeds) {
-        return res.json({
-            status: false,
-            message: "Please provide harvest type (early, regular, or late) and quantity for the planting.",
-        });
-    }
+        case "PUT":
+            if (!req.body.direct_sow && !req.body.direct_indoors && !req.body.bulb) {
+                return res.json({
+                    status: false,
+                    message: "You must choose either seed indoors or direct seed for a single planting. Please try again, and ensure you select one option.",
+                });
+            }
+        
+            // Add this condition to ensure only one planting method is true
+            let plantingMethods = [req.body.direct_sow, req.body.direct_indoors, req.body.bulb];
+            let trueMethods = plantingMethods.filter(method => method === true);
+            if (trueMethods.length !== 1) {
+                return res.json({
+                    status: false,
+                    message: "You must choose only one planting method for a single planting. Please try again, and ensure you select one option.",
+                });
+            }
+        
+            if (!req.body.harvest || !req.body.seeds) {
+                return res.json({
+                    status: false,
+                    message: "Please provide harvest type (early, regular, or late) and quantity for the planting.",
+                });
+            }
             
     await db.collection("plantings").updateOne(
         {
