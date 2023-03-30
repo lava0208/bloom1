@@ -195,62 +195,51 @@ const CurrentPlan = (props) => {
                     <div className={styles.seedingRow}>
                         <h4>Method</h4>
                         {
-  plant.direct_seed !== "" ? (
-    <button
-      onClick={() => {
-        setActiveDirectSeed(!activeDirectSeed);
-        setActiveStartIndoors(false);
-        setActiveBulb(false);
-      }}
-      className={activeDirectSeed === true ? styles.selected : ""}
-      value={planting.direct_sow}
-    >
-      Direct Sow
-    </button>
-  ) : (
-    <></>
-  )
-}
-{
-  plant.earliest_seed !== "" || plant.latest_seed !== "" ? (
-    <button
-      onClick={() => {
-        setActiveStartIndoors(!activeStartIndoors);
-        setActiveDirectSeed(false);
-        setActiveBulb(false);
-      }}
-      className={activeStartIndoors === true ? styles.selected : ""}
-      value={planting.direct_indoors}
-    >
-      Start Indoors
-    </button>
-  ) : (
-    <></>
-  )
-}
-{
-  plant.bulb_transplant !== null &&
-  plant.bulb_transplant !== "" &&
-  plant.bulb_maturity_early !== null &&
-  plant.bulb_maturity_early !== "" &&
-  plant.bulb_maturity_late !== null &&
-  plant.bulb_maturity_late !== "" ? (
-    <button
-      onClick={() => {
-        setActiveBulb(!activeBulb);
-        setActiveDirectSeed(false);
-        setActiveStartIndoors(false);
-      }}
-      className={activeBulb === true ? styles.selected : ""}
-      value={planting.bulb}
-    >
-      Bulb
-    </button>
-  ) : (
-    <></>
-  )
-}
-
+                            plant.direct_seed !== "" ? (
+                                <button 
+                                    onClick={() => {setActiveDirectSeed(!activeDirectSeed), setActiveStartIndoors(false), setActiveBulb(false), setPlanting({...planting, direct_sow: !activeDirectSeed})}}
+                                    className={activeDirectSeed === true ?  styles.selected : ''}
+                                    value={planting.direct_sow}
+                                >
+                                    Direct Sow
+                                </button>
+                            ): (
+                                <></>
+                            )
+                        }
+                        {
+                            plant.earliest_seed !== "" || plant.latest_seed !== "" ? (
+                                <button 
+                                    onClick={() => {setActiveStartIndoors(!activeStartIndoors), setActiveDirectSeed(false), setActiveBulb(false), setPlanting({...planting, direct_indoors: !activeStartIndoors})}}
+                                    className={activeStartIndoors === true ?  styles.selected : ''}
+                                    value={planting.direct_indoors}
+                                >
+                                    Start Indoors
+                                </button>
+                            ) : (
+                                <></>
+                            )
+                        }
+                        {
+            plant.bulb_transplant !== null && plant.bulb_transplant !== "" &&
+            plant.bulb_maturity_early !== null && plant.bulb_maturity_early !== "" &&
+            plant.bulb_maturity_late !== null && plant.bulb_maturity_late !== "" ? (
+                <button 
+                    onClick={() => {
+                        setActiveBulb(!activeBulb);
+                        setActiveDirectSeed(false);
+                        setActiveStartIndoors(false);
+                        setPlanting({...planting, bulb: !activeBulb});
+                    }}
+                    className={activeBulb === true ? styles.selected : ''}
+                    value={planting.bulb}
+                >
+                    Bulb
+                </button>
+            ) : (
+                <></>
+            )
+        }
                     </div>
                     <div className={styles.quantityRow}>
                         <h4>Quantity</h4>
