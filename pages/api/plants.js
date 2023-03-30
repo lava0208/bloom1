@@ -39,7 +39,15 @@ export default async function handler(req, res) {
                     cold_stratify: req.body.cold_stratify,
                     spacing_min: req.body.spacing_min,
                     spacing_max: req.body.spacing_max,
-                    height: req.body.height
+                    height: req.body.height,
+bulb_soak: req.body.bulb_soak,
+bulb_presprout: req.body.bulb_presprout,
+bulb_pot_on: req.body.bulb_pot_on,
+bulb_transplant: req.body.bulb_transplant,
+bulb_maturity_early: req.body.bulb_maturity_early,
+bulb_maturity_late: req.body.bulb_maturity_late,
+soak_note: req.body.soak_note,
+bulb_transplant_note: req.body.bulb_transplant_note
                 }
                 await db.collection("plants").insertOne(_clone_plant);
                 return res.json({ status: true, message: 'A plant is created successfully.' });
@@ -114,6 +122,14 @@ export default async function handler(req, res) {
                         spacing_min: req.body.spacing_min,
                         spacing_max: req.body.spacing_max,
                         height: req.body.height,
+                        bulb_soak: req.body.bulb_soak,
+                        bulb_presprout: req.body.bulb_presprout,
+                        bulb_pot_on: req.body.bulb_pot_on,
+                        bulb_transplant: req.body.bulb_transplant,
+                        bulb_maturity_early: req.body.bulb_maturity_early,
+                        bulb_maturity_late: req.body.bulb_maturity_late,
+                        soak_note: req.body.soak_note,
+                        bulb_transplant_note: req.body.bulb_transplant_note
                     },
                 }
             );

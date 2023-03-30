@@ -163,7 +163,7 @@ const Plant = (props) => {
             if(plant.earliest_seed === "" && plant.latest_seed === "" && plant.direct_seed === ""){
                 swal({
                     title: "Warning!",
-                    text: "Please fill all fields.",
+                    text: "Please fill all required fields.",
                     icon: "warning",
                     className: "custom-swal",
                 });
@@ -182,7 +182,7 @@ const Plant = (props) => {
         } else {
             swal({
                 title: "Warning!",
-                text: "Please fill all fields.",
+                text: "Please fill all required fields.",
                 icon: "warning",
                 className: "custom-swal",
             });
