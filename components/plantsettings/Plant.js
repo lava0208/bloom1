@@ -39,13 +39,11 @@ const Plant = (props) => {
         pot_on_note: "",
         transplant_note: "",
         harvest_note: "",
-        bulb_soak: false,
         bulb_presprout: "",
         bulb_pot_on: "",
         bulb_transplant: "",
         bulb_maturity_early: "",
         bulb_maturity_late: "",
-        soak_note: "",
         bulb_transplant_note: "",
 
     });
@@ -768,19 +766,6 @@ const Plant = (props) => {
                     paddingTop: 25,
                     }}
                     >Timing</h5>
-                    <small>Soak</small>
-                    <input
-                        type="number"
-                        className={styles.input}
-                        value={plant ? plant.bulb_soak : ""}
-                        placeholder={"Optional"}
-                        onChange={(e) => {
-                            setPlant({
-                                ...plant,
-                                bulb_soak: e.target.value,
-                            });
-                        }}
-                    />
                     <small>Pre-sprout</small>
                     <input
                         type="number"
@@ -864,18 +849,6 @@ const Plant = (props) => {
                     <h5 style={{
                     paddingTop: 25,
                     }}>Notes</h5>
-                    <small>Soak Note</small>
-                    <textarea
-                        rows="3"
-                        placeholder={"Optional"}
-                        value={plant ? plant.soak_note : ""}
-                        onChange={(e) => {
-                            setPlant({
-                                ...plant,
-                                soak_note: e.target.value,
-                            });
-                        }}
-                    />
                     <small>Transplant Note</small>
                     <textarea
                         rows="3"
@@ -917,19 +890,6 @@ const Plant = (props) => {
                     paddingTop: 25,
                     }}
                     >Timing</h5>
-                    <small>Soak</small>
-                    <input
-                        type="number"
-                        className={styles.input}
-                        value={plant ? plant.cuttings_soak : ""}
-                        placeholder={"Optional"}
-                        onChange={(e) => {
-                            setPlant({
-                                ...plant,
-                                cuttings_soak: e.target.value,
-                            });
-                        }}
-                    />
                     <small>Pre-sprout</small>
                     <input
                         type="number"
@@ -1025,18 +985,6 @@ const Plant = (props) => {
                     <h5 style={{
                     paddingTop: 25,
                     }}>Notes</h5>
-                    <small>Soak Note</small>
-                    <textarea
-                        rows="3"
-                        placeholder={"Optional"}
-                        value={plant ? plant.soak_note : ""}
-                        onChange={(e) => {
-                            setPlant({
-                                ...plant,
-                                soak_note: e.target.value,
-                            });
-                        }}
-                    />
                     <small>Prepare Cuttings Note</small>
                     <textarea
                         rows="3"
