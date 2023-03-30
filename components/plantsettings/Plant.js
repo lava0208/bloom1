@@ -249,7 +249,7 @@ const Plant = (props) => {
   <Nav tabs>
     <NavItem>
       <NavLink
-        className={classnames({ active: activeTab === "1" })}
+        className={classnames("tabLink", { active: activeTab === "1" })}
         onClick={() => {
           toggleTab("1");
         }}
@@ -259,7 +259,7 @@ const Plant = (props) => {
     </NavItem>
     <NavItem>
       <NavLink
-        className={classnames({ active: activeTab === "2" })}
+        className={classnames("tabLink", { active: activeTab === "2" })}
         onClick={() => {
           toggleTab("2");
         }}
@@ -269,7 +269,7 @@ const Plant = (props) => {
     </NavItem>
     <NavItem>
       <NavLink
-        className={classnames({ active: activeTab === "3" })}
+        className={classnames("tabLink", { active: activeTab === "3" })}
         onClick={() => {
           toggleTab("3");
         }}
@@ -279,7 +279,7 @@ const Plant = (props) => {
     </NavItem>
     <NavItem>
       <NavLink
-        className={classnames({ active: activeTab === "4" })}
+        className={classnames("tabLink", { active: activeTab === "4" })}
         onClick={() => {
           toggleTab("4");
         }}
@@ -289,7 +289,7 @@ const Plant = (props) => {
     </NavItem>
     <NavItem>
       <NavLink
-        className={classnames({ active: activeTab === "5" })}
+        className={classnames("tabLink", { active: activeTab === "5" })}
         onClick={() => {
           toggleTab("5");
         }}
@@ -299,7 +299,7 @@ const Plant = (props) => {
     </NavItem>
     <NavItem>
       <NavLink
-        className={classnames({ active: activeTab === "6" })}
+       className={classnames("tabLink", { active: activeTab === "6" })}
         onClick={() => {
           toggleTab("6");
         }}
