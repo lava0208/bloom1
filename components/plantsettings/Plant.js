@@ -1217,7 +1217,6 @@ const Plant = (props) => {
                 </div>
                 </div>
     </TabPane>
-    </TabPane>
   </TabContent>
 </div>
 
