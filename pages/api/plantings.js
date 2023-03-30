@@ -335,6 +335,8 @@ case "POST":
                 direct_indoors: req.body.direct_indoors,
                 bulb: req.body.bulb,
                 pinch: req.body.pinch,
+                bulb_pot_on: req.body.bulb_pot_on,
+                bulb_presprout: req.body.bulb_presprout,
                 pot_on: req.body.pot_on,
                 spacing: req.body.spacing,
                 succession: req.body.succession
