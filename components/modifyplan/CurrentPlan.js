@@ -221,7 +221,7 @@ const CurrentPlan = (props) => {
                             )
                         }
                         {
-            plant.bulb !== "" ? (
+            plant.bulb !== null && plant.bulb !== "" ? (
                 <button 
                     onClick={() => {
                         setActiveBulb(!activeBulb);
