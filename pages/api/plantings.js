@@ -295,7 +295,7 @@ case "POST":
 
         //... update a planting
 case "PUT":
-            if (!req.body.direct_sow && !req.body.direct_indoors) {
+            if (!req.body.direct_sow && !req.body.direct_indoors  && !req.body.bulb) {
         return res.json({
             status: false,
             message: "You must choose either seed indoors or direct seed for a single planting. Please try again, and ensure you select one option.",
