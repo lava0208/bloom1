@@ -197,7 +197,7 @@ const CurrentPlan = (props) => {
                         {
                             plant.direct_seed !== "" ? (
                                 <button 
-                                    onClick={() => {setActiveDirectSeed(true), setActiveStartIndoors(false), setActiveBulb(false), setPlanting({...planting, direct_sow: !activeDirectSeed})}}
+                                    onClick={() => {setActiveDirectSeed(true), setActiveStartIndoors(false), setActiveBulb(false), setPlanting({...planting, direct_sow: !activeDirectSeed, direct_indoors: false, bulb: false})}}
                                     className={activeDirectSeed === true ?  styles.selected : ''}
                                     value={planting.direct_sow}
                                 >
@@ -210,7 +210,7 @@ const CurrentPlan = (props) => {
                         {
                             plant.earliest_seed !== "" || plant.latest_seed !== "" ? (
                                 <button 
-                                    onClick={() => {setActiveStartIndoors(true), setActiveDirectSeed(false), setActiveBulb(false), setPlanting({...planting, direct_indoors: !activeStartIndoors})}}
+                                    onClick={() => {setActiveStartIndoors(true), setActiveDirectSeed(false), setActiveBulb(false), setPlanting({...planting, direct_indoors: !activeStartIndoors, direct_sow: false, bulb: false})}}
                                     className={activeStartIndoors === true ?  styles.selected : ''}
                                     value={planting.direct_indoors}
                                 >
