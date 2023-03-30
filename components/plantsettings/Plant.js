@@ -1179,10 +1179,10 @@ const Plant = (props) => {
                     paddingTop: 25,
                     }}
                     >Existing Perennial</h5>
-                    <label htmlFor="rebloom">Enable</label>
+                    <label htmlFor="perennial">Enable</label>
                         <input
                             type="checkbox"
-                            id="rebloom"
+                            id="perennial"
                             value={plant ? plant.perennial : ""}
                             checked={plant ? plant.perennial : false}
                             onChange={(e) => {
