@@ -39,6 +39,15 @@ const Plant = (props) => {
         pot_on_note: "",
         transplant_note: "",
         harvest_note: "",
+        bulb_soak: false,
+        bulb_presprout: "",
+        bulb_pot_on: "",
+        bulb_transplant: "",
+        bulb_maturity_early: "",
+        bulb_maturity_late: "",
+        soak_note: "",
+        bulb_transplant_note: "",
+
     });
 
     useEffect(() => {
@@ -255,7 +264,7 @@ const Plant = (props) => {
             color: activeTab === "1" ? "#443750" : "white",
             cursor: "pointer",
             borderRadius: 20,
-            margin: 10,
+            margin: 5,
           }}
         onClick={() => {
           toggleTab("1");
@@ -272,7 +281,7 @@ const Plant = (props) => {
             color: activeTab === "2" ? "#443750" : "white",
             cursor: "pointer",
             borderRadius: 20,
-            margin: 10,
+            margin: 5,
           }}
         onClick={() => {
           toggleTab("2");
@@ -289,7 +298,7 @@ const Plant = (props) => {
             color: activeTab === "3" ? "#443750" : "white",
             cursor: "pointer",
             borderRadius: 20,
-            margin: 10,
+            margin: 5,
           }}
         onClick={() => {
           toggleTab("3");
@@ -306,7 +315,7 @@ const Plant = (props) => {
             color: activeTab === "4" ? "#443750" : "white",
             cursor: "pointer",
             borderRadius: 20,
-            margin: 10,
+            margin: 5,
           }}
         onClick={() => {
           toggleTab("4");
@@ -323,7 +332,7 @@ const Plant = (props) => {
             color: activeTab === "5" ? "#443750" : "white",
             cursor: "pointer",
             borderRadius: 20,
-            margin: 10,
+            margin: 5,
           }}
         onClick={() => {
           toggleTab("5");
@@ -340,7 +349,7 @@ const Plant = (props) => {
         color: activeTab === "6" ? "#443750" : "white",
         cursor: "pointer",
         borderRadius: 20,
-        margin: 10,
+        margin: 5,
       }}
         onClick={() => {
           toggleTab("6");
