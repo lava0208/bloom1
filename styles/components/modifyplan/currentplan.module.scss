@@ -161,7 +161,7 @@
     }
 
     button {
-        border: 5px solid $blueGrey;
+        border: 1px solid $blueGrey;
         background-color: transparent;
         border-radius: 50px;
         color: $black;
@@ -174,7 +174,6 @@
         &.selected,
         &:hover {
             border: 5px solid $blue;
-            font-weight: 900;
         }
     }
 
