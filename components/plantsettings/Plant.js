@@ -345,7 +345,7 @@ const Plant = (props) => {
     <TabPane tabId="2">
     <div className={styles.inputContainer + " col-md-6"}>
                     <h5 style={{
-        paddingTop: 50,
+        paddingTop: 25,
       }}>Indoor Timing</h5>
                     <small>Earliest Seed (weeks before last frost)</small>
                     <input
