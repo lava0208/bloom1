@@ -561,7 +561,7 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <small>>Harvest Note</small>
+                    <small>Harvest Note</small>
                     <textarea
                         rows="3"
                         value={plant ? plant.harvest_note : ""}
