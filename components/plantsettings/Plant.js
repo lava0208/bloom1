@@ -252,7 +252,7 @@ const Plant = (props) => {
         className={classnames("tabLink", { active: activeTab === "1" })}
         style={{
             fontWeight: "bold",
-            color: activeTab === "1" ? "#00008b" : "white",
+            color: activeTab === "1" ? "#443750" : "white",
             cursor: "pointer",
           }}
         onClick={() => {
@@ -267,7 +267,7 @@ const Plant = (props) => {
         className={classnames("tabLink", { active: activeTab === "2" })}
         style={{
             fontWeight: "bold",
-            color: activeTab === "2" ? "#00008b" : "white",
+            color: activeTab === "2" ? "#443750" : "white",
             cursor: "pointer",
           }}
         onClick={() => {
@@ -282,7 +282,7 @@ const Plant = (props) => {
         className={classnames("tabLink", { active: activeTab === "3" })}
         style={{
             fontWeight: "bold",
-            color: activeTab === "3" ? "#00008b" : "white",
+            color: activeTab === "3" ? "#443750" : "white",
             cursor: "pointer",
           }}
         onClick={() => {
@@ -297,7 +297,7 @@ const Plant = (props) => {
         className={classnames("tabLink", { active: activeTab === "4" })}
         style={{
             fontWeight: "bold",
-            color: activeTab === "4" ? "#00008b" : "white",
+            color: activeTab === "4" ? "#443750" : "white",
             cursor: "pointer",
           }}
         onClick={() => {
@@ -312,7 +312,7 @@ const Plant = (props) => {
         className={classnames("tabLink", { active: activeTab === "5" })}
         style={{
             fontWeight: "bold",
-            color: activeTab === "5" ? "#00008b" : "white",
+            color: activeTab === "5" ? "#443750" : "white",
             cursor: "pointer",
           }}
         onClick={() => {
@@ -327,7 +327,7 @@ const Plant = (props) => {
        className={classnames("tabLink", { active: activeTab === "6" })}
        style={{
         fontWeight: "bold",
-        color: activeTab === "6" ? "#00008b" : "white",
+        color: activeTab === "6" ? "#443750" : "white",
         cursor: "pointer",
       }}
         onClick={() => {
