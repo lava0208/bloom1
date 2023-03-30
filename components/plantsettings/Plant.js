@@ -245,8 +245,7 @@ const Plant = (props) => {
                 </div>
             </div>
             <div className="row mt-4">
-                <div className={styles.inputContainer + " col-md-6"}>
-                    <div className="col-md-6">
+            <div className="col-md-6">
   <Nav tabs>
     <NavItem>
       <NavLink
@@ -311,7 +310,11 @@ const Plant = (props) => {
   </Nav>
   <TabContent activeTab={activeTab}>
     <TabPane tabId="1">
-    <h5>Indoor Timing</h5>
+      {/* Indoor Timing content */}
+    </TabPane>
+    <TabPane tabId="2">
+    <div className={styles.inputContainer + " col-md-6"}>
+                    <h5>Indoor Timing</h5>
                     <small>Earliest Seed (weeks before last frost)</small>
                     <input
                         type="number"
@@ -561,9 +564,6 @@ const Plant = (props) => {
                     <button onClick={props.cancelPlant}>Cancel</button>
                 </div>
     </TabPane>
-    <TabPane tabId="2">
-      {/* Direct Seed Timing content */}
-    </TabPane>
     <TabPane tabId="3">
       {/* Bulb/Corm content */}
     </TabPane>
@@ -579,10 +579,15 @@ const Plant = (props) => {
   </TabContent>
 </div>
 
-            </div>
+                
             </div>
         </>
     );
 };
 
 export default Plant;
+
+
+
+
+
