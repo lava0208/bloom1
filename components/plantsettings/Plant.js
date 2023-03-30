@@ -798,12 +798,11 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <small>Transplant</small>
+                    <small>Transplant / Plant Out</small>
                     <input
                         type="number"
                         className={styles.input}
                         value={plant ? plant.bulb_transplant : ""}
-                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
