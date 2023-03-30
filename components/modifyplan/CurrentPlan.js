@@ -266,8 +266,8 @@ const CurrentPlan = (props) => {
     </button>
   ) : (
     <></>
-            )
-        }
+  )
+}
                     </div>
                     <div className={styles.quantityRow}>
                         <h4>Quantity</h4>
