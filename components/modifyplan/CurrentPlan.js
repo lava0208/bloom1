@@ -343,6 +343,19 @@ const CurrentPlan = (props) => {
                                     <></>
                                 )
                             }
+                            {
+                                 planting.bulb && plant.bulb_pot_on !== "" ? (
+                                    <div className={styles.successionCheckboxRow}>
+                                        <h6>Pot On</h6>
+                                        <div
+                                            onClick={() => {setPotCheckbox(!potCheckbox), setPlanting({...planting, bulb_pot_on: !potCheckbox})}}
+                                            className={`${styles.checkbox} ${potCheckbox ? styles.active : null}`}
+                                        ></div>
+                                    </div>
+                                ) : (
+                                    <></>
+                                )
+                            }
                         </div>
                     </div>
                 </div>
