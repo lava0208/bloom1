@@ -433,46 +433,6 @@ const Plant = (props) => {
                             });
                         }}
                     />
-                    <h5 className="mt-3">Maturity</h5>
-                    <small>Maturity Early (days after seeding)</small>
-                    <input
-                        type="number"
-                        className={styles.input}
-                        value={plant ? plant.maturity_early : ""}
-                        onChange={(e) => {
-                            setPlant({
-                                ...plant,
-                                maturity_early: e.target.value,
-                            });
-                        }}
-                    />
-                    <small>Maturity Late (days after seeding)</small>
-                    <input
-                        type="number"
-                        className={styles.input}
-                        value={plant ? plant.maturity_late : ""}
-                        onChange={(e) => {
-                            setPlant({
-                                ...plant,
-                                maturity_late: e.target.value,
-                            });
-                        }}
-                    />
-                    <h6 className="d-flex align-items-center">
-                        <label htmlFor="rebloom">Rebloom?</label>
-                        <input
-                            type="checkbox"
-                            id="rebloom"
-                            value={plant ? plant.rebloom : ""}
-                            checked={plant ? plant.rebloom : false}
-                            onChange={(e) => {
-                                setPlant({
-                                    ...plant,
-                                    rebloom: e.target.checked,
-                                });
-                            }}
-                        />
-                    </h6>
                     <h5 className="mt-4">Seeding</h5>
                     <small>Depth (mm)</small>
                     <input
@@ -509,6 +469,46 @@ const Plant = (props) => {
                                 setPlant({
                                     ...plant,
                                     light: e.target.checked,
+                                });
+                            }}
+                        />
+                    </h6>
+                    <h5 className="mt-3">Maturity</h5>
+                    <small>Maturity Early (days after seeding)</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.maturity_early : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                maturity_early: e.target.value,
+                            });
+                        }}
+                    />
+                    <small>Maturity Late (days after seeding)</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.maturity_late : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                maturity_late: e.target.value,
+                            });
+                        }}
+                    />
+                    <h6 className="d-flex align-items-center">
+                        <label htmlFor="rebloom">Rebloom?</label>
+                        <input
+                            type="checkbox"
+                            id="rebloom"
+                            value={plant ? plant.rebloom : ""}
+                            checked={plant ? plant.rebloom : false}
+                            onChange={(e) => {
+                                setPlant({
+                                    ...plant,
+                                    rebloom: e.target.checked,
                                 });
                             }}
                         />
@@ -661,7 +661,7 @@ const Plant = (props) => {
                             }}
                         />
                     </h6>
-                    <h5>Maturity</h5>
+                    <h5 className="mt-4">Maturity</h5>
                     <small>Maturity Early (days after seeding)</small>
                     <input
                         type="number"
