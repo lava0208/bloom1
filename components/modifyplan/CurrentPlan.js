@@ -383,7 +383,7 @@ const CurrentPlan = (props) => {
                                 )
                             }
                             {
-                                  activeBulb !== "false" ? (
+                                  activeBulb ? (
                                     <div className={styles.successionCheckboxRow}>
                                         <h6>Pre-Sprout</h6>
                                         <div
