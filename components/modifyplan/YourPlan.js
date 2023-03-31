@@ -82,9 +82,13 @@ const YourPlan = (props) => {
                             <h4 className={styles.planSpecies}>{planting.species}</h4>
                             <div className={styles.planOptionsContainer}>
                             <h5>
-  {planting.direct_sow && !planting.direct_indoors && !planting.bulb ? "Direct Sow" :
-   !planting.direct_sow && planting.direct_indoors && !planting.bulb ? "Start Indoors" :
-   !planting.direct_sow && !planting.direct_indoors && planting.bulb ? "Bulb" : ""}
+                            {planting.direct_sow && !planting.direct_indoors && !planting.bulb && !planting.cuttings && !planting.plugs && !planting.perennial ? "Direct Sow" :
+!planting.direct_sow && planting.direct_indoors && !planting.bulb && !planting.cuttings && !planting.plugs && !planting.perennial ? "Start Indoors" :
+!planting.direct_sow && !planting.direct_indoors && planting.bulb && !planting.cuttings && !planting.plugs && !planting.perennial ? "Bulb" :
+!planting.direct_sow && !planting.direct_indoors && !planting.bulb && planting.cuttings && !planting.plugs && !planting.perennial ? "Cuttings" :
+!planting.direct_sow && !planting.direct_indoors && !planting.bulb && !planting.cuttings && planting.plugs && !planting.perennial ? "Plugs" :
+!planting.direct_sow && !planting.direct_indoors && !planting.bulb && !planting.cuttings && !planting.plugs && planting.perennial ? "Perennial" : "" }
+
 </h5>
 
                                 <h5>{planting.harvest}</h5>
