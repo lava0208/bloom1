@@ -232,6 +232,7 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
                 taskArr.push(taskObj);
             }
         }
+
         if (planting.cuttings) {
             let presprout_date = (cuttings_presprout !== null && cuttings_presprout !== false) ? moment(last_frost).subtract(cuttings_presprout, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
             let harden_date = (cuttings_presprout !== null && cuttings_harden !== false) ? moment(last_frost).add(cuttings_harden, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
@@ -250,7 +251,8 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
                 noteArr4.splice(2, 0, '');
                 durationArr4.splice(2, 0, 1);
                 scheduleArr4.splice(2, 0, pot_on_date);
-            }    
+            }
+       
         
             for (var i = 0; i < titleArr4.length; i++) {
                 var taskObj = {
