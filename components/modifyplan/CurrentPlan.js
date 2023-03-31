@@ -416,7 +416,7 @@ const CurrentPlan = (props) => {
     }
   />
 </div>
-{activePerennial ? null : (
+{activePerennial || activeDirectSeed ? null : (
   <div className={styles.harvestRow}>
     <h4>Harvest</h4>
     {harvests.map((element, i) => (

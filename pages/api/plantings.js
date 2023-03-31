@@ -100,8 +100,8 @@ function createTasks(planting, plant, plan, shiftDays){
         pinch_date = moment(direct_seed_date).add(_direct_pinch, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
         pot_on_date = moment(direct_seed_date).add(_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
         bloom_start_date = moment(direct_seed_date).add(average_maturity, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
-harvest_date = moment(direct_seed_date).add(average_maturity, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
-_harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(harvest_date), 'days')) : _maturity_late - _maturity_early;
+        harvest_date = moment(direct_seed_date).add(average_maturity, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+        _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(harvest_date), 'days')) : _maturity_late - _maturity_early;
 
 
     }
