@@ -270,7 +270,8 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
                     taskArr.push(taskObj);
                 }
             
-            }
+        
+    
     
         return taskArr;
     }
