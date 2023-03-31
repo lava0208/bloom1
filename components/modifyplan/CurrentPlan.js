@@ -443,11 +443,10 @@ const CurrentPlan = (props) => {
   </div>
 )}
 <div className={styles.successionContainer}>
-  <div className={styles.successionContainer1}>
-  {
+{
   activePerennial ? (
     <div className={styles.successionCheckboxRow} style={{ display: 'flex' }}>
-      <div style={{ width: '100%', paddingRight: '2%', boxSizing: 'border-box' }}>
+      <div style={{ width: '50%', paddingRight: '2%', boxSizing: 'border-box' }}>
         <h6>Harvest Start</h6>
         <input
           type="date"
@@ -458,7 +457,7 @@ const CurrentPlan = (props) => {
           style={{ width: '100%' }} // Set the width using inline style
         />
       </div>
-      <div style={{ width: '100%', paddingLeft: '2%', boxSizing: 'border-box' }}>
+      <div style={{ width: '50%', paddingLeft: '2%', boxSizing: 'border-box' }}>
         <h6>Harvest End</h6>
         <input
           type="date"
@@ -474,6 +473,8 @@ const CurrentPlan = (props) => {
     <></>
   )
 }
+  <div className={styles.successionContainer1}>
+  
     <div className={styles.successionTextContainer}>
     {!activePerennial && <h4>Successions</h4>}
       {!activePerennial && (
