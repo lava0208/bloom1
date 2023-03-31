@@ -363,7 +363,7 @@ case "POST":
             }
         
             // Add this condition to ensure only one planting method is true
-            let plantingMethods = [req.body.direct_sow, req.body.direct_indoors, req.body.bulb];
+            let plantingMethods = [req.body.direct_sow, req.body.direct_indoors, req.body.bulb, req.body.cuttings, req.body.plugs, req.body.perennial];
             let trueMethods = plantingMethods.filter(method => method === true);
             if (trueMethods.length !== 1) {
                 return res.json({
