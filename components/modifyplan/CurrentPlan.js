@@ -45,6 +45,7 @@ const CurrentPlan = (props) => {
             setPinchCheckbox(props.planting.pinch);
             setPotCheckbox(props.planting.pot_on);
             setBulbPotCheckbox(props.planting.bulb_pot_on);
+            setPreSproutCheckbox(props.planting.bulb_presprout);
             setActiveDirectSeed(props.planting.direct_sow);
             setActiveBulb(props.planting.bulb);
             setActiveStartIndoors(props.planting.direct_indoors);
