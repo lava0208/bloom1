@@ -333,6 +333,67 @@ const CurrentPlan = (props) => {
                                 <></>
                             )
                         }
+                        {
+                            plant.plugs_harden !== null && plant.plugs_harden !== "" &&
+                            plant.plugs_transplant !== null && plant.plugs_transplant !== "" &&
+                             plant.plugs_maturity_early !== null && plant.plugs_maturity_early !== "" &&
+                             plant.plugs_maturity_late !== null && plant.plugs_maturity_late !== "" ? (
+                                <button 
+                                onClick={() => {
+                                    setActiveBulb(false);
+                                    setActiveDirectSeed(false);
+                                    setActiveStartIndoors(false);
+                                    setActiveCuttings(false);
+                                    setActivePerennial(false);
+                                    setActivePlugs(true);
+                                    setPlanting({
+                                        ...planting,
+                                        direct_sow: false,
+                                        direct_indoors: false,
+                                        bulb: false,
+                                        cuttings: false,
+                                        plugs: true,
+                                        perennial: false
+                                      });
+                                }}
+                                className={activePlugs === true ? styles.selected : ''}
+                                value={planting.plugs}
+                            >
+                                    Plugs
+                                </button>
+                            ): (
+                                <></>
+                            )
+                        }
+                        {
+                             plant.perennial !== null && plant.perennial !== "" ? (
+                                <button 
+                                onClick={() => {
+                                    setActiveBulb(false);
+                                    setActiveDirectSeed(false);
+                                    setActiveStartIndoors(false);
+                                    setActiveCuttings(false);
+                                    setActivePerennial(true);
+                                    setActivePlugs(false);
+                                    setPlanting({
+                                        ...planting,
+                                        direct_sow: false,
+                                        direct_indoors: false,
+                                        bulb: false,
+                                        cuttings: false,
+                                        plugs: false,
+                                        perennial: true
+                                      });
+                                }}
+                                className={activePerennial === true ? styles.selected : ''}
+                                value={planting.perennial}
+                            >
+                                    Plugs
+                                </button>
+                            ): (
+                                <></>
+                            )
+                        }
                     </div>
                     <div className={styles.quantityRow}>
                         <h4>Quantity</h4>
@@ -467,6 +528,31 @@ const CurrentPlan = (props) => {
                                             onClick={() => {setCuttingsPotCheckbox(!cuttingsPotCheckbox), setPlanting({...planting, cuttings_pot_on: !cuttingsPotCheckbox})}}
                                             className={`${styles.checkbox} ${cuttingsPotCheckbox ? styles.active : null}`}
                                         ></div>
+                                    </div>
+                                ) : (
+                                    <></>
+                                )
+                            }
+                            {
+                                   activePerennial ? (
+                                    <div className={styles.successionCheckboxRow}>
+                                        <h6>Dates</h6>
+                                        <h6>Harvest Start</h6>
+      <input
+        type="date"
+        value={plant.perennial_harvest_start || ''}
+        onChange={(e) =>
+          setPlanting({ ...planting, perennial_harvest_start: e.target.value })
+        }
+      />
+      <h6>Harvest End</h6>
+      <input
+        type="date"
+        value={plant.perennial_harvest_end || ''}
+        onChange={(e) =>
+          setPlanting({ ...planting, perennial_harvest_end: e.target.value })
+        }
+      />
                                     </div>
                                 ) : (
                                     <></>

@@ -269,6 +269,73 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
                     taskArr.push(taskObj);
                 }
     }
+
+
+    if (planting.plugs) {
+        let harden_date = (plugs_harden !== null && plugs_harden !== false) ? moment(last_frost).add(plugs_harden, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let harvest_date = ((plugs_maturity_early || plugs_maturity_late) || plugs_transplant !== null) ? moment(transplant_date).add(plugs_maturity_early || plugs_maturity_late, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+    
+        let transplant_date = moment(last_frost).add(plugs_transplant, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+    
+        var titleArr5 = ['Harden Off', 'Plant Out', 'Harvest'];
+        var noteArr5 = ['', plant.plugs_transplant_note, plant.harvest_note];
+        var durationArr5 = [7, 1, plugs_maturity_late - plugs_maturity_early];
+        var scheduleArr5 = [harden_date, transplant_date, harvest_date];
+    
+        for (var i = 0; i < titleArr5.length; i++) {
+            var taskObj = {
+                planting_id: planting._id,
+                userid: plan.userid,
+                title: titleArr5[i],
+                scheduled_at: scheduleArr5[i],
+                duration: durationArr5[i],
+                note: noteArr5[i],
+                type: "incomplete",
+                rescheduled_at: "",
+                completed_at: ""
+            }
+            taskArr.push(taskObj);
+        }
+    }
+    
+
+
+if (planting.perennial) {
+    let presprout_date = (cuttings_presprout !== null && cuttings_presprout !== false) ? moment(last_frost).subtract(cuttings_presprout, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+    let harden_date = (cuttings_presprout !== null && cuttings_harden !== false) ? moment(last_frost).add(cuttings_harden, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+    let harvest_date = ((cuttings_presprout !== null && (cuttings_maturity_early || cuttings_maturity_late)) || cuttings_transplant !== null) ? moment(presprout_date || transplant_date).add(cuttings_maturity_early || cuttings_maturity_late, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+
+    let transplant_date = moment(last_frost).add(cuttings_transplant, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+
+    var titleArr4 = ['Pre-Sprout', 'Harden Off', 'Pot On', 'Plant Out', 'Harvest'];
+    var noteArr4 = ['', '', '', plant.cuttings_transplant_note, plant.harvest_note];
+    var durationArr4 = [1, 7, 1, 1, cuttings_maturity_late - cuttings_maturity_early];
+    var scheduleArr4 = [presprout_date, harden_date, pot_on_date, transplant_date, harvest_date];
+
+    if (cuttings_pot_on !== null) {
+        let pot_on_date = moment(presprout_date).add(cuttings_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+        titleArr4.splice(2, 0, 'Pot On');
+        noteArr4.splice(2, 0, '');
+        durationArr4.splice(2, 0, 1);
+        scheduleArr4.splice(2, 0, pot_on_date);
+    }
+
+
+    for (var i = 0; i < titleArr4.length; i++) {
+        var taskObj = {
+                planting_id: planting._id,
+                userid: plan.userid,
+                title: titleArr4[i],
+                scheduled_at: scheduleArr4[i],
+                duration: durationArr4[i],
+                note: noteArr4[i],
+                type: "incomplete",
+                rescheduled_at: "",
+                completed_at: ""
+            }
+            taskArr.push(taskObj);
+        }
+}
         
     
         return taskArr;
