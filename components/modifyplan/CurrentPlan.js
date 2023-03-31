@@ -261,7 +261,7 @@ const CurrentPlan = (props) => {
                                         direct_sow: false,
                                         direct_indoors: true,
                                         bulb: false,
-                                        cuttings: true,
+                                        cuttings: false,
                                         plugs: false,
                                         perennial: false
                                       });
