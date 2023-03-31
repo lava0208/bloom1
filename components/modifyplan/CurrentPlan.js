@@ -405,83 +405,108 @@ const CurrentPlan = (props) => {
                             )
                         }
                     </div>
-                    
                     <div className={styles.quantityRow}>
-                        <h4>Quantity</h4>
-                        <input type="number" placeholder="#" value={planting.seeds === null ? 0 : parseInt(planting.seeds)} onChange={(e) => setPlanting({...planting, seeds: parseInt(e.target.value) })} />
-                    </div>
-                    {!(activePerennial || false) && (
-                    <div className={styles.harvestRow}>
-                        <h4>Harvest</h4>
-                        {harvests.map((element, i) => (
-                            <button key={i} 
-                                onClick={() => {setActiveHarvest(element.value), setPlanting({...planting, harvest: element.value === 1 ? "Early" : element.value === 2 ? "Regular" : "Late"})}} 
-                                className={activeHarvest === i + 1 ?  styles.selected : ''}
-                                value={planting.harvest}
-                            >
-                                {element.label}
-                            </button>
-                        ))}
-                    </div>
-                    )}
-                    {!(activePerennial || false) && (
-                    <div className={styles.successionContainer}>
-                        <div className={styles.successionContainer1}>
-                            <div className={styles.successionTextContainer}>
-                                <h4>Successions</h4>
-                                <h5><i>Additional</i> plantings with the same settings, separated by the specified number of days.</h5>
-                            </div>
-                            <div className={styles.successionButtonsContainer}>
-                                <div>
-                                    <input
-  value={planting.succession}
-  onChange={(e) => {
-    const value = e.target.value;
-    if (value === "") {
-      setPlanting({ ...planting, succession: value });
-    } else {
-      const parsedValue = parseInt(value);
-      if (parsedValue <= 10) {
-        setPlanting({ ...planting, succession: parsedValue });
-      } else {
-        alert("Maximum input value is 10.");
-      }
+  <h4>Quantity</h4>
+  <input
+    type="number"
+    placeholder="#"
+    value={planting.seeds === null ? 0 : parseInt(planting.seeds)}
+    onChange={(e) =>
+      setPlanting({ ...planting, seeds: parseInt(e.target.value) })
     }
-  }}
-  type="number"
-  min="0"
-  max="10"
-/>
-
- 
-                                    <span>Plantings</span>
-                                </div>
-                                <div>
-                                    <input
-  value={planting.spacing}
-  onChange={(e) => {
-    const value = e.target.value;
-    if (value === "") {
-      setPlanting({ ...planting, spacing: value });
-    } else {
-      const parsedValue = parseInt(value);
-      if (parsedValue <= 50) {
-        setPlanting({ ...planting, spacing: parsedValue });
-      } else {
-        alert("Maximum input value is 50.");
-      }
-    }
-  }}
-  type="number"
-  min="0"
-  max="50"
-/>
+  />
+</div>
+{activePerennial ? null : (
+  <div className={styles.harvestRow}>
+    <h4>Harvest</h4>
+    {harvests.map((element, i) => (
+      <button
+        key={i}
+        onClick={() => {
+          setActiveHarvest(element.value);
+          setPlanting({
+            ...planting,
+            harvest:
+              element.value === 1
+                ? "Early"
+                : element.value === 2
+                ? "Regular"
+                : "Late",
+          });
+        }}
+        className={activeHarvest === i + 1 ? styles.selected : ""}
+        value={planting.harvest}
+      >
+        {element.label}
+      </button>
+    ))}
+  </div>
 )}
+<div className={styles.successionContainer}>
+  <div className={styles.successionContainer1}>
+    <div className={styles.successionTextContainer}>
+      <h4>Successions</h4>
+      {!activePerennial && (
+        <h5>
+          <i>
+            Additional plantings with the same settings, separated by the
+            specified number of days.
+          </i>
+        </h5>
+      )}
+    </div>
+    <div className={styles.successionButtonsContainer}>
+      <div>
+        <input
+          value={planting.succession}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value === "") {
+              setPlanting({ ...planting, succession: value });
+            } else {
+              const parsedValue = parseInt(value);
+              if (parsedValue <= 10) {
+                setPlanting({ ...planting, succession: parsedValue });
+              } else {
+                alert("Maximum input value is 10.");
+              }
+            }
+          }}
+          type="number"
+          min="0"
+          max="10"
+        />
+        {!activePerennial && <span>Plantings</span>}
+      </div>
+      <div>
+        <input
+          value={planting.spacing}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value === "") {
+              setPlanting({ ...planting, spacing: value });
+            } else {
+              const parsedValue = parseInt(value);
+              if (parsedValue <= 50) {
+                setPlanting({ ...planting, spacing: parsedValue });
+              } else {
+                alert("Maximum input value is 50.");
+              }
+            }
+          }}
+          type="number"
+          min="0"
+          max="50"
+        />
+        {!activePerennial && <span>Days Between</span>}
+      </div>
+    </div>
+  </div>
+</div>
 
-                                    <span>Days Between</span>
-                                </div>
-                            </div>
                         </div>
+    
+                        
                         <div className={styles.successionCheckboxesContainer}>
                             {
                                 activeDirectSeed && plant.direct_seed_pinch !== "" ? (
