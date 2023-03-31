@@ -475,7 +475,7 @@ const CurrentPlan = (props) => {
                         </div>
                         <div className={styles.successionCheckboxesContainer}>
                             {
-                                plant.pinch !== "" ? (
+                                (activeDirectSeed && plant.pinch !== "") || (activeStartIndoors && plant.pinch !== "") ? (
                                     <div className={styles.successionCheckboxRow}>
                                         <h6>Pinch</h6>
                                         <div
