@@ -445,7 +445,7 @@ const CurrentPlan = (props) => {
 <div className={styles.successionContainer}>
   <div className={styles.successionContainer1}>
     <div className={styles.successionTextContainer}>
-      <h4>Successions</h4>
+    {!activePerennial && <h4>Successions</h4>}
       {!activePerennial && (
         <h5>
           <i>
@@ -457,7 +457,7 @@ const CurrentPlan = (props) => {
     </div>
     <div className={styles.successionButtonsContainer}>
       <div>
-        <input
+      {!activePerennial && <input
           value={planting.succession}
           onChange={(e) => {
             const value = e.target.value;
@@ -475,11 +475,11 @@ const CurrentPlan = (props) => {
           type="number"
           min="0"
           max="10"
-        />
+        />}
         {!activePerennial && <span>Plantings</span>}
       </div>
       <div>
-        <input
+      {!activePerennial && <input
           value={planting.spacing}
           onChange={(e) => {
             const value = e.target.value;
@@ -497,7 +497,7 @@ const CurrentPlan = (props) => {
           type="number"
           min="0"
           max="50"
-        />
+        />}
         {!activePerennial && <span>Days Between</span>}
       </div>
     </div>
