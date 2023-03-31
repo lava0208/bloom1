@@ -12,6 +12,9 @@ const CurrentPlan = (props) => {
     const [preSproutCheckbox, setPreSproutCheckbox] = useState(false);
     const [activeDirectSeed, setActiveDirectSeed] = useState(false);
     const [activeStartIndoors, setActiveStartIndoors] = useState(false);
+    const [activeCuttings, setActiveCuttings] = useState(false);
+    const [activePlugs, setActivePlugs] = useState(false);
+    const [activePerrenial, setActivePerennial] = useState(false);
     const [activeBulb, setActiveBulb] = useState(false);
     const harvests = [
         { label: "Early", value: 1 },
