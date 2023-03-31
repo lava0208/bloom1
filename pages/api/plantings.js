@@ -433,7 +433,7 @@ case "POST":
                 });
             }
         
-            if (!req.body.harvest || !req.body.seeds) {
+            if (req.body.direct_indoors && !req.body.harvest || !req.body.seeds) {
                 return res.json({
                     status: false,
                     message: "Please provide harvest type (early, regular, or late) and quantity for the planting.",
