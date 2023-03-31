@@ -177,13 +177,6 @@ perennial_harvest_note: ""
     const savePlant = async () => {
         if (plant.name !== "" && plant.species !== "" && plant.description !== "") {
             {
-                swal({
-                    title: "Warning!",
-                    text: "Please fill all required fields.",
-                    icon: "warning",
-                    className: "custom-swal",
-                });
-            }else{
                 plant.userid = userService.getId();
                 // plant.image = downloadURL;
                 if(downloadURL !== ""){
