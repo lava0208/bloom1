@@ -176,7 +176,7 @@ perennial_harvest_note: ""
 
     const savePlant = async () => {
         if (plant.name !== "" && plant.species !== "" && plant.description !== "") {
-            if(plant.earliest_seed === "" && plant.latest_seed === "" && plant.direct_seed === ""){
+            {
                 swal({
                     title: "Warning!",
                     text: "Please fill all required fields.",
