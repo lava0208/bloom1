@@ -14,7 +14,7 @@ const CurrentPlan = (props) => {
     const [activeStartIndoors, setActiveStartIndoors] = useState(false);
     const [activeCuttings, setActiveCuttings] = useState(false);
     const [activePlugs, setActivePlugs] = useState(false);
-    const [activePerrenial, setActivePerennial] = useState(false);
+    const [activePerennial, setActivePerennial] = useState(false);
     const [activeBulb, setActiveBulb] = useState(false);
     const harvests = [
         { label: "Early", value: 1 },
@@ -164,7 +164,7 @@ const CurrentPlan = (props) => {
         setActiveBulb(false);
         setActiveCuttings(false);
         setActivePlugs(false);
-        setActivePerrenial(false);
+        setActivePerennial(false);
         setPinchCheckbox(false);
         setPotCheckbox(false);
         setBulbPotCheckbox(false);
@@ -217,7 +217,7 @@ const CurrentPlan = (props) => {
                                     setActiveDirectSeed(true);
                                     setActiveStartIndoors(false);
                                     setActiveCuttings(false);
-                                    setActivePerrenial(false);
+                                    setActivePerennial(false);
                                     setActivePlugs(false);
                                     setPlanting({
                                         ...planting,
@@ -226,7 +226,7 @@ const CurrentPlan = (props) => {
                                         bulb: false,
                                         cuttings: false,
                                         plugs: false,
-                                        perrenial: false
+                                        perennial: false
                                       });
                                 }}
                                 className={activeDirectSeed === true ? styles.selected : ''}
@@ -298,7 +298,7 @@ const CurrentPlan = (props) => {
                                     setActiveDirectSeed(false);
                                     setActiveStartIndoors(false);
                                     setActiveCuttings(true);
-                                    setActivePerrenial(false);
+                                    setActivePerennial(false);
                                     setActivePlugs(false);
                                     setPlanting({
                                         ...planting,
@@ -307,7 +307,7 @@ const CurrentPlan = (props) => {
                                         bulb: false,
                                         cuttings: true,
                                         plugs: false,
-                                        perrenial: false
+                                        perennial: false
                                       });
                                 }}
                                 className={activeCuttings === true ? styles.selected : ''}
