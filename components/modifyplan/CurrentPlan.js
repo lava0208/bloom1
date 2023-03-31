@@ -566,7 +566,7 @@ const CurrentPlan = (props) => {
                                 )
                             }
                             {
-                                plant.pot_on !== "" ? (
+                                !activeDirectSeed && plant.pot_on !== "" ? (
                                     <div className={styles.successionCheckboxRow}>
                                         <h6>Pot On</h6>
                                         <div
