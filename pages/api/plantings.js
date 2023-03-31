@@ -235,40 +235,27 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
         }
 
         if (planting.cuttings) {
-            let presprout_date = (bulb_presprout !== null && bulb_presprout !== false) ? moment(last_frost).subtract(bulb_presprout, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
-            let pot_on_date = (bulb_pot_on !== null && bulb_pot_on !== false) ? moment(presprout_date).add(bulb_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
-            let harden_date = (bulb_presprout !== null && bulb_harden !== false) ? moment(last_frost).add(bulb_harden, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
-            let harvest_date = ((bulb_presprout !== null && (bulb_maturity_early || bulb_maturity_late)) || bulb_transplant !== null) ? moment(presprout_date || transplant_date).add(bulb_maturity_early || bulb_maturity_late, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
-            
-            let transplant_date = moment(last_frost).add(bulb_transplant, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
-    
-            
-            var titleArr3 = ['Plant Out', 'Harvest'];
-            var noteArr3 = [plant.bulb_transplant_note, plant.harvest_note];
-            var durationArr3 = [1, bulb_maturity_late - bulb_maturity_early];
-            var scheduleArr3 = [transplant_date, harvest_date];
-    
-            if (bulb_presprout !== null && bulb_presprout_decision) {
-                titleArr3.unshift('Pre-Sprout');
-                noteArr3.unshift('');
-                durationArr3.unshift(1);
-                scheduleArr3.unshift(presprout_date);
+            let presprout_date = (cuttings_presprout !== null && cuttings_presprout !== false) ? moment(last_frost).subtract(cuttings_presprout, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+            let harden_date = (cuttings_presprout !== null && cuttings_harden !== false) ? moment(last_frost).add(cuttings_harden, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+            let harvest_date = ((cuttings_presprout !== null && (cuttings_maturity_early || cuttings_maturity_late)) || cuttings_transplant !== null) ? moment(presprout_date || transplant_date).add(cuttings_maturity_early || cuttings_maturity_late, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
         
-                if (bulb_pot_on !== null && bulb_pot_on_decision) {
-                    titleArr3.splice(1, 0, 'Pot On');
-                    noteArr3.splice(1, 0, '');
-                    durationArr3.splice(1, 0, 1);
-                    scheduleArr3.splice(1, 0, pot_on_date);
-                }
-                {
-                    titleArr3.splice(2, 0, 'Harden Off');
-                    noteArr3.splice(2, 0, '');
-                    durationArr3.splice(2, 0, 7);
-                    scheduleArr3.splice(2, 0, harden_date);
-                }
+            let transplant_date = moment(last_frost).add(cuttings_transplant, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+        
+            var titleArr4 = ['Pre-Sprout', 'Harden Off', 'Pot On', 'Plant Out', 'Harvest'];
+            var noteArr4 = ['', '', '', plant.cuttings_transplant_note, plant.harvest_note];
+            var durationArr4 = [1, 7, 1, 1, cuttings_maturity_late - cuttings_maturity_early];
+            var scheduleArr4 = [presprout_date, harden_date, pot_on_date, transplant_date, harvest_date];
+        
+            if (cuttings_pot_on !== null) {
+                let pot_on_date = moment(presprout_date).add(cuttings_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+                titleArr4.splice(2, 0, 'Pot On');
+                noteArr4.splice(2, 0, '');
+                durationArr4.splice(2, 0, 1);
+                scheduleArr4.splice(2, 0, pot_on_date);
             }
+        }        
         
-            for (var i = 0; i < titleArr3.length; i++) {
+            for (var i = 0; i < titleArr4.length; i++) {
                 var taskObj = {
                         planting_id: planting._id,
                         userid: plan.userid,
