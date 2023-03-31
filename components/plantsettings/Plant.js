@@ -1014,11 +1014,11 @@ const Plant = (props) => {
                     <textarea
                         rows="3"
                         placeholder={"Optional"}
-                        value={plant ? plant.bulb_transplant_note : ""}
+                        value={plant ? plant.cuttings_transplant_note : ""}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
-                                bulb_transplant_note: e.target.value,
+                                cuttings_transplant_note: e.target.value,
                             });
                         }}
                     />
@@ -1055,11 +1055,11 @@ const Plant = (props) => {
                     <input
                         type="number"
                         className={styles.input}
-                        value={plant ? plant.cuttings_maturity_early : ""}
+                        value={plant ? plant.plugs_maturity_early : ""}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
-                                cuttings_maturity_early: e.target.value,
+                                plugs_maturity_early: e.target.value,
                             });
                         }}
                     />
@@ -1067,11 +1067,11 @@ const Plant = (props) => {
                     <input
                         type="number"
                         className={styles.input}
-                        value={plant ? plant.bulb_maturity_late : ""}
+                        value={plant ? plant.plugs_maturity_late : ""}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
-                                cuttings_maturity_late: e.target.value,
+                                plugs_maturity_late: e.target.value,
                             });
                         }}
                     />
@@ -1099,11 +1099,11 @@ const Plant = (props) => {
                     <textarea
                         rows="3"
                         placeholder={"Optional"}
-                        value={plant ? plant.plug_harden_note : ""}
+                        value={plant ? plant.plugs_harden_note : ""}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
-                                plug_harden_note: e.target.value,
+                                plugs_harden_note: e.target.value,
                             });
                         }}
                     />
@@ -1111,11 +1111,11 @@ const Plant = (props) => {
                     <textarea
                         rows="3"
                         placeholder={"Optional"}
-                        value={plant ? plant.plug_transplant_note : ""}
+                        value={plant ? plant.plugs_transplant_note : ""}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
-                                plug_transplant_note: e.target.value,
+                                plugs_transplant_note: e.target.value,
                             });
                         }}
                     />
