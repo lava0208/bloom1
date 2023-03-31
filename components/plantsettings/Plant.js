@@ -41,6 +41,7 @@ const Plant = (props) => {
         harvest_note: "",
         bulb_presprout: "",
         bulb_pot_on: "",
+        bulb_harden: "",
         bulb_transplant: "",
         bulb_maturity_early: "",
         bulb_maturity_late: "",
@@ -789,6 +790,18 @@ const Plant = (props) => {
                             setPlant({
                                 ...plant,
                                 bulb_pot_on: e.target.value,
+                            });
+                        }}
+                    />
+                    <small>Harden Off</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.bulb_harden : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                bulb_harden: e.target.value,
                             });
                         }}
                     />

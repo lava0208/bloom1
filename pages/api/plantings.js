@@ -38,6 +38,7 @@ function createTasks(planting, plant, plan, shiftDays){
     let average_maturity = Math.round((_maturity_early + _maturity_late) / 2);
     let bulb_presprout = plant.bulb_presprout !== "" ? parseInt(plant.bulb_presprout)*7 : null;
     let bulb_pot_on = plant.bulb_pot_on !== "" ? parseInt(plant.bulb_pot_on)*7 : null;
+    let bulb_harden = plant.bulb_harden !== "" ? parseInt(plant.bulb_harden)*7 : 0;
     let bulb_transplant = plant.bulb_transplant !== "" ? parseInt(plant.bulb_transplant)*7 : null;
     let bulb_maturity_early = plant.bulb_maturity_early !== "" ? parseInt(plant.bulb_maturity_early) : null;
     let bulb_maturity_late = plant.bulb_maturity_late !== "" ? parseInt(plant.bulb_maturity_late) : null;
