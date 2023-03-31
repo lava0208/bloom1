@@ -777,7 +777,7 @@ perennial_harvest_note: ""
                     paddingTop: 25,
                     }}
                     >Timing</h5>
-                    <small>Pre-sprout</small>
+                    <small>Pre-sprout (weeks before last frost)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -790,7 +790,7 @@ perennial_harvest_note: ""
                             });
                         }}
                     />
-                    <small>Pot On</small>
+                    <small>Pot On (weeks after pre-sprouting)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -803,11 +803,12 @@ perennial_harvest_note: ""
                             });
                         }}
                     />
-                    <small>Harden Off</small>
+                    <small>Harden Off (weeks after last frost)</small>
                     <input
                         type="number"
                         className={styles.input}
                         value={plant ? plant.bulb_harden : ""}
+                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
@@ -815,7 +816,7 @@ perennial_harvest_note: ""
                             });
                         }}
                     />
-                    <small>Transplant / Plant Out</small>
+                    <small>Transplant / Plant Out (weeks after last frost)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -828,7 +829,7 @@ perennial_harvest_note: ""
                         }}
                     />
                     <h5 className="mt-4">Maturity</h5>
-                    <small>Maturity Early (days after planting)</small>
+                    <small>Maturity Early (days after pre-sprouting/planting)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -840,7 +841,7 @@ perennial_harvest_note: ""
                             });
                         }}
                     />
-                    <small>Maturity Late (days after planting)</small>
+                    <small>Maturity Late (days after pre-sprouting/planting)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -913,7 +914,7 @@ perennial_harvest_note: ""
                     paddingTop: 25,
                     }}
                     >Timing</h5>
-                    <small>Pre-sprout</small>
+                    <small>Pre-sprout (weeks before last frost)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -925,7 +926,7 @@ perennial_harvest_note: ""
                             });
                         }}
                     />
-                    <small>Prepare Cuttings</small>
+                    <small>Prepare Cuttings (weeks after pre-sprouting)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -937,7 +938,7 @@ perennial_harvest_note: ""
                             });
                         }}
                     />
-                    <small>Pot On</small>
+                    <small>Pot On (weeks after pre-sprouting)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -950,7 +951,7 @@ perennial_harvest_note: ""
                             });
                         }}
                     />
-                    <small>Harden</small>
+                    <small>Harden (weeks after last frost)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -962,7 +963,7 @@ perennial_harvest_note: ""
                             });
                         }}
                     />
-                    <small>Transplant</small>
+                    <small>Transplant (weeks after last frost)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -1072,7 +1073,7 @@ perennial_harvest_note: ""
                     paddingTop: 25,
                     }}
                     >Timing</h5>
-                    <small>Harden</small>
+                    <small>Harden (weeks after last frost)</small>
                     <input
                         type="number"
                         className={styles.input}
@@ -1084,7 +1085,7 @@ perennial_harvest_note: ""
                             });
                         }}
                     />
-                    <small>Transplant</small>
+                    <small>Transplant (weeks after last frost)</small>
                     <input
                         type="number"
                         className={styles.input}
