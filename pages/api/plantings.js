@@ -432,13 +432,16 @@ case "POST":
                     message: "You must choose only one planting method for a single planting. Please try again, and ensure you select one option.",
                 });
             }
+
+            if (req.body.direct_indoors) {
         
-            if (req.body.direct_indoors && !req.body.harvest || !req.body.seeds) {
+            if (!req.body.harvest || !req.body.seeds) {
                 return res.json({
                     status: false,
                     message: "Please provide harvest type (early, regular, or late) and quantity for the planting.",
                 });
             }
+        }
             
     await db.collection("plantings").updateOne(
         {
