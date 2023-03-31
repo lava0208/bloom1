@@ -537,7 +537,7 @@ const CurrentPlan = (props) => {
                                    activePerennial ? (
                                     <div className={styles.successionCheckboxRow}>
                                         <h6>Dates</h6>
-                                        <h6>Harvest Start</h6>
+                                        <small>Harvest Start</small>
       <input
         type="date"
         value={plant.perennial_harvest_start || ''}
@@ -545,7 +545,7 @@ const CurrentPlan = (props) => {
           setPlanting({ ...planting, perennial_harvest_start: e.target.value })
         }
       />
-      <h6>Harvest End</h6>
+      <small>Harvest End</small>
       <input
         type="date"
         value={plant.perennial_harvest_end || ''}
