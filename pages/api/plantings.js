@@ -259,10 +259,10 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
                 var taskObj = {
                         planting_id: planting._id,
                         userid: plan.userid,
-                        title: titleArr3[i],
+                        title: titleArr4[i],
                         scheduled_at: scheduleArr3[i],
                         duration: durationArr3[i],
-                        note: noteArr3[i],
+                        note: noteArr4[i],
                         type: "incomplete",
                         rescheduled_at: "",
                         completed_at: ""
@@ -285,7 +285,7 @@ export default async function handler(req, res) {
         //... create plantings
 case "POST":
             
-    if (!req.body.direct_sow && !req.body.direct_indoors && !req.body.bulb) {
+    if (!req.body.direct_sow && !req.body.direct_indoors && !req.body.bulb && !req.body.plugs && !req.body.cuttings && !req.body.perennial) {
         return res.json({
             status: false,
             message: "You must choose only one planting method for a single planting. Please try again, and ensure you select one option.",
