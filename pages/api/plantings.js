@@ -164,12 +164,14 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
     }
 
     if (planting.bulb) {
-        let presprout_date = bulb_presprout !== null ? moment(last_frost).subtract(bulb_presprout, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
-        let pot_on_date = bulb_pot_on !== null ? moment(presprout_date).add(bulb_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
-        let harden_date = bulb_presprout !== null ? moment(last_frost).add(bulb_harden, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let presprout_date = (bulb_presprout !== null && bulb_presprout !== false) ? moment(last_frost).subtract(bulb_presprout, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let pot_on_date = (bulb_pot_on !== null && bulb_pot_on !== false) ? moment(presprout_date).add(bulb_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let harden_date = (bulb_presprout !== null && bulb_harden !== false) ? moment(last_frost).add(bulb_harden, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let harvest_date = ((bulb_presprout !== null && (bulb_maturity_early || bulb_maturity_late)) || bulb_transplant !== null) ? moment(presprout_date || transplant_date).add(bulb_maturity_early || bulb_maturity_late, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        
         let transplant_date = moment(last_frost).add(bulb_transplant, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
-        let harvest_date = bulb_presprout !== null ? moment(presprout_date).add(bulb_maturity_early || bulb_maturity_late, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : moment(transplant_date).add(bulb_maturity_early || bulb_maturity_late, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
 
+        
         var titleArr3 = ['Plant Out', 'Harvest'];
         var noteArr3 = [plant.bulb_transplant_note, plant.harvest_note];
         var durationArr3 = [1, bulb_maturity_late - bulb_maturity_early];
