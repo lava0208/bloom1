@@ -536,8 +536,7 @@ const CurrentPlan = (props) => {
                             {
                                    activePerennial ? (
                                     <div className={styles.successionCheckboxRow}>
-                                        <h6>Dates</h6>
-                                        <small>Harvest Start</small>
+                                        <h6>Harvest Start</h6>
       <input
         type="date"
         value={plant.perennial_harvest_start || ''}
@@ -546,7 +545,7 @@ const CurrentPlan = (props) => {
         }
         style={{ width: '150px' }} // Set the width using inline style
       />
-      <small>Harvest End</small>
+      <h6>Harvest End</h6>
       <input
         type="date"
         value={plant.perennial_harvest_end || ''}
