@@ -908,7 +908,6 @@ const Plant = (props) => {
                         type="number"
                         className={styles.input}
                         value={plant ? plant.cuttings_presprout : ""}
-                        placeholder={"Optional"}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
