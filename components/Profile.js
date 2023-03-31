@@ -375,9 +375,15 @@ const deleteUser = async () => {
                 </div>
                 {
                     isPro ? (
+                        <>
                         <a href="mailto:priority23@bloommanager.com" target="_blank" rel="noopener noreferrer">
                             <button className={styles.button3 + " " + styles.button4}>Access Priority Support</button>
                         </a>
+                        <a href="mailto:priority23@bloommanager.com" target="_blank" rel="noopener noreferrer">
+                            <button className={styles.button3 + " " + styles.button4}>Request New Variety Preset</button>
+                        </a>
+                        
+                        </>
                         
                     ) : (
                         <button className={styles.button3} onClick={() => paymentcheckout()}>Upgrade Now</button>
