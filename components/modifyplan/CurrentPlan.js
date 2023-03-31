@@ -483,7 +483,7 @@ const CurrentPlan = (props) => {
                                     <div className={styles.successionCheckboxRow}>
                                         <h6>Pinch</h6>
                                         <div
-                                            onClick={() => {setPinchCheckbox(!directPinchCheckbox), setPlanting({...planting, direct_seed_pinch: !directPinchCheckbox})}}
+                                            onClick={() => {setDirectPinchCheckbox(!directPinchCheckbox), setPlanting({...planting, direct_seed_pinch: !directPinchCheckbox})}}
                                             className={`${styles.checkbox} ${directPinchCheckbox ? styles.active : null}`}
                                         ></div>
                                     </div>
