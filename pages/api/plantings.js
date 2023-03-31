@@ -395,9 +395,13 @@ case "POST":
                 direct_sow: req.body.direct_sow,
                 direct_indoors: req.body.direct_indoors,
                 bulb: req.body.bulb,
+                cuttings: req.body.cuttings,
+                plugs: req.body.plugs,
+                perennial: req.body.perennial,
                 pinch: req.body.pinch,
                 bulb_pot_on: req.body.bulb_pot_on,
                 bulb_presprout: req.body.bulb_presprout,
+                cuttings_pot_on: req.body.cuttings_pot_on,
                 pot_on: req.body.pot_on,
                 spacing: req.body.spacing,
                 succession: req.body.succession
