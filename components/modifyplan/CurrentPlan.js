@@ -444,6 +444,36 @@ const CurrentPlan = (props) => {
 )}
 <div className={styles.successionContainer}>
   <div className={styles.successionContainer1}>
+  {
+  activePerennial ? (
+    <div className={styles.successionCheckboxRow} style={{ display: 'flex' }}>
+      <div style={{ width: '50%', paddingRight: '2%', boxSizing: 'border-box' }}>
+        <h6>Harvest Start</h6>
+        <input
+          type="date"
+          value={plant.perennial_harvest_start || ''}
+          onChange={(e) =>
+            setPlanting({ ...planting, perennial_harvest_start: e.target.value })
+          }
+          style={{ width: '100%' }} // Set the width using inline style
+        />
+      </div>
+      <div style={{ width: '50%', paddingLeft: '2%', boxSizing: 'border-box' }}>
+        <h6>Harvest End</h6>
+        <input
+          type="date"
+          value={plant.perennial_harvest_end || ''}
+          onChange={(e) =>
+            setPlanting({ ...planting, perennial_harvest_end: e.target.value })
+          }
+          style={{ width: '100%' }} // Set the width using inline style
+        />
+      </div>
+    </div>
+  ) : (
+    <></>
+  )
+}
     <div className={styles.successionTextContainer}>
     {!activePerennial && <h4>Successions</h4>}
       {!activePerennial && (
@@ -502,36 +532,6 @@ const CurrentPlan = (props) => {
       </div>
       
     </div>
-    {
-  activePerennial ? (
-    <div className={styles.successionCheckboxRow} style={{ display: 'flex' }}>
-      <div style={{ width: '50%', paddingRight: '2%', boxSizing: 'border-box' }}>
-        <h6>Harvest Start</h6>
-        <input
-          type="date"
-          value={plant.perennial_harvest_start || ''}
-          onChange={(e) =>
-            setPlanting({ ...planting, perennial_harvest_start: e.target.value })
-          }
-          style={{ width: '100%' }} // Set the width using inline style
-        />
-      </div>
-      <div style={{ width: '50%', paddingLeft: '2%', boxSizing: 'border-box' }}>
-        <h6>Harvest End</h6>
-        <input
-          type="date"
-          value={plant.perennial_harvest_end || ''}
-          onChange={(e) =>
-            setPlanting({ ...planting, perennial_harvest_end: e.target.value })
-          }
-          style={{ width: '100%' }} // Set the width using inline style
-        />
-      </div>
-    </div>
-  ) : (
-    <></>
-  )
-}
 
 
 
