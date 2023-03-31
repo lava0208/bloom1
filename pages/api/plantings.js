@@ -62,6 +62,8 @@ function createTasks(planting, plant, plan, shiftDays){
     let bulb_pot_on_decision = planting.bulb_pot_on;
     let bulb_presprout_decision = planting.bulb_presprout;
     let cuttings_pot_on_decision = planting.cuttings_pot_on;
+    let perennial_harvest_start = planting.perennial_harvest_start;
+    let perennial_harvest_end = planting.perennial_harvest_end;
     
     
     //... schedule dates
@@ -300,42 +302,31 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
     
 
 
-if (planting.perennial) {
-    let presprout_date = (cuttings_presprout !== null && cuttings_presprout !== false) ? moment(last_frost).subtract(cuttings_presprout, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
-    let harden_date = (cuttings_presprout !== null && cuttings_harden !== false) ? moment(last_frost).add(cuttings_harden, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
-    let harvest_date = ((cuttings_presprout !== null && (cuttings_maturity_early || cuttings_maturity_late)) || cuttings_transplant !== null) ? moment(presprout_date || transplant_date).add(cuttings_maturity_early || cuttings_maturity_late, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
-
-    let transplant_date = moment(last_frost).add(cuttings_transplant, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
-
-    var titleArr4 = ['Pre-Sprout', 'Harden Off', 'Pot On', 'Plant Out', 'Harvest'];
-    var noteArr4 = ['', '', '', plant.cuttings_transplant_note, plant.harvest_note];
-    var durationArr4 = [1, 7, 1, 1, cuttings_maturity_late - cuttings_maturity_early];
-    var scheduleArr4 = [presprout_date, harden_date, pot_on_date, transplant_date, harvest_date];
-
-    if (cuttings_pot_on !== null) {
-        let pot_on_date = moment(presprout_date).add(cuttings_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
-        titleArr4.splice(2, 0, 'Pot On');
-        noteArr4.splice(2, 0, '');
-        durationArr4.splice(2, 0, 1);
-        scheduleArr4.splice(2, 0, pot_on_date);
-    }
-
-
-    for (var i = 0; i < titleArr4.length; i++) {
-        var taskObj = {
+    if (planting.perennial) {
+        let harvest_start_date = (perennial_harvest_start !== null && perennial_harvest_start !== false) ? moment(perennial_harvest_start).add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let harvest_end_date = (perennial_harvest_end !== null && perennial_harvest_end !== false) ? moment(perennial_harvest_end).add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let harvest_duration = (harvest_start_date && harvest_end_date) ? moment(harvest_end_date).diff(moment(harvest_start_date), 'days') : null;
+    
+        var titleArr6 = ['Harvest'];
+        var noteArr6 = [plant.harvest_note];
+        var durationArr6 = [harvest_duration];
+        var scheduleArr6 = [harvest_start_date];
+    
+        for (var i = 0; i < titleArr6.length; i++) {
+            var taskObj = {
                 planting_id: planting._id,
                 userid: plan.userid,
-                title: titleArr4[i],
-                scheduled_at: scheduleArr4[i],
-                duration: durationArr4[i],
-                note: noteArr4[i],
+                title: titleArr6[i],
+                scheduled_at: scheduleArr6[i],
+                duration: durationArr6[i],
+                note: noteArr6[i],
                 type: "incomplete",
                 rescheduled_at: "",
                 completed_at: ""
             }
             taskArr.push(taskObj);
         }
-}
+    }
         
     
         return taskArr;
