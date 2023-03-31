@@ -36,6 +36,7 @@ const CurrentPlan = (props) => {
         pot_on: false,
         bulb_pot_on: false,
         bulb_presprout: false,
+        cuttings_pot_on: false,
         succession: "",
         spacing: ""
     })
