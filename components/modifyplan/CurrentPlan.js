@@ -39,7 +39,9 @@ const CurrentPlan = (props) => {
         bulb_presprout: false,
         cuttings_pot_on: false,
         succession: "",
-        spacing: ""
+        spacing: "",
+        perennial_harvest_start: null,
+        perennial_harvest_end: null
     })
     const [plans, setPlans] = useState([]);
 

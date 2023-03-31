@@ -53,6 +53,8 @@ function createTasks(planting, plant, plan, shiftDays){
     let plugs_transplant = plant.plugs_transplant !== "" ? parseInt(plant.plugs_transplant)*7 : null;
     let plugs_maturity_early = plant.plugs_maturity_early !== "" ? parseInt(plant.plugs_maturity_early) : null;
     let plugs_maturity_late = plant.plugs_maturity_late !== "" ? parseInt(plant.plugs_maturity_late) : null;
+    let perennial_harvest_start = plant.perennial_harvest_start || null;
+    let perennial_harvest_end = plant.perennial_harvest_end || null;
 
 
     
