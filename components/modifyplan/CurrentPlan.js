@@ -7,6 +7,7 @@ import styles from "~styles/components/modifyplan/currentplan.module.scss";
 const CurrentPlan = (props) => {
     //... Initialize
     const [pinchCheckbox, setPinchCheckbox] = useState(false);
+    const [directPinchCheckbox, setDirectPinchCheckbox] = useState(false);
     const [potCheckbox, setPotCheckbox] = useState(false);
     const [bulbPotCheckbox, setBulbPotCheckbox] = useState(false);
     const [cuttingsPotCheckbox, setCuttingsPotCheckbox] = useState(false);
