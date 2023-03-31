@@ -316,7 +316,7 @@ const CurrentPlan = (props) => {
                                     setActivePlugs(false);
                                     setPlanting({
                                         ...planting,
-                                        direct_sow: true,
+                                        direct_sow: false,
                                         direct_indoors: false,
                                         bulb: false,
                                         cuttings: true,
