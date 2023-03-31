@@ -272,7 +272,7 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
     
         return taskArr;
     }
-
+}
 
 export default async function handler(req, res) {
     const client = await clientPromise;
