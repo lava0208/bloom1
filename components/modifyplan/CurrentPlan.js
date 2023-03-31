@@ -405,10 +405,12 @@ const CurrentPlan = (props) => {
                             )
                         }
                     </div>
+                    
                     <div className={styles.quantityRow}>
                         <h4>Quantity</h4>
                         <input type="number" placeholder="#" value={planting.seeds === null ? 0 : parseInt(planting.seeds)} onChange={(e) => setPlanting({...planting, seeds: parseInt(e.target.value) })} />
                     </div>
+                    {!activePerennial && (
                     <div className={styles.harvestRow}>
                         <h4>Harvest</h4>
                         {harvests.map((element, i) => (
@@ -421,6 +423,8 @@ const CurrentPlan = (props) => {
                             </button>
                         ))}
                     </div>
+                    )}
+                    {!activePerennial && (
                     <div className={styles.successionContainer}>
                         <div className={styles.successionContainer1}>
                             <div className={styles.successionTextContainer}>
@@ -472,6 +476,7 @@ const CurrentPlan = (props) => {
   min="0"
   max="50"
 />
+)}
 
                                     <span>Days Between</span>
                                 </div>
