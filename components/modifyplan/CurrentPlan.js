@@ -500,9 +500,6 @@ const CurrentPlan = (props) => {
         />
         {!activePerennial && <span>Days Between</span>}
       </div>
-    </div>
-  </div>
-</div>
 
                         </div>
     
