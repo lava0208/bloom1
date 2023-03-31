@@ -55,6 +55,9 @@ const CurrentPlan = (props) => {
             setPreSproutCheckbox(props.planting.bulb_presprout);
             setActiveDirectSeed(props.planting.direct_sow);
             setActiveBulb(props.planting.bulb);
+            setActiveCuttings(props.planting.cuttings);
+            setActivePlugs(props.planting.plugs);
+            setActivePerennial(props.planting.perennial);
             setActiveStartIndoors(props.planting.direct_indoors);
             var _harvest = harvests.find(x => x.label === props.planting.harvest);
             setActiveHarvest(_harvest ? _harvest.value : -1);
