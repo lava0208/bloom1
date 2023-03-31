@@ -388,7 +388,7 @@ const CurrentPlan = (props) => {
                                 className={activePerennial === true ? styles.selected : ''}
                                 value={planting.perennial}
                             >
-                                    Plugs
+                                    Perennial
                                 </button>
                             ): (
                                 <></>
