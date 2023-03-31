@@ -241,17 +241,23 @@ const CurrentPlan = (props) => {
                         {
                             plant.earliest_seed !== "" || plant.latest_seed !== "" ? (
                                 <button 
-                    onClick={() => {
-                        setActiveBulb(false);
-                        setActiveDirectSeed(false);
-                        setActiveStartIndoors(true);
-                        setPlanting({
-                            ...planting,
-                            direct_sow: false,
-                            direct_indoors: true,
-                            bulb: false
-                          });
-                    }}
+                                onClick={() => {
+                                    setActiveBulb(false);
+                                    setActiveDirectSeed(false);
+                                    setActiveStartIndoors(true);
+                                    setActiveCuttings(false);
+                                    setActivePerennial(false);
+                                    setActivePlugs(false);
+                                    setPlanting({
+                                        ...planting,
+                                        direct_sow: false,
+                                        direct_indoors: true,
+                                        bulb: false,
+                                        cuttings: true,
+                                        plugs: false,
+                                        perennial: false
+                                      });
+                                }}
                     className={activeStartIndoors === true ? styles.selected : ''}
                     value={planting.direct_indoors}
                 >
@@ -266,17 +272,23 @@ const CurrentPlan = (props) => {
             plant.bulb_maturity_early !== null && plant.bulb_maturity_early !== "" &&
             plant.bulb_maturity_late !== null && plant.bulb_maturity_late !== "" ? (
                 <button 
-                    onClick={() => {
-                        setActiveBulb(true);
-                        setActiveDirectSeed(false);
-                        setActiveStartIndoors(false);
-                        setPlanting({
-                            ...planting,
-                            direct_sow: false,
-                            direct_indoors: false,
-                            bulb: true
-                          });
-                    }}
+                onClick={() => {
+                    setActiveBulb(true);
+                    setActiveDirectSeed(false);
+                    setActiveStartIndoors(false);
+                    setActiveCuttings(false);
+                    setActivePerennial(false);
+                    setActivePlugs(false);
+                    setPlanting({
+                        ...planting,
+                        direct_sow: false,
+                        direct_indoors: false,
+                        bulb: true,
+                        cuttings: true,
+                        plugs: false,
+                        perennial: false
+                      });
+                }}
                     className={activeBulb === true ? styles.selected : ''}
                     value={planting.bulb}
                 >
