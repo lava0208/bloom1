@@ -92,7 +92,7 @@ const YourPlan = (props) => {
 </h5>
 
                                 <h5>{planting.harvest}</h5>
-                                <h5>{planting.pinch ? "Pinch" : ""}</h5>
+                                <h5>{planting.pinch || planting.direct_seed_pinch ? "Pinch" : ""}</h5>
                                 <h5>{planting.pot_on ? "Pot On" : ""}</h5>
                             </div>
                             {
