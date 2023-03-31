@@ -231,8 +231,6 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
                 }
                 taskArr.push(taskObj);
             }
-        
-        }
 
         if (planting.cuttings) {
             let presprout_date = (cuttings_presprout !== null && cuttings_presprout !== false) ? moment(last_frost).subtract(cuttings_presprout, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
@@ -271,7 +269,6 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
                 }
             
         
-    
     
         return taskArr;
     }
