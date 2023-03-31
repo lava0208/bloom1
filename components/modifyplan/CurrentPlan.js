@@ -443,7 +443,8 @@ const CurrentPlan = (props) => {
   </div>
 )}
 <div className={styles.successionContainer}>
-{
+  <div className={styles.successionContainer1}>
+  {
   activePerennial ? (
     <div className={styles.successionCheckboxRow} style={{ display: 'flex' }}>
       <div style={{ width: '50%', paddingRight: '2%', boxSizing: 'border-box' }}>
@@ -473,8 +474,6 @@ const CurrentPlan = (props) => {
     <></>
   )
 }
-  <div className={styles.successionContainer1}>
-  
     <div className={styles.successionTextContainer}>
     {!activePerennial && <h4>Successions</h4>}
       {!activePerennial && (
