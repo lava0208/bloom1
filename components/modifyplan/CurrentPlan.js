@@ -34,6 +34,7 @@ const CurrentPlan = (props) => {
         direct_indoors: false,
         bulb: false,
         pinch: false,
+        direct_seed_pinch: false,
         pot_on: false,
         bulb_pot_on: false,
         bulb_presprout: false,
@@ -50,6 +51,7 @@ const CurrentPlan = (props) => {
             //... edit page
             getPlanting();
             setPinchCheckbox(props.planting.pinch);
+            setDirectPinchCheckbox(props.planting.direct_seed_pinch);
             setPotCheckbox(props.planting.pot_on);
             setBulbPotCheckbox(props.planting.bulb_pot_on);
             setCuttingsPotCheckbox(props.planting.cuttings_pot_on);
@@ -174,6 +176,7 @@ const CurrentPlan = (props) => {
         setActivePlugs(false);
         setActivePerennial(false);
         setPinchCheckbox(false);
+        setDirectPinchCheckbox(false);
         setPotCheckbox(false);
         setBulbPotCheckbox(false);
         setCuttingsPotCheckbox(false);
@@ -475,7 +478,20 @@ const CurrentPlan = (props) => {
                         </div>
                         <div className={styles.successionCheckboxesContainer}>
                             {
-                                (activeDirectSeed && plant.pinch !== "") || (activeStartIndoors && plant.pinch !== "") ? (
+                                activeDirectSeed && plant.direct_seed_pinch !== "" ? (
+                                    <div className={styles.successionCheckboxRow}>
+                                        <h6>Pinch</h6>
+                                        <div
+                                            onClick={() => {setPinchCheckbox(!directPinchCheckbox), setPlanting({...planting, direct_seed_pinch: !directPinchCheckbox})}}
+                                            className={`${styles.checkbox} ${directPinchCheckbox ? styles.active : null}`}
+                                        ></div>
+                                    </div>
+                                ) : (
+                                    <></>
+                                )
+                            }
+                            {
+                                activeStartIndoors && plant.pinch !== "" ? (
                                     <div className={styles.successionCheckboxRow}>
                                         <h6>Pinch</h6>
                                         <div
