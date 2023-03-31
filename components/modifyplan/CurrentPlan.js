@@ -544,7 +544,7 @@ const CurrentPlan = (props) => {
         onChange={(e) =>
           setPlanting({ ...planting, perennial_harvest_start: e.target.value })
         }
-        style={{ width: '50%' }} // Set the width using inline style
+        style={{ width: '80%' }} // Set the width using inline style
       />
       </div>
       <div style={{ width: '50%'}}>
@@ -556,7 +556,7 @@ const CurrentPlan = (props) => {
           setPlanting({ ...planting, perennial_harvest_end: e.target.value })
           
         }
-        style={{ width: '50%' }} // Set the width using inline style
+        style={{ width: '80%' }} // Set the width using inline style
       />
       </div>
                                     </div>
