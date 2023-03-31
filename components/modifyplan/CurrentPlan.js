@@ -499,6 +499,8 @@ const CurrentPlan = (props) => {
           max="50"
         />
         {!activePerennial && <span>Days Between</span>}
+      </div>
+    </div>
 
                         </div>
     
