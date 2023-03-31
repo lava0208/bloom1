@@ -159,9 +159,14 @@ const CurrentPlan = (props) => {
         setActiveDirectSeed(false);
         setActiveStartIndoors(false);
         setActiveBulb(false);
+        setActiveCuttings(false);
+        setActivePlugs(false);
+        setActivePerrenial(false);
         setPinchCheckbox(false);
         setPotCheckbox(false);
         setBulbPotCheckbox(false);
+        setCuttingsPotCheckbox(false);
+
     }
 
     return (
@@ -208,11 +213,17 @@ const CurrentPlan = (props) => {
                                     setActiveBulb(false);
                                     setActiveDirectSeed(true);
                                     setActiveStartIndoors(false);
+                                    setActiveCuttings(false);
+                                    setActivePerrenial(false);
+                                    setActivePlugs(false);
                                     setPlanting({
                                         ...planting,
                                         direct_sow: true,
                                         direct_indoors: false,
-                                        bulb: false
+                                        bulb: false,
+                                        cuttings: false,
+                                        plugs: false,
+                                        perrenial: false
                                       });
                                 }}
                                 className={activeDirectSeed === true ? styles.selected : ''}
@@ -272,10 +283,43 @@ const CurrentPlan = (props) => {
                 <></>
             )
         }
+                                {
+                            plant.cuttings_presprout !== null && plant.cuttings_presprout !== "" &&
+                            plant.cuttings !== null && plant.cuttings !== "" &&
+                             plant.cuttings_transplant !== null && plant.cuttings_transplant !== "" &&
+                             plant.cuttings_maturity_early !== null && plant.cuttings_maturity_early !== "" &&
+                             plant.cuttings_maturity_late !== null && plant.cuttings_maturity_late !== "" ? (
+                                <button 
+                                onClick={() => {
+                                    setActiveBulb(false);
+                                    setActiveDirectSeed(false);
+                                    setActiveStartIndoors(false);
+                                    setActiveCuttings(true);
+                                    setActivePerrenial(false);
+                                    setActivePlugs(false);
+                                    setPlanting({
+                                        ...planting,
+                                        direct_sow: true,
+                                        direct_indoors: false,
+                                        bulb: false,
+                                        cuttings: true,
+                                        plugs: false,
+                                        perrenial: false
+                                      });
+                                }}
+                                className={activeCuttings === true ? styles.selected : ''}
+                                value={planting.cuttings}
+                            >
+                                    Cuttings
+                                </button>
+                            ): (
+                                <></>
+                            )
+                        }
                     </div>
                     <div className={styles.quantityRow}>
                         <h4>Quantity</h4>
-                        <input type="number" placeholder="# of seeds" value={planting.seeds === null ? 0 : parseInt(planting.seeds)} onChange={(e) => setPlanting({...planting, seeds: parseInt(e.target.value) })} />
+                        <input type="number" placeholder="#" value={planting.seeds === null ? 0 : parseInt(planting.seeds)} onChange={(e) => setPlanting({...planting, seeds: parseInt(e.target.value) })} />
                     </div>
                     <div className={styles.harvestRow}>
                         <h4>Harvest</h4>

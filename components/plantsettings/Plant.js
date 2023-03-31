@@ -46,6 +46,23 @@ const Plant = (props) => {
         bulb_maturity_early: "",
         bulb_maturity_late: "",
         bulb_transplant_note: "",
+        cuttings_presprout: "",
+cuttings: "",
+cuttings_pot_on: "",
+cuttings_harden: "",
+cuttings_transplant: "",
+cuttings_maturity_early: "",
+cuttings_maturity_late: "",
+cuttings_note: "",
+cuttings_transplant_note: "",
+plugs_maturity_early: "",
+plugs_maturity_late: "",
+plugs_harden: "",
+plugs_transplant: "",
+plugs_harden_note: "",
+plugs_transplant_note: "",
+perennial: "",
+perennial_harvest_note: ""
 
     });
 
@@ -937,6 +954,18 @@ const Plant = (props) => {
                             setPlant({
                                 ...plant,
                                 cuttings_pot_on: e.target.value,
+                            });
+                        }}
+                    />
+                    <small>Harden</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.cuttings_harden : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                cuttings_harden: e.target.value,
                             });
                         }}
                     />

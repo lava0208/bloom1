@@ -42,11 +42,26 @@ function createTasks(planting, plant, plan, shiftDays){
     let bulb_transplant = plant.bulb_transplant !== "" ? parseInt(plant.bulb_transplant)*7 : null;
     let bulb_maturity_early = plant.bulb_maturity_early !== "" ? parseInt(plant.bulb_maturity_early) : null;
     let bulb_maturity_late = plant.bulb_maturity_late !== "" ? parseInt(plant.bulb_maturity_late) : null;
+    let cuttings_presprout = plant.cuttings_presprout !== "" ? parseInt(plant.cuttings_presprout)*7 : null;
+    let cuttings = plant.cutting !== "" ? parseInt(plant.cutting)*7 : null;
+    let cuttings_pot_on = plant.cuttings_pot_on !== "" ? parseInt(plant.cuttings_pot_on)*7 : null;
+    let cuttings_harden = plant.cuttings_harden !== "" ? parseInt(plant.cuttings_harden)*7 : 0;
+    let cuttings_transplant = plant.cuttings_transplant !== "" ? parseInt(plant.cuttings_transplant)*7 : null;
+    let cuttings_maturity_early = plant.cuttings_maturity_early !== "" ? parseInt(plant.cuttings_maturity_early) : null;
+    let cuttings_maturity_late = plant.cuttings_maturity_late !== "" ? parseInt(plant.cuttings_maturity_late) : null;
+    let plugs_harden = plant.plugs_harden !== "" ? parseInt(plant.plugs_harden)*7 : 0;
+    let plugs_transplant = plant.plugs_transplant !== "" ? parseInt(plant.plugs_transplant)*7 : null;
+    let plugs_maturity_early = plant.plugs_maturity_early !== "" ? parseInt(plant.plugs_maturity_early) : null;
+    let plugs_maturity_late = plant.plugs_maturity_late !== "" ? parseInt(plant.plugs_maturity_late) : null;
+
+
+    
 
     let pot_on_decision = planting.pot_on;
     let pinch_decision = planting.pinch;
-    let bulb_pot_on_decision = planting.bulb_pot_on_decision;
+    let bulb_pot_on_decision = planting.bulb_pot_on;
     let bulb_presprout_decision = planting.bulb_presprout;
+    let cuttings_pot_on_decision = planting.cuttings_pot_on;
     
     
     //... schedule dates
@@ -218,6 +233,57 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
             }
         
         }
+
+        if (planting.cuttings) {
+            let presprout_date = (bulb_presprout !== null && bulb_presprout !== false) ? moment(last_frost).subtract(bulb_presprout, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+            let pot_on_date = (bulb_pot_on !== null && bulb_pot_on !== false) ? moment(presprout_date).add(bulb_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+            let harden_date = (bulb_presprout !== null && bulb_harden !== false) ? moment(last_frost).add(bulb_harden, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+            let harvest_date = ((bulb_presprout !== null && (bulb_maturity_early || bulb_maturity_late)) || bulb_transplant !== null) ? moment(presprout_date || transplant_date).add(bulb_maturity_early || bulb_maturity_late, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+            
+            let transplant_date = moment(last_frost).add(bulb_transplant, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+    
+            
+            var titleArr3 = ['Plant Out', 'Harvest'];
+            var noteArr3 = [plant.bulb_transplant_note, plant.harvest_note];
+            var durationArr3 = [1, bulb_maturity_late - bulb_maturity_early];
+            var scheduleArr3 = [transplant_date, harvest_date];
+    
+            if (bulb_presprout !== null && bulb_presprout_decision) {
+                titleArr3.unshift('Pre-Sprout');
+                noteArr3.unshift('');
+                durationArr3.unshift(1);
+                scheduleArr3.unshift(presprout_date);
+        
+                if (bulb_pot_on !== null && bulb_pot_on_decision) {
+                    titleArr3.splice(1, 0, 'Pot On');
+                    noteArr3.splice(1, 0, '');
+                    durationArr3.splice(1, 0, 1);
+                    scheduleArr3.splice(1, 0, pot_on_date);
+                }
+                {
+                    titleArr3.splice(2, 0, 'Harden Off');
+                    noteArr3.splice(2, 0, '');
+                    durationArr3.splice(2, 0, 7);
+                    scheduleArr3.splice(2, 0, harden_date);
+                }
+            }
+        
+            for (var i = 0; i < titleArr3.length; i++) {
+                var taskObj = {
+                        planting_id: planting._id,
+                        userid: plan.userid,
+                        title: titleArr3[i],
+                        scheduled_at: scheduleArr3[i],
+                        duration: durationArr3[i],
+                        note: noteArr3[i],
+                        type: "incomplete",
+                        rescheduled_at: "",
+                        completed_at: ""
+                    }
+                    taskArr.push(taskObj);
+                }
+            
+            }
     
         return taskArr;
     }
