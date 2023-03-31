@@ -970,7 +970,7 @@ const Plant = (props) => {
                     <input
                         type="number"
                         className={styles.input}
-                        value={plant ? plant.bulb_maturity_late : ""}
+                        value={plant ? plant.cuttings_maturity_late : ""}
                         onChange={(e) => {
                             setPlant({
                                 ...plant,
