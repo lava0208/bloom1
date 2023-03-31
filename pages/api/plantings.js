@@ -28,6 +28,7 @@ function createTasks(planting, plant, plan, shiftDays){
     let _latest_indoor_seed = plant.latest_seed !== "" ? parseInt(plant.latest_seed)*7 : 0;
     let _cold_stratify = plant.cold_stratify !== "" ? parseInt(plant.cold_stratify)*7 : 0;
     let _pinch = plant.pinch !== "" ? parseInt(plant.pinch)*7 : 0;
+    let _direct_pinch = plant.direct_seed_pinch !== "" ? parseInt(plant.direct_seed_pinch)*7 : 0;
     let _pot_on = plant.pot_on !== "" ? parseInt(plant.pot_on)*7 : 0;
     let _harden = plant.harden !== "" ? parseInt(plant.harden)*7 : 0;
     let _transplant = plant.transplant !== "" ? parseInt(plant.transplant)*7 : 0;
@@ -59,6 +60,7 @@ function createTasks(planting, plant, plan, shiftDays){
 
     let pot_on_decision = planting.pot_on;
     let pinch_decision = planting.pinch;
+    let direct_pinch_decision = planting.direct_seed_pinch;
     let bulb_pot_on_decision = planting.bulb_pot_on;
     let bulb_presprout_decision = planting.bulb_presprout;
     let cuttings_pot_on_decision = planting.cuttings_pot_on;
@@ -95,7 +97,7 @@ function createTasks(planting, plant, plan, shiftDays){
 
     }else{
         direct_seed_date = moment(last_frost).add(_direct_sow, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
-        pinch_date = moment(direct_seed_date).add(_pinch, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+        pinch_date = moment(direct_seed_date).add(_direct_pinch, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
         pot_on_date = moment(direct_seed_date).add(_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
         bloom_start_date = moment(direct_seed_date).add(average_maturity, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
 harvest_date = moment(direct_seed_date).add(average_maturity, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
@@ -121,7 +123,7 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
             durationArr1.push(7);
             scheduleArr1.push(cold_stratify_date);
         }
-        if(_pinch != 0){
+        if(_direct_pinch != 0){
             titleArr1.push('Pinch');
             noteArr1.push(plant.pinch_note);
             durationArr1.push(1);
@@ -454,6 +456,7 @@ case "POST":
                 plugs: req.body.plugs,
                 perennial: req.body.perennial,
                 pinch: req.body.pinch,
+                direct_seed_pinch: req.body.direct_seed_pinch,
                 bulb_pot_on: req.body.bulb_pot_on,
                 bulb_presprout: req.body.bulb_presprout,
                 cuttings_pot_on: req.body.cuttings_pot_on,
