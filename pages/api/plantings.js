@@ -42,7 +42,6 @@ function createTasks(planting, plant, plan, shiftDays){
     let bulb_transplant = plant.bulb_transplant !== "" ? parseInt(plant.bulb_transplant)*7 : null;
     let bulb_maturity_early = plant.bulb_maturity_early !== "" ? parseInt(plant.bulb_maturity_early) : null;
     let bulb_maturity_late = plant.bulb_maturity_late !== "" ? parseInt(plant.bulb_maturity_late) : null;
-    let bulb_harden = plant.bulb_harden !== "" ? parseInt(plant.bulb_harden)*7 : null;
 
     let pot_on_decision = planting.pot_on;
     let pinch_decision = planting.pinch;
