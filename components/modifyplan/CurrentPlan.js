@@ -9,6 +9,7 @@ const CurrentPlan = (props) => {
     const [pinchCheckbox, setPinchCheckbox] = useState(false);
     const [potCheckbox, setPotCheckbox] = useState(false);
     const [bulbPotCheckbox, setBulbPotCheckbox] = useState(false);
+    const [cuttingsPotCheckbox, setCuttingsPotCheckbox] = useState(false);
     const [preSproutCheckbox, setPreSproutCheckbox] = useState(false);
     const [activeDirectSeed, setActiveDirectSeed] = useState(false);
     const [activeStartIndoors, setActiveStartIndoors] = useState(false);
