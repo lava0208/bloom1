@@ -62,7 +62,7 @@ plugs_transplant: req.body.plugs_transplant,
 plugs_harden_note: req.body.plugs_harden_note,
 plugs_transplant_note: req.body.plugs_transplant_note,
 perennial: req.body.perennial,
-perennial_harves_note: req.body.perennial_harvest_note
+perennial_harvest_note: req.body.perennial_harvest_note
 
                 }
                 await db.collection("plants").insertOne(_clone_plant);
@@ -160,7 +160,7 @@ plugs_transplant: req.body.plugs_transplant,
 plugs_harden_note: req.body.plugs_harden_note,
 plugs_transplant_note: req.body.plugs_transplant_note,
 perennial: req.body.perennial,
-perennial_harves_note: req.body.perennial_harvest_note
+perennial_harvest_note: req.body.perennial_harvest_note
                     },
                 }
             );
