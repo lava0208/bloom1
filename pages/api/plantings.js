@@ -177,13 +177,13 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
         var durationArr3 = [1, bulb_maturity_late - bulb_maturity_early];
         var scheduleArr3 = [transplant_date, harvest_date];
 
-        if (bulb_presprout !== null) {
+        if (bulb_presprout !== null && bulb_presprout !== false) {
             titleArr3.unshift('Pre-Sprout');
             noteArr3.unshift('');
             durationArr3.unshift(1);
             scheduleArr3.unshift(presprout_date);
     
-            if (bulb_pot_on !== null) {
+            if (bulb_pot_on !== null && bulb_pot_on !== false) {
                 titleArr3.splice(1, 0, 'Pot On');
                 noteArr3.splice(1, 0, '');
                 durationArr3.splice(1, 0, 1);
