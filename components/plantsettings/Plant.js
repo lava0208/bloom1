@@ -1050,7 +1050,33 @@ const Plant = (props) => {
                     style={{
                     paddingTop: 25,
                     }}
-                    >Maturity</h5>
+                    >Timing</h5>
+                    <small>Harden</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.plugs_harden : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                plugs_harden: e.target.value,
+                            });
+                        }}
+                    />
+                    <small>Transplant</small>
+                    <input
+                        type="number"
+                        className={styles.input}
+                        value={plant ? plant.plugs_transplant : ""}
+                        onChange={(e) => {
+                            setPlant({
+                                ...plant,
+                                plugs_transplant: e.target.value,
+                            });
+                        }}
+                    />
+
+                    <h5>Maturity</h5>
                     <small>Maturity Early (days after plug arrival)</small>
                     <input
                         type="number"

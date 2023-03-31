@@ -40,13 +40,29 @@ export default async function handler(req, res) {
                     spacing_min: req.body.spacing_min,
                     spacing_max: req.body.spacing_max,
                     height: req.body.height,
-bulb_presprout: req.body.bulb_presprout,
-bulb_pot_on: req.body.bulb_pot_on,
-bulb_harden: req.body.bulb_harden,
-bulb_transplant: req.body.bulb_transplant,
-bulb_maturity_early: req.body.bulb_maturity_early,
+                    bulb_presprout: req.body.bulb_presprout,
+                    bulb_pot_on: req.body.bulb_pot_on,
+                    bulb_harden: req.body.bulb_harden,
+                    bulb_transplant: req.body.bulb_transplant,
+                    bulb_maturity_early: req.body.bulb_maturity_early,
 bulb_maturity_late: req.body.bulb_maturity_late,
-bulb_transplant_note: req.body.bulb_transplant_note
+bulb_transplant_note: req.body.bulb_transplant_note,
+cuttings_presprout: req.body.cuttings_presprout,
+cuttings: req.body.cuttings,
+cuttings_pot_on: req.body.cuttings_pot_on,
+cuttings_transplant: req.body.cuttings_transplant,
+cuttings_maturity_early: req.body.cuttings_maturity_early,
+cuttings_maturity_late: req.body.cuttings_maturity_late,
+cuttings_note: req.body.cuttings_note,
+cuttings_transplant_note: req.body.cuttings_transplant_note,
+plugs_maturity_early: req.body.plugs_maturity_early,
+plugs_maturity_late: req.body.plugs_maturity_late,
+plugs_harden: req.body.plugs_harden,
+plugs_transplant: req.body.plugs_transplant,
+plugs_harden_note: req.body.plugs_harden_note,
+plugs_transplant_note: req.body.plugs_transplant_note,
+perennial: req.body.perennial
+
                 }
                 await db.collection("plants").insertOne(_clone_plant);
                 return res.json({ status: true, message: 'A plant is created successfully.' });
@@ -127,7 +143,22 @@ bulb_transplant_note: req.body.bulb_transplant_note
                         bulb_transplant: req.body.bulb_transplant,
                         bulb_maturity_early: req.body.bulb_maturity_early,
                         bulb_maturity_late: req.body.bulb_maturity_late,
-                        bulb_transplant_note: req.body.bulb_transplant_note
+bulb_transplant_note: req.body.bulb_transplant_note,
+cuttings_presprout: req.body.cuttings_presprout,
+cuttings: req.body.cuttings,
+cuttings_pot_on: req.body.cuttings_pot_on,
+cuttings_transplant: req.body.cuttings_transplant,
+cuttings_maturity_early: req.body.cuttings_maturity_early,
+cuttings_maturity_late: req.body.cuttings_maturity_late,
+cuttings_note: req.body.cuttings_note,
+cuttings_transplant_note: req.body.cuttings_transplant_note,
+plugs_maturity_early: req.body.plugs_maturity_early,
+plugs_maturity_late: req.body.plugs_maturity_late,
+plugs_harden: req.body.plugs_harden,
+plugs_transplant: req.body.plugs_transplant,
+plugs_harden_note: req.body.plugs_harden_note,
+plugs_transplant_note: req.body.plugs_transplant_note,
+perennial: req.body.perennial
                     },
                 }
             );
