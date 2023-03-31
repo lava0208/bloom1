@@ -42,6 +42,11 @@ function createTasks(planting, plant, plan, shiftDays){
     let bulb_maturity_early = plant.bulb_maturity_early !== "" ? parseInt(plant.bulb_maturity_early) : null;
     let bulb_maturity_late = plant.bulb_maturity_late !== "" ? parseInt(plant.bulb_maturity_late) : null;
     let bulb_harden = plant.bulb_harden !== "" ? parseInt(plant.bulb_harden)*7 : null;
+
+    let pot_on_decision = planting.pot_on;
+    let pinch_decision = planting.pinch;
+    let bulb_pot_on_decision = planting.bulb_pot_on_decision;
+    let bulb_presprout_decision = planting.bulb_presprout;
     
     
     //... schedule dates
@@ -66,9 +71,9 @@ function createTasks(planting, plant, plan, shiftDays){
                 break;
         }
         pinch_date = moment(seed_indoors_date).add(_pinch, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
-pot_on_date = moment(seed_indoors_date).add(_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
-harvest_date = moment(seed_indoors_date).add(average_maturity, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
-_harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(harvest_date), 'days')) : _maturity_late - _maturity_early;
+        pot_on_date = moment(seed_indoors_date).add(_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+        harvest_date = moment(seed_indoors_date).add(average_maturity, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+        _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(harvest_date), 'days')) : _maturity_late - _maturity_early;
 
 
     }else{
@@ -134,13 +139,13 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
             durationArr2.push(7);
             scheduleArr2.push(cold_stratify_date);
         }
-        if(_pinch != 0){
+        if (_pinch != 0 && pinch_decision) {
             titleArr2.push('Pinch');
             noteArr2.push(plant.pinch_note);
             durationArr2.push(1);
             scheduleArr2.push(pinch_date);
         }
-        if(_pot_on != 0){
+        if (_pot_on != 0 && pot_on_decision) {
             titleArr2.push('Pot On');
             noteArr2.push(plant.pot_on_note);
             durationArr2.push(1);
@@ -177,13 +182,13 @@ _harvest_duration = plant.rebloom ? Math.round(moment(first_frost).diff(moment(h
         var durationArr3 = [1, bulb_maturity_late - bulb_maturity_early];
         var scheduleArr3 = [transplant_date, harvest_date];
 
-        if (bulb_presprout !== null && bulb_presprout !== false) {
+        if (bulb_presprout !== null && bulb_presprout_decision) {
             titleArr3.unshift('Pre-Sprout');
             noteArr3.unshift('');
             durationArr3.unshift(1);
             scheduleArr3.unshift(presprout_date);
     
-            if (bulb_pot_on !== null && bulb_pot_on !== false) {
+            if (bulb_pot_on !== null && bulb_pot_on_decision) {
                 titleArr3.splice(1, 0, 'Pot On');
                 noteArr3.splice(1, 0, '');
                 durationArr3.splice(1, 0, 1);
