@@ -503,36 +503,36 @@ const CurrentPlan = (props) => {
       
     </div>
     {
-                                   activePerennial ? (
-                                    <div className={styles.successionCheckboxRow}>
-                                        <div style={{ width: '95%'}}>
-                                        <h6>Harvest Start</h6>
-      <input
-        type="date"
-        value={plant.perennial_harvest_start || ''}
-        onChange={(e) =>
-          setPlanting({ ...planting, perennial_harvest_start: e.target.value })
-        }
-        style={{ width: '100%' }} // Set the width using inline style
-      />
+  activePerennial ? (
+    <div className={styles.successionCheckboxRow}>
+      <div style={{ width: '50%', paddingRight: '2%', boxSizing: 'border-box' }}>
+        <h6>Harvest Start</h6>
+        <input
+          type="date"
+          value={plant.perennial_harvest_start || ''}
+          onChange={(e) =>
+            setPlanting({ ...planting, perennial_harvest_start: e.target.value })
+          }
+          style={{ width: '100%' }} // Set the width using inline style
+        />
       </div>
-      <div style={{ width: '95%'}}>
-      <h6>Harvest End</h6>
-      <input
-        type="date"
-        value={plant.perennial_harvest_end || ''}
-        onChange={(e) =>
-          setPlanting({ ...planting, perennial_harvest_end: e.target.value })
-          
-        }
-        style={{ width: '100%' }} // Set the width using inline style
-      />
+      <div style={{ width: '50%', paddingLeft: '2%', boxSizing: 'border-box' }}>
+        <h6>Harvest End</h6>
+        <input
+          type="date"
+          value={plant.perennial_harvest_end || ''}
+          onChange={(e) =>
+            setPlanting({ ...planting, perennial_harvest_end: e.target.value })
+          }
+          style={{ width: '100%' }} // Set the width using inline style
+        />
       </div>
-                                    </div>
-                                ) : (
-                                    <></>
-                                )
-                            }
+    </div>
+  ) : (
+    <></>
+  )
+}
+
 
                         </div>
     
