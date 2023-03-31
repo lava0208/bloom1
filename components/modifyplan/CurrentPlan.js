@@ -500,7 +500,9 @@ const CurrentPlan = (props) => {
         />}
         {!activePerennial && <span>Days Between</span>}
       </div>
-      {
+      
+    </div>
+    {
                                    activePerennial ? (
                                     <div className={styles.successionCheckboxRow}>
                                         <div style={{ width: '50%'}}>
@@ -531,7 +533,6 @@ const CurrentPlan = (props) => {
                                     <></>
                                 )
                             }
-    </div>
 
                         </div>
     
