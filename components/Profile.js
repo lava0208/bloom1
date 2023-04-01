@@ -15,6 +15,10 @@ import { storage } from "firebaseConfig";
 
 import styles from "~styles/pages/profile.module.scss";
 
+const serviceId = process.env.EMAILJS_SERVICE_ID;
+const userId = process.env.EMAILJS_USER_ID;
+
+
 const Profile = () => {
     const [imageFile, setImageFile] = useState()
     const [downloadURL, setDownloadURL] = useState('')
