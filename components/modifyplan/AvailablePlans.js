@@ -59,7 +59,7 @@ useEffect(() => {
     }
 
     setFilteredArray(_filteredArray);
-
+    setLoading(false);
 }
 
 
