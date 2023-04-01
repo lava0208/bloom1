@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { Modal, ModalBody } from "reactstrap";
+import Loader from 'react-loader-spinner';
 
 import { taskService, plantingService, plantService } from "services";
 
@@ -38,6 +39,7 @@ const List = () => {
     const [weekTasks, setWeekTasks] = useState([]);
     const [overdueTasks, setOverdueTasks] = useState([]);
     const [allTasks, setAllTasks] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getAllTasks();
@@ -70,11 +72,24 @@ const List = () => {
         setWeekTasks(await addPlantNameAndFormatDate(_result.data.week));
         setOverdueTasks(await addPlantNameAndFormatDate(_result.data.overdue));
         setAllTasks(sortedTasks);
+        setLoading(false);
 };
 
 
     return (
         <div className={styles.container}>
+
+{loading ? (
+      <Loader
+        type="Puff"
+        color="#00BFFF"
+        height={100}
+        width={100}
+        timeout={3000} // Optional timeout prop
+      />
+    ) : (
+
+        <>
             <div className={styles.tasksContainer}>
                 <h2 className={`${styles.tasksContainerTitle} ${styles.overdue}`}>
                     Overdue
@@ -167,7 +182,10 @@ const List = () => {
                     <CalendarDetail taskId={taskId} schedule = {event} completeTask={completeTask} cancelSchedule={cancelSchedule} plantingId={event.planting_id} />
                 </ModalBody>
             </Modal>
+            </>
+    )}
         </div>
+
     );
 };
 
