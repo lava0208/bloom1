@@ -49,10 +49,6 @@ const List = () => {
         getAllTasks();
     }, [])
 
-    const getAllTasks = async () => {
-        var _result = await taskService.getAllByDate();
-
-
     const fetchPlantAndPlantingData = useCallback(async (plantingId) => {
         if (cache.current[plantingId]) {
             return cache.current[plantingId];
@@ -80,6 +76,10 @@ const List = () => {
             };
         }));
     };
+
+    const getAllTasks = async () => {
+        var _result = await taskService.getAllByDate();
+
     
         const sortedTasks = await addPlantNameAndFormatDate(_result.data.all);
         sortedTasks.sort((a, b) => {
