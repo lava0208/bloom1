@@ -141,23 +141,6 @@ const CalendarTab = () => {
         <div className={styles.container}>
              <div className={styles.tasksContainer}>
 
-{loading ? (
-    <div
-    style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '100%',
-      top: 0,
-      left: 0,
-    }}
-  >
-      <HashLoader color="#ffffff" size={100} />
-      </div>
-      
-    ) : (
-
         <div>
             <Calendar
                 localizer={localizer}
@@ -180,7 +163,6 @@ const CalendarTab = () => {
             </Modal>
         </div>
         
-    )}
     </div>
     </div>
 )
