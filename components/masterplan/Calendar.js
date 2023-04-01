@@ -140,7 +140,20 @@ const CalendarTab = () => {
     return (
         <div className={styles.container}>
           {loading ? (
-            <div className={styles.tasksContainer}>
+             
+                    <div
+                      style={{
+                        flex: 1,
+                        background: "#0E263C",
+                        height: "100%",
+                        padding: "1rem 0.8rem 0 0.8rem",
+                        borderRadius: "38px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        overflow: "hidden",
+                      }}
+                    >
               <div
                 style={{
                   display: 'flex',
