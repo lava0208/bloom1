@@ -15,8 +15,8 @@ import { storage } from "firebaseConfig";
 
 import styles from "~styles/pages/profile.module.scss";
 
-const serviceId = process.env.EMAILJS_SERVICE_ID;
-const userId = process.env.EMAILJS_USER_ID;
+const emailServiceId = process.env.EMAILJS_SERVICE_ID;
+const emailUserId = process.env.EMAILJS_USER_ID;
 
 
 const Profile = () => {
@@ -29,7 +29,7 @@ const Profile = () => {
     const [varietyRequest, setVarietyRequest] = useState('');
 
     const sendEmail = (templateParams, templateId) => {
-        emailjs.send(process.env.EMAILJS_SERVICE_ID, templateId, templateParams, process.env.EMAILJS_USER_ID)
+        emailjs.send(emailServiceId, templateId, templateParams, emailUserId)
           .then((response) => {
             swal({
               title: "Success!",
