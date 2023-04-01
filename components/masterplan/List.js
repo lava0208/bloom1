@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { Modal, ModalBody } from "reactstrap";
-import { PuffLoader } from 'react-spinners';
+import { FadeLoader } from 'react-spinners';
 
 import { taskService, plantingService, plantService } from "services";
 
