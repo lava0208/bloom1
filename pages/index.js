@@ -151,4 +151,4 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
     );
 };
 
-export default Dashboard;
+export default withLoading(Dashboard);

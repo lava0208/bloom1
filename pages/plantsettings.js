@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { userService, planService } from "services";
+import withLoading from '../hocs/withLoading';
 
 import styles from "~styles/pages/plantsettings.module.scss";
 
@@ -36,4 +37,4 @@ const PlantSettings = () => {
     );
 };
 
-export default PlantSettings;
+export default withLoading(PlantSettings);

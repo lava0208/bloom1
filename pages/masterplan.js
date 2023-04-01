@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { userService, planService } from "services";
+import withLoading from '../hocs/withLoading';
 
 import styles from "~styles/pages/masterplan.module.scss";
 
@@ -66,4 +67,4 @@ const MasterPlan = () => {
     );
 };
 
-export default MasterPlan;
+export default withLoading(MasterPlan);
