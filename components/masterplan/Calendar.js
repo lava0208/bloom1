@@ -3,6 +3,7 @@ import moment from "moment";
 import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import { Modal, ModalBody } from "reactstrap";
+import { HashLoader } from 'react-spinners';
 
 import { plantingService, plantService, taskService } from "services";
 
