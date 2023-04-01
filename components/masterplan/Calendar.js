@@ -165,7 +165,7 @@ const CalendarTab = () => {
                   left: 0,
                 }}
               >
-                <HashLoader color="#000000" size={100} />
+                <HashLoader color="#ffffff" size={100} />
               </div>
             </div>
           ) : (
