@@ -91,6 +91,29 @@ useEffect(() => {
                     <input className={styles.searchButton} placeholder={'Search'} onChange={(e) => setQuery((e.target.value).toLowerCase())} />
                 </div>
             </div>
+
+
+
+
+            {loading ? (
+             
+             <div className={styles.plansContainer}>
+       <div
+         style={{
+           display: 'flex',
+           justifyContent: 'center',
+           alignItems: 'center',
+           width: '100%',
+           height: '100%',
+           top: 0,
+           left: 0,
+         }}
+       >
+         <HashLoader color="#ffffff" size={100} />
+       </div>
+     </div>
+   ) : (
+    <>
             <div className={styles.plansContainer}>
                 {filteredArray.map((plant, i) => (
                     <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionText(i)} onMouseLeave={() => setIsShowActionText(-1)}>
@@ -143,10 +166,13 @@ useEffect(() => {
             <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered modalClassName="modifyPlanModal">
                 <ModalBody>
                     <CurrentPlan type="create" plantId={plantId}  savePlanting={savePlanting} preset={preset} />
-                </ModalBody>
-            </Modal>
+                    </ModalBody>
+              </Modal>
+            </>
+          )}
         </>
-    );
-};
+      );
+
+          }
 
 export default AvailablePlans;
