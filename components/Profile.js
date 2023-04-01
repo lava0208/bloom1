@@ -49,7 +49,7 @@ const Profile = () => {
           message: priorityMessage,
           user_email: user.email,
         };
-        sendEmail(templateParams, process.env.EMAILJS_PRIORITY_SUPPORT_TEMPLATE_ID);
+        sendEmail(templateParams, 'template_g98ye0t');
         setModalPrioritySupport(false);
       };
       
@@ -58,7 +58,7 @@ const Profile = () => {
           message: varietyRequest,
           user_email: user.email,
         };
-        sendEmail(templateParams, process.env.EMAILJS_REQUEST_VARIETIES_TEMPLATE_ID);
+        sendEmail(templateParams, 'template_fu8h3vh');
         setModalRequestVarieties(false);
       };
       
