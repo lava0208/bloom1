@@ -156,7 +156,7 @@ const CalendarTab = () => {
               </div>
             </div>
           ) : (
-            <div>
+            <>
               <Calendar
                 localizer={localizer}
                 events={alltasks}
@@ -176,7 +176,7 @@ const CalendarTab = () => {
                   <CalendarDetail taskId={taskId} schedule={schedule} completeTask={completeTask} cancelSchedule={cancelSchedule} />
                 </ModalBody>
               </Modal>
-            </div>
+            </>
           )}
         </div>
       );
