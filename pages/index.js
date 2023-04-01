@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import moment from "moment";
+import withLoading from '../hocs/withLoading';
 
 import { userService, planService, taskService, newsService } from "services";
 
