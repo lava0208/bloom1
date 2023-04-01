@@ -16,6 +16,7 @@ const AvailablePlans = (props) => {
     const [filteredArray, setFilteredArray] = useState([]);
     const [filteredPresets, setFilteredPresets] = useState([]);
     const [originalPresets, setOriginalPresets] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getOriginalArray();
