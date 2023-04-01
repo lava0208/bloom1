@@ -94,7 +94,7 @@ const List = () => {
       left: 0,
     }}
   >
-      <FadeLoader color="#505168" size={100} />
+      <FadeLoader color="#ffffff" size={100} />
       </div>
       </div>
     ) : (
