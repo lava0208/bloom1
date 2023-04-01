@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
 import { Modal, ModalBody } from "reactstrap";
+import { HashLoader } from 'react-spinners';
 
 import { plantService } from "services";
 
