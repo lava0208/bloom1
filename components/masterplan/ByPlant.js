@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 
 import { Modal, ModalBody } from "reactstrap";
 import { plantingService, planService, userService } from "services";
+import { HashLoader } from 'react-spinners';
+
 
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from "~styles/components/masterplan/byplant.module.scss";
@@ -15,6 +17,8 @@ const ByPlant = () => {
     const [plantId, setPlantId] = useState("");
     const [plantingId, setPlantingId] = useState("");
     const [plan, setPlan] = useState("");
+    const [loading, setLoading] = useState(true);
+
     
     const openPlanEditModal = async (id, plant_id) => {
         setPlantingEditModalOpen(true);
@@ -38,8 +42,9 @@ const ByPlant = () => {
     const getAllPlantings = async () => {
         var _result = await plantingService.getAll();
         setPlantings(_result.data);
-        setOrigialArray(_result.data)
-        setFilteredArray(_result.data)
+        setOrigialArray(_result.data);
+        setFilteredArray(_result.data);
+        setLoading(false); // Add this line
     }
 
     const getUserPlan = async () => {
@@ -68,6 +73,37 @@ const ByPlant = () => {
 
     return (
         <div className={styles.container}>
+          {loading ? (
+             
+                    <div
+                      style={{
+                        flex: 1,
+                        background: "#505168",
+                        height: "100%",
+                        padding: "1rem 0.8rem 0 0.8rem",
+                        borderRadius: "38px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        overflow: "hidden",
+                      }}
+                    >
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '100%',
+                  height: '100%',
+                  top: 0,
+                  left: 0,
+                }}
+              >
+                <HashLoader color="#ffffff" size={100} />
+              </div>
+            </div>
+          ) : (
+            <>
             <div className={styles.headerContainer}>
                 <h2>{plan} Plantings</h2>
                 <input className={styles.searchButton} placeholder={'Search'} onChange={(e) => setQuery((e.target.value).toLowerCase())} />
@@ -124,6 +160,8 @@ const ByPlant = () => {
                     <ByPlantDetail plantId={plantId} plantingId={plantingId} savePlanting={savePlanting} close={close} />
                 </ModalBody>
             </Modal>
+            </>
+          )
         </div>
     );
 };
