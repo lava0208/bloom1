@@ -80,6 +80,7 @@ const List = () => {
         <div className={styles.container}>
 
 {loading ? (
+    <div className={styles.tasksContainer}>
     <div
     style={{
       display: 'flex',
@@ -94,6 +95,7 @@ const List = () => {
     }}
   >
       <FadeLoader color="#505168" size={100} />
+      </div>
       </div>
     ) : (
 
