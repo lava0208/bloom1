@@ -5,12 +5,6 @@ import { userService } from "services";
 
 import styles from "~styles/pages/account/register.module.scss";
 
-const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-        login();
-    }
-};
-
 
 const Login = () => {
     const [user, setUser] = useState({
@@ -31,6 +25,7 @@ const Login = () => {
         }
         return true;
     }
+    
 
     const login = async () => {
         if (user.email !== "" && user.password !== "") {
@@ -57,6 +52,12 @@ const Login = () => {
             });
         }
     }
+
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            login();
+        }
+    };
 
     return (
         <div className={styles.screen}>
