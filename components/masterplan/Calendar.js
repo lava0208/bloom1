@@ -21,7 +21,7 @@ const Calendar = withDragAndDrop(BigCalendar);
 
 
 const CalendarTab = () => {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [alltasks, setAllTasks] = useState([]);
     const [taskId, setTaskId] = useState("");
     
