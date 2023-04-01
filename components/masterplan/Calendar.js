@@ -139,9 +139,9 @@ const CalendarTab = () => {
 
     return (
         <div className={styles.container}>
+             <div className={styles.tasksContainer}>
 
 {loading ? (
-    <div className={styles.tasksContainer}>
     <div
     style={{
       display: 'flex',
@@ -155,10 +155,10 @@ const CalendarTab = () => {
   >
       <HashLoader color="#ffffff" size={100} />
       </div>
-      </div>
+      
     ) : (
 
-        <div className={styles.tasksContainer}>
+        <div>
             <Calendar
                 localizer={localizer}
                 events={alltasks}
@@ -181,6 +181,7 @@ const CalendarTab = () => {
         </div>
         
     )}
+    </div>
     </div>
 )
 }
