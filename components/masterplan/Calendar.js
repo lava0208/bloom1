@@ -3,7 +3,6 @@ import moment from "moment";
 import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import { Modal, ModalBody } from "reactstrap";
-import { HashLoader } from 'react-spinners';
 
 import { plantingService, plantService, taskService } from "services";
 
@@ -17,11 +16,10 @@ import CalendarToolbar from "~components/masterplan/CalendarToolbar";
 import CalendarDetail from "./CalendarDetail";
 
 const Calendar = withDragAndDrop(BigCalendar);
-
+const [loading, setLoading] = useState(true);
 
 
 const CalendarTab = () => {
-    const [loading, setLoading] = useState(false);
     const [alltasks, setAllTasks] = useState([]);
     const [taskId, setTaskId] = useState("");
     
@@ -57,7 +55,8 @@ const CalendarTab = () => {
               console.log('error'+ error);
             }
         }))
-        setAllTasks(taskArr);
+        setAllTasks(taskArr)
+        setLoading(false);
     }
 
     const localizer = momentLocalizer(moment);
@@ -138,9 +137,6 @@ const CalendarTab = () => {
 
     return (
         <div className={styles.container}>
-             <div className={styles.tasksContainer}>
-
-        <div>
             <Calendar
                 localizer={localizer}
                 events={alltasks}
@@ -161,11 +157,7 @@ const CalendarTab = () => {
                 </ModalBody>
             </Modal>
         </div>
-        
-    </div>
-    </div>
-)
-}
-
+    );
+};
 
 export default CalendarTab;
