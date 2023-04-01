@@ -17,6 +17,7 @@ import CalendarDetail from "./CalendarDetail";
 const List = () => {
     const [event, setEvent] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
+    const cache = useRef({});
     const completeTask = async (id) => {
         var _result = await taskService.updateByStatus(id);
         swal({
@@ -50,8 +51,7 @@ const List = () => {
 
     const getAllTasks = async () => {
         var _result = await taskService.getAllByDate();
-    
-        const cache = useRef({});
+
 
     const fetchPlantAndPlantingData = useCallback(async (plantingId) => {
         if (cache.current[plantingId]) {
