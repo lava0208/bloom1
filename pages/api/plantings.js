@@ -198,6 +198,7 @@ function createTasks(planting, plant, plan, shiftDays){
     let harvest_date = ((bulb_presprout !== null && (bulb_maturity_early || bulb_maturity_late)) || bulb_transplant !== null) ? moment(presprout_date || transplant_date).add(bulb_maturity_early || bulb_maturity_late, 'days').add(shiftDays + bulb_shift_days, 'days').format('YYYY/MM/DD') : null;
 
     let transplant_date = moment(last_frost).add(bulb_transplant, 'days').add(shiftDays + bulb_shift_days, 'days').format('YYYY/MM/DD');
+    console.log(transplant_date);
 
         
         var titleArr3 = ['Plant Out', 'Harvest'];
