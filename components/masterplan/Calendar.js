@@ -144,7 +144,7 @@ const CalendarTab = () => {
                     <div
                       style={{
                         flex: 1,
-                        background: "#0E263C",
+                        background: "#505168",
                         height: "100%",
                         padding: "1rem 0.8rem 0 0.8rem",
                         borderRadius: "38px",
@@ -165,7 +165,7 @@ const CalendarTab = () => {
                   left: 0,
                 }}
               >
-                <HashLoader color="#505168" size={100} />
+                <HashLoader color="#000000" size={100} />
               </div>
             </div>
           ) : (
