@@ -75,7 +75,7 @@ export default async function handler(req, res) {
         //... update a task
         case "PUT":
             if(req.query.iscomplete){
-                await db.collection("tasks").insertMany(Array.isArray(req.body) ? req.body : [req.body]);
+                await db.collection("tasks").updateOne(
                     {
                         _id: new ObjectId(req.query.id),
                     },
@@ -88,7 +88,7 @@ export default async function handler(req, res) {
                 );
             }else{
                 await db.collection("tasks").deleteMany({planting_id: req.query.plantingid});
-                await db.collection("tasks").insertMany(req.body);
+                await db.collection("tasks").insertMany(Array.isArray(req.body) ? req.body : [req.body]);
             }
             return res.json({ status: true, message: 'Task updated successfully!' });
 
