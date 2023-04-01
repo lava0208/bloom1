@@ -17,6 +17,7 @@ const Dashboard = () => {
     const [isPro, setIsPro] = useState(false);
     const [greeting, setGreeting] = useState("");
     const router = useRouter();
+    const [currentDate, setCurrentDate] = useState(null);
 
     useEffect(() => {
         getUserPlan();
@@ -25,6 +26,7 @@ const Dashboard = () => {
     // Set a random greeting
     const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
     setGreeting(`${randomGreeting},`);
+    setCurrentDate(moment().format("MMMM Do, YYYY"));
         
     }, [])
 
@@ -92,7 +94,7 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
                 <div className={styles.dashboardRow}>
                     <div className={styles.greetingContainer}>
                         <h3>{greeting} {name}!</h3>
-                        <h4>Today is {moment().format("MMMM Do, YYYY")}</h4>
+                        <h4>Today is {currentDate}</h4>
                     </div>
 
 
