@@ -189,22 +189,35 @@ function createTasks(planting, plant, plan, shiftDays){
     }
 
     if (planting.bulb) {
-    let bulb_shift_days = planting.harvest === "Early" ? -10 : planting.harvest === "Late" ? 10 : planting.harvest === "Regular" ? 0 : 0;
-    console.log(bulb_shift_days);
 
-    let presprout_date = (bulb_presprout !== null && bulb_presprout !== false) ? moment(last_frost).subtract(bulb_presprout, 'days').add(shiftDays + bulb_shift_days, 'days').format('YYYY/MM/DD') : null;
-    let pot_on_date = (bulb_pot_on !== null && bulb_pot_on !== false) ? moment(presprout_date).add(bulb_pot_on, 'days').add(shiftDays + bulb_shift_days, 'days').format('YYYY/MM/DD') : null;
-    let harden_date = (bulb_presprout !== null && bulb_harden !== false) ? moment(last_frost).add(bulb_harden, 'days').add(shiftDays + bulb_shift_days, 'days').format('YYYY/MM/DD') : null;
-    let harvest_date = ((bulb_presprout !== null && (bulb_maturity_early || bulb_maturity_late)) || bulb_transplant !== null) ? moment(presprout_date || transplant_date).add(bulb_maturity_early || bulb_maturity_late, 'days').add(shiftDays + bulb_shift_days, 'days').format('YYYY/MM/DD') : null;
+        switch (planting.harvest) {
+            case "Early":
+                presprout_date = moment(last_frost).subtract(bulb_presprout, 'days').add(-10, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+                break;
+            case "Regular":
+                presprout_date = moment(last_frost).subtract(bulb_presprout, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+                break;
+            default:
+                presprout_date = moment(last_frost).subtract(bulb_presprout, 'days').add(10, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+                break;
+        }
 
-    let transplant_date = moment(last_frost).add(bulb_transplant, 'days').add(shiftDays + bulb_shift_days, 'days').format('YYYY/MM/DD');
-    console.log(transplant_date);
+
+        let presprout_date = (bulb_presprout !== null && bulb_presprout !== false) ? moment(last_frost).subtract(bulb_presprout, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let pot_on_date = (bulb_pot_on !== null && bulb_pot_on !== false) ? moment(presprout_date).add(bulb_pot_on, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let harden_date = (bulb_presprout !== null && bulb_harden !== false) ? moment(last_frost).add(bulb_harden, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let harvest_date = ((bulb_presprout !== null && (bulb_maturity_early || bulb_maturity_late)) || bulb_transplant !== null) ? moment(presprout_date || transplant_date).add(bulb_maturity_early || bulb_maturity_late, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        
+        let transplant_date = moment(last_frost).add(bulb_transplant, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
 
         
         var titleArr3 = ['Plant Out', 'Harvest'];
         var noteArr3 = [plant.bulb_transplant_note, plant.harvest_note];
         var durationArr3 = [1, bulb_maturity_late - bulb_maturity_early];
         var scheduleArr3 = [transplant_date, harvest_date];
+
+
+        
 
         if (bulb_presprout !== null && bulb_presprout_decision) {
             titleArr3.unshift('Pre-Sprout');
