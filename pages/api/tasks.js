@@ -75,7 +75,7 @@ export default async function handler(req, res) {
         //... update a task
         case "PUT":
             if(req.query.iscomplete){
-                await db.collection("tasks").updateOne(
+                await db.collection("tasks").insertMany(Array.isArray(req.body) ? req.body : [req.body]);
                     {
                         _id: new ObjectId(req.query.id),
                     },
