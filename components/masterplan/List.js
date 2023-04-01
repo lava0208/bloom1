@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { Modal, ModalBody } from "reactstrap";
-import { FadeLoader } from 'react-spinners';
+import { HashLoader } from 'react-spinners';
 
 import { taskService, plantingService, plantService } from "services";
 
@@ -92,7 +92,7 @@ const List = () => {
       left: 0,
     }}
   >
-      <FadeLoader color="#ffffff" size={100} />
+      <HashLoader color="#ffffff" size={100} />
       </div>
       </div>
     ) : (
