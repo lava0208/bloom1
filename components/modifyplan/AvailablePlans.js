@@ -59,6 +59,7 @@ useEffect(() => {
     }
 
     setFilteredArray(_filteredArray);
+    setLoading(false);
 }
 
 
@@ -111,7 +112,7 @@ useEffect(() => {
            left: 0,
          }}
        >
-         <HashLoader color="#ffffff" size={100} />
+         <HashLoader color="#505168" size={100} />
        </div>
      </div>
    ) : (
