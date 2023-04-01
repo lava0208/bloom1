@@ -10,7 +10,13 @@ import { storage } from "firebaseConfig";
 
 import styles from "~styles/pages/account/register.module.scss";
 
+const defaultProfileImage = "/default.png";
 
+const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+        login();
+    }
+};
 
 const Register = () => {
     const [user, setUser] = useState({
@@ -143,6 +149,7 @@ const register = async () => {
                             type="text"
                             className={styles.input}
                             placeholder="Your Name"
+                            onKeyPress={handleKeyPress} // Add this line
                             value={user.name}
                             onChange={(e) => {
                                 setUser({
@@ -155,6 +162,7 @@ const register = async () => {
                             type="text"
                             className={styles.input}
                             placeholder="Email"
+                            onKeyPress={handleKeyPress} // Add this line
                             value={user.email}
                             onChange={(e) => {
                                 setUser({
@@ -165,31 +173,35 @@ const register = async () => {
                         />
                     </div>
                     <label className={styles.detailsProfilePictureContainer}>
-                        <input
-                            type="file"
-                            accept="image/png, image/gif, image/jpeg"
-                            hidden
-                            onChange={(e) => handleSelectedFile(e.target.files)}
-                        />
-                        {downloadURL ? (
-                            <img src={downloadURL} alt="profile" />
-                        ) : (
-                            user.profile_path && (
-                                <img src={user.profile_path} alt="" />
-                            )
-                        )}
-                        {
-                            imageFile && percent < 100 && (
-                                <Spinner color="info"> Loading... </Spinner>
-                            )
-                        }
-                    </label>
+    <input
+        type="file"
+        accept="image/png, image/gif, image/jpeg"
+        hidden
+        onChange={(e) => handleSelectedFile(e.target.files)}
+    />
+    {downloadURL ? (
+        <img src={downloadURL} alt="profile" />
+    ) : (
+        user.profile_path ? (
+            <img src={user.profile_path} alt="profile" />
+        ) : (
+            <img src={defaultProfileImage} alt="default profile" />
+        )
+    )}
+    {
+        imageFile && percent < 100 && (
+            <Spinner color="info"> Loading... </Spinner>
+        )
+    }
+</label>
+
                 </div>
 
                 <input
                     type="password"
                     className={styles.input}
                     placeholder="Password"
+                    onKeyPress={handleKeyPress} // Add this line
                     value={user.password}
                     onChange={(e) => {
                         setUser({
