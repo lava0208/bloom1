@@ -16,10 +16,11 @@ import CalendarToolbar from "~components/masterplan/CalendarToolbar";
 import CalendarDetail from "./CalendarDetail";
 
 const Calendar = withDragAndDrop(BigCalendar);
-const [loading, setLoading] = useState(true);
+
 
 
 const CalendarTab = () => {
+    const [loading, setLoading] = useState(true);
     const [alltasks, setAllTasks] = useState([]);
     const [taskId, setTaskId] = useState("");
     
