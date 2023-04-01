@@ -58,7 +58,6 @@ const CalendarTab = () => {
             }
         }))
         setAllTasks(taskArr);
-        setLoading(false);
     }
 
     const localizer = momentLocalizer(moment);
