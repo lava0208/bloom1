@@ -12,11 +12,7 @@ import styles from "~styles/pages/account/register.module.scss";
 
 const defaultProfileImage = "/default.png";
 
-const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-        register();
-    }
-};
+
 
 const Register = () => {
     const [user, setUser] = useState({
@@ -134,6 +130,12 @@ const register = async () => {
       });
     }
   };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+        register();
+    }
+};
   
 
 
