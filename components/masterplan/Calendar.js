@@ -138,7 +138,25 @@ const CalendarTab = () => {
 
     return (
         <div className={styles.container}>
-            <Calendar
+          {loading ? (
+            <div className={styles.tasksContainer}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '100%',
+                  height: '100%',
+                  top: 0,
+                  left: 0,
+                }}
+              >
+                <HashLoader color="#ffffff" size={100} />
+              </div>
+            </div>
+          ) : (
+            <div>
+              <Calendar
                 localizer={localizer}
                 events={alltasks}
                 onEventDrop={onEventDrop}
@@ -151,14 +169,15 @@ const CalendarTab = () => {
                 startAccessor="start"
                 endAccessor="end"
                 onSelectEvent={chooseEvent}
-            />
-            <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered modalClassName="modifyPlanModal">
+              />
+              <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered modalClassName="modifyPlanModal">
                 <ModalBody>
-                    <CalendarDetail taskId={taskId} schedule = {schedule} completeTask={completeTask} cancelSchedule={cancelSchedule} />
+                  <CalendarDetail taskId={taskId} schedule={schedule} completeTask={completeTask} cancelSchedule={cancelSchedule} />
                 </ModalBody>
-            </Modal>
+              </Modal>
+            </div>
+          )}
         </div>
-    );
-};
-
+      );
+      
 export default CalendarTab;
