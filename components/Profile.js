@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
+import emailjs from "emailjs-com";
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button, FormGroup, Label, Input } from 'reactstrap';
 import { useRouter } from "next/router";
 import Link from 'next/link'
 import { userService } from "services";
@@ -17,6 +19,51 @@ const Profile = () => {
     const [imageFile, setImageFile] = useState()
     const [downloadURL, setDownloadURL] = useState('')
     const [percent, setPercent] = useState(0);
+    const [modalPrioritySupport, setModalPrioritySupport] = useState(false);
+    const [modalRequestVarieties, setModalRequestVarieties] = useState(false);
+    const [priorityMessage, setPriorityMessage] = useState('');
+    const [varietyRequest, setVarietyRequest] = useState('');
+
+    const sendEmail = (templateParams, templateId) => {
+        emailjs.send(process.env.EMAILJS_SERVICE_ID, templateId, templateParams, process.env.EMAILJS_USER_ID)
+          .then((response) => {
+            swal({
+              title: "Success!",
+              text: "Your message has been sent successfully.",
+              icon: "success",
+              className: "custom-swal",
+            });
+          }, (err) => {
+            swal({
+              title: "Error!",
+              text: "Failed to send your message. Please try again later.",
+              icon: "error",
+              className: "custom-swal",
+            });
+          });
+      };
+
+
+      const submitPrioritySupport = () => {
+        const templateParams = {
+          message: priorityMessage,
+          user_email: user.email,
+        };
+        sendEmail(templateParams, process.env.EMAILJS_PRIORITY_SUPPORT_TEMPLATE_ID);
+        setModalPrioritySupport(false);
+      };
+      
+      const submitRequestVarieties = () => {
+        const templateParams = {
+          message: varietyRequest,
+          user_email: user.email,
+        };
+        sendEmail(templateParams, process.env.EMAILJS_REQUEST_VARIETIES_TEMPLATE_ID);
+        setModalRequestVarieties(false);
+      };
+      
+      
+
 
     const handleSelectedFile = (files) => {
         if (files && files[0].size < 10000000) {
@@ -376,16 +423,20 @@ const deleteUser = async () => {
                 {
                     isPro ? (
                         <>
-                        <a href="mailto:priority23@bloommanager.com" target="_blank" rel="noopener noreferrer">
-                            <button className={styles.button3 + " " + styles.button4}>Access Priority Support</button>
-                        </a>
-                        <a href="mailto:priority23@bloommanager.com" target="_blank" rel="noopener noreferrer">
-                            <button className={styles.button3 + " " + styles.button4}>Request New Variety Preset</button>
-                        </a>
-                        
+                          <button
+                            className={styles.button3 + " " + styles.button4}
+                            onClick={() => setModalPrioritySupport(true)}
+                          >
+                            Access Priority Support
+                          </button>
+                          <button
+                            className={styles.button3 + " " + styles.button4}
+                            onClick={() => setModalRequestVarieties(true)}
+                          >
+                            Request New Preset
+                          </button>
                         </>
-                        
-                    ) : (
+                      ) : (
                         <button className={styles.button3} onClick={() => paymentcheckout()}>Upgrade Now</button>
                     )
                 }
@@ -396,6 +447,50 @@ const deleteUser = async () => {
                 }
             </div>
         </div>
+
+        <>
+  {/* ... */}
+  <Modal isOpen={modalPrioritySupport} toggle={() => setModalPrioritySupport(false)}>
+    <ModalHeader toggle={() => setModalPrioritySupport(false)}>Priority Support</ModalHeader>
+    <ModalBody>
+      <FormGroup>
+        <Label for="priorityMessage">Message</Label>
+        <Input
+          type="textarea"
+          name="priorityMessage"
+          id="priorityMessage"
+          value={priorityMessage}
+          onChange={(e) => setPriorityMessage(e.target.value)}
+        />
+      </FormGroup>
+    </ModalBody>
+    <ModalFooter>
+      <Button color="primary" onClick={submitPrioritySupport}>Submit</Button>
+      <Button color="secondary" onClick={() => setModalPrioritySupport(false)}>Cancel</Button>
+    </ModalFooter>
+  </Modal>
+
+  <Modal isOpen={modalRequestVarieties} toggle={() => setModalRequestVarieties(false)}>
+    <ModalHeader toggle={() => setModalRequestVarieties(false)}>Request New Preset</ModalHeader>
+    <ModalBody>
+      <FormGroup>
+        <Label for="varietyRequest">Description</Label>
+        <Input
+          type="textarea"
+          name="varietyRequest"
+          id="varietyRequest"
+          value={varietyRequest}
+          onChange={(e) => setVarietyRequest(e.target.value)}
+        />
+      </FormGroup>
+    </ModalBody>
+    <ModalFooter>
+      <Button color="primary" onClick={submitRequestVarieties}>Submit</Button>
+      <Button color="secondary" onClick={() => setModalRequestVarieties(false)}>Cancel</Button>
+    </ModalFooter>
+  </Modal>
+</>
+
     </>
     );
 };
