@@ -273,7 +273,7 @@ const CurrentPlan = (props) => {
                     className={activeStartIndoors === true ? styles.selected : ''}
                     value={planting.direct_indoors}
                 >
-                                    Start Indoors
+                                    Seed Indoors
                                 </button>
                             ) : (
                                 <></>
@@ -581,7 +581,7 @@ const CurrentPlan = (props) => {
                             {
                                   activeBulb ? (
                                     <div className={styles.successionCheckboxRow}>
-                                        <h6>Pre-Sprout</h6>
+                                        <h6>Sprout Indoors</h6>
                                         <div
                                             onClick={() => {setPreSproutCheckbox(!preSproutCheckbox), setPlanting({...planting, bulb_presprout: !preSproutCheckbox})}}
                                             className={`${styles.checkbox} ${preSproutCheckbox ? styles.active : null}`}
