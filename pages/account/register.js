@@ -14,7 +14,7 @@ const defaultProfileImage = "/default.png";
 
 const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-        login();
+        register();
     }
 };
 
