@@ -189,7 +189,8 @@ function createTasks(planting, plant, plan, shiftDays){
     }
 
     if (planting.bulb) {
-        let bulb_shift_days = planting.harvest === "Early" ? -10 : planting.harvest === "Late" ? 10 : 0;
+    let bulb_shift_days = planting.harvest === "Early" ? -10 : planting.harvest === "Late" ? 10 : planting.harvest === "Regular" ? 0 : 0;
+    console.log(bulb_shift_days);
 
     let presprout_date = (bulb_presprout !== null && bulb_presprout !== false) ? moment(last_frost).subtract(bulb_presprout, 'days').add(shiftDays + bulb_shift_days, 'days').format('YYYY/MM/DD') : null;
     let pot_on_date = (bulb_pot_on !== null && bulb_pot_on !== false) ? moment(presprout_date).add(bulb_pot_on, 'days').add(shiftDays + bulb_shift_days, 'days').format('YYYY/MM/DD') : null;
