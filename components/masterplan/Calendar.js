@@ -68,29 +68,7 @@ const CalendarTab = () => {
     };
 
     const onEventDrop = async ({ event, start, end }) => {
-      if (event.label.includes("Harvest")) {
-        const newStartDate = start;
-        const newEndDate = end;
-        const duration = moment(newEndDate).diff(moment(newStartDate), "days");
-    
-        try {
-          await taskService.update(event.id, {
-            start: newStartDate,
-            end: newEndDate,
-            duration,
-          });
-          // Update the task in the local state
-          setAllTasks((prevTasks) => {
-            return prevTasks.map((task) =>
-              task.id === event.id
-                ? { ...task, start: newStartDate, end: newEndDate, duration }
-                : task
-            );
-          });
-        } catch (error) {
-          console.error("Error updating harvest date:", error);
-        }
-      }
+      
     };
 
     const eventStyleGetter = (event) => {
