@@ -25,7 +25,7 @@ const Profile = () => {
     const [varietyRequest, setVarietyRequest] = useState('');
 
     const sendEmail = (templateParams, templateId) => {
-        emailjs.send(process.env.EMAILJS_SERVICE_ID, templateId, templateParams, process.env.EMAILJS_USER_ID)
+        emailjs.send(process.env.EMAILJS_SERVICE_ID, templateId, templateParams, 'TBqMD90e-8xI1HSMJ')
           .then((response) => {
             swal({
               title: "Success!",
