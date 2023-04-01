@@ -68,7 +68,7 @@ const CalendarTab = () => {
     };
 
     const onEventDrop = async ({ event, start, end }) => {
-      if (event.label === "Harvest") {
+      if (event.label.includes("Harvest")) {
         const newStartDate = start;
         const newEndDate = end;
         const duration = moment(newEndDate).diff(moment(newStartDate), "days");
