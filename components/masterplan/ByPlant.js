@@ -161,8 +161,8 @@ const ByPlant = () => {
                 </ModalBody>
             </Modal>
             </>
-          )
-        </div>
+          )}
+</div>
     );
 };
 
