@@ -16,6 +16,8 @@ import CalendarToolbar from "~components/masterplan/CalendarToolbar";
 import CalendarDetail from "./CalendarDetail";
 
 const Calendar = withDragAndDrop(BigCalendar);
+const [loading, setLoading] = useState(true);
+
 
 const CalendarTab = () => {
     const [alltasks, setAllTasks] = useState([]);
@@ -53,7 +55,8 @@ const CalendarTab = () => {
               console.log('error'+ error);
             }
         }))
-        setAllTasks(taskArr)
+        setAllTasks(taskArr);
+        setLoading(false);
     }
 
     const localizer = momentLocalizer(moment);
@@ -134,6 +137,26 @@ const CalendarTab = () => {
 
     return (
         <div className={styles.container}>
+
+{loading ? (
+    <div className={styles.tasksContainer}>
+    <div
+    style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      height: '100%',
+      top: 0,
+      left: 0,
+    }}
+  >
+      <HashLoader color="#ffffff" size={100} />
+      </div>
+      </div>
+    ) : (
+
+        <div className={styles.tasksContainer}>
             <Calendar
                 localizer={localizer}
                 events={alltasks}
@@ -154,7 +177,11 @@ const CalendarTab = () => {
                 </ModalBody>
             </Modal>
         </div>
-    );
-};
+        
+    )}
+    </div>
+)
+}
+
 
 export default CalendarTab;
