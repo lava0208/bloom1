@@ -4,12 +4,15 @@ import moment from "moment";
 import { Modal, ModalBody } from "reactstrap";
 import { HashLoader } from 'react-spinners';
 
+
 import { taskService, plantingService, plantService } from "services";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from "~styles/components/masterplan/list.module.scss";
 
 import CalendarDetail from "./CalendarDetail";
+
+
 
 const List = () => {
     const [event, setEvent] = useState({});
@@ -48,17 +51,35 @@ const List = () => {
     const getAllTasks = async () => {
         var _result = await taskService.getAllByDate();
     
-        const addPlantNameAndFormatDate = async (tasks) => {
-            return await Promise.all(tasks.map(async (task) => {
-                const _planting = await plantingService.getById(task.planting_id);
-                const _plant = await plantService.getById(_planting.data.plant_id);
-                return {
-                    ...task,
-                    plantName: _plant.data.name,
-                    scheduled_at: task.scheduled_at // Keep the original date format
-                };
-            }));
+        const cache = useRef({});
+
+    const fetchPlantAndPlantingData = useCallback(async (plantingId) => {
+        if (cache.current[plantingId]) {
+            return cache.current[plantingId];
+        }
+
+        const _planting = await plantingService.getById(plantingId);
+        const _plant = await plantService.getById(_planting.data.plant_id);
+
+        cache.current[plantingId] = {
+            plantName: _plant.data.name,
+            plantingId: plantingId,
         };
+
+        return cache.current[plantingId];
+    }, []);
+
+    const addPlantNameAndFormatDate = async (tasks) => {
+        return await Promise.all(tasks.map(async (task) => {
+            const { planting_id } = task;
+            const { plantName } = await fetchPlantAndPlantingData(planting_id);
+            return {
+                ...task,
+                plantName,
+                scheduled_at: task.scheduled_at,
+            };
+        }));
+    };
     
         const sortedTasks = await addPlantNameAndFormatDate(_result.data.all);
         sortedTasks.sort((a, b) => {
