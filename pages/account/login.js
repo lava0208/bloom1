@@ -5,6 +5,13 @@ import { userService } from "services";
 
 import styles from "~styles/pages/account/register.module.scss";
 
+const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+        login();
+    }
+};
+
+
 const Login = () => {
     const [user, setUser] = useState({
         email: "",
@@ -64,6 +71,7 @@ const Login = () => {
                             className={styles.input}
                             placeholder="Email"
                             value={user.email}
+                            onKeyPress={handleKeyPress} // Add this line
                             onChange={(e) => {
                                 setUser({
                                     ...user,
@@ -79,6 +87,7 @@ const Login = () => {
                     className={styles.input}
                     placeholder="Password"
                     value={user.password}
+                    onKeyPress={handleKeyPress} // Add this line
                     onChange={(e) => {
                         setUser({
                             ...user,
