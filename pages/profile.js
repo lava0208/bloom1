@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { userService, planService } from "services";
+import withLoading from '../hocs/withLoading';
 
 import styles from "~styles/pages/profile.module.scss";
 
@@ -35,4 +36,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default withLoading(Profile);

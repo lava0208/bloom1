@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { userService } from "services";
 import bcrypt from "bcryptjs";
 import { Spinner } from "reactstrap";
-import withLoading from '../hocs/withLoading';
 
 import { loadStripe } from "@stripe/stripe-js";
 
@@ -395,4 +394,4 @@ const deleteUser = async () => {
     );
 };
 
-export default withLoading(Profile);
+export default Profile;
