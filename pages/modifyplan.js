@@ -7,11 +7,13 @@ import styles from "~styles/pages/modifyplan.module.scss";
 import Sidebar from "~components/Sidebar";
 import AvailablePlans from "~components/modifyplan/AvailablePlans";
 import YourPlan from "~components/modifyplan/YourPlan";
+const [updateCounter, setUpdateCounter] = useState(0);
 
 const ModifyPlan = () => {
     const [plan, setPlan] = useState("");
     const [isPro, setIsPro] = useState(false);
-    const [updateCounter, setUpdateCounter] = useState(0);
+
+
 
 
     useEffect(() => {
