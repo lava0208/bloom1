@@ -122,6 +122,7 @@ const CurrentPlan = (props) => {
                         props.savePlanting();
                     });
                     props.setUpdateCounter(props.updateCounter + 1); 
+                    console.log(updateCounter);
                 }
             })
         }else{
