@@ -128,6 +128,7 @@ const CalendarTab = () => {
             title: "Success!",
             text: _result.message,
             icon: "success",
+            className: "custom-swal",
         });
         setModalOpen(false);
         getAllTasks();
