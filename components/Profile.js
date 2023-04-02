@@ -358,7 +358,7 @@ const deleteUser = async () => {
                     !isPro && (
                         <>
                             <h2>Upgrade to PRO</h2>
-                            <h1>$5</h1>
+                            <h1>$9</h1>
                             <h5>per month</h5>
                         </>
                     )
