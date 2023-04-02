@@ -118,8 +118,7 @@ const YourPlan = (props) => {
             </div>
             <Modal toggle={() => setPlanEditModalOpen(!planEditModalOpen)} isOpen={planEditModalOpen} centered modalClassName="modifyPlanModal">
                 <ModalBody>
-                    <CurrentPlan type="edit" plantId={plantId} planting={planting} savePlanting={savePlanting} updateCounter={updateCounter}
-  setUpdateCounter={setUpdateCounter}  />
+                <CurrentPlan type="edit" plantId={plantId} planting={planting} savePlanting={savePlanting} updateCounter={props.updateCounter} setUpdateCounter={props.setUpdateCounter} />
                 </ModalBody>
             </Modal>
             <Modal toggle={() => setPlanSettingsModalOpen(!planSettingsModalOpen)} isOpen={planSettingsModalOpen} centered>
