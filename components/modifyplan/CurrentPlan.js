@@ -122,10 +122,9 @@ const CurrentPlan = (props) => {
                         className: "custom-swal",
                     }).then(function(){
                         props.savePlanting();
+                        props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
                     });
                     
-                    props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
-                    console.log(updateCounter);
                 }
             })
         }else{
@@ -150,9 +149,9 @@ const CurrentPlan = (props) => {
                             icon: _result.status ? "success" : "warning",
                         }).then(function(){
                             props.savePlanting();
+                            props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
                             
                         });
-                    props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
                     console.log(updateCounter);
                     }else{
                         console.log("Creating planting:", planting);
@@ -165,8 +164,8 @@ const CurrentPlan = (props) => {
                             icon: _result.status ? "success" : "warning",
                         }).then(function(){
                             props.savePlanting();
+                            props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
                         });
-                    props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
                     console.log(updateCounter);
                     }                
                 }
