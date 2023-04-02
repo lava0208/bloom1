@@ -20,8 +20,6 @@ const CurrentPlan = (props) => {
     const [activePlugs, setActivePlugs] = useState(false);
     const [activePerennial, setActivePerennial] = useState(false);
     const [activeBulb, setActiveBulb] = useState(false);
-    const updateCounter = props.updateCounter;
-    const setUpdateCounter = props.setUpdateCounter;
     const harvests = [
         { label: "Early", value: 1 },
         { label: "Regular", value: 2 },
@@ -122,11 +120,10 @@ const CurrentPlan = (props) => {
                         className: "custom-swal",
                     }).then(function(){
                         props.savePlanting();
-                        props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
                     });
                     
 
-                    console.log(updateCounter);
+
                 }
             })
         }else{
@@ -151,10 +148,8 @@ const CurrentPlan = (props) => {
                             icon: _result.status ? "success" : "warning",
                         }).then(function(){
                             props.savePlanting();
-                            props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
                         });
 
-                    console.log(updateCounter);
                     }else{
                         console.log("Creating planting:", planting);
                         var _result = await plantingService.create(planting);
@@ -166,10 +161,9 @@ const CurrentPlan = (props) => {
                             icon: _result.status ? "success" : "warning",
                         }).then(function(){
                             props.savePlanting();
-                            props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
                         });
 
-                    console.log(updateCounter);
+
                     }                
                 }
             })
