@@ -17,6 +17,8 @@ const AvailablePlans = (props) => {
     const [filteredPresets, setFilteredPresets] = useState([]);
     const [originalPresets, setOriginalPresets] = useState([]);
     const [loading, setLoading] = useState(true);
+    const updateCounter = props.updateCounter;
+    const setUpdateCounter = props.setUpdateCounter;
 
     useEffect(() => {
         getOriginalArray();
@@ -168,7 +170,8 @@ useEffect(() => {
             </div>
             <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered modalClassName="modifyPlanModal">
                 <ModalBody>
-                    <CurrentPlan type="create" plantId={plantId}  savePlanting={savePlanting} preset={preset} />
+                    <CurrentPlan type="create" plantId={plantId}  savePlanting={savePlanting} preset={preset} updateCounter={updateCounter}
+  setUpdateCounter={setUpdateCounter} />
                     </ModalBody>
               </Modal>
             </>
