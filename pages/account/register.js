@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { userService } from "services";
+import withLoading from '../../hocs/withLoading';
 
 import { Spinner } from "reactstrap";
 
@@ -225,4 +226,4 @@ const register = async () => {
     );
 };
 
-export default Register;
+export default withLoading(Register);

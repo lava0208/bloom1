@@ -7,6 +7,7 @@ import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "~styles/pages/account/register.module.scss";
+import withLoading from '../../hocs/withLoading';
 
 const Plan = () => {
     const [plan, setPlan] = useState({
@@ -150,4 +151,4 @@ const Plan = () => {
     );
 };
 
-export default Plan;
+export default withLoading(Plan);
