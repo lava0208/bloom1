@@ -49,7 +49,7 @@ const YourPlan = (props) => {
 
     useEffect(() => {
         getAllPlantings();
-    }, [])
+    }, [props.updateCounter]);
 
     const getAllPlantings = async () => {
         var _result = await plantingService.getAll();        

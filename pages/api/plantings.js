@@ -3,6 +3,8 @@ import { ObjectId } from "mongodb";
 import { planService, plantService, taskService, userService } from "services";
 import moment from "moment";
 
+const [updateCounter, setUpdateCounter] = useState(0);
+
 async function getPlantImg(id){
     const _plant = await plantService.getById(id);
     return _plant.data.image;
@@ -144,6 +146,7 @@ function createTasks(planting, plant, plan, shiftDays){
                 completed_at: ""
             }
             taskArr.push(taskObj);
+            setUpdateCounter(updateCounter + 1);
         }
     //... Enable Start Indoors
     }
@@ -185,6 +188,7 @@ function createTasks(planting, plant, plan, shiftDays){
                 completed_at: ""
             }
             taskArr.push(taskObj);
+            setUpdateCounter(updateCounter + 1);
         }
     }
 
@@ -253,6 +257,7 @@ function createTasks(planting, plant, plan, shiftDays){
                     completed_at: ""
                 }
                 taskArr.push(taskObj);
+                setUpdateCounter(updateCounter + 1);
             }
         }
 
@@ -290,6 +295,7 @@ function createTasks(planting, plant, plan, shiftDays){
                         completed_at: ""
                     }
                     taskArr.push(taskObj);
+                    setUpdateCounter(updateCounter + 1);
                 }
     }
 
@@ -319,6 +325,7 @@ function createTasks(planting, plant, plan, shiftDays){
                 completed_at: ""
             }
             taskArr.push(taskObj);
+            setUpdateCounter(updateCounter + 1);
         }
     }
     
@@ -347,6 +354,7 @@ function createTasks(planting, plant, plan, shiftDays){
                 completed_at: ""
             }
             taskArr.push(taskObj);
+            setUpdateCounter(updateCounter + 1);
         }
     }
         

@@ -11,6 +11,7 @@ import YourPlan from "~components/modifyplan/YourPlan";
 const ModifyPlan = () => {
     const [plan, setPlan] = useState("");
     const [isPro, setIsPro] = useState(false);
+    const [updateCounter, setUpdateCounter] = useState(0);
 
     useEffect(() => {
         getUserPlan();
@@ -35,7 +36,7 @@ const ModifyPlan = () => {
                     <h2 className={styles.subHeader}>Modify Plan</h2>
                     <AvailablePlans isPro={isPro} />
                 </div>
-                <YourPlan />
+                <YourPlan updateCounter={updateCounter} />
             </div>
         </div>
     );
