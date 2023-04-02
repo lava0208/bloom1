@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { userService } from "services";
+import withLoading from '../hocs/withLoading';
 
 import styles from "~styles/pages/account/register.module.scss";
 
@@ -28,6 +29,7 @@ const Login = () => {
     
 
     const login = async () => {
+        const [loading, setLoading] = useState(true);
         if (user.email !== "" && user.password !== "") {
             if (emailValidation()) {
                 const result = await userService.login(user);
@@ -58,6 +60,7 @@ const Login = () => {
             login();
         }
     };
+    
 
     return (
         <div className={styles.screen}>
@@ -109,4 +112,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default withLoading(Login);
