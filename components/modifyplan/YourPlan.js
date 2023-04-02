@@ -13,7 +13,6 @@ const YourPlan = (props) => {
     const [plantings, setPlantings] = useState([]);
     const [planEditModalOpen, setPlanEditModalOpen] = useState(false);
     const [isShowActionText, setIsShowActionText] = useState(-1);
-    const [updateCounter, setUpdateCounter] = useState(0);
 
     //... get a planting
     const [plantId, setPlantId] = useState("");
