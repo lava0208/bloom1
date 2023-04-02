@@ -37,7 +37,7 @@ const ModifyPlan = () => {
                 <div className={styles.container}>
                     <h1 className={styles.header}>{plan}</h1>
                     <h2 className={styles.subHeader}>Modify Plan</h2>
-                    <AvailablePlans isPro={isPro} />
+                    <AvailablePlans isPro={isPro} updateCounter={updateCounter} setUpdateCounter={setUpdateCounter} />
                 </div>
                 <YourPlan updateCounter={updateCounter} setUpdateCounter={setUpdateCounter} />
             </div>
