@@ -17,8 +17,8 @@ const AvailablePlans = (props) => {
     const [filteredPresets, setFilteredPresets] = useState([]);
     const [originalPresets, setOriginalPresets] = useState([]);
     const [loading, setLoading] = useState(true);
-    const updateCounter = 1;
-    const setUpdateCounter = 1;
+    const updateCounter = props.updateCounter;
+    const setUpdateCounter = props.setUpdateCounter;
 
     useEffect(() => {
         getOriginalArray();
