@@ -170,7 +170,7 @@ useEffect(() => {
             </div>
             <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered modalClassName="modifyPlanModal">
                 <ModalBody>
-                    <CurrentPlan type="create" plantId={plantId}  savePlanting={savePlanting} preset={preset} updateCounter={updateCounter}
+                    <CurrentPlan type="create" plantId={plantId} savePlanting={savePlanting} preset={preset} updateCounter={updateCounter}
   setUpdateCounter={setUpdateCounter} />
                     </ModalBody>
               </Modal>
