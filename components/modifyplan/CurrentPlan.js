@@ -121,7 +121,8 @@ const CurrentPlan = (props) => {
                     }).then(function(){
                         props.savePlanting();
                     });
-                    props.setUpdateCounter(props.updateCounter + 1); 
+                    props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
+
                     console.log(updateCounter);
                 }
             })
@@ -148,7 +149,8 @@ const CurrentPlan = (props) => {
                         }).then(function(){
                             props.savePlanting();
                         });
-                        props.setUpdateCounter(props.updateCounter + 1); 
+                        props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
+
                     console.log(updateCounter);
                     }else{
                         console.log("Creating planting:", planting);
@@ -162,7 +164,8 @@ const CurrentPlan = (props) => {
                         }).then(function(){
                             props.savePlanting();
                         });
-                        props.setUpdateCounter(props.updateCounter + 1); 
+                        props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
+
                     console.log(updateCounter);
                     }                
                 }
