@@ -29,7 +29,6 @@ const Login = () => {
     
 
     const login = async () => {
-        const [loading, setLoading] = useState(true);
         if (user.email !== "" && user.password !== "") {
             if (emailValidation()) {
                 const result = await userService.login(user);
