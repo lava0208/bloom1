@@ -296,9 +296,10 @@ function createTasks(planting, plant, plan, shiftDays){
 
     if (planting.plugs) {
         let harden_date = (plugs_harden !== null && plugs_harden !== false) ? moment(last_frost).add(plugs_harden, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
+        let transplant_date = moment(last_frost).add(plugs_transplant, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
         let harvest_date = ((plugs_maturity_early || plugs_maturity_late) || plugs_transplant !== null) ? moment(transplant_date).add(plugs_maturity_early || plugs_maturity_late, 'days').add(shiftDays, 'days').format('YYYY/MM/DD') : null;
     
-        let transplant_date = moment(last_frost).add(plugs_transplant, 'days').add(shiftDays, 'days').format('YYYY/MM/DD');
+        
     
         var titleArr5 = ['Harden Off', 'Plant Out', 'Harvest'];
         var noteArr5 = ['', plant.plugs_transplant_note, plant.harvest_note];
