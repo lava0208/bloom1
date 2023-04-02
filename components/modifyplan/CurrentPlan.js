@@ -5,6 +5,8 @@ import { userService, planService, plantService, plantingService } from "service
 import styles from "~styles/components/modifyplan/currentplan.module.scss";
 
 const CurrentPlan = (props) => {
+
+    console.log('CurrentPlan props:', props);
     //... Initialize
     const [pinchCheckbox, setPinchCheckbox] = useState(false);
     const [directPinchCheckbox, setDirectPinchCheckbox] = useState(false);
