@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { userService } from "services";
-import withLoading from '../hocs/withLoading';
+import withLoading from '../../hocs/withLoading';
 
 import styles from "~styles/pages/account/register.module.scss";
 
