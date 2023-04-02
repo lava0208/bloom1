@@ -18,6 +18,8 @@ const CurrentPlan = (props) => {
     const [activePlugs, setActivePlugs] = useState(false);
     const [activePerennial, setActivePerennial] = useState(false);
     const [activeBulb, setActiveBulb] = useState(false);
+    const updateCounter = props.updateCounter;
+    const setUpdateCounter = props.setUpdateCounter;
     const harvests = [
         { label: "Early", value: 1 },
         { label: "Regular", value: 2 },
@@ -118,6 +120,7 @@ const CurrentPlan = (props) => {
                         className: "custom-swal",
                     }).then(function(){
                         props.savePlanting();
+                        props.setUpdateCounter(props.updateCounter + 1); 
                     });
                 }
             })
