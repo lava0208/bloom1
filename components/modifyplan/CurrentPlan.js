@@ -120,8 +120,8 @@ const CurrentPlan = (props) => {
                         className: "custom-swal",
                     }).then(function(){
                         props.savePlanting();
-                        props.setUpdateCounter(props.updateCounter + 1); 
                     });
+                    props.setUpdateCounter(props.updateCounter + 1); 
                 }
             })
         }else{
