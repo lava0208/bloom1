@@ -7,16 +7,14 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig  = {
-  apiKey: "AIzaSyAmoeNtaIrehHZVG9zTlDotSmkgi-bmwjE",
-  authDomain: "bloom-image-upload.firebaseapp.com",
-  projectId: "bloom-image-upload",
-  storageBucket: "bloom-image-upload.appspot.com",
-  messagingSenderId: "562646169268",
-  appId: "1:562646169268:web:9dcd13a92d2022abc989e1",
-  measurementId: "G-2T42X876RN"
+const firebaseConfig = {
+  apiKey: "AIzaSyDWtCaW15D9CfM1l3cLjrL5PCvrjihePxY",
+  authDomain: "bloomimageupload.firebaseapp.com",
+  projectId: "bloomimageupload",
+  storageBucket: "bloomimageupload.appspot.com",
+  messagingSenderId: "363498154459",
+  appId: "1:363498154459:web:46bc3a90e2483af6f61ffe"
 };
-
 const app = initializeApp(firebaseConfig);
 
 
