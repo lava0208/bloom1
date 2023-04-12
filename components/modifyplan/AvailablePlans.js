@@ -126,7 +126,7 @@ useEffect(() => {
             ) : (
                 <>
                     <div className={styles.plansContainer}>
-                        {filteredArray.length > 0 ? (
+                        {filteredArray.length > 0 || props.isPro ? (
                             filteredArray.map((plant, i) => (
                                 <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionText(i)} onMouseLeave={() => setIsShowActionText(-1)}>
                                     <div className={styles.planImage}>
