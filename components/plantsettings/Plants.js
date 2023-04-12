@@ -126,7 +126,7 @@ const Plants = (props) => {
         <>
             <div className={styles.headerContainer}>
                 <div className={styles.addCustomContainer} onClick={() => openModal("create")}>
-                    <button>Add New Custom</button>
+                    <button>Add New Plant</button>
                 </div>
                 <div>
                     {
