@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
 import { Modal, ModalBody } from "reactstrap";
+import { HashLoader } from 'react-spinners';
 
 import { plantService } from "services";
 
@@ -15,10 +16,17 @@ const AvailablePlans = (props) => {
     const [filteredArray, setFilteredArray] = useState([]);
     const [filteredPresets, setFilteredPresets] = useState([]);
     const [originalPresets, setOriginalPresets] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const updateCounter = props.updateCounter;
+    const setUpdateCounter = props.setUpdateCounter;
 
     useEffect(() => {
         getOriginalArray();
     }, [])
+
+    const goToPlantSettings = () => {
+        // Navigate to the Plant Settings page
+    }
 
     const getOriginalArray = async () => {
         const response = await plantService.getAll();
@@ -57,6 +65,7 @@ useEffect(() => {
     }
 
     setFilteredArray(_filteredArray);
+    setLoading(false);
 }
 
 
@@ -91,62 +100,95 @@ useEffect(() => {
                     <input className={styles.searchButton} placeholder={'Search'} onChange={(e) => setQuery((e.target.value).toLowerCase())} />
                 </div>
             </div>
-            <div className={styles.plansContainer}>
-                {filteredArray.map((plant, i) => (
-                    <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionText(i)} onMouseLeave={() => setIsShowActionText(-1)}>
-                        <div className={styles.planImage}>
-                            {
-                                plant.image && (
-                                    <img src={plant.image } alt="image" />
-                                )
-                            }
-                        </div>
-                        <div className={styles.planInfoContainer}>
-                            <h3>{plant.name}</h3>
-                            <h4>{plant.species}</h4>
-                            <h5>{plant.description}</h5>
-                        </div>
-                        {
-                            i === isShowActionText && (
-                                <div className={styles.plantHoverText}>
-                                    <button onClick={() => openCreateModal(plant._id, false)}>Add</button>
-                                </div>
-                            )
-                        }
+    
+            {loading ? (
+                <div className={styles.plansContainer}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: '100%',
+                            height: '100%',
+                            top: 0,
+                            left: 0,
+                        }}
+                    >
+                        <HashLoader color="#505168" size={100} />
                     </div>
-                ))}
-                {isShowPresets && filteredPresets.map((plant, i) => (
-                    <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionPreset(i)} onMouseLeave={() => setIsShowActionPreset(-1)}>
-                        <div className={styles.planImage}>
-                            {
-                                plant.image && (
-                                    <img src={plant.image } alt="image" />
-                                )
-                            }
-                        </div>
-                        <div className={styles.planInfoContainer}>
-                            <button>pro preset</button>
-                            <h3>{plant.name}</h3>
-                            <h4>{plant.species}</h4>
-                            <h5>{plant.description}</h5>
-                        </div>
-                        {
-                            i === isShowActionPreset && (
-                                <div className={styles.plantHoverText}>
-                                    <button onClick={() => openCreateModal(plant._id, true)}>Add</button>
+                </div>
+            ) : (
+                <>
+                    <div className={styles.plansContainer}>
+                        {filteredArray.length > 0 ? (
+                            filteredArray.map((plant, i) => (
+                                <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionText(i)} onMouseLeave={() => setIsShowActionText(-1)}>
+                                    <div className={styles.planImage}>
+                                        {
+                                            plant.image && (
+                                                <img src={plant.image } alt="image" />
+                                            )
+                                        }
+                                    </div>
+                                    <div className={styles.planInfoContainer}>
+                                        <h3>{plant.name}</h3>
+                                        <h4>{plant.species}</h4>
+                                        <h5>{plant.description}</h5>
+                                    </div>
+                                    {
+                                        i === isShowActionText && (
+                                            <div className={styles.plantHoverText}>
+                                                <button onClick={() => openCreateModal(plant._id, false)}>Add</button>
+                                            </div>
+                                        )
+                                    }
                                 </div>
-                            )
-                        }
+                            ))
+                        ) : (
+                            <div className={styles.emptyMessage}>
+                                <p>You don't currently have any plants available to add to your plan.</p>
+                                <button onClick={goToPlantSettings} style={{background: 'none', border: 'none'}}>
+  Go to Plant Settings &#8594; <span style={{marginLeft: '5px'}}>&#8594;</span>
+</button>
+
+                            </div>
+                        )}
+                        {isShowPresets && filteredPresets.map((plant, i) => (
+                            <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionPreset(i)} onMouseLeave={() => setIsShowActionPreset(-1)}>
+                                <div className={styles.planImage}>
+                                    {
+                                        plant.image && (
+                                            <img src={plant.image } alt="image" />
+                                        )
+                                    }
+                                </div>
+                                <div className={styles.planInfoContainer}>
+                                    <button>pro preset</button>
+                                    <h3>{plant.name}</h3>
+                                    <h4>{plant.species}</h4>
+                                    <h5>{plant.description}</h5>
+                                </div>
+                                {
+                                    i === isShowActionPreset && (
+                                        <div className={styles.plantHoverText}>
+                                            <button onClick={() => openCreateModal(plant._id, true)}>Add</button>
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
             <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered modalClassName="modifyPlanModal">
                 <ModalBody>
-                    <CurrentPlan type="create" plantId={plantId}  savePlanting={savePlanting} preset={preset} />
-                </ModalBody>
-            </Modal>
+                    <CurrentPlan type="create" plantId={plantId} savePlanting={savePlanting} preset={preset} updateCounter={updateCounter}
+  setUpdateCounter={setUpdateCounter} />
+                    </ModalBody>
+              </Modal>
+            </>
+          )}
         </>
-    );
-};
+      ) ;
+
+          }
 
 export default AvailablePlans;
