@@ -21,14 +21,18 @@ const AvailablePlans = (props) => {
     const updateCounter = props.updateCounter;
     const setUpdateCounter = props.setUpdateCounter;
 
+    const router = useRouter();
+
+    // Rest of your component code...
+
+    const goToPlantSettings = () => {
+        router.push('/plantsettings');
+    }
+
     useEffect(() => {
         getOriginalArray();
     }, [])
 
-    const goToPlantSettings = () => {
-        const router = useRouter();
-        router.push('/plantsettings');
-      }
 
     const getOriginalArray = async () => {
         const response = await plantService.getAll();
