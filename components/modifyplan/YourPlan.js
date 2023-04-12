@@ -49,7 +49,7 @@ const YourPlan = (props) => {
 
     useEffect(() => {
         getAllPlantings();
-    }, [props.updateCounter]);
+    }, [])
 
     const getAllPlantings = async () => {
         var _result = await plantingService.getAll();        
@@ -81,18 +81,9 @@ const YourPlan = (props) => {
                             </div>
                             <h4 className={styles.planSpecies}>{planting.species}</h4>
                             <div className={styles.planOptionsContainer}>
-                            <h5>
-                            {planting.direct_sow && !planting.direct_indoors && !planting.bulb && !planting.cuttings && !planting.plugs && !planting.perennial ? "Direct Sow" :
-!planting.direct_sow && planting.direct_indoors && !planting.bulb && !planting.cuttings && !planting.plugs && !planting.perennial ? "Start Indoors" :
-!planting.direct_sow && !planting.direct_indoors && planting.bulb && !planting.cuttings && !planting.plugs && !planting.perennial ? "Bulb" :
-!planting.direct_sow && !planting.direct_indoors && !planting.bulb && planting.cuttings && !planting.plugs && !planting.perennial ? "Cuttings" :
-!planting.direct_sow && !planting.direct_indoors && !planting.bulb && !planting.cuttings && planting.plugs && !planting.perennial ? "Plugs" :
-!planting.direct_sow && !planting.direct_indoors && !planting.bulb && !planting.cuttings && !planting.plugs && planting.perennial ? "Perennial" : "" }
-
-</h5>
-
+                                <h5>{planting.direct_sow ? "Start" : "Direct"}</h5>
                                 <h5>{planting.harvest}</h5>
-                                <h5>{planting.pinch || planting.direct_seed_pinch ? "Pinch" : ""}</h5>
+                                <h5>{planting.pinch ? "Pinch" : ""}</h5>
                                 <h5>{planting.pot_on ? "Pot On" : ""}</h5>
                             </div>
                             {
@@ -118,7 +109,7 @@ const YourPlan = (props) => {
             </div>
             <Modal toggle={() => setPlanEditModalOpen(!planEditModalOpen)} isOpen={planEditModalOpen} centered modalClassName="modifyPlanModal">
                 <ModalBody>
-                <CurrentPlan type="edit" plantId={plantId} planting={planting} savePlanting={savePlanting} updateCounter={props.updateCounter} setUpdateCounter={props.setUpdateCounter} />
+                    <CurrentPlan type="edit" plantId={plantId} planting={planting} savePlanting={savePlanting} />
                 </ModalBody>
             </Modal>
             <Modal toggle={() => setPlanSettingsModalOpen(!planSettingsModalOpen)} isOpen={planSettingsModalOpen} centered>

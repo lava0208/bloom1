@@ -5,22 +5,11 @@ import { userService, planService, plantService, plantingService } from "service
 import styles from "~styles/components/modifyplan/currentplan.module.scss";
 
 const CurrentPlan = (props) => {
-
     //... Initialize
     const [pinchCheckbox, setPinchCheckbox] = useState(false);
-    const [directPinchCheckbox, setDirectPinchCheckbox] = useState(false);
     const [potCheckbox, setPotCheckbox] = useState(false);
-    const [bulbPotCheckbox, setBulbPotCheckbox] = useState(false);
-    const [cuttingsPotCheckbox, setCuttingsPotCheckbox] = useState(false);
-    const [preSproutCheckbox, setPreSproutCheckbox] = useState(false);
     const [activeDirectSeed, setActiveDirectSeed] = useState(false);
     const [activeStartIndoors, setActiveStartIndoors] = useState(false);
-    const [activeCuttings, setActiveCuttings] = useState(false);
-    const [activePlugs, setActivePlugs] = useState(false);
-    const [activePerennial, setActivePerennial] = useState(false);
-    const [activeBulb, setActiveBulb] = useState(false);
-    const updateCounter = props.updateCounter;
-    const setUpdateCounter = props.setUpdateCounter;
     const harvests = [
         { label: "Early", value: 1 },
         { label: "Regular", value: 2 },
@@ -36,17 +25,10 @@ const CurrentPlan = (props) => {
         harvest: "",
         direct_sow: false,
         direct_indoors: false,
-        bulb: false,
         pinch: false,
-        direct_seed_pinch: false,
         pot_on: false,
-        bulb_pot_on: false,
-        bulb_presprout: false,
-        cuttings_pot_on: false,
         succession: "",
-        spacing: "",
-        perennial_harvest_start: null,
-        perennial_harvest_end: null
+        spacing: ""
     })
     const [plans, setPlans] = useState([]);
 
@@ -55,18 +37,14 @@ const CurrentPlan = (props) => {
             //... edit page
             getPlanting();
             setPinchCheckbox(props.planting.pinch);
-            setDirectPinchCheckbox(props.planting.direct_seed_pinch);
             setPotCheckbox(props.planting.pot_on);
-            setBulbPotCheckbox(props.planting.bulb_pot_on);
-            setCuttingsPotCheckbox(props.planting.cuttings_pot_on);
-            setPreSproutCheckbox(props.planting.bulb_presprout);
-            setActiveDirectSeed(props.planting.direct_sow);
-            setActiveBulb(props.planting.bulb);
-            setActiveCuttings(props.planting.cuttings);
-            setActivePlugs(props.planting.plugs);
-            setActivePerennial(props.planting.perennial);
-            setActiveStartIndoors(props.planting.direct_indoors);
-            var _harvest = harvests.find(x => x.label === props.planting.harvest);
+            if(props.planting.direct_sow){
+                setActiveDirectSeed(true)
+            }
+            if(props.planting.direct_indoors){
+                setActiveStartIndoors(true)
+            }
+            var _harvest = harvests.find(x => x.label === props.planting.harvest)
             setActiveHarvest(_harvest ? _harvest.value : -1);
         }else{
             //... create page
@@ -112,7 +90,6 @@ const CurrentPlan = (props) => {
                 dangerMode: true,
             }).then(async function (isConfirm) {
                 if (isConfirm) {
-                    console.log("Updating planting:", planting);
                     var _result = await plantingService.update(props.planting._id , planting);
                     swal({
                         title: "Success!",
@@ -121,9 +98,7 @@ const CurrentPlan = (props) => {
                         className: "custom-swal",
                     }).then(function(){
                         props.savePlanting();
-                        props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
                     });
-                    
                 }
             })
         }else{
@@ -148,14 +123,9 @@ const CurrentPlan = (props) => {
                             icon: _result.status ? "success" : "warning",
                         }).then(function(){
                             props.savePlanting();
-                            props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
-                            
                         });
-                    console.log(updateCounter);
                     }else{
-                        console.log("Creating planting:", planting);
                         var _result = await plantingService.create(planting);
-                        
                         swal({
                             title: _result.status ? "Success!" : "Warning!",
                             text: _result.message,
@@ -163,9 +133,7 @@ const CurrentPlan = (props) => {
                             icon: _result.status ? "success" : "warning",
                         }).then(function(){
                             props.savePlanting();
-                            props.setUpdateCounter((prevUpdateCounter) => prevUpdateCounter + 1);
                         });
-                    console.log(updateCounter);
                     }                
                 }
             })
@@ -182,16 +150,8 @@ const CurrentPlan = (props) => {
         setActiveHarvest(-1);
         setActiveDirectSeed(false);
         setActiveStartIndoors(false);
-        setActiveBulb(false);
-        setActiveCuttings(false);
-        setActivePlugs(false);
-        setActivePerennial(false);
         setPinchCheckbox(false);
-        setDirectPinchCheckbox(false);
         setPotCheckbox(false);
-        setBulbPotCheckbox(false);
-        setCuttingsPotCheckbox(false);
-
     }
 
     return (
@@ -230,30 +190,14 @@ const CurrentPlan = (props) => {
                 </div>
                 <div className={styles.planOptionsContainer}>
                     <div className={styles.seedingRow}>
-                        <h4>Method</h4>
+                        <h4>Seeding</h4>
                         {
                             plant.direct_seed !== "" ? (
                                 <button 
-                                onClick={() => {
-                                    setActiveBulb(false);
-                                    setActiveDirectSeed(true);
-                                    setActiveStartIndoors(false);
-                                    setActiveCuttings(false);
-                                    setActivePerennial(false);
-                                    setActivePlugs(false);
-                                    setPlanting({
-                                        ...planting,
-                                        direct_sow: true,
-                                        direct_indoors: false,
-                                        bulb: false,
-                                        cuttings: false,
-                                        plugs: false,
-                                        perennial: false
-                                      });
-                                }}
-                                className={activeDirectSeed === true ? styles.selected : ''}
-                                value={planting.direct_sow}
-                            >
+                                    onClick={() => {setActiveDirectSeed(!activeDirectSeed), setActiveStartIndoors(false), setPlanting({...planting, direct_sow: !activeDirectSeed})}}
+                                    className={activeDirectSeed === true ?  styles.selected : ''}
+                                    value={planting.direct_sow}
+                                >
                                     Direct Sow
                                 </button>
                             ): (
@@ -263,307 +207,92 @@ const CurrentPlan = (props) => {
                         {
                             plant.earliest_seed !== "" || plant.latest_seed !== "" ? (
                                 <button 
-                                onClick={() => {
-                                    setActiveBulb(false);
-                                    setActiveDirectSeed(false);
-                                    setActiveStartIndoors(true);
-                                    setActiveCuttings(false);
-                                    setActivePerennial(false);
-                                    setActivePlugs(false);
-                                    setPlanting({
-                                        ...planting,
-                                        direct_sow: false,
-                                        direct_indoors: true,
-                                        bulb: false,
-                                        cuttings: false,
-                                        plugs: false,
-                                        perennial: false
-                                      });
-                                }}
-                    className={activeStartIndoors === true ? styles.selected : ''}
-                    value={planting.direct_indoors}
-                >
-                                    Seed Indoors
+                                    onClick={() => {setActiveStartIndoors(!activeStartIndoors), setActiveDirectSeed(false), setPlanting({...planting, direct_indoors: !activeStartIndoors})}}
+                                    className={activeStartIndoors === true ?  styles.selected : ''}
+                                    value={planting.direct_indoors}
+                                >
+                                    Start Indoors
                                 </button>
                             ) : (
                                 <></>
                             )
                         }
-                        {
-            plant.bulb_transplant !== null && plant.bulb_transplant !== "" &&
-            plant.bulb_maturity_early !== null && plant.bulb_maturity_early !== "" &&
-            plant.bulb_maturity_late !== null && plant.bulb_maturity_late !== "" ? (
-                <button 
-                onClick={() => {
-                    setActiveBulb(true);
-                    setActiveDirectSeed(false);
-                    setActiveStartIndoors(false);
-                    setActiveCuttings(false);
-                    setActivePerennial(false);
-                    setActivePlugs(false);
-                    setPlanting({
-                        ...planting,
-                        direct_sow: false,
-                        direct_indoors: false,
-                        bulb: true,
-                        cuttings: false,
-                        plugs: false,
-                        perennial: false
-                      });
-                }}
-                    className={activeBulb === true ? styles.selected : ''}
-                    value={planting.bulb}
-                >
-                    Bulb
-                </button>
-            ) : (
-                <></>
-            )
-        }
-                                {
-                            plant.cuttings_presprout !== null && plant.cuttings_presprout !== "" &&
-                            plant.cuttings !== null && plant.cuttings !== "" &&
-                             plant.cuttings_transplant !== null && plant.cuttings_transplant !== "" &&
-                             plant.cuttings_maturity_early !== null && plant.cuttings_maturity_early !== "" &&
-                             plant.cuttings_maturity_late !== null && plant.cuttings_maturity_late !== "" ? (
-                                <button 
-                                onClick={() => {
-                                    setActiveBulb(false);
-                                    setActiveDirectSeed(false);
-                                    setActiveStartIndoors(false);
-                                    setActiveCuttings(true);
-                                    setActivePerennial(false);
-                                    setActivePlugs(false);
-                                    setPlanting({
-                                        ...planting,
-                                        direct_sow: false,
-                                        direct_indoors: false,
-                                        bulb: false,
-                                        cuttings: true,
-                                        plugs: false,
-                                        perennial: false
-                                      });
-                                }}
-                                className={activeCuttings === true ? styles.selected : ''}
-                                value={planting.cuttings}
-                            >
-                                    Cuttings
-                                </button>
-                            ): (
-                                <></>
-                            )
-                        }
-                        {
-                            plant.plugs_harden !== null && plant.plugs_harden !== "" &&
-                            plant.plugs_transplant !== null && plant.plugs_transplant !== "" &&
-                             plant.plugs_maturity_early !== null && plant.plugs_maturity_early !== "" &&
-                             plant.plugs_maturity_late !== null && plant.plugs_maturity_late !== "" ? (
-                                <button 
-                                onClick={() => {
-                                    setActiveBulb(false);
-                                    setActiveDirectSeed(false);
-                                    setActiveStartIndoors(false);
-                                    setActiveCuttings(false);
-                                    setActivePerennial(false);
-                                    setActivePlugs(true);
-                                    setPlanting({
-                                        ...planting,
-                                        direct_sow: false,
-                                        direct_indoors: false,
-                                        bulb: false,
-                                        cuttings: false,
-                                        plugs: true,
-                                        perennial: false
-                                      });
-                                }}
-                                className={activePlugs === true ? styles.selected : ''}
-                                value={planting.plugs}
-                            >
-                                    Plugs
-                                </button>
-                            ): (
-                                <></>
-                            )
-                        }
-                        {
-                             plant.perennial !== null && plant.perennial !== "" ? (
-                                <button 
-                                onClick={() => {
-                                    setActiveBulb(false);
-                                    setActiveDirectSeed(false);
-                                    setActiveStartIndoors(false);
-                                    setActiveCuttings(false);
-                                    setActivePerennial(true);
-                                    setActivePlugs(false);
-                                    setPlanting({
-                                        ...planting,
-                                        direct_sow: false,
-                                        direct_indoors: false,
-                                        bulb: false,
-                                        cuttings: false,
-                                        plugs: false,
-                                        perennial: true
-                                      });
-                                }}
-                                className={activePerennial === true ? styles.selected : ''}
-                                value={planting.perennial}
-                            >
-                                    Perennial
-                                </button>
-                            ): (
-                                <></>
-                            )
-                        }
                     </div>
                     <div className={styles.quantityRow}>
-  <h4>Quantity</h4>
-  <input
-    type="number"
-    placeholder="#"
-    value={planting.seeds === null ? 0 : parseInt(planting.seeds)}
-    onChange={(e) =>
-      setPlanting({ ...planting, seeds: parseInt(e.target.value) })
+                        <h4>Quantity</h4>
+                        <input type="number" placeholder="# of seeds" value={planting.seeds === null ? 0 : parseInt(planting.seeds)} onChange={(e) => setPlanting({...planting, seeds: parseInt(e.target.value) })} />
+                    </div>
+                    <div className={styles.harvestRow}>
+                        <h4>Harvest</h4>
+                        {harvests.map((element, i) => (
+                            <button key={i} 
+                                onClick={() => {setActiveHarvest(element.value), setPlanting({...planting, harvest: element.value === 1 ? "Early" : element.value === 2 ? "Regular" : "Late"})}} 
+                                className={activeHarvest === i + 1 ?  styles.selected : ''}
+                                value={planting.harvest}
+                            >
+                                {element.label}
+                            </button>
+                        ))}
+                    </div>
+                    <div className={styles.successionContainer}>
+                        <div className={styles.successionContainer1}>
+                            <div className={styles.successionTextContainer}>
+                                <h4>Successions</h4>
+                                <h5><i>Additional</i> plantings with the same settings, separated by the specified number of days.</h5>
+                            </div>
+                            <div className={styles.successionButtonsContainer}>
+                                <div>
+                                    <input
+  value={planting.succession}
+  onChange={(e) => {
+    const value = e.target.value;
+    if (value === "") {
+      setPlanting({ ...planting, succession: value });
+    } else {
+      const parsedValue = parseInt(value);
+      if (parsedValue <= 10) {
+        setPlanting({ ...planting, succession: parsedValue });
+      } else {
+        alert("Maximum input value is 10.");
+      }
     }
-  />
-</div>
-{activePerennial || activeDirectSeed ? null : (
-  <div className={styles.harvestRow}>
-    <h4>Harvest</h4>
-    {harvests.map((element, i) => (
-      <button
-        key={i}
-        onClick={() => {
-          setActiveHarvest(element.value);
-          setPlanting({
-            ...planting,
-            harvest:
-              element.value === 1
-                ? "Early"
-                : element.value === 2
-                ? "Regular"
-                : "Late",
-          });
-        }}
-        className={activeHarvest === i + 1 ? styles.selected : ""}
-        value={planting.harvest}
-      >
-        {element.label}
-      </button>
-    ))}
-  </div>
-)}
-<div className={styles.successionContainer}>
-  <div className={styles.successionContainer1}>
-  {
-  activePerennial ? (
-    <div className={styles.successionCheckboxRow} style={{ display: 'flex' }}>
-      <div style={{ width: '50%', paddingRight: '2%', boxSizing: 'border-box' }}>
-        <h6>Harvest Start</h6>
-        <input
-          type="date"
-          value={plant.perennial_harvest_start || ''}
-          onChange={(e) =>
-            setPlanting({ ...planting, perennial_harvest_start: e.target.value })
-          }
-          style={{ width: '100%' }} // Set the width using inline style
-        />
-      </div>
-      <div style={{ width: '50%', paddingLeft: '2%', boxSizing: 'border-box' }}>
-        <h6>Harvest End</h6>
-        <input
-          type="date"
-          value={plant.perennial_harvest_end || ''}
-          onChange={(e) =>
-            setPlanting({ ...planting, perennial_harvest_end: e.target.value })
-          }
-          style={{ width: '100%' }} // Set the width using inline style
-        />
-      </div>
-    </div>
-  ) : (
-    <></>
-  )
-}
-    <div className={styles.successionTextContainer}>
-    {!activePerennial && <h4>Successions</h4>}
-      {!activePerennial && (
-        <h5>
-          <i>
-            Additional plantings with the same settings, separated by the
-            specified number of days.
-          </i>
-        </h5>
-      )}
-    </div>
-    <div className={styles.successionButtonsContainer}>
-      <div>
-      {!activePerennial && <input
-          value={planting.succession}
-          onChange={(e) => {
-            const value = e.target.value;
-            if (value === "") {
-              setPlanting({ ...planting, succession: value });
-            } else {
-              const parsedValue = parseInt(value);
-              if (parsedValue <= 10) {
-                setPlanting({ ...planting, succession: parsedValue });
-              } else {
-                alert("Maximum input value is 10.");
-              }
-            }
-          }}
-          type="number"
-          min="0"
-          max="10"
-        />}
-        {!activePerennial && <span>Plantings</span>}
-      </div>
-      <div>
-      {!activePerennial && <input
-          value={planting.spacing}
-          onChange={(e) => {
-            const value = e.target.value;
-            if (value === "") {
-              setPlanting({ ...planting, spacing: value });
-            } else {
-              const parsedValue = parseInt(value);
-              if (parsedValue <= 50) {
-                setPlanting({ ...planting, spacing: parsedValue });
-              } else {
-                alert("Maximum input value is 50.");
-              }
-            }
-          }}
-          type="number"
-          min="0"
-          max="50"
-        />}
-        {!activePerennial && <span>Days Between</span>}
-      </div>
-      
-    </div>
+  }}
+  type="number"
+  min="0"
+  max="10"
+/>
 
+ 
+                                    <span>Plantings</span>
+                                </div>
+                                <div>
+                                    <input
+  value={planting.spacing}
+  onChange={(e) => {
+    const value = e.target.value;
+    if (value === "") {
+      setPlanting({ ...planting, spacing: value });
+    } else {
+      const parsedValue = parseInt(value);
+      if (parsedValue <= 50) {
+        setPlanting({ ...planting, spacing: parsedValue });
+      } else {
+        alert("Maximum input value is 50.");
+      }
+    }
+  }}
+  type="number"
+  min="0"
+  max="50"
+/>
 
-
+                                    <span>Days Between</span>
+                                </div>
+                            </div>
                         </div>
-    
-                        
                         <div className={styles.successionCheckboxesContainer}>
                             {
-                                activeDirectSeed && plant.direct_seed_pinch !== "" ? (
-                                    <div className={styles.successionCheckboxRow}>
-                                        <h6>Pinch</h6>
-                                        <div
-                                            onClick={() => {setDirectPinchCheckbox(!directPinchCheckbox), setPlanting({...planting, direct_seed_pinch: !directPinchCheckbox})}}
-                                            className={`${styles.checkbox} ${directPinchCheckbox ? styles.active : null}`}
-                                        ></div>
-                                    </div>
-                                ) : (
-                                    <></>
-                                )
-                            }
-                            {
-                                activeStartIndoors && plant.pinch !== "" ? (
+                                plant.pinch !== "" ? (
                                     <div className={styles.successionCheckboxRow}>
                                         <h6>Pinch</h6>
                                         <div
@@ -576,7 +305,7 @@ const CurrentPlan = (props) => {
                                 )
                             }
                             {
-                                activeStartIndoors && plant.pot_on !== "" ? (
+                                plant.pot_on !== "" ? (
                                     <div className={styles.successionCheckboxRow}>
                                         <h6>Pot On</h6>
                                         <div
@@ -588,46 +317,6 @@ const CurrentPlan = (props) => {
                                     <></>
                                 )
                             }
-                            {
-                                  activeBulb ? (
-                                    <div className={styles.successionCheckboxRow}>
-                                        <h6>Sprout Indoors</h6>
-                                        <div
-                                            onClick={() => {setPreSproutCheckbox(!preSproutCheckbox), setPlanting({...planting, bulb_presprout: !preSproutCheckbox})}}
-                                            className={`${styles.checkbox} ${preSproutCheckbox ? styles.active : null}`}
-                                        ></div>
-                                    </div>
-                                ) : (
-                                    <></>
-                                )
-                            }
-                                                        {
-                                   activeBulb && plant.bulb_pot_on !== "" && preSproutCheckbox ? (
-                                    <div className={styles.successionCheckboxRow}>
-                                        <h6>Pot On</h6>
-                                        <div
-                                            onClick={() => {setBulbPotCheckbox(!bulbPotCheckbox), setPlanting({...planting, bulb_pot_on: !bulbPotCheckbox})}}
-                                            className={`${styles.checkbox} ${bulbPotCheckbox ? styles.active : null}`}
-                                        ></div>
-                                    </div>
-                                ) : (
-                                    <></>
-                                )
-                            }
-                            {
-                                   activeCuttings && plant.cuttings_pot_on !== "" ? (
-                                    <div className={styles.successionCheckboxRow}>
-                                        <h6>Pot On</h6>
-                                        <div
-                                            onClick={() => {setCuttingsPotCheckbox(!cuttingsPotCheckbox), setPlanting({...planting, cuttings_pot_on: !cuttingsPotCheckbox})}}
-                                            className={`${styles.checkbox} ${cuttingsPotCheckbox ? styles.active : null}`}
-                                        ></div>
-                                    </div>
-                                ) : (
-                                    <></>
-                                )
-                            }
-                            
                         </div>
                     </div>
                 </div>
