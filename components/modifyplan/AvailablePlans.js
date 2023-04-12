@@ -25,7 +25,7 @@ const AvailablePlans = (props) => {
     }, [])
 
     const goToPlantSettings = () => {
-        // Navigate to the Plant Settings page
+        window.location.href = 'https://app.bloommanager.com/plantsettings';
     }
 
     const getOriginalArray = async () => {
