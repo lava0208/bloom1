@@ -111,15 +111,15 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
                     </div>
                 </div>
                 <div className={styles.dashboardRow}>
-                    <div className={styles.statContainer}>
+                    <div className={styles.statContainer} onClick={() => router.push('/masterplan')}>
                         <h2>{todayTasks.length}</h2>
                         <h3>TASKS TODAY</h3>
                     </div>
-                    <div className={`${styles.statContainer} ${styles.tomorrow}`}>
+                    <div className={`${styles.statContainer} ${styles.tomorrow}`} onClick={() => router.push('/masterplan')}>
                         <h2>{tomorrowTasks.length}</h2>
                         <h3>TASKS TOMORROW</h3>
                     </div>
-                    <div className={`${styles.statContainer} ${styles.overdue}`}>
+                    <div className={`${styles.statContainer} ${styles.overdue}`} onClick={() => router.push('/masterplan')}>
                         <h2>{overdueTasks.length}</h2>
                         <h3>OVERDUE TASKS</h3>
                     </div>
