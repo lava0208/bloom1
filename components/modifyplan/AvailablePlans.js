@@ -147,7 +147,7 @@ useEffect(() => {
                         ) : (
                             <div className={styles.emptyMessage}>
                                 <p>You don't currently have any plants available to add to your plan.</p>
-                                <button onClick={goToPlantSettings} style={{color: 'white', fontWeight: 700, fontSize: '0.9rem', border: '5px solid blue', background: 'blue', borderRadius: '10px', padding: '3px 1.7rem', cursor: 'pointer'}}>
+                                <button onClick={goToPlantSettings} style={{color: 'white', fontWeight: 700, fontSize: '0.9rem', border: '5px solid #505168', background: '#505168', borderRadius: '10px', padding: '3px 1.7rem', cursor: 'pointer'}}>
   Go to Plant Settings <span style={{marginLeft: '5px'}}>&#8594;</span>
 </button>
 
