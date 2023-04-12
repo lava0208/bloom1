@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, ModalBody } from "reactstrap";
 import { HashLoader } from 'react-spinners';
+import { useRouter } from 'next/router';
 
 import { plantService } from "services";
 
@@ -25,8 +26,9 @@ const AvailablePlans = (props) => {
     }, [])
 
     const goToPlantSettings = () => {
-        window.location.href = 'https://app.bloommanager.com/plantsettings';
-    }
+        const router = useRouter();
+        router.push('/plantsettings');
+      }
 
     const getOriginalArray = async () => {
         const response = await plantService.getAll();
