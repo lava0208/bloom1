@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         mode: "subscription",
         line_items: [
           {
-            price: "price_1MsGKZEVmyPNhExz3bQi0vn8", // price ID from Stripe
+            price: "price_1Mwrw0EVmyPNhExzbRyY9tgU", // price ID from Stripe
             quantity: 1,
           },
         ],
