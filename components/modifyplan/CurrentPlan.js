@@ -602,7 +602,7 @@ const CurrentPlan = (props) => {
                                 )
                             }
                                                         {
-                                   activeBulb && plant.bulb_pot_on !== "" && preSproutCheckbox ? (
+                                    activeBulb && plant.bulb_pot_on !== "" && plant.bulb_pot_on !== null && preSproutCheckbox ? (
                                     <div className={styles.successionCheckboxRow}>
                                         <h6>Pot On</h6>
                                         <div
