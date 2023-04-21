@@ -162,18 +162,19 @@ const register = async () => {
                             }}
                         />
                         <input
-                            type="text"
-                            className={styles.input}
-                            placeholder="Email"
-                            onKeyPress={handleKeyPress} // Add this line
-                            value={user.email}
-                            onChange={(e) => {
-                                setUser({
-                                    ...user,
-                                    email: e.target.value.toLowerCase(),
-                                });
-                            }}
-                        />
+  type="text"
+  className={styles.input}
+  placeholder="Email"
+  onKeyPress={handleKeyPress}
+  value={user.email}
+  onChange={(e) => {
+    setUser({
+      ...user,
+      email: e.target.value.toLowerCase(), // Add toLowerCase() here
+    });
+  }}
+/>
+
                     </div>
                     <label className={styles.detailsProfilePictureContainer}>
     <input
