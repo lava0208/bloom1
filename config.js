@@ -1,4 +1,4 @@
-const apiUrl = 'https://app.bloommanager.com/api';
+const apiUrl = 'http://159.203.30.173/api';
 
 export {
     apiUrl
