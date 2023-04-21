@@ -164,7 +164,7 @@ const register = async () => {
                         <input
   type="text"
   className={styles.input}
-  placeholder="Email!"
+  placeholder="Email"
   onKeyPress={handleKeyPress}
   value={user.email}
   onChange={(e) => {
