@@ -28,6 +28,9 @@ const AvailablePlans = (props) => {
     const goToPlantSettings = () => {
         router.push('/plantsettings');
     }
+    const goToProfile = () => {
+        router.push('/profile');
+    }
 
     useEffect(() => {
         getOriginalArray();
@@ -155,6 +158,8 @@ useEffect(() => {
                                 <p>You don't currently have any plants available to add to your plan.</p>
                                 <button onClick={goToPlantSettings} style={{color: 'white', fontWeight: 700, fontSize: '0.9rem', border: '5px solid #505168', background: '#505168', borderRadius: '10px', padding: '3px 1.7rem', cursor: 'pointer'}}>
   Go to Plant Settings <span style={{marginLeft: '5px'}}>&#8594;</span>
+</button> <button onClick={goToProfile} style={{color: 'white', fontWeight: 700, fontSize: '0.9rem', border: '5px solid #505168', background: '#505168', borderRadius: '10px', padding: '3px 1.7rem', cursor: 'pointer'}}>
+  Upgrade to PRO and access hundreds of presets <span style={{marginLeft: '5px'}}>&#8594;</span>
 </button>
 
                             </div>
