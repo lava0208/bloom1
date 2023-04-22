@@ -27,7 +27,24 @@ const Login = () => {
         return true;
     }
 
-    
+    async function forgotPassword() {
+        try {
+            await userService.forgotPassword(user.email);
+            swal({
+                title: "Success!",
+                text: "An email with password reset instructions has been sent.",
+                icon: "success",
+                className: "custom-swal",
+            });
+        } catch (error) {
+            swal({
+                title: "Error!",
+                text: "An error occurred while sending the password reset email.",
+                icon: "error",
+                className: "custom-swal",
+            });
+        }
+    };
     
     
 
@@ -112,7 +129,7 @@ const Login = () => {
                 <h5>Log In</h5>
             </div>
 <h4><a onClick={() => router.push('/account/register')}>Create account instead</a></h4>
-<h4><a onClick={() => forgotPassword()}>Forgot Password?</a></h4>
+
         </div>
     );
 };
