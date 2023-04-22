@@ -1,7 +1,5 @@
 import clientPromise from "../../../lib/mongodb";
 import bcrypt from "bcryptjs";
-import crypto from "crypto";
-import nodemailer from "nodemailer";
 import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
@@ -75,52 +73,5 @@ export default async function handler(req, res) {
         case "DELETE":
             await db.collection("users").deleteOne({_id: new ObjectId(req.query)});
             return res.json({ status: true, message: 'Your account has been closed.' });
-
-
-            case "POST_RESET":
-                try {
-                    const { email } = req.body;
-                    if (!email) {
-                        return res.status(400).json({ message: "Email is required" });
-                    }
-        
-                    const user = await db.collection("users").findOne({ email });
-                    if (!user) {
-                        return res.status(404).json({ message: "User not found" });
-                    }
-        
-                    const token = crypto.randomBytes(32).toString("hex");
-                    const expires = Date.now() + 3600000; // 1 hour from now
-        
-                    await db.collection("users").updateOne({ _id: user._id }, { $set: { resetPasswordToken: token, resetPasswordExpires: expires } });
-        
-                    // Send reset password email
-                    await sendResetPasswordEmail(email, token);
-        
-                    res.json({ message: "Reset password email sent" });
-                } catch (error) {
-                    res.status(500).json({ message: "An error occurred while resetting the password" });
-                }
-                break;
-        }
-        
-        async function sendResetPasswordEmail(email, token) {
-            const transporter = nodemailer.createTransport({
-                service: "Gmail",
-                auth: {
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS,
-                },
-            });
-        
-            const mailOptions = {
-                from: process.env.EMAIL_USER,
-                to: email,
-                subject: "Password Reset",
-                text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\nhttp://${req.headers.host}/account/reset-password/${token}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n`,
-            };
-        
-            await transporter.sendMail(mailOptions);
-
     }
 }

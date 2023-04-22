@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { userService } from "services";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { userService } from "services";
 import withLoading from '../../hocs/withLoading';
 
 import styles from "~styles/pages/account/register.module.scss";
@@ -26,26 +26,6 @@ const Login = () => {
         }
         return true;
     }
-
-    async function forgotPassword() {
-        try {
-            await userService.forgotPassword(user.email);
-            swal({
-                title: "Success!",
-                text: "An email with password reset instructions has been sent.",
-                icon: "success",
-                className: "custom-swal",
-            });
-        } catch (error) {
-            swal({
-                title: "Error!",
-                text: "An error occurred while sending the password reset email.",
-                icon: "error",
-                className: "custom-swal",
-            });
-        }
-    };
-    
     
 
     const login = async () => {
@@ -74,13 +54,11 @@ const Login = () => {
         }
     }
 
-
-
     const handleKeyPress = (e) => {
         if (e.key === "Enter") {
             login();
         }
-    }
+    };
     
 
     return (
@@ -129,7 +107,6 @@ const Login = () => {
                 <h5>Log In</h5>
             </div>
 <h4><a onClick={() => router.push('/account/register')}>Create account instead</a></h4>
-<h4><a onClick={() => forgotPassword()}>Forgot Password?</a></h4>
         </div>
     );
 };
