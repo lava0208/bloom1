@@ -1,19 +1,6 @@
 import { apiUrl } from 'config';
 
-export const userService = {
-    getById,
-    login,
-    register,
-    update,
-    delete: _delete,
-    setId,
-    getId,
-    currentUser,
-    getUser,
-    cancelSubscription,
-    removeUser,
-    resetPassword
-};
+
 
 const baseUrl = `${apiUrl}/auth`;
 
@@ -32,7 +19,20 @@ async function getById(id) {
 }
 
 
+const forgotPassword = async (email) => {
+    const response = await fetch(`${baseUrl}/user`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ method: "POST_RESET", email }),
+    });
 
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "An error occurred while resetting the password");
+    }
+
+    return data;
+};
 
 const resetPassword = async (token, password) => {
     const response = await fetch(`${baseUrl}/user/reset-password/${token}`, {
@@ -152,3 +152,19 @@ function removeUser(){
     localStorage.removeItem("user");
     localStorage.removeItem("userid");
 }
+
+export const userService = {
+    getById,
+    login,
+    register,
+    update,
+    delete: _delete,
+    setId,
+    getId,
+    currentUser,
+    getUser,
+    cancelSubscription,
+    removeUser,
+    forgotPassword,
+    resetPassword
+};
