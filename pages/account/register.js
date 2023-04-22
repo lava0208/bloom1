@@ -174,7 +174,6 @@ const register = async () => {
     });
   }}
 />
-
                     </div>
                     <label className={styles.detailsProfilePictureContainer}>
     <input
