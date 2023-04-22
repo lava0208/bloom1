@@ -2,6 +2,7 @@ import clientPromise from "../../../lib/mongodb";
 import bcrypt from "bcryptjs";
 import { ObjectId } from "mongodb";
 import nodemailer from 'nodemailer';
+import crypto from 'crypto';
 
 async function sendResetPasswordEmail(email, resetToken) {
     const transporter = nodemailer.createTransport({
@@ -21,6 +22,18 @@ async function sendResetPasswordEmail(email, resetToken) {
 
     return transporter.sendMail(mailOptions);
 }
+
+async function generateResetToken() {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(32, (err, buffer) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(buffer.toString('hex'));
+        }
+      });
+    });
+  }
 
 export default async function handler(req, res) {
     const client = await clientPromise;
