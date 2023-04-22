@@ -27,7 +27,7 @@ const Login = () => {
         return true;
     }
 
-    const forgotPassword = async () => {
+    async function forgotPassword() {
         try {
             await userService.forgotPassword(user.email);
             swal({
