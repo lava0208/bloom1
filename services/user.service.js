@@ -12,7 +12,6 @@ export const userService = {
     getUser,
     cancelSubscription,
     removeUser,
-    forgotPassword,
     resetPassword
 };
 
@@ -33,20 +32,7 @@ async function getById(id) {
 }
 
 
-const forgotPassword = async (email) => {
-    const response = await fetch(`${baseUrl}/user`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ method: "POST_RESET", email }),
-    });
 
-    const data = await response.json();
-    if (!response.ok) {
-        throw new Error(data.message || "An error occurred while resetting the password");
-    }
-
-    return data;
-};
 
 const resetPassword = async (token, password) => {
     const response = await fetch(`${baseUrl}/user/reset-password/${token}`, {
