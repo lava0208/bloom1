@@ -11,7 +11,9 @@ export const userService = {
     currentUser,
     getUser,
     cancelSubscription,
-    removeUser
+    removeUser,
+    forgotPassword,
+    resetPassword
 };
 
 const baseUrl = `${apiUrl}/auth`;
@@ -29,6 +31,37 @@ async function getById(id) {
         console.log(error)
     }
 }
+
+
+const forgotPassword = async (email) => {
+    const response = await fetch("/api/auth/user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ method: "POST_RESET", email }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "An error occurred while resetting the password");
+    }
+
+    return data;
+};
+
+const resetPassword = async (token, password) => {
+    const response = await fetch(`/api/auth/user/reset-password/${token}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "An error occurred while updating the password");
+    }
+
+    return data;
+};
 
 async function login(params) {
     try {

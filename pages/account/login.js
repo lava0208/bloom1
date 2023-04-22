@@ -54,6 +54,27 @@ const Login = () => {
         }
     }
 
+    const forgotPassword = async () => {
+        try {
+            if (emailValidation()) {
+                await userService.forgotPassword(user.email);
+                swal({
+                    title: "Success!",
+                    text: "Reset password email sent.",
+                    icon: "success",
+                    className: "custom-swal",
+                });
+            }
+        } catch (error) {
+            swal({
+                title: "Error!",
+                text: "An error occurred while resetting the password.",
+                icon: "error",
+                className: "custom-swal",
+            });
+        }
+    };
+
     const handleKeyPress = (e) => {
         if (e.key === "Enter") {
             login();
@@ -107,6 +128,9 @@ const Login = () => {
                 <h5>Log In</h5>
             </div>
 <h4><a onClick={() => router.push('/account/register')}>Create account instead</a></h4>
+<h4>
+    <a onClick={() => forgotPassword()}>Forgot password?</a>
+</h4>
         </div>
     );
 };
