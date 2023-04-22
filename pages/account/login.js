@@ -26,6 +26,27 @@ const Login = () => {
         }
         return true;
     }
+
+    const forgotPassword = async () => {
+        try {
+            if (emailValidation()) {
+                await userService.forgotPassword(user.email);
+                swal({
+                    title: "Success!",
+                    text: "Reset password email sent.",
+                    icon: "success",
+                    className: "custom-swal",
+                });
+            }
+        } catch (error) {
+            swal({
+                title: "Error!",
+                text: "An error occurred while resetting the password.",
+                icon: "error",
+                className: "custom-swal",
+            });
+        }
+    }
     
 
     const login = async () => {
@@ -54,32 +75,13 @@ const Login = () => {
         }
     }
 
-    const forgotPassword = async () => {
-        try {
-            if (emailValidation()) {
-                await userService.forgotPassword(user.email);
-                swal({
-                    title: "Success!",
-                    text: "Reset password email sent.",
-                    icon: "success",
-                    className: "custom-swal",
-                });
-            }
-        } catch (error) {
-            swal({
-                title: "Error!",
-                text: "An error occurred while resetting the password.",
-                icon: "error",
-                className: "custom-swal",
-            });
-        }
-    };
+
 
     const handleKeyPress = (e) => {
         if (e.key === "Enter") {
             login();
         }
-    };
+    }
     
 
     return (
