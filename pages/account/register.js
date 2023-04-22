@@ -170,7 +170,7 @@ const register = async () => {
                             onChange={(e) => {
                                 setUser({
                                     ...user,
-                                    email: e.target.value,
+                                    email: e.target.value.toLowerCase(), // Add toLowerCase() here
                                 });
                             }}
                         />
