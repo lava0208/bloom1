@@ -21,9 +21,9 @@ async function getById(id) {
 
 const forgotPassword = async (email) => {
     const response = await fetch(`${baseUrl}/user`, {
-        method: "POST",
+        method: "POST_RESET",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ method: "POST_RESET", email }),
+        body: JSON.stringify({ email }),
     });
 
     const data = await response.json();
