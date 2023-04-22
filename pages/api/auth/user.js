@@ -16,8 +16,12 @@ async function sendResetPasswordEmail(email, resetToken) {
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
-        subject: 'Password Reset',
-        text: `Click the following link to reset your password: ${process.env.APP_URL}/account/reset-password?token=${resetToken}`,
+        subject: 'Bloom Manager - Password Reset',
+        text: `We received a request to reset your password for your Bloom Manager account. To proceed with the reset, please follow the instructions below.
+
+        Click on the following link to reset your password: Click the following link to reset your password: ${process.env.APP_URL}account/reset-password?token=${resetToken}
+        
+        If you did not request this password reset, please disregard this email and ensure that your account is secure.`,
     };
 
     return transporter.sendMail(mailOptions);
