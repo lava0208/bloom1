@@ -107,6 +107,8 @@ const Login = () => {
                 <h5>Log In</h5>
             </div>
 <h4><a onClick={() => router.push('/account/register')}>Create account instead</a></h4>
+<h4><a onClick={() => router.push('/account/forgot-password')}>Forgot password?</a></h4>
+
         </div>
     );
 };
