@@ -1,4 +1,4 @@
-const apiUrl = 'http://138.197.167.109/api';
+const apiUrl = 'http://159.203.35.76/api';
 
 export {
     apiUrl
