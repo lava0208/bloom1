@@ -41,7 +41,7 @@ export default async function handler(req, res) {
                     return res.json({ status: true, message: 'Reset password email sent!' });
                 }
             } catch (error) {
-                console.error(error);
+                console.error('Error in FORGOT_PASSWORD:', error);
                 return res.json({ status: false, message: 'An error occurred while processing your request.' });
             }
         } else if (req.body.method === "RESET_PASSWORD") {
