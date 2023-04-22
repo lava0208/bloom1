@@ -41,11 +41,16 @@ async function forgotPassword(params) {
         },
         body: JSON.stringify(params),
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
+      }
       return response.json();
     } catch (error) {
       console.log(error);
+      return { status: false, message: error.message };
     }
   }
+  
 
   async function resetPassword(params) {
     try {
