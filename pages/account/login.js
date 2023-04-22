@@ -27,24 +27,7 @@ const Login = () => {
         return true;
     }
 
-    async function forgotPassword() {
-        try {
-            await userService.forgotPassword(user.email);
-            swal({
-                title: "Success!",
-                text: "An email with password reset instructions has been sent.",
-                icon: "success",
-                className: "custom-swal",
-            });
-        } catch (error) {
-            swal({
-                title: "Error!",
-                text: "An error occurred while sending the password reset email.",
-                icon: "error",
-                className: "custom-swal",
-            });
-        }
-    };
+    
     
     
 
