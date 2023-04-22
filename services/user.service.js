@@ -34,7 +34,7 @@ async function getById(id) {
 
 
 const forgotPassword = async (email) => {
-    const response = await fetch("/api/auth/user", {
+    const response = await fetch(`${baseUrl}/user`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ method: "POST_RESET", email }),
@@ -49,7 +49,7 @@ const forgotPassword = async (email) => {
 };
 
 const resetPassword = async (token, password) => {
-    const response = await fetch(`/api/auth/user/reset-password/${token}`, {
+    const response = await fetch(`${baseUrl}/user/reset-password/${token}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password }),
