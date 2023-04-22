@@ -1,6 +1,7 @@
 import clientPromise from "../../../lib/mongodb";
 import bcrypt from "bcryptjs";
 import { ObjectId } from "mongodb";
+import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
     const client = await clientPromise;
@@ -25,11 +26,67 @@ export default async function handler(req, res) {
                 return res.json({ status: false, message: 'Email and/or password are not correct!' });
             }
             break;
+
+            async function sendResetPasswordEmail(email, resetToken) {
+                const transporter = nodemailer.createTransport({
+                  service: 'gmail',
+                  auth: {
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASSWORD,
+                  },
+                });
+              
+                const mailOptions = {
+                  from: process.env.EMAIL_USER,
+                  to: email,
+                  subject: 'Password Reset',
+                  text: `Click the following link to reset your password: ${process.env.APP_URL}/account/reset-password?token=${resetToken}`,
+                };
+              
+                return transporter.sendMail(mailOptions);
+              }
         
         //... get profile info
         case "GET":
     let profile = await db.collection("users").findOne({_id: new ObjectId(req.query.id)});
     return res.json({ status: true, data: profile });
+
+    case "FORGOT_PASSWORD":
+  try {
+    const user = await db.collection("users").findOne({ email: req.body.email });
+    if (!user) {
+      return res.json({ status: false, message: 'Email not found!' });
+    } else {
+      // Send reset password email
+      const resetToken = await generateResetToken();
+      await sendResetPasswordEmail(user.email, resetToken);
+      await db.collection("users").updateOne({ _id: user._id }, { $set: { resetToken } });
+      return res.json({ status: true, message: 'Reset password email sent!' });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.json({ status: false, message: 'An error occurred while processing your request.' });
+  }
+  break;
+
+  case "RESET_PASSWORD":
+  try {
+    const { token, password } = req.body;
+    const user = await db.collection("users").findOne({ resetToken: token });
+    if (!user) {
+      return res.json({ status: false, message: 'Invalid or expired reset token!' });
+    } else {
+      const newPasswordHash = bcrypt.hashSync(password, 10);
+      await db.collection("users").updateOne({ _id: user._id }, { $set: { password: newPasswordHash, resetToken: null } });
+      return res.json({ status: true, message: 'Password has been reset successfully!' });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.json({ status: false, message: 'An error occurred while processing your request.' });
+  }
+  break;
+
+
 
 
         //... update profile
