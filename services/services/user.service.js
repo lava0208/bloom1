@@ -10,7 +10,10 @@ export const userService = {
     getId,
     currentUser,
     getUser,
-    removeUser
+    cancelSubscription,
+    removeUser,
+    forgotPassword,
+    resetPassword
 };
 
 const baseUrl = `${apiUrl}/auth`;
@@ -28,6 +31,37 @@ async function getById(id) {
         console.log(error)
     }
 }
+
+
+const forgotPassword = async (email) => {
+    const response = await fetch(`${baseUrl}/user`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ method: "POST_RESET", email }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "An error occurred while resetting the password");
+    }
+
+    return data;
+};
+
+const resetPassword = async (token, password) => {
+    const response = await fetch(`${baseUrl}/user/reset-password/${token}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "An error occurred while updating the password");
+    }
+
+    return data;
+};
 
 async function login(params) {
     try {
@@ -68,11 +102,30 @@ async function update(id, params) {
             },
             body: JSON.stringify(params)
         })
+        console.log('API response:', response); // Log the response object
         return response.json();
     } catch (error) {
         console.log(error);
     }
 }
+
+async function cancelSubscription(id) {
+    const user = await getById(id);
+    if (user.subscriptionId) {
+      try {
+        await stripe.subscriptions.del(user.subscriptionId);
+        const updatedUser = { ...user, share_custom_varieties: false, subscriptionId: null };
+        await update(id, updatedUser);
+        return { success: true };
+      } catch (error) {
+        console.log(error);
+        return { success: false, error };
+      }
+    } else {
+      return { success: false, error: 'No subscription found for this user' };
+    }
+  }
+  
 
 // prefixed with underscored because delete is a reserved word in javascript
 async function _delete(id) {
