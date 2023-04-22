@@ -11,8 +11,6 @@ export const userService = {
     currentUser,
     getUser,
     cancelSubscription,
-    forgotPassword,
-    resetPassword,
     removeUser
 };
 
@@ -31,37 +29,6 @@ async function getById(id) {
         console.log(error)
     }
 }
-
-async function resetPassword(token, newPassword) {
-    try {
-        const response = await fetch(`${baseUrl}/reset-password`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ token, newPassword }),
-        });
-        return response.json();
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-async function forgotPassword(params) {
-    try {
-      const response = await fetch(`${baseUrl}/forgot-password`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(params),
-      });
-      return response.json();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
 
 async function login(params) {
     try {
