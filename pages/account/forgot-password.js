@@ -12,14 +12,15 @@ export default function ForgotPassword() {
     e.preventDefault();
     setSubmitted(true);
     const response = await userService.forgotPassword({ email });
-    if (response.status) {
+    if (response && response.status) {
       alert('A password reset link has been sent to your email.');
       router.push('/account/login');
     } else {
-      alert(response.message);
+      alert(response ? response.message : 'An error occurred. Please try again later.');
       setSubmitted(false);
     }
   }
+  
 
   return (
     <div>
