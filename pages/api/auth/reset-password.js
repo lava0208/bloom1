@@ -14,12 +14,9 @@ export default async function handler(req, res) {
         .collection('users')
         .findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } });
 
-        useEffect(() => {
-            if (!token) {
-              alert('Invalid or expired token.');
-              router.push('/account/login');
-            }
-          }, [token]);
+      if (!user) {
+        return res.json({ status: false, message: 'Password reset token is invalid or has expired.' });
+      }
 
       const hashedPassword = bcrypt.hashSync(req.body.password, 10);
       await db.collection('users').updateOne(
