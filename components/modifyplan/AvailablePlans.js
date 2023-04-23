@@ -173,8 +173,8 @@ const refreshFilteredArray = async () => {
 {!props.isPro && (
     <div className={`${styles.planContainer} ${styles.nonProContainer}`} onMouseEnter={() => setIsShowActionText(filteredArray.length)} onMouseLeave={() => setIsShowActionText(-1)}>
         <div className={styles.planInfoContainer}>
-            <h3 style={{textAlign: 'center'}}>Add Custom Varieties</h3>
-            <p style={{color: 'white'}}>To add custom varieties, visit the <a href="/plantsettings">Plant Settings</a> page.</p>
+            <h2 style={{textAlign: 'center'}}>Add Custom Varieties</h2>
+            <p style={{color: 'white'}}>Add your own custom varieties - the possibilities are endless!</p>
         </div>
         {
             filteredArray.length === isShowActionText && (
@@ -190,8 +190,8 @@ const refreshFilteredArray = async () => {
 {!props.isPro && (
     <div className={`${styles.planContainer} ${styles.nonProContainer}`} onMouseEnter={() => setIsShowActionText(filteredArray.length + 1)} onMouseLeave={() => setIsShowActionText(-1)}>
         <div className={styles.planInfoContainer}>
-            <h3 style={{textAlign: 'center'}}>Upgrade to Pro</h3>
-            <p style={{color: 'white'}}>To access hundreds of presets and more features, <a href="/profile">upgrade to Pro</a>.</p>
+            <h2 style={{textAlign: 'center'}}>Upgrade to PRO</h2>
+            <p style={{color: 'white'}}>Access hundreds of pre-made presets with PRO!</p>
         </div>
         {
             filteredArray.length + 1 === isShowActionText && (
