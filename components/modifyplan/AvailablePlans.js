@@ -20,6 +20,8 @@ const AvailablePlans = (props) => {
     const [loading, setLoading] = useState(true);
     const updateCounter = props.updateCounter;
     const setUpdateCounter = props.setUpdateCounter;
+    const [originalCore, setOriginalCore] = useState([]);
+
 
     const router = useRouter();
 
@@ -37,19 +39,23 @@ const AvailablePlans = (props) => {
     }, [])
 
 
+
     const getOriginalArray = async () => {
         const response = await plantService.getAll();
-        setOrigialArray(response.data)
-        setFilteredArray(response.data)
-        if(response.presets !== undefined){
-            setFilteredPresets(response.presets)
-            // Set the original presets here
-            setOriginalPresets(response.presets)
-        }else{
-            setFilteredPresets([])
-            setOriginalPresets([])
+        setOrigialArray(response.data);
+        setFilteredArray(response.data);
+        if (response.presets !== undefined) {
+            setFilteredPresets(response.presets);
+            setOriginalPresets(response.presets);
+        } else if (response.core !== undefined) { // Add this condition for core plants
+            setFilteredPresets(response.core);
+            setOriginalCore(response.core);
+        } else {
+            setFilteredPresets([]);
+            setOriginalPresets([]);
+            setOriginalCore([]);
         }
-    }
+    };
 
 
 useEffect(() => {
@@ -58,16 +64,15 @@ useEffect(() => {
 }, [query])
 
     
-    const refreshFilteredArray = async () => {
+const refreshFilteredArray = async () => {
     var _filteredArray = origialArray.filter(
         (el) => el.name.toLowerCase().includes(query)
     );
 
     if (query === '') {
-        setFilteredPresets(originalPresets);
+        setFilteredPresets(originalPresets.length > 0 ? originalPresets : originalCore);
     } else {
-        // Change this line to filter originalPresets instead of filteredPresets
-        var _filteredPresets = originalPresets.filter(
+        var _filteredPresets = (originalPresets.length > 0 ? originalPresets : originalCore).filter(
             (el) => el.name.toLowerCase().includes(query)
         );
         setFilteredPresets(_filteredPresets);
@@ -129,6 +134,33 @@ useEffect(() => {
             ) : (
                 <>
                     <div className={styles.plansContainer}>
+{/* Add custom varieties message container */}
+{!props.isPro && !loading && (
+    <div className={`${styles.planContainer} ${styles.nonProContainer}`} style={{background: '#5a5b75'}}>
+        <div className={styles.corePlanInfoContainer}>
+            <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Add New Varieties</h3>
+            <p style={{color: 'white'}}>Add your own custom varieties - the possibilities are endless!</p>
+            <div className={styles.customButtonConatiner} style={{display: 'flex', justifyContent: 'center'}}>
+                <button onClick={goToPlantSettings}>Add New Custom Variety</button>
+            </div>
+        </div>
+    </div>
+)}
+
+{/* Upgrade to pro message container */}
+{!props.isPro && !loading && (
+    <div className={`${styles.planContainer} ${styles.nonProContainer}`} style={{background: '#5a5b75'}}>
+        <div className={styles.corePlanInfoContainer}>
+            <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Access PRO Presets</h3>
+            <p style={{color: 'white'}}>Gain access to hundreds of presets with <b>Bloom Manager PRO!</b></p>
+            <div className={styles.customButtonConatiner} style={{display: 'flex', justifyContent: 'center'}}>
+                <button onClick={goToProfile} style={{color: '#FFD700'}}>Upgrade to PRO</button>
+            </div>
+        </div>
+    </div>
+)}
+
+
                         {filteredArray.length > 0 || props.isPro ? (
                             filteredArray.map((plant, i) => (
                                 <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionText(i)} onMouseLeave={() => setIsShowActionText(-1)}>
@@ -155,15 +187,13 @@ useEffect(() => {
                             ))
                         ) : (
                             <div className={styles.emptyMessage}>
-                                <p>You don't currently have any plants available to add to your plan.</p>
-                                <button onClick={goToPlantSettings} style={{color: 'white', fontWeight: 700, fontSize: '0.9rem', border: '5px solid #505168', background: '#505168', borderRadius: '10px', padding: '3px 1.7rem', cursor: 'pointer'}}>
-  Go to Plant Settings and Add Plant <span style={{marginLeft: '5px'}}>&#8594;</span>
-</button> <button onClick={goToProfile} style={{color: 'white', fontWeight: 700, fontSize: '0.9rem', border: '5px solid #505168', background: '#505168', borderRadius: '10px', padding: '3px 1.7rem', cursor: 'pointer'}}>
-  Upgrade to PRO and Access Hundreds of Presets <span style={{marginLeft: '5px'}}>&#8594;</span>
-</button>
-
-                            </div>
+                                                            </div>
                         )}
+
+
+
+
+
                         {isShowPresets && filteredPresets.map((plant, i) => (
                             <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionPreset(i)} onMouseLeave={() => setIsShowActionPreset(-1)}>
                                 <div className={styles.planImage}>
@@ -174,7 +204,7 @@ useEffect(() => {
                                     }
                                 </div>
                                 <div className={styles.planInfoContainer}>
-                                    <button>pro preset</button>
+                                <button>{originalCore.includes(plant) ? 'free preset' : 'pro preset'}</button> {/* Update button text here */}
                                     <h3>{plant.name}</h3>
                                     <h4>{plant.species}</h4>
                                     <h5>{plant.description}</h5>
@@ -188,6 +218,7 @@ useEffect(() => {
                                 }
                             </div>
                         ))}
+
                     </div>
             <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered modalClassName="modifyPlanModal">
                 <ModalBody>
