@@ -21,6 +21,8 @@ const AvailablePlans = (props) => {
     const updateCounter = props.updateCounter;
     const setUpdateCounter = props.setUpdateCounter;
     const [originalCore, setOriginalCore] = useState([]);
+    const [isProStatusLoaded, setIsProStatusLoaded] = useState(false);
+
 
     const router = useRouter();
 
@@ -36,6 +38,10 @@ const AvailablePlans = (props) => {
     useEffect(() => {
         getOriginalArray();
     }, [])
+
+    useEffect(() => {
+        setIsProStatusLoaded(true);
+    }, []);
 
 
     const getOriginalArray = async () => {
@@ -133,7 +139,7 @@ const refreshFilteredArray = async () => {
                 <>
                     <div className={styles.plansContainer}>
 {/* Add custom varieties message container */}
-{!props.isPro && (
+{!props.isPro && isProStatusLoaded && (
     <div className={`${styles.planContainer} ${styles.nonProContainer}`} style={{background: '#5a5b75'}}>
         <div className={styles.corePlanInfoContainer}>
             <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Add New Varieties</h3>
@@ -146,7 +152,7 @@ const refreshFilteredArray = async () => {
 )}
 
 {/* Upgrade to pro message container */}
-{!props.isPro && (
+{!props.isPro && isProStatusLoaded && (
     <div className={`${styles.planContainer} ${styles.nonProContainer}`} style={{background: '#5a5b75'}}>
         <div className={styles.corePlanInfoContainer}>
             <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Access PRO Presets</h3>
