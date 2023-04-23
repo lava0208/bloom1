@@ -139,7 +139,7 @@ const refreshFilteredArray = async () => {
             <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Add New Varieties</h3>
             <p style={{color: 'white'}}>Add all of your favourite varieties, with support for bulbs, plugs, seeds, perennials and more. The possibilities are endless!</p>
         </div>
-        <div>
+        <div className={styles.cutomButtonContainer}>
             <button className={styles.customButton} onClick={goToPlantSettings}>Add New Custom Variety</button>
         </div>
     </div>
@@ -152,7 +152,7 @@ const refreshFilteredArray = async () => {
             <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Upgrade to PRO</h3>
             <p style={{color: 'white'}}>Save time with <b>Bloom Manager PRO</b>! Gain access to hundreds of presets for all of your favourite varieties.</p>
         </div>
-        <div style={{marginTop: '0px'}}>
+        <div className={styles.cutomButtonContainer}>
             <button className={styles.customButton} onClick={goToProfile}>Upgrade to Pro</button>
         </div>
     </div>
