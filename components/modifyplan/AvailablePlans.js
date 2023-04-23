@@ -21,7 +21,6 @@ const AvailablePlans = (props) => {
     const updateCounter = props.updateCounter;
     const setUpdateCounter = props.setUpdateCounter;
     const [originalCore, setOriginalCore] = useState([]);
-    const [isProStatusLoaded, setIsProStatusLoaded] = useState(false);
 
 
     const router = useRouter();
@@ -39,9 +38,6 @@ const AvailablePlans = (props) => {
         getOriginalArray();
     }, [])
 
-    useEffect(() => {
-        setIsProStatusLoaded(true);
-    }, []);
 
 
     const getOriginalArray = async () => {

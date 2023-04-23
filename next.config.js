@@ -6,7 +6,7 @@ const nextConfig = {
         secret: 'THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING'
     },
     publicRuntimeConfig: {
-        apiUrl: 'http://159.203.35.76:3000/api'
+        apiUrl: 'https://app.bloommanager.com/api'
     },
     webpack5: true,
     webpack: (config) => {
