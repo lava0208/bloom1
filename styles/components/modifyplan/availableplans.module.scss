@@ -97,17 +97,15 @@
     color: $white;
     font-weight: 700;
     font-size: 1.5rem;
-    border: 5px solid $blue;
-    background: $blue;
+    border: 5px solid $purple;
+    background: $purple;
     border-radius: 15px;
     padding: 0px 3rem;
     min-width: 200px;
     cursor: pointer;
-    margin: 0 10px;
   
     &:hover {
-      background: $purple;
-      border-color: $purple;
+      color: $purple;
     }
   }
 
