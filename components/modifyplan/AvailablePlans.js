@@ -140,7 +140,7 @@ const refreshFilteredArray = async () => {
             <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Add Varieties</h3>
             <p style={{color: 'white'}}>Add your own custom varieties - the possibilities are endless!</p>
         </div>
-        <div className={styles.buttonContainer}>
+        <div className={styles.plantHoverText}>
             <button onClick={goToPlantSettings}>Add New Custom Variety</button>
         </div>
     </div>
@@ -153,7 +153,7 @@ const refreshFilteredArray = async () => {
             <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Upgrade to PRO</h3>
             <p style={{color: 'white'}}>Save time and access hundreds of PRO presets!</p>
         </div>
-        <div className={styles.buttonContainer}>
+        <div className={styles.plantHoverText}>
             <button onClick={goToProfile}>Upgrade to Pro</button>
         </div>
     </div>
