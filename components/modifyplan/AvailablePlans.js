@@ -132,65 +132,6 @@ const refreshFilteredArray = async () => {
             ) : (
                 <>
                     <div className={styles.plansContainer}>
-                        {filteredArray.length > 0 || props.isPro ? (
-                            filteredArray.map((plant, i) => (
-                                <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionText(i)} onMouseLeave={() => setIsShowActionText(-1)}>
-                                    <div className={styles.planImage}>
-                                        {
-                                            plant.image && (
-                                                <img src={plant.image } alt="image" />
-                                            )
-                                        }
-                                    </div>
-                                    <div className={styles.planInfoContainer}>
-                                        <h3>{plant.name}</h3>
-                                        <h4>{plant.species}</h4>
-                                        <h5>{plant.description}</h5>
-                                    </div>
-                                    {
-                                        i === isShowActionText && (
-                                            <div className={styles.plantHoverText}>
-                                                <button onClick={() => openCreateModal(plant._id, false)}>Add</button>
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                            ))
-                        ) : (
-                            <div className={styles.emptyMessage}>
-                                                            </div>
-                        )}
-
-
-
-
-
-
-                        {isShowPresets && filteredPresets.map((plant, i) => (
-                            <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionPreset(i)} onMouseLeave={() => setIsShowActionPreset(-1)}>
-                                <div className={styles.planImage}>
-                                    {
-                                        plant.image && (
-                                            <img src={plant.image } alt="image" />
-                                        )
-                                    }
-                                </div>
-                                <div className={styles.planInfoContainer}>
-                                <button>{originalCore.includes(plant) ? 'free preset' : 'pro preset'}</button> {/* Update button text here */}
-                                    <h3>{plant.name}</h3>
-                                    <h4>{plant.species}</h4>
-                                    <h5>{plant.description}</h5>
-                                </div>
-                                {
-                                    i === isShowActionPreset && (
-                                        <div className={styles.plantHoverText}>
-                                            <button onClick={() => openCreateModal(plant._id, true)}>Add</button>
-                                        </div>
-                                    )
-                                }
-                            </div>
-                        ))}
-
                         {/* Add custom varieties message container */}
 {!props.isPro && (
     <div className={`${styles.planContainer} ${styles.nonProContainer}`} onMouseEnter={() => setIsShowActionText(filteredArray.length)} onMouseLeave={() => setIsShowActionText(-1)}>
@@ -224,6 +165,63 @@ const refreshFilteredArray = async () => {
         }
     </div>
 )}
+                        {filteredArray.length > 0 || props.isPro ? (
+                            filteredArray.map((plant, i) => (
+                                <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionText(i)} onMouseLeave={() => setIsShowActionText(-1)}>
+                                    <div className={styles.planImage}>
+                                        {
+                                            plant.image && (
+                                                <img src={plant.image } alt="image" />
+                                            )
+                                        }
+                                    </div>
+                                    <div className={styles.planInfoContainer}>
+                                        <h3>{plant.name}</h3>
+                                        <h4>{plant.species}</h4>
+                                        <h5>{plant.description}</h5>
+                                    </div>
+                                    {
+                                        i === isShowActionText && (
+                                            <div className={styles.plantHoverText}>
+                                                <button onClick={() => openCreateModal(plant._id, false)}>Add</button>
+                                            </div>
+                                        )
+                                    }
+                                </div>
+                            ))
+                        ) : (
+                            <div className={styles.emptyMessage}>
+                                                            </div>
+                        )}
+
+
+
+
+
+                        {isShowPresets && filteredPresets.map((plant, i) => (
+                            <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionPreset(i)} onMouseLeave={() => setIsShowActionPreset(-1)}>
+                                <div className={styles.planImage}>
+                                    {
+                                        plant.image && (
+                                            <img src={plant.image } alt="image" />
+                                        )
+                                    }
+                                </div>
+                                <div className={styles.planInfoContainer}>
+                                <button>{originalCore.includes(plant) ? 'free preset' : 'pro preset'}</button> {/* Update button text here */}
+                                    <h3>{plant.name}</h3>
+                                    <h4>{plant.species}</h4>
+                                    <h5>{plant.description}</h5>
+                                </div>
+                                {
+                                    i === isShowActionPreset && (
+                                        <div className={styles.plantHoverText}>
+                                            <button onClick={() => openCreateModal(plant._id, true)}>Add</button>
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        ))}
 
                     </div>
             <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen} centered modalClassName="modifyPlanModal">
