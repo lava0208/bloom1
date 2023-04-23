@@ -161,6 +161,8 @@
 .corePlanInfoContainer {
     flex: 1;
     display: flex;
+    border: 10px;
+    border-color: $purple;
     flex-direction: column;
     justify-content: center;
     margin: 1rem 0;
