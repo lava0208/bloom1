@@ -92,17 +92,19 @@ case "GET":
     if (req.query.id === undefined) {
         let _user = await userService.getById(req.query.userid);
         let _plants = await db.collection("plants").find({ userid: req.query.userid }).toArray();
-        let _core = await db.collection("plants").find({ type: "core" }).toArray(); // Add this line to fetch core plants
+        
         if (_user.data.share_custom_varieties) {
             let _presets = await db.collection("plants").find({ type: "preset" }).toArray();
-            return res.json({ status: true, data: _plants, presets: _presets, core: _core }); // Include core plants in the response
+            return res.json({ status: true, data: _plants, presets: _presets });
         } else {
-            return res.json({ status: true, data: _plants, core: _core }); // Include core plants even if the user doesn't share custom varieties
+            let _core = await db.collection("plants").find({ type: "core" }).toArray(); // Fetch core plants only for non-pro users
+            return res.json({ status: true, data: _plants, core: _core }); // Include core plants in the response for non-pro users
         }
     } else {
         let plant = await db.collection("plants").findOne({ _id: new ObjectId(req.query.id) });
         return res.json({ status: true, data: plant });
     }
+
 
 
         //... update a plant
