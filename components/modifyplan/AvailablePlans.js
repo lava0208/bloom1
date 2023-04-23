@@ -20,6 +20,7 @@ const AvailablePlans = (props) => {
     const [loading, setLoading] = useState(true);
     const updateCounter = props.updateCounter;
     const setUpdateCounter = props.setUpdateCounter;
+    const [originalCore, setOriginalCore] = useState([]);
 
     const router = useRouter();
 
@@ -39,17 +40,20 @@ const AvailablePlans = (props) => {
 
     const getOriginalArray = async () => {
         const response = await plantService.getAll();
-        setOrigialArray(response.data)
-        setFilteredArray(response.data)
-        if(response.presets !== undefined){
-            setFilteredPresets(response.presets)
-            // Set the original presets here
-            setOriginalPresets(response.presets)
-        }else{
-            setFilteredPresets([])
-            setOriginalPresets([])
+        setOrigialArray(response.data);
+        setFilteredArray(response.data);
+        if (response.presets !== undefined) {
+            setFilteredPresets(response.presets);
+            setOriginalPresets(response.presets);
+        } else if (response.core !== undefined) { // Add this condition for core plants
+            setFilteredPresets(response.core);
+            setOriginalCore(response.core);
+        } else {
+            setFilteredPresets([]);
+            setOriginalPresets([]);
+            setOriginalCore([]);
         }
-    }
+    };
 
 
 useEffect(() => {
@@ -58,16 +62,15 @@ useEffect(() => {
 }, [query])
 
     
-    const refreshFilteredArray = async () => {
+const refreshFilterdArray = async () => {
     var _filteredArray = origialArray.filter(
         (el) => el.name.toLowerCase().includes(query)
     );
 
     if (query === '') {
-        setFilteredPresets(originalPresets);
+        setFilteredPresets(originalPresets.length > 0 ? originalPresets : originalCore);
     } else {
-        // Change this line to filter originalPresets instead of filteredPresets
-        var _filteredPresets = originalPresets.filter(
+        var _filteredPresets = (originalPresets.length > 0 ? originalPresets : originalCore).filter(
             (el) => el.name.toLowerCase().includes(query)
         );
         setFilteredPresets(_filteredPresets);
@@ -174,7 +177,7 @@ useEffect(() => {
                                     }
                                 </div>
                                 <div className={styles.planInfoContainer}>
-                                    <button>pro preset</button>
+                                <button>{originalCore.includes(plant) ? 'free preset' : 'pro preset'}</button> {/* Update button text here */}
                                     <h3>{plant.name}</h3>
                                     <h4>{plant.species}</h4>
                                     <h5>{plant.description}</h5>
