@@ -167,6 +167,29 @@ const refreshFilteredArray = async () => {
 
                             </div>
                         )}
+
+
+{!props.isPro && (
+    <div className={styles.planContainer}>
+        <div className={styles.planInfoContainer}>
+            <h3>Add Custom Varieties</h3>
+            <p>To add custom varieties, visit the <a href="/plantsettings">Plant Settings</a> page.</p>
+        </div>
+    </div>
+)}
+
+{/* Upgrade to pro message container */}
+{!props.isPro && (
+    <div className={styles.planContainer}>
+        <div className={styles.planInfoContainer}>
+            <h3>Upgrade to Pro</h3>
+            <p>To access hundreds of presets and more features, <a href="/profile">upgrade to Pro</a>.</p>
+        </div>
+    </div>
+)}
+
+
+
                         {isShowPresets && filteredPresets.map((plant, i) => (
                             <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionPreset(i)} onMouseLeave={() => setIsShowActionPreset(-1)}>
                                 <div className={styles.planImage}>
