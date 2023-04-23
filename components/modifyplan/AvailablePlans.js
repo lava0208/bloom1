@@ -185,10 +185,7 @@ const refreshFilteredArray = async () => {
                                     }
                                 </div>
                             ))
-                        ) : (
-                            <div className={styles.emptyMessage}>
-                                                            </div>
-                        )}
+                        ) : null}
 
 
 
