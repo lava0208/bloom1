@@ -86,22 +86,24 @@ perennial_harvest_note: req.body.perennial_harvest_note
             }
             
 
-        //... get all plants or plant by id
-        case "GET":
-            //... check pro user or not
-            if(req.query.id === undefined){
-                let _user = await userService.getById(req.query.userid);
-                let _plants = await db.collection("plants").find({userid: req.query.userid}).toArray();
-                if(_user.data.share_custom_varieties){
-                    let _presets = await db.collection("plants").find({type: "preset"}).toArray();
-                    return res.json({ status: true, data: _plants, presets: _presets });
-                }else{
-                    return res.json({ status: true, data: _plants });
-                }
-            }else{
-                let plant = await db.collection("plants").findOne({_id: new ObjectId(req.query.id)});
-                return res.json({ status: true, data: plant });
-            }
+//... get all plants or plant by id
+case "GET":
+    //... check pro user or not
+    if (req.query.id === undefined) {
+        let _user = await userService.getById(req.query.userid);
+        let _plants = await db.collection("plants").find({ userid: req.query.userid }).toArray();
+        let _core = await db.collection("plants").find({ type: "core" }).toArray(); // Add this line to fetch core plants
+        if (_user.data.share_custom_varieties) {
+            let _presets = await db.collection("plants").find({ type: "preset" }).toArray();
+            return res.json({ status: true, data: _plants, presets: _presets, core: _core }); // Include core plants in the response
+        } else {
+            return res.json({ status: true, data: _plants, core: _core }); // Include core plants even if the user doesn't share custom varieties
+        }
+    } else {
+        let plant = await db.collection("plants").findOne({ _id: new ObjectId(req.query.id) });
+        return res.json({ status: true, data: plant });
+    }
+
 
         //... update a plant
         case "PUT":
