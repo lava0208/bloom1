@@ -89,31 +89,13 @@
             }
         }
     }
-    .customButtonContainer {
-        margin-top: 0rem;
-    }
 }
 
 
 
 
 
-.customButton {
-    color: $white;
-    font-weight: 700;
-    font-size: 1.5rem;
-    border: 5px solid $purple;
-    background: $purple;
-    border-radius: 15px;
-    padding: 0px 3rem;
-    min-width: 200px;
-    cursor: pointer;
-    margin: 0px;
-  
-    &:hover {
-      color: #A9A9A9;
-    }
-  }
+
 
 .planImage {
     background: $white;
@@ -205,19 +187,22 @@
         font-size: 0.75rem;
     }
 
-    button{
-        color: $blue;
-        font-weight: 800;
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        border: none;
-        background: $white;
-        border-radius: 35px;
-        padding: 0.6rem 0 0.5rem 0;
+    button {
+        color: $white;
+        font-weight: 700;
+        font-size: 1.5rem;
+        border: 5px solid $purple;
+        background: $purple;
+        border-radius: 15px;
+        padding: 0px 3rem;
+        min-width: 200px;
         cursor: pointer;
-        width: 100px;
-        margin-top: -50px;
-    }
+        margin: 0px;
+      
+        &:hover {
+          color: #A9A9A9;
+        }
+      }
 }
 
 @media screen and (max-width: 1024px) {
