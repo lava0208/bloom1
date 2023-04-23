@@ -62,7 +62,7 @@ useEffect(() => {
 }, [query])
 
     
-const refreshFilterdArray = async () => {
+const refreshFilteredArray = async () => {
     var _filteredArray = origialArray.filter(
         (el) => el.name.toLowerCase().includes(query)
     );
