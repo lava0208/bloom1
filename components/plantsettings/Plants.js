@@ -9,6 +9,7 @@ import Plant from "./Plant";
 import 'bootstrap/dist/css/bootstrap.css';
 import styles from "~styles/components/plantsettings/plants.module.scss";
 
+
 const Plants = (props) => {
     const [origialArray, setOrigialArray] = useState([]);
     const [query, setQuery] = useState('');
@@ -16,6 +17,8 @@ const Plants = (props) => {
     const [filteredPresets, setFilteredPresets] = useState([]);
     // Add this new state variable for original presets
     const [originalPresets, setOriginalPresets] = useState([]);
+    const [originalCore, setOriginalCore] = useState([]);
+
 
     useEffect(() => {
         getOriginalArray();
@@ -23,17 +26,21 @@ const Plants = (props) => {
 
     const getOriginalArray = async () => {
         const response = await plantService.getAll();
-        setOrigialArray(response.data)
-        setFilteredArray(response.data)
-        if(response.presets !== undefined){
-            setFilteredPresets(response.presets)
-            // Set the original presets here
-            setOriginalPresets(response.presets)
-        }else{
-            setFilteredPresets([])
-            setOriginalPresets([])
+        setOrigialArray(response.data);
+        setFilteredArray(response.data);
+        if (response.presets !== undefined) {
+            setFilteredPresets(response.presets);
+            setOriginalPresets(response.presets);
+        } else if (response.core !== undefined) { // Add this condition for core plants
+            setFilteredPresets(response.core);
+            setOriginalCore(response.core);
+        } else {
+            setFilteredPresets([]);
+            setOriginalPresets([]);
+            setOriginalCore([]);
         }
-    }
+    };
+    
 
     useEffect(() => {
         refreshFilterdArray();
@@ -41,21 +48,22 @@ const Plants = (props) => {
     }, [query])
 
     const refreshFilterdArray = async () => {
-        var _filteredArray =  origialArray.filter(
+        var _filteredArray = origialArray.filter(
             (el) => el.name.toLowerCase().includes(query)
-        )      
-
+        );
+    
         if (query === '') {
-            setFilteredPresets(originalPresets);
+            setFilteredPresets(originalPresets.length > 0 ? originalPresets : originalCore);
         } else {
-            var _filteredPresets = originalPresets.filter(
+            var _filteredPresets = (originalPresets.length > 0 ? originalPresets : originalCore).filter(
                 (el) => el.name.toLowerCase().includes(query)
             );
             setFilteredPresets(_filteredPresets);
         }
-
-        setFilteredArray(_filteredArray)
-    }
+    
+        setFilteredArray(_filteredArray);
+    };
+    
 
     const [modalOpen, setModalOpen] = useState(false);
     const [title, setTitle] = useState("");
