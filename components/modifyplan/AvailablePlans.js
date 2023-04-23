@@ -169,22 +169,37 @@ const refreshFilteredArray = async () => {
                         )}
 
 
+{/* Add custom varieties message container */}
 {!props.isPro && (
-    <div className={styles.planContainer}>
+    <div className={`${styles.planContainer} ${styles.nonProContainer}`} onMouseEnter={() => setIsShowActionText(filteredArray.length)} onMouseLeave={() => setIsShowActionText(-1)}>
         <div className={styles.planInfoContainer}>
-            <h3>Add Custom Varieties</h3>
-            <p>To add custom varieties, visit the <a href="/plantsettings">Plant Settings</a> page.</p>
+            <h3 style={{textAlign: 'center'}}>Add Custom Varieties</h3>
+            <p style={{color: 'white'}}>To add custom varieties, visit the <a href="/plantsettings">Plant Settings</a> page.</p>
         </div>
+        {
+            filteredArray.length === isShowActionText && (
+                <div className={styles.plantHoverText}>
+                    <button onClick={goToPlantSettings}>Go to Plant Settings</button>
+                </div>
+            )
+        }
     </div>
 )}
 
 {/* Upgrade to pro message container */}
 {!props.isPro && (
-    <div className={styles.planContainer}>
+    <div className={`${styles.planContainer} ${styles.nonProContainer}`} onMouseEnter={() => setIsShowActionText(filteredArray.length + 1)} onMouseLeave={() => setIsShowActionText(-1)}>
         <div className={styles.planInfoContainer}>
-            <h3>Upgrade to Pro</h3>
-            <p>To access hundreds of presets and more features, <a href="/profile">upgrade to Pro</a>.</p>
+            <h3 style={{textAlign: 'center'}}>Upgrade to Pro</h3>
+            <p style={{color: 'white'}}>To access hundreds of presets and more features, <a href="/profile">upgrade to Pro</a>.</p>
         </div>
+        {
+            filteredArray.length + 1 === isShowActionText && (
+                <div className={styles.plantHoverText}>
+                    <button onClick={goToProfile}>Upgrade to Pro</button>
+                </div>
+            )
+        }
     </div>
 )}
 
