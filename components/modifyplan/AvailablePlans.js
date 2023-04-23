@@ -133,29 +133,36 @@ const refreshFilteredArray = async () => {
                 <>
                     <div className={styles.plansContainer}>
                         {/* Add custom varieties message container */}
-{/* Add custom varieties message container */}
 {!props.isPro && (
-    <div className={`${styles.planContainer} ${styles.nonProContainer}`}>
+    <div className={`${styles.planContainer} ${styles.nonProContainer}`} onMouseEnter={() => setIsShowActionText(filteredArray.length)} onMouseLeave={() => setIsShowActionText(-1)}>
         <div className={styles.planInfoContainer}>
-            <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Add Varieties</h3>
+        <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Add Varieties</h3>
             <p style={{color: 'white'}}>Add your own custom varieties - the possibilities are endless!</p>
         </div>
-        <div className={styles.plantHoverText}>
-            <button onClick={goToPlantSettings}>Add New Custom Variety</button>
-        </div>
+        {
+            filteredArray.length === isShowActionText && (
+                <div className={styles.plantHoverText}>
+                    <button onClick={goToPlantSettings}>Add New Custom Variety</button>
+                </div>
+            )
+        }
     </div>
 )}
 
 {/* Upgrade to pro message container */}
 {!props.isPro && (
-    <div className={`${styles.planContainer} ${styles.nonProContainer}`}>
+    <div className={`${styles.planContainer} ${styles.nonProContainer}`} onMouseEnter={() => setIsShowActionText(filteredArray.length + 1)} onMouseLeave={() => setIsShowActionText(-1)}>
         <div className={styles.planInfoContainer}>
-            <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Upgrade to PRO</h3>
+        <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Upgrade to PRO</h3>
             <p style={{color: 'white'}}>Save time and access hundreds of PRO presets!</p>
         </div>
-        <div className={styles.plantHoverText}>
-            <button onClick={goToProfile}>Upgrade to Pro</button>
-        </div>
+        {
+            filteredArray.length + 1 === isShowActionText && (
+                <div className={styles.plantHoverText}>
+                    <button onClick={goToProfile}>Upgrade to Pro</button>
+                </div>
+            )
+        }
     </div>
 )}
                         {filteredArray.length > 0 || props.isPro ? (
