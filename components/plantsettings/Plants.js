@@ -180,7 +180,7 @@ const Plants = (props) => {
                             }
                         </div>
                         <div className={styles.plantInfoContainer}>
-                            <button>pro preset</button>
+                            <button>{originalCore.includes(plant) ? 'free preset' : 'pro preset'}</button> {/* Update button text here */}
                             <h3>{plant.name}</h3>
                             <h4>{plant.species}</h4>
                             <h5>{plant.description}</h5>
