@@ -173,7 +173,7 @@ const refreshFilteredArray = async () => {
 {!props.isPro && (
     <div className={`${styles.planContainer} ${styles.nonProContainer}`} onMouseEnter={() => setIsShowActionText(filteredArray.length)} onMouseLeave={() => setIsShowActionText(-1)}>
         <div className={styles.planInfoContainer}>
-            <h2 style={{textAlign: 'center'}}>Add Custom Varieties</h2>
+        <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Add Custom Varieties</h3>
             <p style={{color: 'white'}}>Add your own custom varieties - the possibilities are endless!</p>
         </div>
         {
@@ -190,7 +190,7 @@ const refreshFilteredArray = async () => {
 {!props.isPro && (
     <div className={`${styles.planContainer} ${styles.nonProContainer}`} onMouseEnter={() => setIsShowActionText(filteredArray.length + 1)} onMouseLeave={() => setIsShowActionText(-1)}>
         <div className={styles.planInfoContainer}>
-            <h2 style={{textAlign: 'center'}}>Upgrade to PRO</h2>
+        <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Upgrade to PRO</h3>
             <p style={{color: 'white'}}>Access hundreds of pre-made presets with PRO!</p>
         </div>
         {
