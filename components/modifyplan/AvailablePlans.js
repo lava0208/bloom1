@@ -134,7 +134,7 @@ const refreshFilteredArray = async () => {
                     <div className={styles.plansContainer}>
 {/* Add custom varieties message container */}
 {!props.isPro && (
-    <div className={`${styles.planContainer} ${styles.nonProContainer}`}>
+    <div className={`${styles.planContainer} ${styles.nonProContainer}`} style={{background: '#7e7f91'}}>
         <div className={styles.corePlanInfoContainer}>
             <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Add New Varieties</h3>
             <p style={{color: 'white'}}>Add your own custom varieties - the possibilities are endless!</p>
@@ -149,8 +149,8 @@ const refreshFilteredArray = async () => {
 {!props.isPro && (
     <div className={`${styles.planContainer} ${styles.nonProContainer}`} style={{background: '#7e7f91'}}>
         <div className={styles.corePlanInfoContainer}>
-            <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Access PRO Presets</h3>
-            <p style={{color: 'white'}}>Gain access to hundreds of presets with <b>Bloom Manager PRO!</b></p>
+            <h3 style={{textAlign: 'center', fontSize: '1.5rem', color: '#FFD700'}}>Access PRO Presets</h3>
+            <p style={{color: 'white'}}>Gain access to hundreds of presets with <b style={{color: '#FFD700'}}>Bloom Manager PRO!</b></p>
             <div className={styles.customButtonConatiner} style={{display: 'flex', justifyContent: 'center'}}>
                 <button onClick={goToProfile}>Upgrade to PRO</button>
             </div>
