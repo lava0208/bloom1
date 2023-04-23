@@ -148,11 +148,11 @@ const refreshFilteredArray = async () => {
 {/* Upgrade to pro message container */}
 {!props.isPro && (
     <div className={`${styles.planContainer} ${styles.nonProContainer}`}>
-        <div className={styles.planInfoContainer} style={{marginBottom: '0'}}>
+        <div className={styles.planInfoContainer} style={{marginBottom: '0px'}}>
             <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Upgrade to PRO</h3>
             <p style={{color: 'white'}}>Save time and access hundreds of PRO presets!</p>
         </div>
-        <div className={styles.buttonContainer}>
+        <div className={styles.buttonContainer} style={{marginTop: '0px'}}>
             <button className={styles.customButton} onClick={goToProfile}>Upgrade to Pro</button>
         </div>
     </div>
