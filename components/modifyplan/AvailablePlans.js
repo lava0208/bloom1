@@ -149,10 +149,10 @@ const refreshFilteredArray = async () => {
 {!props.isPro && (
     <div className={`${styles.planContainer} ${styles.nonProContainer}`}>
         <div className={styles.corePlanInfoContainer}>
-            <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Upgrade to PRO</h3>
-            <p style={{color: 'white'}}>Save precious time with <b>Bloom Manager PRO!</b> Gain access to hundreds of presets.</p>
+            <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Access PRO Presets</h3>
+            <p style={{color: 'white'}}>Save time with <b>Bloom Manager PRO!</b> Gain access to hundreds of presets.</p>
             <div className={styles.customButtonConatiner} style={{display: 'flex', justifyContent: 'center'}}>
-                <button onClick={goToProfile}>Upgrade to Pro</button>
+                <button onClick={goToProfile}>Upgrade to PRO</button>
             </div>
         </div>
     </div>
