@@ -154,15 +154,45 @@ useEffect(() => {
                                 </div>
                             ))
                         ) : (
-                            <div className={`${styles.planContainer} ${styles.emptyPlantContainer}`} onClick={goToPlantSettings}>
-    <p>You don't currently have any plants available to add to your plan.</p>
-    <button style={{color: 'white', fontWeight: 700, fontSize: '0.9rem', border: '5px solid #505168', background: '#505168', borderRadius: '10px', padding: '3px 1.7rem', cursor: 'pointer'}}>
-      Go to Plant Settings and Add New Plant <span style={{marginLeft: '5px'}}>&#8594;</span>
-    </button>
-    <button style={{color: 'white', fontWeight: 700, fontSize: '0.9rem', border: '5px solid #505168', background: '#505168', borderRadius: '10px', padding: '3px 1.7rem', cursor: 'pointer', marginTop: '10px'}}>
-      Upgrade to PRO and Access Hundreds of Presets <span style={{marginLeft: '5px'}}>&#8594;</span>
-    </button>
-  </div>
+                            <div className={styles.planContainer}>
+                            <div className={styles.planInfoContainer}>
+                              <p>
+                                You don't currently have any plants available to add to your plan.
+                              </p>
+                              <button
+                                onClick={goToPlantSettings}
+                                style={{
+                                  color: 'white',
+                                  fontWeight: 700,
+                                  fontSize: '0.9rem',
+                                  border: '5px solid #505168',
+                                  background: '#505168',
+                                  borderRadius: '10px',
+                                  padding: '3px 1.7rem',
+                                  cursor: 'pointer',
+                                }}
+                              >
+                                Go to Plant Settings and Add New Plant{' '}
+                                <span style={{ marginLeft: '5px' }}>&#8594;</span>
+                              </button>{' '}
+                              <button
+                                onClick={goToProfile}
+                                style={{
+                                  color: 'white',
+                                  fontWeight: 700,
+                                  fontSize: '0.9rem',
+                                  border: '5px solid #505168',
+                                  background: '#505168',
+                                  borderRadius: '10px',
+                                  padding: '3px 1.7rem',
+                                  cursor: 'pointer',
+                                }}
+                              >
+                                Upgrade to PRO and Access Hundreds of Presets{' '}
+                                <span style={{ marginLeft: '5px' }}>&#8594;</span>
+                              </button>
+                            </div>
+                          </div>
                         )}
                         {isShowPresets && filteredPresets.map((plant, i) => (
                             <div className={styles.planContainer} key={i} onMouseEnter={() => setIsShowActionPreset(i)} onMouseLeave={() => setIsShowActionPreset(-1)}>
