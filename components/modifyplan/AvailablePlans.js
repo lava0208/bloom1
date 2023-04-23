@@ -136,8 +136,8 @@ const refreshFilteredArray = async () => {
 {!props.isPro && (
     <div className={`${styles.planContainer} ${styles.nonProContainer}`}>
         <div className={styles.planInfoContainer}>
-            <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Add Varieties</h3>
-            <p style={{color: 'white'}}>Add your own custom varieties - the possibilities are endless!</p>
+            <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Add New Varieties</h3>
+            <p style={{color: 'white'}}>Add all of your favourite varieties, with support for bulbs, plugs, seeds, perennials and more. The possibilities are endless!</p>
         </div>
         <div className={styles.buttonContainer}>
             <button className={styles.customButton} onClick={goToPlantSettings}>Add New Custom Variety</button>
@@ -150,7 +150,7 @@ const refreshFilteredArray = async () => {
     <div className={`${styles.planContainer} ${styles.nonProContainer}`}>
         <div className={styles.planInfoContainer} style={{marginBottom: '0px'}}>
             <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Upgrade to PRO</h3>
-            <p style={{color: 'white'}}>Save time and access hundreds of PRO presets!</p>
+            <p style={{color: 'white'}}>Save time with <b>Bloom Manager PRO</b>! Gain access to hundreds of presets for all of your favourite varieties.</p>
         </div>
         <div className={styles.buttonContainer} style={{marginTop: '0px'}}>
             <button className={styles.customButton} onClick={goToProfile}>Upgrade to Pro</button>
