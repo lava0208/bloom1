@@ -154,7 +154,7 @@ const refreshFilteredArray = async () => {
             <h3 style={{textAlign: 'center', fontSize: '1.5rem'}}>Access PRO Presets</h3>
             <p style={{color: 'white'}}>Gain access to hundreds of presets with <b>Bloom Manager PRO!</b></p>
             <div className={styles.customButtonConatiner} style={{display: 'flex', justifyContent: 'center'}}>
-                <button onClick={goToProfile} style={{color: '#FFD700'}}>Upgrade to PRO</button>
+                <button onClick={goToProfile} style={{color: '#FFD700'}}>FREE FOR 7 DAYS</button>
             </div>
         </div>
     </div>

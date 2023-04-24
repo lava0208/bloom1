@@ -358,8 +358,8 @@ const deleteUser = async () => {
                     !isPro && (
                         <>
                             <h2>Upgrade to PRO</h2>
-                            <h1>$9</h1>
-                            <h5>per month</h5>
+                            <h1 style={{fontSize: '3rem'}}>7 DAYS FREE</h1>
+                            <h5>THEN, $9 PER MONTH</h5>
                         </>
                     )
                 }
@@ -380,7 +380,7 @@ const deleteUser = async () => {
                         </a>
                         
                     ) : (
-                        <button className={styles.button3} onClick={() => paymentcheckout()}>Upgrade Now</button>
+                        <button className={styles.button3} onClick={() => paymentcheckout()}>TRY PRO NOW</button>
                     )
                 }
                 {
