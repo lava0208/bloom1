@@ -79,8 +79,8 @@ const Payment = () => {
                 <div className={styles1.proContainer}>
                     <div>
                         <img src={"/assets/payment-pro.png"} alt="core" />
-                        <h1 className="proTitle">TRY FREE</h1>
-                        <h4>$9/month after 30 days</h4>
+                        <h1 className="proTitle" style={{fontSize: '2rem'}}>7 DAYS FREE</h1>
+                        <h4>THEN, $9 PER MONTH</h4>
                     </div>
                     <div className={styles1.proRightContainer}>
                         <div className={styles1.proContainerTexts}>
@@ -93,7 +93,7 @@ const Payment = () => {
                             className={styles1.proButtonContainer}
                             onClick={() => paymentcheckout()}
                         >
-                            <h5 className={styles.textUppercase}>go pro</h5>
+                            <h5 className={styles.textUppercase}>try pro</h5>
                         </div>
                     </div>
                 </div>
