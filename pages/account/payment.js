@@ -79,8 +79,8 @@ const Payment = () => {
                 <div className={styles1.proContainer}>
                     <div>
                         <img src={"/assets/payment-pro.png"} alt="core" />
-                        <h1 className="proTitle">$9</h1>
-                        <h4>per month</h4>
+                        <h1 className="proTitle">TRY FREE</h1>
+                        <h4>$9/month after 30 days</h4>
                     </div>
                     <div className={styles1.proRightContainer}>
                         <div className={styles1.proContainerTexts}>
