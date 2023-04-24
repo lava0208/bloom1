@@ -98,8 +98,8 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
                     </div>
 
 
-                    <div className={styles.newsContainer}>
-                    <iframe src="https://www.youtube.com/embed/VBn3h_tZpiI" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen style={{ borderRadius: '15px', margin: '-10px' }}></iframe>
+                    <div className={styles.newsContainer} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <iframe src="https://www.youtube.com/embed/VBn3h_tZpiI" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen style={{ borderRadius: '15px', margin: '0px', maxWidth: '95%' }}></iframe>
                     </div>
 <div className={styles.buttonContainer}>
     <button className={styles.button} onClick={() => router.push('/masterplan')}><img src="/assets/plan.png" alt="View Plan Icon" className={styles.icon} /><span className={styles.buttonText}>View Plan</span></button>
