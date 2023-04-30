@@ -148,7 +148,7 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
                                 <div className={styles.bloomContainer} key={i}>
                                     <div className={styles.bloomInfoContainer}>
                                         <h4>{bloom.name}</h4>
-                                        <h5>{bloom.description}</h5>
+                                        <h5>Expected {moment(bloom.scheduled_at).format("MMMM Do")}</h5>
                                         <button className={styles.bloomButton}>{bloom.count} plants</button>
                                         <img src={bloom.image} className={styles.image} alt="harvest" />
                                     </div>

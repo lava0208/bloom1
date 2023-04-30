@@ -55,6 +55,7 @@ export default async function handler(req, res) {
                         tmpObj.name = _plant.data.name;
                         tmpObj.description = _plant.data.description;
                         tmpObj.image = _plant.data.image;
+                        tmpObj.scheduled_at = _plant.scheduled_at;
                         tmpObj.count = _planting.data.seeds;
                         _harvestArr.push(tmpObj)
                     } catch (error) {
