@@ -46,9 +46,9 @@ export default async function handler(req, res) {
                     userid: req.query.userid,
                     title: 'Harvest',
                     scheduled_at: {
-                        $lte: moment().subtract(2, 'weeks').format('YYYY/MM/DD')
+                        $gt: moment().format('YYYY/MM/DD')
                     }
-                }).sort({scheduled_at: 1}).toArray();
+                }).sort({scheduled_at: 1}).toArray();                
                 let _harvestArr = [];
                 await Promise.all(_harvest.map(async (elem) => {
                     try {
