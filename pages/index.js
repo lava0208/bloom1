@@ -145,12 +145,10 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
         <h4>Your blooms, coming soon.</h4>
         <div className={styles.bloomsContainer}>
             {allTasks.map((bloom, i) => {
-                const daysUntilBloom = moment(bloom.scheduled_at).diff(moment(), 'days');
                 return (
                     <div className={styles.bloomContainer} key={i}>
                         <div className={styles.bloomInfoContainer}>
                             <h5><b>Expected {moment(bloom.scheduled_at).format("MMMM Do")}</b></h5>
-                            <h5 style={{margin: '5px'}}><i>{daysUntilBloom} {daysUntilBloom === 1 ? 'day' : 'days'} away</i></h5>
                             <h4>{bloom.name}</h4>
                             <button className={styles.bloomButton}>{bloom.count} plants</button>
                             <img src={bloom.image} className={styles.image} alt="harvest" />
