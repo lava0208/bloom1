@@ -142,13 +142,13 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
                 <div className={styles.dashboardRow + " " + styles.row1}>
                     <div className={styles.blooms}>
                         <h2>BLOOM FORECAST</h2>
-                        <h4>In Bloom Soon</h4>
+                        <h4>Your blooms, coming soon.</h4>
                         <div className={styles.bloomsContainer}>
                             {allTasks.map((bloom, i) => (
                                 <div className={styles.bloomContainer} key={i}>
                                     <div className={styles.bloomInfoContainer}>
-                                        <h4>{bloom.name}</h4>
                                         <h5>Expected <b>{moment(bloom.scheduled_at).format("MMMM Do")}</b></h5>
+                                        <h4>{bloom.name}</h4>
                                         <button className={styles.bloomButton}>{bloom.count} plants</button>
                                         <img src={bloom.image} className={styles.image} alt="harvest" />
                                     </div>
