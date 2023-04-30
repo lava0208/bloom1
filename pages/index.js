@@ -149,7 +149,8 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
                 return (
                     <div className={styles.bloomContainer} key={i}>
                         <div className={styles.bloomInfoContainer}>
-                            <h5>Expected <b>{moment(bloom.scheduled_at).format("MMMM Do")}</b> ({daysUntilBloom} {daysUntilBloom === 1 ? 'day' : 'days'} away)</h5>
+                            <h5>Expected <b>{moment(bloom.scheduled_at).format("MMMM Do")}</b></h5>
+                            <h6>{daysUntilBloom} {daysUntilBloom === 1 ? 'day' : 'days'} away</h6>
                             <h4>{bloom.name}</h4>
                             <button className={styles.bloomButton}>{bloom.count} plants</button>
                             <img src={bloom.image} className={styles.image} alt="harvest" />
