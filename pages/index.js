@@ -140,26 +140,30 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
                     </div>
                 </div>
                 <div className={styles.dashboardRow + " " + styles.row1}>
-                    <div className={styles.blooms}>
-                        <h2>BLOOM FORECAST</h2>
-                        <h4>Your blooms, coming soon.</h4>
-                        <div className={styles.bloomsContainer}>
-                            {allTasks.map((bloom, i) => (
-                                <div className={styles.bloomContainer} key={i}>
-                                    <div className={styles.bloomInfoContainer}>
-                                        <h5>Expected <b>{moment(bloom.scheduled_at).format("MMMM Do")}</b></h5>
-                                        <h4>{bloom.name}</h4>
-                                        <button className={styles.bloomButton}>{bloom.count} plants</button>
-                                        <img src={bloom.image} className={styles.image} alt="harvest" />
-                                    </div>
-                                </div>
-                            ))}
+    <div className={styles.blooms}>
+        <h2>BLOOM FORECAST</h2>
+        <h4>Your blooms, coming soon.</h4>
+        <div className={styles.bloomsContainer}>
+            {allTasks.map((bloom, i) => {
+                const daysUntilBloom = moment(bloom.scheduled_at).diff(moment(), 'days');
+                return (
+                    <div className={styles.bloomContainer} key={i}>
+                        <div className={styles.bloomInfoContainer}>
+                            <h5>Expected <b>{moment(bloom.scheduled_at).format("MMMM Do")}</b> ({daysUntilBloom} {daysUntilBloom === 1 ? 'day' : 'days'} away)</h5>
+                            <h4>{bloom.name}</h4>
+                            <button className={styles.bloomButton}>{bloom.count} plants</button>
+                            <img src={bloom.image} className={styles.image} alt="harvest" />
                         </div>
-                        {allTasks.length === 0 && (
-                            <h4>No Blooms Expected</h4>
-                        )}
                     </div>
-                </div>
+                );
+            })}
+        </div>
+        {allTasks.length === 0 && (
+            <h4>No Blooms Expected</h4>
+        )}
+    </div>
+</div>
+
             </div>
         </div>
     );
