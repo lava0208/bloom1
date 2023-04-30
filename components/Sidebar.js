@@ -142,10 +142,12 @@ const Sidebar = (props) => {
                                     }                                    
                                 </div>
                                 <div className={styles.accountInfoContainer}>
-    {user.share_custom_varieties ? (
-        <button className={styles.proButton}>PRO</button>
-    ) : (
-        <button className={styles.coreButton}>CORE</button>
+                                {Object.keys(user).length > 0 && (
+        user.share_custom_varieties ? (
+            <button className={styles.proButton}>PRO</button>
+        ) : (
+            <button className={styles.coreButton}>CORE</button>
+        )
     )}
     <h4 onClick={() => router.push("/profile")}>{user.name}</h4>
     <h5 onClick={() => logout()}>Log Out</h5>
