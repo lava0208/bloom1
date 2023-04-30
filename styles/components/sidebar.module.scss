@@ -66,6 +66,21 @@
     }
 }
 
+
+.proButton{
+    color: $blue;
+    font-weight: 800;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    border: none;
+    background: $white;
+    border-radius: 35px;
+    padding: 0.6rem 0 0.5rem 0;
+    cursor: pointer;
+    margin: 0 0 1rem;
+    width: 100px;
+}
+
 .link {
     margin-bottom: 5px;
     padding: 0.4rem 1.5rem;
