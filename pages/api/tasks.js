@@ -44,7 +44,10 @@ export default async function handler(req, res) {
                 data.all = await db.collection("tasks").find({userid: req.query.userid}).sort({scheduled_at: 1}).toArray();
                 let _harvest = await db.collection("tasks").find({
                     userid: req.query.userid,
-                    title: 'Harvest'
+                    title: 'Harvest',
+                    scheduled_at: {
+                        $lte: moment().subtract(2, 'weeks').format('YYYY/MM/DD')
+                    }
                 }).sort({scheduled_at: 1}).toArray();
                 let _harvestArr = [];
                 await Promise.all(_harvest.map(async (elem) => {
