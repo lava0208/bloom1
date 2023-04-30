@@ -21,6 +21,7 @@ export default async function handler(req, res) {
         client_reference_id: user.data._id, // Set the client reference ID
         payment_method_types: ["card"],
         mode: "subscription",
+        allow_promotion_codes: true,
         line_items: [
           {
             price: "price_1Mwrw0EVmyPNhExzbRyY9tgU", // price ID from Stripe
