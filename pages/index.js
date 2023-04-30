@@ -142,7 +142,7 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
                 <div className={styles.dashboardRow + " " + styles.row1}>
                     <div className={styles.blooms}>
                         <h2>BLOOM FORECAST</h2>
-                        <h4>In Bloom This Week</h4>
+                        <h4>In Bloom Soon</h4>
                         <div className={styles.bloomsContainer}>
                             {allTasks.map((bloom, i) => (
                                 <div className={styles.bloomContainer} key={i}>
@@ -156,7 +156,7 @@ const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
                             ))}
                         </div>
                         {allTasks.length === 0 && (
-                            <h4>No Blooms Expected This Week.</h4>
+                            <h4>No Blooms Expected</h4>
                         )}
                     </div>
                 </div>
